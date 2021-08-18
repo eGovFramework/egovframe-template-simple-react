@@ -23,6 +23,7 @@ const URL = {
     INFORM_DAILY          : "/inform/daily", // 알림마당/오늘의행사
     INFORM_WEEKLY         : "/inform/weekly", // 알림마당/금주의행사
     INFORM_NOTICE         : "/inform/notice", // 알림마당/공지사항
+    INFORM_NOTICE_DETAIL  : "/inform/notice/detail", // 알림마당/공지사항상세
     INFORM_GALLERY        : "/inform/gallery", // 알림마당/사이트갤러리
     
     ADMIN                 : "/admin", // 사이트관리
@@ -30,12 +31,18 @@ const URL = {
     ADMIN_TEMPLATE        : "/admin/template", // 사이트관리/게시판템플릿관리
     ADMIN_BOARD           : "/admin/board", // 사이트관리/게시판생성관리
     ADMIN_USAGE           : "/admin/usage", // 사이트관리/게시판사용관리
-    ADMIN_NOTICE          : "/admin/notice", // 사이트관리/게시판사용관리
+    ADMIN_NOTICE          : "/admin/notice", // 사이트관리/공지사항관리
     ADMIN_GALLERY         : "/admin/gallery", // 사이트관리/사이트갤러리관리
-    ADMIN_BOARD_DETAIL    : "/admin/board/detail", // 사이트관리/게시판생성관리
-    ADMIN_BOARD_CREATE    : "/admin/board/create", // 사이트관리/게시판생성관리
-    ADMIN_BOARD_MODIFY    : "/admin/board/modify", // 사이트관리/게시판생성관리
     
+    ADMIN_BOARD_DETAIL    : "/admin/board/detail", // 사이트관리/게시판생성관리상세
+    ADMIN_BOARD_CREATE    : "/admin/board/create", // 사이트관리/게시판생성관리생성
+    ADMIN_BOARD_MODIFY    : "/admin/board/modify", // 사이트관리/게시판생성관리수정
+    
+    ADMIN_NOTICE_DETAIL   : "/admin/notice/detail", // 사이트관리/공지사항관리상세
+    ADMIN_NOTICE_CREATE   : "/admin/notice/create", // 사이트관리/공지사항관리생성
+    ADMIN_NOTICE_MODIFY   : "/admin/notice/modify", // 사이트관리/공지사항관리수정
+    
+
     /* 삭제대상 */
     BOARD_LIST            : "/board/list", // 게시판 목록
     BOARD_DETAIL          : "/board/detail", // 게시판 상세보기

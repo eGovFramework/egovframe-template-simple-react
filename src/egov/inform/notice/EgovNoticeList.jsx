@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
+import URL from 'context/url';
+
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'common/EgovPaging';
 
@@ -72,27 +76,27 @@ function EgovNoticeList() {
                                 <p className="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" className="list_item">
+                                <Link to={`${URL.INFORM_NOTICE_DETAIL}/3`} className="list_item">
                                     <div>3</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to={`${URL.INFORM_NOTICE_DETAIL}/2`} className="list_item">
                                     <div>2</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to={`${URL.INFORM_NOTICE_DETAIL}/1`} className="list_item">
                                     <div>1</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

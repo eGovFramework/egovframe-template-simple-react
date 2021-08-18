@@ -155,10 +155,8 @@ class EgovLoginContent extends Component {
                                 <span className="group">
                                     <input type="text" name="" title="아이디" placeholder="아이디" 
                                         onChange={ e => this.setState({id: e.target.value})}/>
-                                        {this.state.id}
                                     <input type="password" name="" title="비밀번호" placeholder="비밀번호" 
                                         onChange={ e => this.setState({password: e.target.value})}/>
-                                        {this.state.password}
                                 </span>
                                 <div className="chk">
                                     <label className="f_chk" htmlFor="saveid">

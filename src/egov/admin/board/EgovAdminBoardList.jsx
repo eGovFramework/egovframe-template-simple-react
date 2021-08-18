@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import URL from 'context/url';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'common/EgovPaging';
 
 function EgovAdminBoardList() {
-    const history = useHistory();
     return (
         <div class="container">
             <div class="c_wrap">
@@ -75,7 +74,7 @@ function EgovAdminBoardList() {
                                 <p class="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <Link to={URL.ADMIN_BOARD_DETAIL} onClick={() => history.push()} class="list_item">
+                                <Link to={URL.ADMIN_BOARD_DETAIL} class="list_item">
                                     <div>1</div>
                                     <div>갤러리</div>
                                     <div>일반게시판</div>

@@ -7,7 +7,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
 
     fetch(SERVER_URL + url, requestOptions)
         .then(function (response) {
-            console.log("===>>> json 1 = "+response.json());
+            //console.log("===>>> json 1 = "+response.json());
             return response.json();
         })
         .then(function (json) {
