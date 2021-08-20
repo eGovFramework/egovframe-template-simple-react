@@ -77,6 +77,7 @@ class App extends Component {
           
           <Route path={URL.INFORM_DAILY} component={EgovDailyList} />
           <Route path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
+          
           <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
           <Route path={`${URL.INFORM_NOTICE_DETAIL}/:boardId`} component={EgovNoticeDetail} />
           <Route path={URL.INFORM_GALLERY} component={EgovGalleryList} />

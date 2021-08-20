@@ -1,10 +1,135 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-import {default as EgovLeftNav} from 'common/leftmenu/EgovLeftNavInform';
+import URL from 'context/url';
+
+import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'common/EgovPaging';
 
-function EgovDailyList() {
+import * as EgovNet  from 'context/egovFetch';
+import { DEFAULT_BBS_ID } from 'context/config';
+import qs from 'qs';
+
+function EgovDailyList(props) {
     console.log("EgovDailyList create");
+
+    const [boardResult, setBoardResult] = useState({});
+    const [paginationInfo, setPaginationInfo] = useState();
+    const [listTag, setListTag] = useState();
+    const [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
+
+    console.log('===>>> init EgovBoardListContent');
+    console.log("------------------------------");
+    console.log(props);
+    console.log("location = ", props.location);
+
+    const query = qs.parse(props.location.search, {
+        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
+    });
+
+    console.log("query = ", query);
+
+    if (query["bbsId"] == undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+
+    const onClickSearch = () => {
+        console.log("===>>> onClick Search List");
+        let _query;
+        if (searchCondition.searchWrd.length > 0) {
+            _query = { ...query, pageIndex: 1, searchCnd: searchCondition.searchCnd, searchWrd: searchCondition.searchWrd };
+        } else {
+            _query = { ...query, pageIndex: 1 };
+        }
+        searchList(_query);
+    }
+
+    const searchList = (_query) => {
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(_query)
+        }
+        EgovNet.requestFetch('/cop/bbs/selectBoardListAPI.do',
+            requestOptions,
+            function (json) {
+                //console.log("===>>> board = " + JSON.stringify(json));
+                //setResultList(json.resultList);
+                //console.log("*===>>> board = " + JSON.stringify(resultList));
+                setBoardResult(json);
+
+                console.log("===>>> json.resultList length = " + json.resultList.length);
+                console.log("===>>> json.paginationInfo = " + JSON.stringify(json.paginationInfo));
+                setPaginationInfo(json.paginationInfo);
+
+                let listTag = [];
+                listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
+
+                let resultCnt = json.resultCnt * 1;
+                let currentPageNo = json.paginationInfo.currentPageNo;
+                let pageSize = json.paginationInfo.pageSize;
+
+                json.resultList.forEach(function (item, index) {
+                    console.log('boardItem = %s', JSON.stringify(item));
+                    //${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}
+                    if (index == 0) listTag = []; // 목록 초기화
+                    var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
+                    console.log("currentPageNo = %i , pageSize = %i , listIdx = %i", currentPageNo, pageSize, listIdx);
+                    console.log("===> replyLc = ", item.replyLc);
+                    // listTag.push(<tr key={listIdx} onClick={
+                    //     () => {
+                    //         const queryString = qs.stringify({
+                    //             nttId: item.nttId,
+                    //             bbsId: DEFAULT_BBS_ID,
+                    //             pageIndex: currentPageNo
+                    //         },
+                    //         { addQueryPrefix: true });
+                    //         console.log(queryString);
+                    //         //window.location.href="/board_detail"+queryString;
+                    //         window.location.href=URL.INFORM_NOTICE_DETAIL+queryString;
+                    //     }
+                    // }>
+                    //     <td><b>{listIdx}</b></td>
+                    //     <td align="left">
+                    //         {(item.replyLc*1 ? true:false) && <img src="/images/board/reply_arrow.gif" alt="reply arrow" />}
+                    //         {item.nttSj}
+                    //     </td>
+                    //     <td >{item.frstRegisterNm}</td>
+                    //     <td >{item.frstRegisterPnttm}</td>
+                    //     <td >{item.inqireCo}</td>
+                    // </tr>
+                    // );
+                    listTag.push(<Link key={listIdx} onClick={
+                        () => {
+                            const queryString = qs.stringify({
+                                nttId: item.nttId,
+                                bbsId: DEFAULT_BBS_ID,
+                                pageIndex: currentPageNo
+                            },
+                                { addQueryPrefix: true });
+                            console.log(queryString);
+                            //window.location.href="/board_detail"+queryString;
+                            window.location.href = URL.INFORM_NOTICE_DETAIL + queryString;
+                        }
+                    }>
+                        <div>{listIdx}</div>
+                        <div className="al"> 
+                            {(item.replyLc * 1 ? true : false) && <img src="/assets/images/reply_arrow.gif" alt="reply arrow" />}
+                            {item.nttSj}
+                        </div>
+                        <div>{item.frstRegisterNm}</div>
+                        <div>{item.frstRegisterPnttm}</div>
+                        <div>{item.inqireCo}</div>
+                    </Link>
+                    );
+                });
+                setListTag(listTag);
+            }
+        );
+    }
+
+
     return (
         <div className="container">
             <div className="c_wrap">
@@ -109,7 +234,7 @@ function EgovDailyList() {
 
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
-                            <EgovPaging></EgovPaging>
+                            <EgovPaging location={props.location} pagination={paginationInfo}></EgovPaging>
                             {/* <!--/ Paging --> */}
                         </div>
 

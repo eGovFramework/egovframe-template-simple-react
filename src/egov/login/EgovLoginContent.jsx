@@ -107,6 +107,8 @@ class EgovLoginContent extends Component {
         console.log("requestOptions.body : ",requestOptions.body);
         fetch(SERVER_URL + '/uat/uia/actionLoginAPI.do', requestOptions)
             .then(function (response) {
+                console.log("===>>> response = "+response);
+                console.log("===>>> response.headers = "+response.headers);
                 //console.log("===>>> json 1 = "+response.json());
                 return response.json();
             })

@@ -1,5 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
-import EgovLoginContent from 'egov/login/EgovLoginContent'
+import { Link } from 'react-router-dom'
+import EgovLoginContent from 'egov/login/EgovLoginContent';
+
+import URL from 'context/url';
 
 //function EgovLogin() {
 class EgovLogin extends Component {
@@ -45,7 +48,7 @@ class EgovLogin extends Component {
                     {/* <!-- Location --> */}
                     <div className="location">
                         <ul>
-                            <li><a className="home" href="">Home</a></li>
+                            <li><Link to={URL.MAIN} className="home" href="">Home</Link></li>
                             <li>로그인</li>
                         </ul>
                     </div>
