@@ -101,7 +101,7 @@ function EgovNoticeList(props) {
                     //     <td >{item.inqireCo}</td>
                     // </tr>
                     // );
-                    listTag.push(<Link key={listIdx} onClick={
+                    listTag.push(<Link key={listIdx} className="list_item" onClick={
                         () => {
                             const queryString = qs.stringify({
                                 nttId: item.nttId,
@@ -243,7 +243,7 @@ function EgovNoticeList(props) {
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </Link> */}
+                                </Link>*/} 
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

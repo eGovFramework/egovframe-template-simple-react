@@ -97,6 +97,8 @@ class EgovLoginContent extends Component {
             headers: {
                 'Content-type': 'application/json'
             },
+            origin : SERVER_URL,
+            credentials : 'include',
             body: JSON.stringify({
                 id: this.state.id,
                 password: this.state.password,

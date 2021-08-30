@@ -5,6 +5,16 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     //this.setState({ [e.target.name]: e.target.value });
     //fetch('list.json')
 
+    //CORS ISSUE 로 인한 조치 - origin 및 credentials 추가 
+    // origin 추가
+    if(!requestOptions['origin']){
+        requestOptions = {...requestOptions, origin : SERVER_URL}; 
+    }
+    // credentials 추가 
+    if(!requestOptions['credentials']){
+        requestOptions = {...requestOptions, credentials : 'include'}; 
+    }
+
     fetch(SERVER_URL + url, requestOptions)
         .then(function (response) {
             // console.log("===>>> json 1 = "+response.json());
