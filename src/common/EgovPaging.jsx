@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import qs from 'qs';
 
 class EgovPaging extends Component {
@@ -22,7 +23,7 @@ class EgovPaging extends Component {
         let paginationTag = [];
         let queryString;
 
-        if (this.props.pagination == undefined) {
+        if (this.props.pagination === undefined) {
             console.log("EgovPagination > pagination NULL");
             paginationTag = "-";
         } else {
@@ -42,24 +43,24 @@ class EgovPaging extends Component {
                 // 첫 페이지 이동
                 //const firstPageTag = <li key="fp"><a href={getQueryString(query,1)} onclick=""><img src="/images/board/icon_prevend.gif" alt="처음" /></a></li>;
                 const firstPageTag = <li key="fp" className="btn"><a href={getQueryString(query, 1)} className="first">처음</a></li>;
-                //<li className="btn"><a href="" className="first">처음</a></li>
+                //<li className="btn"><Link to="" className="first">처음</Link></li>
                 paginationTag.push(firstPageTag);
 
                 // 이전 페이지 이동
                 const prevPageIndex = (currentPageNo - 1 > 0) ? currentPageNo - 1 : 1;
                 //const previousPageTag = <li key="pp"><a href={getQueryString(query,prevPageIndex)} onclick=""><img src="/images/board/icon_prev.gif" alt="이전" border="0" /></a></li>;
                 const previousPageTag = <li key="pp" className="btn"><a href={getQueryString(query, prevPageIndex)} className="prev">이전</a></li>;
-                //<li className="btn"><a href="" className="prev">이전</a></li>
+                //<li className="btn"><Link to="" className="prev">이전</Link></li>
                 paginationTag.push(previousPageTag);
             }
 
             for (let i = currentFirstPage; i <= currentLastPage; i++) {
                 console.log("===>>> count i = " + i)
-                if (i == currentPageNo) {
+                if (i === currentPageNo) {
                     // 현재 페이지
                     // const currentPage = <li key={i}><strong>{i}</strong></li>;
-                    const currentPage = <li key={i}><a href="" className="cur">{i}</a></li>;
-                    //<li><a href="" className="cur">1</a></li>
+                    const currentPage = <li key={i}><Link to="" className="cur">{i}</Link></li>;
+                    //<li><Link to="" className="cur">1</Link></li>
                     paginationTag.push(currentPage);
                 } else {
                     // 다른 페이지
@@ -74,11 +75,11 @@ class EgovPaging extends Component {
                 const nextPageIndex = (currentLastPage + 1 < totalPageCount) ? currentLastPage + 1 : totalPageCount;
                 //const nextPageTag = <li key="np">&#160;<a href={getQueryString(query,nextPageIndex)} onclick=""><img src="/images/board/icon_next.gif" alt="다음" border="0" /></a></li>;
                 const nextPageTag = <li key="np" className="btn"><a href={getQueryString(query, nextPageIndex)} onclick="" className="next">다음</a></li>;
-                // <li className="btn"><a href="" className="next">다음</a></li>
+                // <li className="btn"><Link to="" className="next">다음</Link></li>
                 paginationTag.push(nextPageTag);
                 // 마지막 페이지 이동
                 const lastPageTag = <li key="lp"><a href={getQueryString(query, totalPageCount)} onclick=""><img src="/images/board/icon_nextend.gif" alt="마지막" border="0" /></a></li>;
-                //<li className="btn"><a href="" className="last">마지막</a></li>
+                //<li className="btn"><Link to="" className="last">마지막</Link></li>
                 paginationTag.push(lastPageTag);
             }
         }
@@ -86,15 +87,15 @@ class EgovPaging extends Component {
         return (
             <div className="paging">
                 <ul>
-                    {/* <li className="btn"><a href="" className="first">처음</a></li>
-                <li className="btn"><a href="" className="prev">이전</a></li>
-                <li><a href="" className="cur">1</a></li>
+                    {/* <li className="btn"><Link to="" className="first">처음</Link></li>
+                <li className="btn"><Link to="" className="prev">이전</Link></li>
+                <li><Link to="" className="cur">1</Link></li>
                 <li><a href="">2</a></li>
                 <li><a href="">3</a></li>
                 <li><a href="">4</a></li>
                 <li><a href="">5</a></li>
-                <li className="btn"><a href="" className="next">다음</a></li>
-                <li className="btn"><a href="" className="last">마지막</a></li> */}
+                <li className="btn"><Link to="" className="next">다음</Link></li>
+                <li className="btn"><Link to="" className="last">마지막</Link></li> */}
                     {paginationTag}
                 </ul>
             </div>

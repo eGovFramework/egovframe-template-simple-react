@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'common/EgovPaging';
@@ -11,8 +12,8 @@ function EgovGalleryList() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         <li>사이트갤러리</li>
                     </ul>
                 </div>
@@ -51,7 +52,7 @@ function EgovGalleryList() {
                                     </span>
                                 </li>
                                 <li>
-                                    <a href="" className="btn btn_blue_h46 pd35">등록</a>
+                                    <Link to="" className="btn btn_blue_h46 pd35">등록</Link>
                                 </li>
                             </ul>
                         </div>
@@ -71,27 +72,27 @@ function EgovGalleryList() {
                                 <p className="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" className="list_item">
+                                <Link to="" className="list_item">
                                     <div>3</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>1</div>
                                     <div className="al">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</div>
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

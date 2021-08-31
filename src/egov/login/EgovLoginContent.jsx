@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SERVER_URL } from 'context/config';
-import * as EgovNet from 'context/egovFetch';
+//import * as EgovNet from 'context/egovFetch';
 
 class EgovLoginContent extends Component {
 
@@ -56,7 +56,7 @@ class EgovLoginContent extends Component {
                 var resultVO = json.resultVO;
                 var resultCode = json.resultCode;
                 console.log("===>>> json = " + JSON.stringify(resultVO));
-                if(resultCode == '200'){
+                if(resultCode === '200'){
                     this.setState({ loginVO: resultVO });
                     this.props.onChangeLogin({ loginVO: resultVO });
                     this.props.history.push('/');
@@ -66,7 +66,7 @@ class EgovLoginContent extends Component {
 
             }.bind(this))
             .catch(error => {
-                if(error == 'TypeError: Failed to fetch'){
+                if(error === 'TypeError: Failed to fetch'){
                     alert("서버와의 연결이 원활하지 않습니다. 서버를 확인하세요.");
                 }
                 this.setState({ errorMessage: error.toString() });

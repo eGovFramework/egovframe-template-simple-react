@@ -1,17 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'common/EgovPaging';
 
 function EgovAdminScheduleList() {
-    return(
+    return (
         <div class="container">
             <div class="c_wrap">
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
                         <li><a class="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><Link to="">사이트관리</Link></li>
                         <li>일정 관리</li>
                     </ul>
                 </div>

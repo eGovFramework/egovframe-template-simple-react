@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import URL from 'context/url';
@@ -29,7 +29,7 @@ function EgovDailyList(props) {
 
     console.log("query = ", query);
 
-    if (query["bbsId"] == undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
 
     const onClickSearch = () => {
         console.log("===>>> onClick Search List");
@@ -73,33 +73,10 @@ function EgovDailyList(props) {
                 json.resultList.forEach(function (item, index) {
                     console.log('boardItem = %s', JSON.stringify(item));
                     //${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}
-                    if (index == 0) listTag = []; // 목록 초기화
+                    if (index === 0) listTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
                     console.log("currentPageNo = %i , pageSize = %i , listIdx = %i", currentPageNo, pageSize, listIdx);
                     console.log("===> replyLc = ", item.replyLc);
-                    // listTag.push(<tr key={listIdx} onClick={
-                    //     () => {
-                    //         const queryString = qs.stringify({
-                    //             nttId: item.nttId,
-                    //             bbsId: DEFAULT_BBS_ID,
-                    //             pageIndex: currentPageNo
-                    //         },
-                    //         { addQueryPrefix: true });
-                    //         console.log(queryString);
-                    //         //window.location.href="/board_detail"+queryString;
-                    //         window.location.href=URL.INFORM_NOTICE_DETAIL+queryString;
-                    //     }
-                    // }>
-                    //     <td><b>{listIdx}</b></td>
-                    //     <td align="left">
-                    //         {(item.replyLc*1 ? true:false) && <img src="/images/board/reply_arrow.gif" alt="reply arrow" />}
-                    //         {item.nttSj}
-                    //     </td>
-                    //     <td >{item.frstRegisterNm}</td>
-                    //     <td >{item.frstRegisterPnttm}</td>
-                    //     <td >{item.inqireCo}</td>
-                    // </tr>
-                    // );
                     listTag.push(<Link key={listIdx} onClick={
                         () => {
                             const queryString = qs.stringify({
@@ -136,8 +113,8 @@ function EgovDailyList(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         <li>오늘의 행사</li>
                     </ul>
                 </div>
@@ -173,19 +150,19 @@ function EgovDailyList(props) {
                                     </label>
                                 </li>
                                 <li>
-                                    <a href="" className="prev">이전연도로이동</a>
+                                    <Link to="" className="prev">이전연도로이동</Link>
                                     <span>2021년</span>
-                                    <a href="" className="next">다음연도로이동</a>
+                                    <Link to="" className="next">다음연도로이동</Link>
                                 </li>
                                 <li className="half L">
-                                    <a href="" className="prev">이전월로이동</a>
+                                    <Link to="" className="prev">이전월로이동</Link>
                                     <span>8월</span>
-                                    <a href="" className="next">다음월로이동</a>
+                                    <Link to="" className="next">다음월로이동</Link>
                                 </li>
                                 <li className="half R">
-                                    <a href="" className="prev">이전일로이동</a>
+                                    <Link to="" className="prev">이전일로이동</Link>
                                     <span>11일</span>
-                                    <a href="" className="next">다음일로이동</a>
+                                    <Link to="" className="next">다음일로이동</Link>
                                 </li>
                             </ul>
                         </div>
@@ -203,31 +180,31 @@ function EgovDailyList(props) {
                                 <p className="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" className="list_item">
+                                <Link to="" className="list_item">
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 오늘의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 오늘의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 오늘의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 오늘의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 오늘의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

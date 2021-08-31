@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import URL from 'context/url';
@@ -28,7 +28,7 @@ function EgovNoticeList(props) {
 
     console.log("query = ", query);
 
-    if (query["bbsId"] == undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
 
     console.log("query['bbsId'] ", query["bbsId"]);
 
@@ -74,7 +74,7 @@ function EgovNoticeList(props) {
                 json.resultList.forEach(function (item, index) {
                     console.log('boardItem = %s', JSON.stringify(item));
                     //${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}
-                    if (index == 0) listTag = []; // 목록 초기화
+                    if (index === 0) listTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
                     console.log("currentPageNo = %i , pageSize = %i , listIdx = %i", currentPageNo, pageSize, listIdx);
                     console.log("===> replyLc = ", item.replyLc);
@@ -155,8 +155,8 @@ function EgovNoticeList(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         {/* <li>공지사항</li> */}
                         <li>{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</li>
                     </ul>

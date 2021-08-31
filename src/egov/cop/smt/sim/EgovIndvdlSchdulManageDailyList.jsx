@@ -10,8 +10,8 @@ function EgovIndvdlSchdulManageDailyList() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         <li>오늘의 행사</li>
                     </ul>
                 </div>
@@ -47,19 +47,19 @@ function EgovIndvdlSchdulManageDailyList() {
                                     </label>
                                 </li>
                                 <li>
-                                    <a href="" className="prev">이전연도로이동</a>
+                                    <Link to="" className="prev">이전연도로이동</Link>
                                     <span>2021년</span>
-                                    <a href="" className="next">다음연도로이동</a>
+                                    <Link to="" className="next">다음연도로이동</Link>
                                 </li>
                                 <li className="half L">
-                                    <a href="" className="prev">이전월로이동</a>
+                                    <Link to="" className="prev">이전월로이동</Link>
                                     <span>8월</span>
-                                    <a href="" className="next">다음월로이동</a>
+                                    <Link to="" className="next">다음월로이동</Link>
                                 </li>
                                 <li className="half R">
-                                    <a href="" className="prev">이전주로이동</a>
+                                    <Link to="" className="prev">이전주로이동</Link>
                                     <span>1주</span>
-                                    <a href="" className="next">다음주로이동</a>
+                                    <Link to="" className="next">다음주로이동</Link>
                                 </li>
                             </ul>
                         </div>
@@ -78,36 +78,36 @@ function EgovIndvdlSchdulManageDailyList() {
                                 <p className="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" className="list_item">
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}
@@ -115,15 +115,15 @@ function EgovIndvdlSchdulManageDailyList() {
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
                             <div className="paging">
-                                <a href="" className="prev">이전</a>
+                                <Link to="" className="prev">이전</Link>
                                 <ul>
-                                    <li><a href="" className="cur">1</a></li>
-                                    <li><a href="">2</a></li>
-                                    <li><a href="">3</a></li>
-                                    <li><a href="">4</a></li>
-                                    <li><a href="">5</a></li>
+                                    <li><Link to="" className="cur">1</Link></li>
+                                    <li><Link to="">2</Link></li>
+                                    <li><Link to="">3</Link></li>
+                                    <li><Link to="">4</Link></li>
+                                    <li><Link to="">5</Link></li>
                                 </ul>
-                                <a href="" className="next">다음</a>
+                                <Link to="" className="next">다음</Link>
                             </div>
                             {/* <!--/ Paging --> */}
                         </div>

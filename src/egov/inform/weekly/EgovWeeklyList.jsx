@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'common/EgovPaging';
@@ -11,8 +12,8 @@ function EgovWeeklyList() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         <li>금주의 행사</li>
                     </ul>
                 </div>
@@ -48,19 +49,19 @@ function EgovWeeklyList() {
                                     </label>
                                 </li>
                                 <li>
-                                    <a href="" className="prev">이전연도로이동</a>
+                                    <Link to="" className="prev">이전연도로이동</Link>
                                     <span>2021년</span>
-                                    <a href="" className="next">다음연도로이동</a>
+                                    <Link to="" className="next">다음연도로이동</Link>
                                 </li>
                                 <li className="half L">
-                                    <a href="" className="prev">이전월로이동</a>
+                                    <Link to="" className="prev">이전월로이동</Link>
                                     <span>8월</span>
-                                    <a href="" className="next">다음월로이동</a>
+                                    <Link to="" className="next">다음월로이동</Link>
                                 </li>
                                 <li className="half R">
-                                    <a href="" className="prev">이전주로이동</a>
+                                    <Link to="" className="prev">이전주로이동</Link>
                                     <span>1주</span>
-                                    <a href="" className="next">다음주로이동</a>
+                                    <Link to="" className="next">다음주로이동</Link>
                                 </li>
                             </ul>
                         </div>
@@ -79,36 +80,36 @@ function EgovWeeklyList() {
                                 <p className="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" className="list_item">
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
-                                <a href="" className="list_item">
+                                </Link>
+                                <Link to="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'common/EgovPaging';
 
 function EgovAdminNoticeList() {
     return(
@@ -10,8 +10,8 @@ function EgovAdminNoticeList() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">사이트관리</Link></li>
                         <li>공지사항 관리</li>
                     </ul>
                 </div>
@@ -69,7 +69,7 @@ function EgovAdminNoticeList() {
                                 <dt>파일첨부</dt>
                                 <dd>
                                     <span className="file_attach">
-                                        <a href="">file_name.hwp</a> <span>[3626] byte</span>
+                                        <Link to="">file_name.hwp</Link> <span>[3626] byte</span>
                                     </span>
                                 </dd>
                             </dl>
@@ -77,12 +77,12 @@ function EgovAdminNoticeList() {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
-                                    <a href="" className="btn btn_skyblue_h46 w_100">삭제</a>
-                                    <a href="" className="btn btn_skyblue_h46 w_100">수정</a>
+                                    <Link to="" className="btn btn_skyblue_h46 w_100">삭제</Link>
+                                    <Link to="" className="btn btn_skyblue_h46 w_100">수정</Link>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href="" className="btn btn_blue_h46 w_100">목록</a>
+                                    <Link to="" className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}

@@ -13,7 +13,7 @@ function EgovAdminBoardList() {
                 <div class="location">
                     <ul>
                         <li><a class="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><Link to="">사이트관리</Link></li>
                         <li>게시판 생성 관리</li>
                     </ul>
                 </div>

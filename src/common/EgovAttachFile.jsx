@@ -24,12 +24,12 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
             requestOptions,
             function (json) {
                 console.log("===>>> board file delete= " + JSON.stringify(json));
-                if (json != undefined)
-                    if (json.resultCode == 0) {
+                if (json !== undefined)
+                    if (json.resultCode === 0) {
                         // 성공
                         console.log("OK fileIndex = " + fileIndex);
                         debugger;
-                        const _deleteFile = boardFiles.splice(fileIndex, 1);
+                        //const _deleteFile = boardFiles.splice(fileIndex, 1);
                         const _boardFiles = Object.assign([], boardFiles);
                         fnDeleteFile(_boardFiles);
                     } else {
@@ -46,7 +46,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
 
     let filesTag = [];
 
-    if (boardFiles != undefined) {
+    if (boardFiles !== undefined) {
         boardFiles.forEach(function (item, index) {
             filesTag.push(
                 <>
@@ -64,7 +64,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
                 </>
             );
 
-            if (mode == "edit") {
+            if (mode === "edit") {
                 filesTag.push(
                     <img alt="파일 삭제" src="/images/btn/bu5_close.gif" width="19" height="18"
                         onClick={(e) => {
@@ -82,10 +82,10 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
     //     <dt>첨부</dt>
     //     <dd>
     //         <span>
-    //             <a href="">file_namefile_namefile_name.hwp</a> <span>[3626] byte</span>
+    //             <Link to="">file_namefile_namefile_name.hwp</Link> <span>[3626] byte</span>
     //         </span>
     //         <span>
-    //             <a href="">file_namefile_namefile_name.hwp</a> <span>[3626] byte</span>
+    //             <Link to="">file_namefile_namefile_name.hwp</Link> <span>[3626] byte</span>
     //         </span>
     //     </dd>
 
@@ -98,7 +98,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
                 <dt>첨부</dt>
                 {filesTag}
             </dl>
-            {(mode == "edit" || mode == "new") && <input name="file_0" id="egovComFileUploader" type="file" onChange={e => onChangeFileInput(e)}></input>}
+            {(mode === "edit" || mode === "new") && <input name="file_0" id="egovComFileUploader" type="file" onChange={e => onChangeFileInput(e)}></input>}
         </div>
     );
 }

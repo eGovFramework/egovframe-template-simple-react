@@ -13,7 +13,7 @@ import URL from './context/url';
 
 import EgovHeader from 'common/EgovHeader';
 import EgovFooter from 'common/EgovFooter';
-import EgovContainer from 'common/EgovContainer';
+//import EgovContainer from 'common/EgovContainer';
 
 import EgovMain from 'egov/main/EgovMain';
 import EgovLogin from 'egov/login/EgovLogin';
@@ -76,7 +76,7 @@ class App extends Component {
           
           {/* ABOUT */}
           <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
-          
+
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
 
           {/* INFORM */}

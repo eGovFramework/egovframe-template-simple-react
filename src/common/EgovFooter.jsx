@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function EgovFooter() {
     return (
         <div className="footer">
             <div className="inner">
                 <h1>
-                    <a href="">
+                    <Link to="">
                         <img className="w" src="/assets/images/logo_footer_w.png" alt="" />
                         <img className="m" src="/assets/images/logo_footer_m.png" alt="" />
-                    </a>
+                    </Link>
                 </h1>
                 <div className="info">
                     <p>
@@ -18,14 +19,14 @@ function EgovFooter() {
                     <p className="copy">Copyright © 2021 Ministry Of The Interior And Safety. All Rights Reserved.</p>
                 </div>
                 <div className="right_col">
-                    <a href="">
+                    <Link to="">
                         <img className="w" src="/assets/images/banner_w_01.png" alt="" />
                         <img className="m" src="/assets/images/banner_m_01.png" alt="" />
-                    </a>
-                    <a href="">
+                    </Link>
+                    <Link to="">
                         <img className="w" src="/assets/images/banner_w_02.png" alt="" />
                         <img className="m" src="/assets/images/banner_m_02.png" alt="" />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

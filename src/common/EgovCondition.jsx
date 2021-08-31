@@ -17,19 +17,19 @@ function EgovCondition() {
                     </label>
                 </li>
                 <li>
-                    <a href="" className="prev">이전연도로이동</a>
+                    <Link to="" className="prev">이전연도로이동</Link>
                     <span>2021년</span>
-                    <a href="" className="next">다음연도로이동</a>
+                    <Link to="" className="next">다음연도로이동</Link>
                 </li>
                 <li className="half L">
-                    <a href="" className="prev">이전월로이동</a>
+                    <Link to="" className="prev">이전월로이동</Link>
                     <span>8월</span>
-                    <a href="" className="next">다음월로이동</a>
+                    <Link to="" className="next">다음월로이동</Link>
                 </li>
                 <li className="half R">
-                    <a href="" className="prev">이전주로이동</a>
+                    <Link to="" className="prev">이전주로이동</Link>
                     <span>1주</span>
-                    <a href="" className="next">다음주로이동</a>
+                    <Link to="" className="next">다음주로이동</Link>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'common/EgovPaging';
@@ -13,7 +13,7 @@ function EgovAdminBoardModify() {
                 <div class="location">
                     <ul>
                         <li><a class="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><Link to="">사이트관리</Link></li>
                         <li>게시판생성 관리</li>
                     </ul>
                 </div>
@@ -31,7 +31,7 @@ function EgovAdminBoardModify() {
                             <h1 class="tit_1">사이트관리</h1>
                         </div>
 
-                        <h2 class="tit_2">{ boardId }게시판 정보수정 및 상세보기</h2>
+                        <h2 class="tit_2">{boardId}게시판 정보수정 및 상세보기</h2>
 
                         <div class="board_view2">
                             <dl>

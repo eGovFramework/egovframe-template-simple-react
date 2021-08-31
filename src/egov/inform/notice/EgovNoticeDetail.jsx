@@ -27,7 +27,7 @@ function EgovNoticeDetail(props) {
     });
 
     console.log("query = ", query);
-    if (query["bbsId"] == undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
 
     //componentDidMount (1회만)
     useEffect(function () {
@@ -49,7 +49,7 @@ function EgovNoticeDetail(props) {
                 //console.log("*===>>> board = " + JSON.stringify(resultList));
                 setBoardResult(json);
                 setBoardDetail(json.result);
-                if (json.resultFiles != undefined)
+                if (json.resultFiles !== undefined)
                     setBoardResultFiles(json.resultFiles);
                 // setDate("2021-05-11");
                 // console.log("===>>> date = " + _date);
@@ -79,8 +79,8 @@ function EgovNoticeDetail(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">알림마당</a></li>
+                        <li><Link to="" className="home">Home</Link></li>
+                        <li><Link to="">알림마당</Link></li>
                         <li>공지사항</li>
                     </ul>
                 </div>
