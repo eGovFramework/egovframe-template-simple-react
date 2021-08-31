@@ -3,70 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { SERVER_URL } from 'context/config';
 import * as EgovNet from 'context/egovFetch';
 
-//function EgovLoginContent({ onChangeLogin }) {
 class EgovLoginContent extends Component {
-    // const [user, setUser] = useState({ id: "", password: "", userSe: "", loginVO: null });
-
-    // function submitHandler(json) {
-    //     console.log("resultjson", json);
-    //     setUser({ loginVO: json.resultVO });
-    //     onChangeLogin({ loginVO: json.resultVO });
-    //     //window.location.href = `/`;
-    //     //this.context.router.push('/');
-    //     //this.context.router.history.push('/');
-    //     //this.props.history.pushState('v1','','/');
-    //     //history.push("/");
-    //     //window.history.pushState('v1','','/');
-    //     //this.props.history.push('/');
-    // }
-    // function submitErrorHandler(json) {
-    // }
-
-    // function submitFormHandler() {
-    //     console.log("=====> submitFormHandler");
-
-    //     /* request Setting */
-    //     const requestOptions = {
-    //         method: "POST",
-    //         headers: {
-    //             'Content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             id: 'admin',
-    //             password: '1',
-    //             userSe: 'USR'
-    //         })
-    //     }
-
-    //     /* API */
-    //     // EgovNet.requestFetch('/uat/uia/actionLoginJSON.do',
-    //     //     requestOptions, 
-    //     //     submitHandler, 
-    //     //     submitErrorHandler);
-    //     fetch(SERVER_URL + '/uat/uia/actionLoginAPI.do', requestOptions )
-    //     .then(function (response) {
-    //         console.log("resultjson", response);
-    //         return response.json();
-    //     })
-    //     .then(function (json) {
-    //         console.log("===>>> json = " + json);
-    //         console.log("===>>> json = " + JSON.stringify(json.resultVO));
-    //         setUser({ loginVO: json.resultVO });
-    //         onChangeLogin({ loginVO: json.resultVO });
-    //         //window.location.href = `/`;
-    //         //this.context.router.push('/');
-    //         //this.context.router.history.push('/');
-    //         //this.props.history.pushState('v1','','/');
-    //         //history.push("/");
-    //         //window.history.pushState('v1','','/');
-    //         //this.props.history.push('/');
-
-    //     })
-    //     .catch(error => {
-    //         this.setState({ errorMessage: error.toString() });
-    //         console.error('There was an error!', error);
-    //     });
-    // }
 
     constructor(props) {
         super(props);
@@ -78,7 +15,6 @@ class EgovLoginContent extends Component {
         }
         this.inputFormHandler = this.inputFormHandler.bind(this);
         this.submitFormHandler = this.submitFormHandler.bind(this);
-        console.log("===>>> SERVER_URL = " + SERVER_URL);
     }
 
     inputFormHandler(e) {

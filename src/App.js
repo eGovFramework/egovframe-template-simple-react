@@ -18,6 +18,8 @@ import EgovContainer from 'common/EgovContainer';
 import EgovMain from 'egov/main/EgovMain';
 import EgovLogin from 'egov/login/EgovLogin';
 
+import EgovAboutSite from 'egov/about/EgovAboutSite';
+
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
 import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 
@@ -71,6 +73,11 @@ class App extends Component {
               console.log("app = " + JSON.stringify(this.state.loginVO));
             }.bind(this)}></EgovLogin>
           </Route>
+          
+          {/* ABOUT */}
+          <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
+          
+          <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
 
           {/* INFORM */}
           <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
