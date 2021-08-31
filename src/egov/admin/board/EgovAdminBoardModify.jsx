@@ -12,7 +12,7 @@ function EgovAdminBoardModify() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트관리</Link></li>
                         <li>게시판생성 관리</li>
                     </ul>
@@ -97,12 +97,12 @@ function EgovAdminBoardModify() {
                             {/* <!-- 버튼영역 --> */}
                             <div class="board_btn_area">
                                 <div class="left_col btn1">
-                                    <a href="" class="btn btn_skyblue_h46 w_100">저장</a>
-                                    <a href="" class="btn btn_skyblue_h46 w_100">삭제</a>
+                                    <Link to="" class="btn btn_skyblue_h46 w_100">저장</Link>
+                                    <Link to="" class="btn btn_skyblue_h46 w_100">삭제</Link>
                                 </div>
 
                                 <div class="right_col btn1">
-                                    <a href="" class="btn btn_blue_h46 w_100">목록</a>
+                                    <Link to="" class="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}

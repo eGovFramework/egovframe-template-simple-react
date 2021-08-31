@@ -28,7 +28,8 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
             } else {
                 console.log('egov fetch handler not assigned!');
             }
-        }.bind(this))
+        //}.bind(this))
+        })
         .catch(error => {
             console.log( error);
             console.error('There was an error!', error);

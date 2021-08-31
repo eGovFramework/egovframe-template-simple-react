@@ -11,7 +11,7 @@ function EgovAdminUsageList() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트관리</Link></li>
                         <li>게시판 사용 관리</li>
                     </ul>
@@ -51,7 +51,7 @@ function EgovAdminUsageList() {
                                     </span>
                                 </li>
                                 <li>
-                                    <a href="" class="btn btn_blue_h46 pd35">등록</a>
+                                    <Link href="" class="btn btn_blue_h46 pd35">등록</Link>
                                 </li>
                             </ul>
                         </div>
@@ -72,30 +72,30 @@ function EgovAdminUsageList() {
                                 <p class="no_data">검색된 결과가 없습니다.</p>
 
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <a href="" class="list_item">
+                                <Link to="" class="list_item">
                                     <div>3</div>
                                     <div>게시판 기본템플릿</div>
                                     <div>게시판템플릿</div>
                                     <div class="al">/css/egovframework/cop/bbs/egovbbsTemplate.css</div>
                                     <div>사용</div>
                                     <div>2011-08-31 00:00</div>
-                                </a>
-                                <a href="" class="list_item">
+                                </Link>
+                                <Link to="" class="list_item">
                                     <div>3</div>
                                     <div>게시판 기본템플릿</div>
                                     <div>게시판템플릿</div>
                                     <div class="al">/css/egovframework/cop/bbs/egovbbsTemplate.css</div>
                                     <div>사용</div>
                                     <div>2011-08-31 00:00</div>
-                                </a>
-                                <a href="" class="list_item">
+                                </Link>
+                                <Link to="" class="list_item">
                                     <div>3</div>
                                     <div>게시판 기본템플릿</div>
                                     <div>게시판템플릿</div>
                                     <div class="al">/css/egovframework/cop/bbs/egovbbsTemplate.css</div>
                                     <div>사용</div>
                                     <div>2011-08-31 00:00</div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

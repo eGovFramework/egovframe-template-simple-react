@@ -10,7 +10,7 @@ function EgovAboutSite() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트 소개</Link></li>
                         <li>소개</li>
                     </ul>

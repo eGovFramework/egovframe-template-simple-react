@@ -12,7 +12,7 @@ function EgovAdminBoardList() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트관리</Link></li>
                         <li>게시판 생성 관리</li>
                     </ul>
@@ -53,7 +53,7 @@ function EgovAdminBoardList() {
                                     </span>
                                 </li>
                                 <li>
-                                    <a href="" class="btn btn_blue_h46 pd35">등록</a>
+                                    <Link to="" class="btn btn_blue_h46 pd35">등록</Link>
                                 </li>
                             </ul>
                         </div>

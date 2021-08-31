@@ -11,7 +11,7 @@ function EgovAdminGalleryList() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트관리</Link></li>
                         <li>사이트갤러리 관리</li>
                     </ul>

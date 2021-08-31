@@ -11,7 +11,7 @@ function EgovAdminScheduleList() {
                 {/* <!-- Location --> */}
                 <div class="location">
                     <ul>
-                        <li><a class="home" href="">Home</a></li>
+                        <li><Link to="" class="home">Home</Link></li>
                         <li><Link to="">사이트관리</Link></li>
                         <li>일정 관리</li>
                     </ul>

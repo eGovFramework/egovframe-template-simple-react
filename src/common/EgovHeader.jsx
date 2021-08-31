@@ -19,7 +19,12 @@ class EgovHeader extends Component {
             window.location.href = "/login";
             return;
         }
-        EgovNet.requestFetch('/uat/uia/actionLogoutAPI.do', null,
+
+        const requestOptions = {
+            credentials : 'include',
+        }
+
+        EgovNet.requestFetch('/uat/uia/actionLogoutAPI.do', requestOptions,
             function (json) {
                 console.log("===>>> logout = " + JSON.stringify(json));
                 console.log("===>>> logout = " + json.resultCode);
