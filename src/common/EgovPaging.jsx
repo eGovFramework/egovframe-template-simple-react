@@ -42,7 +42,7 @@ class EgovPaging extends Component {
             if (totalPageCount > pageSize) {
                 // 첫 페이지 이동
                 //const firstPageTag = <li key="fp"><a href={getQueryString(query,1)} onclick=""><img src="/images/board/icon_prevend.gif" alt="처음" /></a></li>;
-                const firstPageTag = <li key="fp" className="btn"><a href={getQueryString(query, 1)} className="first">처음</a></li>;
+                const firstPageTag = <li key="fp" className="btn"><a to={getQueryString(query, 1)} className="first">처음</a></li>;
                 //<li className="btn"><Link to="" className="first">처음</Link></li>
                 paginationTag.push(firstPageTag);
 
@@ -59,7 +59,7 @@ class EgovPaging extends Component {
                 if (i === currentPageNo) {
                     // 현재 페이지
                     // const currentPage = <li key={i}><strong>{i}</strong></li>;
-                    const currentPage = <li key={i}><Link to="" className="cur">{i}</Link></li>;
+                    const currentPage = <li key={i}><a href="" className="cur">{i}</a></li>;
                     //<li><Link to="" className="cur">1</Link></li>
                     paginationTag.push(currentPage);
                 } else {

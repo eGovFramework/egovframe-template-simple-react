@@ -21,10 +21,10 @@ import EgovLogin from 'egov/login/EgovLogin';
 import EgovAboutSite from 'egov/about/EgovAboutSite';
 import EgovAboutHistory from 'egov/about/EgovAboutHistory';
 
-import EgovSupportDownload from 'egov/support/download/EgovDownload';
+import EgovSupportDownloadList from 'egov/support/download/EgovDownloadList';
 import EgovSupportDownloadDetail from 'egov/support/download/EgovDownloadDetail';
 import EgovSupportDownloadCreate from 'egov/support/download/EgovDownloadCreate';
-import EgovSupportQna from 'egov/support/qna/EgovQna';
+import EgovSupportQnaList from 'egov/support/qna/EgovQnaList';
 import EgovSupportQnaDetail from 'egov/support/qna/EgovQnaDetail';
 
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
@@ -32,6 +32,8 @@ import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 
 import EgovNoticeList from 'egov/inform/notice/EgovNoticeList';
 import EgovNoticeDetail from 'egov/inform/notice/EgovNoticeDetail';
+import EgovNoticeCreate from 'egov/inform/notice/EgovNoticeCreate';
+import EgovNoticeModify from 'egov/inform/notice/EgovNoticeModify';
 
 import EgovGalleryList from 'egov/inform/gallery/EgovGalleryList';
 
@@ -90,11 +92,11 @@ class App extends Component {
           {/* SUPPORT */}
           <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
 
-          <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownload} />
+          <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownloadList} />
           <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
           <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
           
-          <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQna} />
+          <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQnaList} />
           <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
 
           {/* INFORM */}
@@ -106,6 +108,10 @@ class App extends Component {
           <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
           {/* <Route path={`${URL.INFORM_NOTICE_DETAIL}/:boardId`} component={EgovNoticeDetail} /> */}
           <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} />
+          {/* <Route path={URL.INFORM_NOTICE_DETAIL} component={() => <EgovNoticeDetail/>} /> */}
+          {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */} 
+          <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeCreate mode="new"/>} />
+          <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeCreate mode="edit"/>} />
           <Route path={URL.INFORM_GALLERY} component={EgovGalleryList} />
           
           {/* ADMIN */}

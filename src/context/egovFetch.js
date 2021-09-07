@@ -1,7 +1,8 @@
 import { SERVER_URL } from './config';
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
-    console.log("=====> egov fetch : "+SERVER_URL + url,);
+    console.log("=====> egov fetch : ", SERVER_URL + url);
+    console.log("=====> requestOptions : ", requestOptions);
     //this.setState({ [e.target.name]: e.target.value });
     //fetch('list.json')
 
@@ -21,8 +22,8 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
             return response.json();
         })
         .then(function (json) {
-            console.log("===>>> json = " + json);
-            console.log("===>> "+typeof handler);
+            console.log("===>>> json = " ,json);
+            console.log("===>> typeof handler : ", typeof handler);
             if (typeof handler === 'function') {
                 handler(json);
             } else {

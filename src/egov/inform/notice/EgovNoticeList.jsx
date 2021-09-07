@@ -52,6 +52,7 @@ function EgovNoticeList(props) {
             credentials: 'include',
             body: JSON.stringify(_query)
         }
+        console.log("@@@@requestOptions : ", requestOptions);
         EgovNet.requestFetch('/cop/bbs/selectBoardListAPI.do',
             requestOptions,
             function (json) {
@@ -72,7 +73,8 @@ function EgovNoticeList(props) {
                 let pageSize = json.paginationInfo.pageSize;
 
                 json.resultList.forEach(function (item, index) {
-                    console.log('boardItem = %s', JSON.stringify(item));
+                    console.log('@@@@boardItem =', item);
+                    //console.log('boardItem = %s', JSON.stringify(item));
                     //${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}
                     if (index === 0) listTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
@@ -105,7 +107,7 @@ function EgovNoticeList(props) {
                         () => {
                             const queryString = qs.stringify({
                                 nttId: item.nttId,
-                                bbsId: DEFAULT_BBS_ID,
+                                bbsId: item.bbsId,
                                 pageIndex: currentPageNo
                             },
                                 { addQueryPrefix: true });

@@ -41,11 +41,11 @@ function EgovNoticeDetail(props) {
             },
             body: JSON.stringify(query)
         }
+        console.log("@@@@requestOptions : ", requestOptions);
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
             function (json) {
                 //console.log("===>>> board = " + JSON.stringify(json));
-                //setResultList(json.resultList);
                 //console.log("*===>>> board = " + JSON.stringify(resultList));
                 setBoardResult(json);
                 setBoardDetail(json.result);
@@ -121,10 +121,12 @@ function EgovNoticeDetail(props) {
                             </div>
 
                             <div className="board_article">
-                                <textarea name="" cols="30" rows="10" readonly="readonly" value={boardDetail.nttCn}></textarea>
+                                <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail.nttCn}></textarea>
                             </div>
-
-                            <EgovAttachFile boardFiles={boardResultFiles} />
+                            <div className="board_attach">
+                                <EgovAttachFile boardFiles={boardResultFiles} />
+                            </div>
+                            
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
