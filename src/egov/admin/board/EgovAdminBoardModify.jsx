@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'common/EgovPaging';
+//import EgovPaging from 'common/EgovPaging';
 
 function EgovAdminBoardModify() {
     const { boardId } = useParams();
@@ -35,13 +35,13 @@ function EgovAdminBoardModify() {
 
                         <div class="board_view2">
                             <dl>
-                                <dt><label for="bbsNm">게시판명</label><span class="req">필수</span></dt>
+                                <dt><label htmlFor="bbsNm">게시판명</label><span class="req">필수</span></dt>
                                 <dd>
                                     <input class="f_input2 w_full" type="text" name="" value="보도자료" title="" id="bbsNm" placeholder="" />
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="bbsIntrcn">게시판 소개</label><span class="req">필수</span></dt>
+                                <dt><label htmlFor="bbsIntrcn">게시판 소개</label><span class="req">필수</span></dt>
                                 <dd>
                                     <textarea class="f_txtar w_full h_100" name="" id="bbsIntrcn" cols="30" rows="10" placeholder="">보도자료 게시판입니다.</textarea>
                                 </dd>
@@ -72,9 +72,9 @@ function EgovAdminBoardModify() {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulDeptName">첨부파일가능파일 숫자</label><span class="req">필수</span></dt>
+                                <dt><label htmlFor="schdulDeptName">첨부파일가능파일 숫자</label><span class="req">필수</span></dt>
                                 <dd>
-                                    <label class="f_select " for="posblAtchFileNumber">
+                                    <label class="f_select " htmlFor="posblAtchFileNumber">
                                         <select id="posblAtchFileNumber" name="posblAtchFileNumber" title="첨부가능파일 숫자선택">
                                             <option value="0" selected="selected">선택하세요</option>
                                             <option value="1">1개</option>
@@ -85,7 +85,7 @@ function EgovAdminBoardModify() {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulNm">템플릿 정보</label><span class="req">필수</span></dt>
+                                <dt><label htmlFor="schdulNm">템플릿 정보</label><span class="req">필수</span></dt>
                                 <dd>
                                     <span class="f_search2">
                                         <input type="text" name="" value="게시판 기본템플릿" title="" id="" placeholder="" />

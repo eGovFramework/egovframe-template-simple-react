@@ -14,10 +14,12 @@ const URL = {
     INTRO_WORKS            : "/intro/works", // 정보마당/주요사업소개
     INTRO_SERVICE          : "/intro/service", // 정보마당/주요서비스소개
     
-    SUPPORT               : "/support", // 고객지원
-    SUPPORT_DOWNLOAD      : "/support/download", // 고객지원/자료실
-    SUPPORT_QNA           : "/support/qna", // 고객지원/묻고답하기
-    SUPPORT_APPLY         : "/support/apply", // 고객지원/서비스신청
+    SUPPORT                 : "/support", // 고객지원
+    SUPPORT_DOWNLOAD        : "/support/download", // 고객지원/자료실
+    SUPPORT_DOWNLOAD_DETAIL : "/support/download/detail", // 고객지원/자료실/상세
+    SUPPORT_DOWNLOAD_CREATE : "/support/download/create", // 고객지원/자료실/등록
+    SUPPORT_QNA             : "/support/qna", // 고객지원/묻고답하기
+    SUPPORT_APPLY           : "/support/apply", // 고객지원/서비스신청
     
     INFORM                : "/inform", // 알림마당 
     INFORM_DAILY          : "/inform/daily", // 알림마당/오늘의행사

@@ -18,6 +18,14 @@
 .btn_blue_h46 {height: 46px; border-radius: 5px; color: #fff; font-size: 16px; line-height: 46px; text-align: center; background: #169bd5;}
 .btn_skyblue_h46 {height: 46px; border-radius: 5px; color: #005b82; font-size: 16px; line-height: 46px; text-align: center; background: #daedf5;}
 
+.btn_upload {position: relative; width: 180px; height: 46px; border-radius: 5px; color: #fff; font-size: 16px; line-height: 46px; text-align: center; background: #169bd5;}
+.btn_upload span {display: inline-block; height: 46px; line-height: 46px;}
+.btn_upload span::before {content: ""; display: inline-block; width: 16px; height: 16px; margin-right: 10px; background: url(css/images/ico_v.png) no-repeat; background-size: contain; vertical-align: -2px;}
+
+.btn_down {position: relative; width: 160px; height: 46px; border-radius: 5px; color: #005b82; font-size: 16px; line-height: 46px; text-align: center; background: #daedf5;}
+.btn_down span {display: inline-block; height: 46px; line-height: 46px;}
+.btn_down span::before {content: ""; display: inline-block; width: 15px; height: 16px; margin-right: 10px; background: url(css/images/ico_down.png) no-repeat; background-size: contain; vertical-align: -2px;}
+
 .btn_calendar {width: 46px; height: 46px; font-size: 0; background: url(css/images/bg_btn_calendar.png) no-repeat;}
 
 
@@ -28,6 +36,8 @@
 .board_list .result .list_item {display: table; width: 100%; table-layout: fixed;}
 .board_list .result .list_item > div {display: table-cell; padding: 18px 0 20px 0; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; text-align: center; vertical-align: middle;}
 .board_list .result .list_item > div.al {padding: 18px 30px 20px 30px; text-align: left;}
+.board_list .result .list_item > div.reply {position: relative; padding: 18px 30px 20px 52px;}
+.board_list .result .list_item > div.reply::before {content: ""; display: block; position: absolute; left: 27px; top: 24px; width: 22px; height: 14px; background: url(css/images/ico_reply.png) no-repeat;}
 .board_list .no_data {height: 60px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; line-height: 60px; text-align: center;}
 
 .board_bot {margin-top: 40px;}
@@ -73,7 +83,7 @@
 .board_attach_img img {max-width: 100%;}
 .board_attach_img br + img {margin-top: 10px;}
 
-.board_btn_area {position: relative;}
+.board_btn_area {position: relative; min-height: 46px;}
 .board_btn_area .left_col {font-size: 0;}
 .board_btn_area .left_col .btn + .btn {margin-left: 10px;}
 .board_btn_area .right_col {position: absolute; right: 0; top: 0; font-size: 0;}
@@ -86,6 +96,68 @@
 .board_view2 dl dt .req {display: inline-block; width: 7px; height: 7px; margin-left: 2px; font-size: 0; background: url(css/images/ico_req.png) no-repeat; vertical-align: 17px;}
 .board_view2 dl dd {padding: 12px 15px; color: #222; font-size: 16px; font-weight: 300;}
 .board_view2 .file_add {margin-top: 5px;}
+.board_view2 .f_select,
+.board_view2 .f_input2 {vertical-align: top;}
+
+.board_view3 {border-top: 2px solid #222;}
+.board_view3 .tit {padding: 24px; border-bottom: 1px solid #888; color: #222; font-size: 18px; font-weight: 500; text-align: center;}
+.board_view3 .tit_edit {padding: 12px 0; border-bottom: 1px solid #888;}
+.board_view3 .tit_edit dl {display: table; table-layout: fixed; width: 100%;}
+.board_view3 .tit_edit dl > * {display: table-cell; font-size: 16px;}
+.board_view3 .tit_edit dl dt {width: 130px; padding-left: 29px; color: #000; font-weight: 400;}
+.board_view3 .tit_edit dl dd {width: auto;}
+
+.board_view3 .info {border-bottom: 1px solid #dde2e5;}
+.board_view3 .info::after {content: ""; display: block; clear: both;}
+.board_view3 .info > dl {float: left; width: 50%;}
+.board_view3 .info > dl::after {content: ""; display: block; clear: both;}
+.board_view3 .info > dl > * {float: left; height: 70px; color: #666; font-size: 16px; font-weight: 300; line-height: 69px;}
+.board_view3 .info > dl dt {margin: 0 30px; color: #000; font-weight: 400;}
+.board_view3 .info2 {display: table; table-layout: fixed; width: 100%; padding: 30px 40px 30px 30px; background: #f7f7f7;}
+.board_view3 .info2 > * {display: table-cell; vertical-align: top;}
+.board_view3 .info2 .left_col {width: 210px;}
+.board_view3 .info2 .left_col img {display: block; width: 160px; height: 110px;}
+.board_view3 .info2 .left_col .btn {margin-top: 20px;}
+.board_view3 .info2 .left_col .guide {margin-top: 14px; color: #666; font-size: 14px; line-height: 24px; letter-spacing: -.5px;}
+.board_view3 .info2 .right_col {width: auto;}
+.board_view3 .info2 .right_col dl {display: table; table-layout: fixed; width: 100%; background: #fff;}
+.board_view3 .info2 .right_col dl > * {display: table-cell; font-size: 16px; font-weight: 300;}
+.board_view3 .info2 .right_col dl dt {width: 130px; padding: 0 35px; font-weight: 400; background: #dde2e5;}
+.board_view3 .info2 .right_col dl dd {padding: 8px 30px;}
+
+.pds_des {min-height: 200px; padding: 35px; border: 2px solid #dde2e5; color: #222; font-size: 16px; line-height: 26px;}
+.pds_desc_edit {padding: 20px; border: 2px solid #dde2e5;}
+
+.qna_q {position: relative; padding: 30px 30px 36px 75px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; font-weight: 300; line-height: 30px;}
+.qna_q span {display: block; position: absolute; left: 30px; top: 30px; width: 32px; height: 32px; border-radius: 50%; color: #fff; font-size: 20px; line-height: 32px; text-align: center; background: #01b4d0;}
+
+.qna_a {position: relative; padding: 8px 30px 3px 75px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; font-weight: 300; line-height: 30px;}
+.qna_a > span {display: block; position: absolute; left: 30px; top: 30px; width: 32px; height: 32px; border-radius: 50%; color: #fff; font-size: 20px; line-height: 32px; text-align: center; background: #fc8175;}
+.qna_a ul li {position: relative; padding: 21px 0 30px 0; border-bottom: 1px dashed #dde2e5;}
+.qna_a ul li:last-child {border-bottom: 0;}
+.qna_a ul li span {display: block;}
+.qna_a ul li .delete {position: absolute; right: 20px; bottom: 11px; color: #222; font-size: 16px; font-weight: 300;}
+.qna_a ul li .delete::before {content: ""; display: inline-block; width: 18px; height: 18px; margin-right: 5px; background: url(css/images/ico_delete.png) no-repeat; background-size: contain; vertical-align: -2px;}
+
+.replay {display: table; table-layout: fixed; width: 100%; padding: 18px 0; border: 2px solid #dde2e5; border-radius: 10px;}
+.replay > * {display: table-cell; vertical-align: top;}
+.replay .left_col {width: 850px; font-size: 0;}
+.replay .left_col label {display: inline-block; width: 108px; height: 80px; padding-left: 28px; color: #000; font-size: 16px; line-height: 80px; vertical-align: top;}
+.replay .left_col div {display: inline-block; width: 740px; vertical-align: top;}
+.replay .left_col div textarea {height: 80px;}
+.replay .right_col {padding: 0 18px;}
+.replay .right_col .btn {width: 100%; height: 80px; border-radius: 5px; color: #005b82; font-size: 16px; text-align: center; line-height: 80px; background: #daedf5;}
+
+
+.bottom_navi {border-top: 1px solid #dde2e5;}
+.bottom_navi dl {display: table; width: 100%; table-layout: fixed; border-bottom: 1px solid #dde2e5;}
+.bottom_navi dl > * {display: table-cell; height: 60px; line-height: 60px; font-size: 16px;}
+.bottom_navi dl dt {position: relative; width: 166px; padding-left: 30px; color: #000;}
+.bottom_navi dl dt::after {content: ""; display: block; position: absolute; right: 48px; top: 50%; transform: translateY(-50%); width: 16px; height: 9px; background: url(css/images/ico_arrow_up_gray_16x9.png) no-repeat; background-size: contain;}
+.bottom_navi dl:nth-child(2) dt::after {transform: translateY(-50%) rotate(180deg);}
+.bottom_navi dl dd {width: auto; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.bottom_navi dl dd a {color: #666; font-weight: 300;}
+.bottom_navi dl dd a:hover {text-decoration: underline;}
 
 .file_attach {display: block;}
 .file_attach + .file_attach {margin-top: 5px;}
@@ -169,5 +241,17 @@ select::-ms-expand {display:none;}
 
 .tit_2 {font-size: 30px; font-weight: 700;}
 
+.tit_3 {color: #222; font-size: 48px; font-weight: 500; line-height: 44px; letter-spacing: -2px;}
+
+.tit_4 {position: relative; padding-top: 12px; font-size: 30px; font-weight: 700;}
+.tit_4::before {content: ""; display: block; position: absolute; left: 0; top: 0; width: 30px; height: 2px; background: #0465be;}
+
+.tit_5 {color: #222; font-size: 26px; font-weight: 700;}
 
 
+/* Text */
+.txt_1 {color: #666; font-size: 20px; line-height: 30px;}
+
+
+/* Maessage box */
+.msg_1 {padding: 33px 40px; border-top: 2px solid #dde2e5; border-radius: 0 0 10px 10px; color: #454545; font-size: 20px; line-height: 30px; letter-spacing: -1px; background: #f7f7f7;}

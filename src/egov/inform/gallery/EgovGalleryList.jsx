@@ -37,7 +37,7 @@ function EgovGalleryList() {
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
-                                    <label className="f_select" for="sel1">
+                                    <label className="f_select" htmlFor="sel1">
                                         <select name="" id="sel1" title="조건">
                                             <option value="0">제목</option>
                                             <option value="1">내용</option>

@@ -36,7 +36,7 @@ function EgovAdminTemplateList() {
                         <div class="condition">
                             <ul>
                                 <li class="third_1 L">
-                                    <label class="f_select" for="sel1">
+                                    <label class="f_select" htmlFor="sel1">
                                         <select name="searchCnd" id="sel1" title="검색조건">
                                             <option value="0">템플릿명</option>
                                             <option value="1">템플릿구분</option>

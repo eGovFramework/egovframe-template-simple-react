@@ -138,7 +138,7 @@ function EgovDailyList(props) {
                         <div className="condition">
                             <ul>
                                 <li>
-                                    <label className="f_select" for="sel1">
+                                    <label className="f_select" htmlFor="sel1">
                                         <select name="" id="sel1" title="조건">
                                             <option value="">전체</option>
                                             <option value="1">회의</option>

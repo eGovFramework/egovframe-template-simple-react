@@ -38,7 +38,7 @@ function EgovAdminBoardList() {
                             <ul>
                                 <li class="third_1 L">
                                     <span class="lb">검색유형선택</span>
-                                    <label class="f_select" for="searchCnd">
+                                    <label class="f_select" htmlFor="searchCnd">
                                         <select id="searchCnd" name="searchCnd" title="검색유형선력">
                                             <option value="0">게시판명</option>
                                             <option value="1">게시판유형</option>

@@ -20,6 +20,10 @@ import EgovLogin from 'egov/login/EgovLogin';
 
 import EgovAboutSite from 'egov/about/EgovAboutSite';
 
+import EgovSupportDownload from 'egov/support/download/EgovDownload';
+import EgovSupportDownloadDetail from 'egov/support/download/EgovDownloadDetail';
+import EgovSupportDownloadCreate from 'egov/support/download/EgovDownloadCreate';
+
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
 import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 
@@ -78,6 +82,13 @@ class App extends Component {
           <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
 
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
+          
+          {/* SUPPORT */}
+          <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
+
+          <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownload} />
+          <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
+          <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
 
           {/* INFORM */}
           <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />

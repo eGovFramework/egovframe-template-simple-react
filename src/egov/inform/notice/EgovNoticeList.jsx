@@ -182,7 +182,7 @@ function EgovNoticeList(props) {
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
-                                    <label className="f_select" htmlFor="sel1">
+                                    <label className="f_select" htmlhtmlFor="sel1">
                                         <select name="" id="sel1" title="조건"
                                             onChange={e => setSearchCondition({ ...searchCondition, searchCnd: e.target.value })}>
                                             <option value="0">제목</option>

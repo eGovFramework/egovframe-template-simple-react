@@ -93,11 +93,31 @@ body {min-width: 1400px;}
 
 
 /* Space */
+.contents .tit_3:first-child {margin-top: -2px;}
+
 .condition + .board_list {margin-top: 50px;}
+.condition + .tit_5 {margin-top: 42px;}
 .top_tit + .tit_2 {margin-top: 13px;}
 
 .tit_2 + .condition {margin-top: 26px;}
 .tit_2 + .board_view {margin-top: 43px;}
 .tit_2 + .board_view2 {margin-top: 43px;}
+.tit_2 + .board_view3 {margin-top: 43px;}
+
+.tit_3 + .txt_1 {margin-top: 33px;}
+
+.tit_4 + .tit_5 {margin-top: 35px;}
+
+.tit_5 + .msg_1 {margin-top: 24px;}
+.tit_5 + .pds_des {margin-top: 14px;}
+
+.txt_1 + .tit_4 {margin-top: 64px;}
+
 .board_attach + .board_btn_area {margin-top: 30px;}
 .board_view2 dl + .board_btn_area {margin-top: 30px;}
+.board_view3 + .tit_5 {margin-top: 22px;}
+.board_bot + .board_btn_area {margin-top: 30px;}
+.pds_des + .board_btn_area {margin-top: 30px;}
+.board_btn_area + .bottom_navi {margin-top: 30px;}
+
+.qna_a + .replay {margin-top: 30px;}

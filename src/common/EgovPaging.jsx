@@ -21,7 +21,7 @@ class EgovPaging extends Component {
         console.log("query = ", query);
 
         let paginationTag = [];
-        let queryString;
+        //let queryString;
 
         if (this.props.pagination === undefined) {
             console.log("EgovPagination > pagination NULL");
@@ -66,7 +66,7 @@ class EgovPaging extends Component {
                     // 다른 페이지
                     //const otherPage = <li key={i}><a href={getQueryString(query,i)} onclick="fn_egov_select_noticeList(2);return false; ">{i}</a></li>;
                     const otherPage = <li key={i}><a href={getQueryString(query, i)} onclick="fn_egov_select_noticeList(2);return false; ">{i}</a></li>;
-                    //<li><a href="">2</a></li>
+                    //<li><Link to="">2</Link></li>
                     paginationTag.push(otherPage);
                 }
             }
@@ -90,10 +90,10 @@ class EgovPaging extends Component {
                     {/* <li className="btn"><Link to="" className="first">처음</Link></li>
                 <li className="btn"><Link to="" className="prev">이전</Link></li>
                 <li><Link to="" className="cur">1</Link></li>
-                <li><a href="">2</a></li>
-                <li><a href="">3</a></li>
-                <li><a href="">4</a></li>
-                <li><a href="">5</a></li>
+                <li><Link to="">2</Link></li>
+                <li><Link to="">3</Link></li>
+                <li><Link to="">4</Link></li>
+                <li><Link to="">5</Link></li>
                 <li className="btn"><Link to="" className="next">다음</Link></li>
                 <li className="btn"><Link to="" className="last">마지막</Link></li> */}
                     {paginationTag}

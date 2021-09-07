@@ -99,7 +99,7 @@ class EgovLoginContent extends Component {
                                         onChange={ e => this.setState({password: e.target.value})}/>
                                 </span>
                                 <div className="chk">
-                                    <label className="f_chk" htmlFor="saveid">
+                                    <label className="f_chk" htmlhtmlFor="saveid">
                                         <input type="checkbox" name="" id="saveid" /> <em>ID저장</em>
                                     </label>
                                 </div>
