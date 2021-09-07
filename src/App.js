@@ -19,10 +19,13 @@ import EgovMain from 'egov/main/EgovMain';
 import EgovLogin from 'egov/login/EgovLogin';
 
 import EgovAboutSite from 'egov/about/EgovAboutSite';
+import EgovAboutHistory from 'egov/about/EgovAboutHistory';
 
 import EgovSupportDownload from 'egov/support/download/EgovDownload';
 import EgovSupportDownloadDetail from 'egov/support/download/EgovDownloadDetail';
 import EgovSupportDownloadCreate from 'egov/support/download/EgovDownloadCreate';
+import EgovSupportQna from 'egov/support/qna/EgovQna';
+import EgovSupportQnaDetail from 'egov/support/qna/EgovQnaDetail';
 
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
 import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
@@ -82,6 +85,7 @@ class App extends Component {
           <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
 
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
+          <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
           
           {/* SUPPORT */}
           <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
@@ -89,6 +93,9 @@ class App extends Component {
           <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownload} />
           <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
           <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
+          
+          <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQna} />
+          <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
 
           {/* INFORM */}
           <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />

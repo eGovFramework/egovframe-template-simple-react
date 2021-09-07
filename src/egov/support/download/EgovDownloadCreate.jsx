@@ -111,7 +111,7 @@ function EgovDownloadCreate() {
                             </div>
 
                             <div className="right_col btn1">
-                                <Link to="" className="btn btn_blue_h46 w_100">등록</Link>
+                                <Link to={URL.SUPPORT_DOWNLOAD} className="btn btn_blue_h46 w_100">등록</Link>
                             </div>
                         </div>
                         {/* <!--// 버튼영역 --> */}

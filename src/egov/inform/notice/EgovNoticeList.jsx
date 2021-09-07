@@ -115,10 +115,18 @@ function EgovNoticeList(props) {
                         }
                     }>
                         <div>{listIdx}</div>
-                        <div className="al">
+                        {(item.replyLc * 1 ? true : false) &&
+                            <><div className="al reply">
+                                {item.nttSj}
+                            </div></>}
+                        {(item.replyLc * 1 ? false : true) &&
+                            <><div className="al">
+                                {item.nttSj}
+                            </div></>}
+                        {/* <div className="al">
                             {(item.replyLc * 1 ? true : false) && <img src="/assets/images/reply_arrow.gif" alt="reply arrow" />}
                             {item.nttSj}
-                        </div>
+                        </div> */}
                         <div>{item.frstRegisterNm}</div>
                         <div>{item.frstRegisterPnttm}</div>
                         <div>{item.inqireCo}</div>
@@ -148,6 +156,7 @@ function EgovNoticeList(props) {
         console.log("===>>> board length = " + listTag);
 
     }, [listTag, paginationInfo]);
+
 
     return (
         <div className="container">
@@ -202,7 +211,7 @@ function EgovNoticeList(props) {
                                     </span>
                                 </li>
                                 <li>
-                                    <a href={ URL.INFORM_NOTICE_CREATE + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_blue_h46 pd35">등록</a>
+                                    <a href={URL.INFORM_NOTICE_CREATE + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_blue_h46 pd35">등록</a>
                                 </li>
                             </ul>
                         </div>
@@ -243,7 +252,7 @@ function EgovNoticeList(props) {
                                     <div>관리자</div>
                                     <div>2021-7-24</div>
                                     <div>3</div>
-                                </Link>*/} 
+                                </Link>*/}
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}

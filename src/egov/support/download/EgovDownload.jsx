@@ -213,15 +213,15 @@ function EgovDownload() {
                             {/* <!-- Paging --> */}
                             <div className="paging">
                                 <ul>
-                                    <li className="btn"><Link to="" className="first">처음</Link></li>
-                                    <li className="btn"><Link to="" className="prev">이전</Link></li>
-                                    <li><Link to="" className="cur">1</Link></li>
-                                    <li><Link to="">2</Link></li>
-                                    <li><Link to="">3</Link></li>
-                                    <li><Link to="">4</Link></li>
-                                    <li><Link to="">5</Link></li>
-                                    <li className="btn"><Link to="" className="next">다음</Link></li>
-                                    <li className="btn"><Link to="" className="last">마지막</Link></li>
+                                    <li className="btn"><Link to="#" className="first">처음</Link></li>
+                                    <li className="btn"><Link to="#" className="prev">이전</Link></li>
+                                    <li><Link to="#" className="cur">1</Link></li>
+                                    <li><Link to="#">2</Link></li>
+                                    <li><Link to="#">3</Link></li>
+                                    <li><Link to="#">4</Link></li>
+                                    <li><Link to="#">5</Link></li>
+                                    <li className="btn"><Link to="#" className="next">다음</Link></li>
+                                    <li className="btn"><Link to="#" className="last">마지막</Link></li>
                                 </ul>
                             </div>
                             {/* <!--/ Paging --> */}
