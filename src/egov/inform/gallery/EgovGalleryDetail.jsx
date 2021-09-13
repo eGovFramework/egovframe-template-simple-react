@@ -5,23 +5,23 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import { NOTICE_BBS_ID } from 'context/config';
+import { GALLERY_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'common/EgovAttachFile';
 
-function EgovNoticeDetail(props) {
+function EgovGalleryDetail(props) {
     console.log("------------------------------");
-    console.log("EgovNoticeDetail [props] : ", props);
+    console.log("EgovGalleryDetail [props] : ", props);
 
     let history = useHistory();
-    console.log("EgovNoticeDetail [history] : ", history);
+    console.log("EgovGalleryDetail [history] : ", history);
 
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true
     });
-    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
-    console.log("EgovNoticeDetail [query] : ", query);
+    if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // default = 공지사항
+    console.log("EgovGalleryDetail [query] : ", query);
 
     let [boardResult, setBoardResult] = useState();
     let [boardResultFiles, setBoardResultFiles] = useState();
@@ -48,7 +48,7 @@ function EgovNoticeDetail(props) {
                 console.log("====>>> board delete= ", resp);
                 if (resp !== undefined)
                     if (resp.resultCode === 200)
-                        window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
+                        window.location.href = URL.INFORM_GALLERY + qs.stringify(query, { addQueryPrefix: true });
                     else
                         alert("ERR : " + resp.resultMessage);
 
@@ -142,6 +142,9 @@ function EgovNoticeDetail(props) {
                             <div className="board_article">
                                 <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail.nttCn}></textarea>
                             </div>
+                            <div className="board_attach_img">
+                                <img src="" alt=""/><br/>
+                            </div>
                             <div className="board_attach">
                                 <EgovAttachFile boardFiles={boardResultFiles} />
                             </div>
@@ -149,16 +152,16 @@ function EgovNoticeDetail(props) {
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
-                                    <Link to={URL.INFORM_NOTICE_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link>
+                                    <Link to={URL.INFORM_GALLERY_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link>
                                     <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
                                         e.preventDefault();
                                         onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                     }}>삭제</a>
-                                    <Link to={URL.INFORM_NOTICE_REPLY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">답글작성</Link>
+                                    <Link to={URL.INFORM_GALLERY_REPLY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <Link to={URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_blue_h46 w_100">목록</Link>
+                                    <Link to={URL.INFORM_GALLERY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                         </div>
@@ -173,4 +176,4 @@ function EgovNoticeDetail(props) {
 }
 
 
-export default EgovNoticeDetail;
+export default EgovGalleryDetail;

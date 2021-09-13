@@ -27,10 +27,14 @@ const URL = {
     INFORM_WEEKLY         : "/inform/weekly", // 알림마당/금주의행사
     INFORM_NOTICE         : "/inform/notice", // 알림마당/공지사항
     INFORM_NOTICE_DETAIL  : "/inform/notice/detail", // 알림마당/공지사항상세
-    INFORM_NOTICE_CREATE  : "/inform/notice/create", // 알림마당/공지사항수정
+    INFORM_NOTICE_CREATE  : "/inform/notice/create", // 알림마당/공지사항등록
     INFORM_NOTICE_MODIFY  : "/inform/notice/modify", // 알림마당/공지사항수정
     INFORM_NOTICE_REPLY   : "/inform/notice/reply", // 알림마당/공지사항답글
     INFORM_GALLERY        : "/inform/gallery", // 알림마당/사이트갤러리
+    INFORM_GALLERY_DETAIL : "/inform/gallery/detail", // 알림마당/사이트갤러리상세
+    INFORM_GALLERY_CREATE : "/inform/gallery/create", // 알림마당/사이트갤러리등록
+    INFORM_GALLERY_MODIFY : "/inform/gallery/modify", // 알림마당/사이트갤러리수정
+    INFORM_GALLERY_REPLY  : "/inform/gallery/reply", // 알림마당/사이트갤러리답글
     
     ADMIN                 : "/admin", // 사이트관리
     ADMIN_SCHEDULE        : "/admin/schedule", // 사이트관리/일정관리

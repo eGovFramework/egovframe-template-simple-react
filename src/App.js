@@ -35,6 +35,8 @@ import EgovNoticeDetail from 'egov/inform/notice/EgovNoticeDetail';
 import EgovNoticeCreate from 'egov/inform/notice/EgovNoticeCreate';
 
 import EgovGalleryList from 'egov/inform/gallery/EgovGalleryList';
+import EgovGalleryDetail from 'egov/inform/gallery/EgovGalleryDetail';
+import EgovGalleryCreate from 'egov/inform/gallery/EgovGalleryCreate';
 
 import EgovAdminScheduleList from 'egov/admin/schedule/EgovAdminScheduleList';
 import EgovAdminTemplateList from 'egov/admin/template/EgovAdminTemplateList';
@@ -105,14 +107,18 @@ class App extends Component {
           <Route path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
           
           <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
-          {/* <Route path={`${URL.INFORM_NOTICE_DETAIL}/:boardId`} component={EgovNoticeDetail} /> */}
           <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} />
           {/* <Route path={URL.INFORM_NOTICE_DETAIL} component={() => <EgovNoticeDetail/>} /> */}
           {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */} 
           <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeCreate mode="new"/>} />
           <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeCreate mode="edit"/>} />
           <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeCreate mode="reply"/>} />
-          <Route path={URL.INFORM_GALLERY} component={EgovGalleryList} />
+          
+          <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
+          <Route path={URL.INFORM_GALLERY_DETAIL} component={EgovGalleryDetail} />
+          <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryCreate mode="new"/>} />
+          <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryCreate mode="edit"/>} />
+          <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryCreate mode="reply"/>} />
           
           {/* ADMIN */}
           <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />

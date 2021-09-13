@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import { DEFAULT_BBS_ID } from 'context/config';
+import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'common/EgovPaging';
@@ -19,7 +19,7 @@ function EgovNoticeList(props) {
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
     });
-    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
     console.log("EgovNoticeList [query] : ", query);
 
     let [boardResult, setBoardResult] = useState({});

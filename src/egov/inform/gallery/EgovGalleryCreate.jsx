@@ -5,23 +5,23 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import { NOTICE_BBS_ID } from 'context/config';
+import { GALLERY_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'common/EgovAttachFile';
 
-function EgovNoticeCreate(props) {
+function EgovGalleryCreate(props) {
     console.log("------------------------------");
-    console.log("EgovNoticeCreate [props] : ", props);
+    console.log("EgovGalleryCreate [props] : ", props);
 
     let history = useHistory();
-    console.log("EgovNoticeCreate [history] : ", history);
+    console.log("EgovGalleryCreate [history] : ", history);
 
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true 
     });
-    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
-    console.log("EgovNoticeCreate [query] : ", query);
+    if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // default = 공지사항
+    console.log("EgovGalleryCreate [query] : ", query);
 
     let [boardResult, setBoardResult] = useState({});
     let [boardResultFiles, setBoardResultFiles] = useState();
@@ -108,7 +108,7 @@ function EgovNoticeCreate(props) {
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
             function (resp) {
-                console.log("[RESULT] /cop/bbs/selectBoardArticleAPI.do", resp);
+                console.log("===>>response : " , resp );
                 setBoardResult(resp);
                 if (resp.resultFiles !== undefined)
                     setBoardResultFiles(resp.resultFiles);
@@ -134,7 +134,7 @@ function EgovNoticeCreate(props) {
         console.log('boardInfo Changed.....');
     }, [boardInfo]);
 
-    console.groupEnd("EgovNoticeCreate");
+    console.groupEnd("EgovGalleryCreate");
 
     return (
         <div className="container">
@@ -227,4 +227,4 @@ function EgovNoticeCreate(props) {
     );
 }
 
-export default EgovNoticeCreate;
+export default EgovGalleryCreate;
