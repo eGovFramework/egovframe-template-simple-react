@@ -7,8 +7,8 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { NOTICE_BBS_ID } from 'context/config';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
-import EgovAttachFile from 'common/EgovAttachFile';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import EgovAttachFile from 'egov/common/EgovAttachFile';
 
 function EgovNoticeCreate(props) {
     console.log("------------------------------");

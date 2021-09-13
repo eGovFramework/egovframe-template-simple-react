@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import EgovLeftNav from 'common/EgovLeftNav';
+import EgovLeftNav from 'egov/common/EgovLeftNav';
 
 function EgovContainer() {
     return (

@@ -6,8 +6,8 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { GALLERY_BBS_ID } from 'context/config';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
-import EgovPaging from 'common/EgovPaging';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import EgovPaging from 'egov/common/EgovPaging';
 
 function EgovGalleryList(props) {
     console.log("------------------------------");
@@ -162,7 +162,7 @@ function EgovGalleryList(props) {
                                 <li className="third_2 R">
                                     <span className="f_search w_500">
                                         <input type="text" name="" value={searchCondition.searchWrd} placeholder=""
-                                            onChange={e => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })} />/>
+                                            onChange={e => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })} />
                                         <button type="button">조회</button>
                                     </span>
                                 </li>

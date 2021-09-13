@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
-import EgovPaging from 'common/EgovPaging';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import EgovPaging from 'egov/common/EgovPaging';
 
 function EgovWeeklyList() {
     console.log("EgovWeeklyList create");

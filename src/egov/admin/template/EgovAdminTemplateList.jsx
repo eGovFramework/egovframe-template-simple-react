@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'common/EgovPaging';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
+import EgovPaging from 'egov/common/EgovPaging';
 
 function EgovAdminTemplateList() {
     return (

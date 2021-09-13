@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import URL from 'context/url';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
-import EgovPaging from 'common/EgovPaging';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import EgovPaging from 'egov/common/EgovPaging';
 
 import * as EgovNet  from 'context/egovFetch';
 import { DEFAULT_BBS_ID } from 'context/config';

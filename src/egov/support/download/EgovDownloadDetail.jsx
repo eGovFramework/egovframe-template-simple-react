@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavSupport';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
 import URL from 'context/url';
 
 function EgovDownloadDetail() {

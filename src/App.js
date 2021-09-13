@@ -11,9 +11,9 @@ import './css/response.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import URL from './context/url';
 
-import EgovHeader from 'common/EgovHeader';
-import EgovFooter from 'common/EgovFooter';
-//import EgovContainer from 'common/EgovContainer';
+import EgovHeader from 'egov/common/EgovHeader';
+import EgovFooter from 'egov/common/EgovFooter';
+//import EgovContainer from 'egov/common/EgovContainer';
 
 import EgovMain from 'egov/main/EgovMain';
 import EgovLogin from 'egov/login/EgovLogin';
