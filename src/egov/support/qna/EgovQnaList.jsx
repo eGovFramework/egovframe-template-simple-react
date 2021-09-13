@@ -36,7 +36,7 @@ function EgovQnaList() {
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
-                                    <label className="f_select" for="search_select">
+                                    <label className="f_select" htmlfor="search_select">
                                         <select name="search_select" id="search_select">
                                             <option value="0" selected="selected">전체</option>
                                             <option value="1">제목</option>

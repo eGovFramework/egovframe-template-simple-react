@@ -67,12 +67,12 @@ class EgovHeader extends Component {
                         {loginInfo &&
                             <>
                                 <span className="person">{this.props.loginVO.name} </span> 님이, 관리자로 로그인하셨습니다.
-                                <Link href="" onClick={this.logInOutHandler} className="btn">로그아웃</Link>
+                                <Link to="" onClick={this.logInOutHandler} className="btn">로그아웃</Link>
                             </>
                         }
 
                         {!loginInfo &&
-                            <Link href="" onClick={this.logInOutHandler} className="btn login">로그인</Link>
+                            <Link to="" onClick={this.logInOutHandler} className="btn login">로그인</Link>
                         }
                         {/* <!-- case: login --> */}
                         {/*  <span className="person">관리자님,</span> 관리자로 로그인하셨습니다.
@@ -148,14 +148,14 @@ class EgovHeader extends Component {
                         {loginInfo &&
                             <>
                                 <span className="person">관리자님</span>이 로그인하셨습니다.
-                                <Link href="" onClick={this.logInOutHandler} className="btn logout">로그아웃</Link>
+                                <Link to="" onClick={this.logInOutHandler} className="btn logout">로그아웃</Link>
                             </>
                         }
                         {/* <!-- case: logout --> */}
                         {/* <!-- <Link to="" className="btn login">로그인</Link> --> */}
 
                         {!loginInfo &&
-                            <Link href="" onClick={this.logInOutHandler} className="btn login">로그인</Link>
+                            <Link to="" onClick={this.logInOutHandler} className="btn login">로그인</Link>
                         }
                         <button className="btn noscript close" type="button">전체메뉴 닫기</button>
                     </div>

@@ -3,8 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from 'context/url';
 
-function EgovLeftNav({match}) {
-    console.log("current match ", match);
+function EgovLeftNav() {
     return (
         <div className="nav">
             <div className="inner">

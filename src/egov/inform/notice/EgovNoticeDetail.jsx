@@ -1,38 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 import qs from 'qs';
+import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { DEFAULT_BBS_ID } from 'context/config';
-import * as EgovNet from 'context/egovFetch';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'common/EgovAttachFile';
 
-
 function EgovNoticeDetail(props) {
-    console.log("EgovNoticeDetail create");
+    console.log("------------------------------");
+    console.log("EgovNoticeDetail [props] : ", props);
+
+    let history = useHistory();
+    console.log("EgovNoticeDetail [history] : ", history);
+
+    const query = qs.parse(history.location.search, {
+        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
+    });
+    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    console.log("EgovNoticeDetail [query] : ", query);
 
     let [boardResult, setBoardResult] = useState();
     let [boardResultFiles, setBoardResultFiles] = useState();
     let [boardDetail, setBoardDetail] = useState({});
-
-    console.log('===>>> init EgovBoardDetailContent');
-    console.log("------------------------------");
-    console.log(props);
-    console.log("location = ", props.location);
-
-    const query = qs.parse(props.location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
-    });
-
-    console.log("query = ", query);
-    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
-
+    
     //componentDidMount (1회만)
     useEffect(function () {
-        console.log('===>>> useEffect ()');
-        console.log("===>>> board detail ");
         console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
         const requestOptions = {
             method: "POST",
@@ -41,23 +37,22 @@ function EgovNoticeDetail(props) {
             },
             body: JSON.stringify(query)
         }
-        console.log("@@@@requestOptions : ", requestOptions);
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
-            function (json) {
-                //console.log("===>>> board = " + JSON.stringify(json));
+            function (resp) {
+                //console.log("===>>> board = " + JSON.stringify(resp));
                 //console.log("*===>>> board = " + JSON.stringify(resultList));
-                setBoardResult(json);
-                setBoardDetail(json.result);
-                if (json.resultFiles !== undefined)
-                    setBoardResultFiles(json.resultFiles);
+                setBoardResult(resp);
+                setBoardDetail(resp.result);
+                if (resp.resultFiles !== undefined)
+                    setBoardResultFiles(resp.resultFiles);
                 // setDate("2021-05-11");
                 // console.log("===>>> date = " + _date);
                 // console.log("===>>> myStr = " + myStr);
-                console.log("===>>> json.sessionUniqId = " + json.sessionUniqId);
-                console.log("===>>> json.result = ", json.result);
-                console.log("===>>> json.brdMstrVO = ", json.brdMstrVO);
-                console.log("===>>> json.resultFiles = ", json.resultFiles);
+                console.log("===>>> resp.sessionUniqId = " + resp.sessionUniqId);
+                console.log("===>>> resp.result = ", resp.result);
+                console.log("===>>> resp.brdMstrVO = ", resp.brdMstrVO);
+                console.log("===>>> resp.resultFiles = ", resp.resultFiles);
 
             }
         );

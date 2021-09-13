@@ -33,7 +33,6 @@ import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 import EgovNoticeList from 'egov/inform/notice/EgovNoticeList';
 import EgovNoticeDetail from 'egov/inform/notice/EgovNoticeDetail';
 import EgovNoticeCreate from 'egov/inform/notice/EgovNoticeCreate';
-import EgovNoticeModify from 'egov/inform/notice/EgovNoticeModify';
 
 import EgovGalleryList from 'egov/inform/gallery/EgovGalleryList';
 
@@ -112,6 +111,7 @@ class App extends Component {
           {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */} 
           <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeCreate mode="new"/>} />
           <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeCreate mode="edit"/>} />
+          <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeCreate mode="reply"/>} />
           <Route path={URL.INFORM_GALLERY} component={EgovGalleryList} />
           
           {/* ADMIN */}

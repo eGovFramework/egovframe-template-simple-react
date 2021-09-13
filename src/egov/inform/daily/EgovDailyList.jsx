@@ -211,7 +211,7 @@ function EgovDailyList(props) {
 
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
-                            <EgovPaging location={props.location} pagination={paginationInfo}></EgovPaging>
+                            <EgovPaging pagination={paginationInfo}></EgovPaging>
                             {/* <!--/ Paging --> */}
                         </div>
 

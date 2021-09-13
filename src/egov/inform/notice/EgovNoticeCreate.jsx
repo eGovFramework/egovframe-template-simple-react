@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
+
 import qs from 'qs';
+import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { DEFAULT_BBS_ID } from 'context/config';
-import * as EgovNet from 'context/egovFetch';
 
 import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'common/EgovAttachFile';
 
 function EgovNoticeCreate(props) {
-    let [boardResult, setBoardResult] = useState({});
-    let [boardResultFiles, setBoardResultFiles] = useState();
-    let [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
-    let [boardInfo, setBoardInfo] = useState({});
-    
-    let history = useHistory();
-
-    console.log('===>>> init EgovBoardEditContent');
+    console.group("EgovNoticeCreate");
     console.log("------------------------------");
-    console.log(props);
-    console.log("location = ", history.location);
+    console.log("EgovNoticeCreate [props] : ", props);
+
+    let history = useHistory();
+    console.log("EgovNoticeCreate [history] : ", history);
 
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
     });
-    console.log("query = ", query);
-    if (query["bbsId"] == undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
+    console.log("EgovNoticeCreate [query] : ", query);
+
+    let [boardResult, setBoardResult] = useState({});
+    let [boardResultFiles, setBoardResultFiles] = useState();
+    let [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
+    let [boardInfo, setBoardInfo] = useState({});
 
     const onClickUpdate = () => {
-        console.log("===>>> update", query);
+        console.log("[func] onClickUpdate", query);
 
         const formData = new FormData();
         /*formData.append("file", data.file);
@@ -57,19 +58,20 @@ function EgovNoticeCreate(props) {
         formData.append("nttSj", "My-Subject");
         formData.append("nttCn", "MY-Content");
         */
-        console.log(typeof boardDetail);
-        console.log(boardDetail.nttSj);
+        console.log("typeof boardDetail : ", typeof boardDetail);
+        console.log("boardDetail", boardDetail);
 
         for (let key in boardDetail) {
             formData.append(key, boardDetail[key]);
-            console.log("===>>> boardDetail = ", key, boardDetail[key]);
+            console.log("====>>> boardDetail = ", key, boardDetail[key]);
         }
         formData.set("ntcrNm", "dummy");
         formData.set("password", "dummy");
         formData.set("ntceBgnde", "10000101");
         formData.set("ntceEndde", "99991231");
 
-        console.log("=== Required Field");
+        console.log("==== Required Field");
+        console.log("nttCn = " + boardDetail.nttSj);
         console.log("nttCn = " + boardDetail.nttCn);
         console.log("ntceBgnde = " + boardDetail.ntceBgnde);
         console.log("ntceEndde = " + boardDetail.ntceEndde);
@@ -83,20 +85,17 @@ function EgovNoticeCreate(props) {
             },
             body: formData
         }
-        console.log("===>>> processUrl = ", boardInfo.processUrl);
+        console.log("====>>> boardInfo = ", boardInfo);
+        console.log("====>>> processUrl = ", boardInfo.processUrl);
         EgovNet.requestFetch(boardInfo.processUrl,
             requestOptions,
-            function (json) {
-                console.log("OK");
-                console.log("===>>> board update= " + JSON.stringify(json));
-                // setDate("2021-05-11");
-                // console.log("===>>> date = " + _date);
-                // console.log("===>>> myStr = " + myStr);
-                if (json != undefined)
-                    if (json.resultCode == 0)
+            function (resp) {
+                console.log("====>>> board update= " , resp);
+                if (resp !== undefined)
+                    if (resp.resultCode === 0)
                         window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
                     else
-                        alert("ERR : " + json.resultMessage);
+                        alert("ERR : " + resp.resultMessage);
 
             }
         );
@@ -104,10 +103,8 @@ function EgovNoticeCreate(props) {
 
     //componentDidMount (1회만)
     useEffect(function () {
-        console.log('===>>> useEffect ()');
-        console.log("===>>> board detail ");
-        console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
-        console.log("===>>> props.mode = ", props.mode);
+        console.log('*====>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
+        console.log("====>>> props.mode = ", props.mode);
         switch (props.mode) {
             case 'edit':
                 setBoardInfo({
@@ -138,49 +135,44 @@ function EgovNoticeCreate(props) {
             },
             body: JSON.stringify(query)
         }
-        console.log("@@@@requestOptions : ", requestOptions);
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
-            function (json) {
-                //console.log("===>>> board = " + JSON.stringify(json));
-                //setResultList(json.resultList);
-                //console.log("*===>>> board = " + JSON.stringify(resultList));
-                setBoardResult(json);
-                if (json.resultFiles != undefined)
-                    setBoardResultFiles(json.resultFiles);
-                console.log("===>>> json.sessionUniqId = " + json.sessionUniqId);
-                console.log("===>>> json.result = ", json.result);
-                console.log("===>>> json.brdMstrVO = ", json.brdMstrVO);
-                console.log("===>>> json.resultFiles = ", json.resultFiles);
+            function (resp) {
+                //console.log("====>>> board = " + JSON.stringify(resp));
+                //setResultList(resp.resultList);
+                //console.log("*====>>> board = " + JSON.stringify(resultList));
+                setBoardResult(resp);
+                if (resp.resultFiles !== undefined)
+                    setBoardResultFiles(resp.resultFiles);
+                console.log("====>>> resp.sessionUniqId = " + resp.sessionUniqId);
+                console.log("====>>> resp.result = ", resp.result);
+                console.log("====>>> resp.brdMstrVO = ", resp.brdMstrVO);
+                console.log("====>>> resp.resultFiles = ", resp.resultFiles);
 
-                //var data = {...json.result,nttSj:"RE:"};
-                //console.log("===>>> data = ",data);
-
-                if (json.result != undefined) {
-                    if (props.mode == "reply") {
-                        setBoardDetail({ ...json.result, nttSj: "RE: " + json.result.nttSj, nttCn: "" });
+                console.log("typeof resp.result" , resp.result );
+                if (resp.result !== undefined && resp.result !== null) {
+                    if (props.mode === "reply") {
+                        setBoardDetail({ ...resp.result, nttSj: "RE: " + resp.result.nttSj, nttCn: "" });
                     } else {
-                        setBoardDetail(json.result);
+                        setBoardDetail(resp.result);
                     }
                 } else {
                     //신규 글 등록시
-                    setBoardDetail({ bbsId: query["bbsId"] });
+                    setBoardDetail({ bbsId: query["bbsId"], nttSj:"", nttCn:"" });
                 }
-                // setDate("2021-05-11");
-                // console.log("===>>> date = " + _date);
-                // console.log("===>>> myStr = " + myStr);
-
             }
         );
 
         return function () {
-            console.log('===>>> useEffect return (componentWillUnmount)');
+            console.log('====>>> useEffect return (componentWillUnmount)');
         }
     }, []);
 
     useEffect(function () {
-        console.log('===>>> ===>>> useEffect () - boardInfo');
+        console.log('====>>> ====>>> useEffect () - boardInfo');
     }, [boardInfo]);
+
+    console.groupEnd("EgovNoticeCreate");
 
     return (
         <div className="container">
@@ -208,40 +200,44 @@ function EgovNoticeCreate(props) {
                         </div>
 
                         <h2 className="tit_2">공지사항 {boardInfo.modeTitle}</h2>
+                        {/* <h2 className="tit_2">{boardInfo.bbsNm} {boardInfo.modeTitle}</h2> */}
 
                         <div className="board_view2">
                             <dl>
-                                <dt><label htmlFor="nttSj">제목<span className="req">필수</span></label></dt>
+                                <dt>
+                                    <label htmlFor="nttSj">제목<span className="req">필수</span></label>
+                                </dt>
                                 <dd>
-                                    <input className="f_input2 w_full" id="nttSj" name="nttSj" type="text" value={boardDetail.nttSj}
+                                    <input className="f_input2 w_full" id="nttSj" name="nttSj" type="text"
+                                        value={boardDetail.nttSj}
                                         onChange={e => setBoardDetail({ ...boardDetail, nttSj: e.target.value })}
                                         maxLength="60" />
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="nttCn">내용<span className="req">필수</span></label></dt>
+                                <dt><label htmlFor="nttCn">내용<span className="req">필수</span></label></dt>
                                 <dd>
                                     <textarea className="f_txtar w_full h_200" id="nttCn" name="nttCn" cols="30" rows="10" placeholder=""
-                                    value={boardDetail.nttCn}
-                                    onChange={e => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}></textarea>
+                                        value={boardDetail.nttCn}
+                                        onChange={e => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}></textarea>
                                 </dd>
                             </dl>
                             {/* <dl>
                                 <dt>파일첨부</dt>
                                 <dd>
                                     <input type="file" /> */}
-                                    <EgovAttachFile 
-                                    fnChangeFile={(_file) => {
-                                        console.log("===>>> file = ",_file);
-                                        setBoardDetail({...boardDetail,file_1:_file});
-                                    }}
-                                    fnDeleteFile={function(_resultFiles) {
-                                        console.log("===>>> resultFiles = ",_resultFiles);
-                                        setBoardResultFiles(_resultFiles);
-                                    }}
-                                    boardFiles={boardResultFiles}
-                                    mode={props.mode}/>
-                                {/* </dd>
+                            <EgovAttachFile
+                                fnChangeFile={(_file) => {
+                                    console.log("====>>> file = ", _file);
+                                    setBoardDetail({ ...boardDetail, file_1: _file });
+                                }}
+                                fnDeleteFile={function (_resultFiles) {
+                                    console.log("====>>> resultFiles = ", _resultFiles);
+                                    setBoardResultFiles(_resultFiles);
+                                }}
+                                boardFiles={boardResultFiles}
+                                mode={props.mode} />
+                            {/* </dd>
                             </dl> */}
 
                             {/* <!-- 버튼영역 --> */}

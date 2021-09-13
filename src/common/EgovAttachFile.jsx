@@ -4,6 +4,8 @@ import * as EgovNet from 'context/egovFetch';
 import { SERVER_URL } from 'context/config';
 
 function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
+    console.group("EgovAttachFile");
+
     function onClickDownFile(atchFileId, fileSn) {
         window.open(SERVER_URL + "/cmm/fms/FileDown.do?atchFileId=" + atchFileId + "&fileSn=" + fileSn + "");
     }
@@ -84,20 +86,8 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
         });
     }
     console.log("filesTag : ", filesTag);
-    // <dl>
-    //     <dt>첨부</dt>
-    //     <dd>
-    //         <span>
-    //             <Link to="">file_namefile_namefile_name.hwp</Link> <span>[3626] byte</span>
-    //         </span>
-    //         <span>
-    //             <Link to="">file_namefile_namefile_name.hwp</Link> <span>[3626] byte</span>
-    //         </span>
-    //     </dd>
-
-    // </dl>
-
-
+    console.groupEnd("EgovAttachFile");
+    
     return (
         <dl>
             <dt>첨부파일</dt>
