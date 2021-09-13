@@ -11,7 +11,6 @@ import { default as EgovLeftNav } from 'common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'common/EgovAttachFile';
 
 function EgovNoticeCreate(props) {
-    console.group("EgovNoticeCreate");
     console.log("------------------------------");
     console.log("EgovNoticeCreate [props] : ", props);
 
@@ -31,36 +30,8 @@ function EgovNoticeCreate(props) {
 
     const onClickUpdate = () => {
         console.log("[func] onClickUpdate", query);
-
-        const formData = new FormData();
-        /*formData.append("file", data.file);
-        formData.append(
-          "key",
-          new Blob([JSON.stringify(data.info)], { type: "application/json" })
-        );*/
-        /*
-        formData.append("pageIndex", "1");
-        formData.append("returnUrl", "/sht_webapp/cop/bbs/forUpdateBoardArticle.do");
-        formData.append("bbsId", "BBSMSTR_AAAAAAAAAAAA");
-        formData.append("nttId", "5");
-        formData.append("bbsAttrbCode", "1BBSA03");
-        formData.append("posblAtchFileNumber", "2");
-        formData.append("bbsTyCode", "BBST03");
-        formData.append("replyPosblAt", "Y");
-        formData.append("fileAtchPosblAt", "Y");
-        formData.append("posblAtchFileSize", "5242880");
-        formData.append("tmplatId", "TMPLAT_BOARD_DEFAULT");
-        formData.append("cal_url", "/sht_webapp/sym/cmm/EgovNormalCalPopup.do");
-        formData.append("ntcrNm", "dummy");
-        formData.append("password", "dummy");
-        formData.append("ntceBgnde", "10000101");
-        formData.append("ntceEndde", "99991231");
-        formData.append("nttSj", "My-Subject");
-        formData.append("nttCn", "MY-Content");
-        */
-        console.log("typeof boardDetail : ", typeof boardDetail);
         console.log("boardDetail", boardDetail);
-
+        const formData = new FormData();
         for (let key in boardDetail) {
             formData.append(key, boardDetail[key]);
             console.log("====>>> boardDetail = ", key, boardDetail[key]);
@@ -86,7 +57,6 @@ function EgovNoticeCreate(props) {
             body: formData
         }
         console.log("====>>> boardInfo = ", boardInfo);
-        console.log("====>>> processUrl = ", boardInfo.processUrl);
         EgovNet.requestFetch(boardInfo.processUrl,
             requestOptions,
             function (resp) {
@@ -138,18 +108,10 @@ function EgovNoticeCreate(props) {
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
             function (resp) {
-                //console.log("====>>> board = " + JSON.stringify(resp));
-                //setResultList(resp.resultList);
-                //console.log("*====>>> board = " + JSON.stringify(resultList));
+                console.log("===>>response : " , resp );
                 setBoardResult(resp);
                 if (resp.resultFiles !== undefined)
                     setBoardResultFiles(resp.resultFiles);
-                console.log("====>>> resp.sessionUniqId = " + resp.sessionUniqId);
-                console.log("====>>> resp.result = ", resp.result);
-                console.log("====>>> resp.brdMstrVO = ", resp.brdMstrVO);
-                console.log("====>>> resp.resultFiles = ", resp.resultFiles);
-
-                console.log("typeof resp.result" , resp.result );
                 if (resp.result !== undefined && resp.result !== null) {
                     if (props.mode === "reply") {
                         setBoardDetail({ ...resp.result, nttSj: "RE: " + resp.result.nttSj, nttCn: "" });
@@ -169,7 +131,7 @@ function EgovNoticeCreate(props) {
     }, []);
 
     useEffect(function () {
-        console.log('====>>> ====>>> useEffect () - boardInfo');
+        console.log('boardInfo Changed.....');
     }, [boardInfo]);
 
     console.groupEnd("EgovNoticeCreate");

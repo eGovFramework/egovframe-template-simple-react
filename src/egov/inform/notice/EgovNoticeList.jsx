@@ -55,9 +55,6 @@ function EgovNoticeList(props) {
             function (resp) {
                 console.log("[RESULT] /cop/bbs/selectBoardListAPI.do", resp);
 
-                // console.log("===>>> resp.resultList length = " + resp.resultList.length);
-                // console.log("===>>> resp.paginationInfo = " + JSON.stringify(resp.paginationInfo));
-
                 setBoardResult(resp);
                 setPaginationInfo(resp.paginationInfo);
 
@@ -70,12 +67,8 @@ function EgovNoticeList(props) {
 
                 // 리스트 항목 구성
                 resp.resultList.forEach(function (item, index) {
-                    // console.log('@@@@boardItem =', item);
-                    //${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}
                     if (index === 0) listTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
-                    // console.log("@@ currentPageNo = %i , pageSize = %i , listIdx = %i", currentPageNo, pageSize, listIdx);
-                    // console.log("===> replyLc = ", item.replyLc);
 
                     const queryString = qs.stringify({
                         nttId: item.nttId,
@@ -85,20 +78,7 @@ function EgovNoticeList(props) {
                         addQueryPrefix: true });
 
                     listTag.push(
-                        <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" 
-                        // onClick={
-                        //     () => {
-                        //         const queryString = qs.stringify({
-                        //             nttId: item.nttId,
-                        //             bbsId: item.bbsId,
-                        //             pageIndex: currentPageNo
-                        //         },
-                        //             { addQueryPrefix: true });
-
-                        //         window.location.href = URL.INFORM_NOTICE_DETAIL + queryString;
-                        //     }
-                        //}
-                        >
+                        <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
                                 <><div className="al reply">
