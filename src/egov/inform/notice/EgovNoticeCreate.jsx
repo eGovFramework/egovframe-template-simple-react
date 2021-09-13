@@ -18,7 +18,7 @@ function EgovNoticeCreate(props) {
     console.log("EgovNoticeCreate [history] : ", history);
 
     const query = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
+        ignoreQueryPrefix: true 
     });
     if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
     console.log("EgovNoticeCreate [query] : ", query);

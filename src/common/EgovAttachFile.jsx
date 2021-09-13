@@ -12,10 +12,11 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
 
     function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
         console.log("onClickDeleteFile Params : ", atchFileId, fileSn, fileIndex);
+        
         const formData = new FormData();
         formData.set("atchFileId", atchFileId);
         formData.set("fileSn", fileSn);
-        console.log(atchFileId, fileSn, fileIndex);
+        
         const requestOptions = {
             method: "POST",
             headers: {
@@ -73,13 +74,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
                         <button className="btn btn_delete" onClick={(e) => {
                             onClickDeleteFile(item.atchFileId, item.fileSn, index);
                         }}>delete</button>
-                        
                     </>
-                    // <img alt="파일 삭제" src="/assets/images/btn/bu5_close.gif" width="19" height="18"
-                    //     onClick={(e) => {
-                    //         onClickDeleteFile(item.atchFileId, item.fileSn, index);
-                    //     }}
-                    // />
                 );
             }
             filesTag.push(<br/>);

@@ -18,7 +18,7 @@ function EgovNoticeDetail(props) {
     console.log("EgovNoticeDetail [history] : ", history);
 
     const query = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
+        ignoreQueryPrefix: true
     });
     if (query["bbsId"] === undefined) query["bbsId"] = DEFAULT_BBS_ID; // default = 공지사항
     console.log("EgovNoticeDetail [query] : ", query);
@@ -26,7 +26,35 @@ function EgovNoticeDetail(props) {
     let [boardResult, setBoardResult] = useState();
     let [boardResultFiles, setBoardResultFiles] = useState();
     let [boardDetail, setBoardDetail] = useState({});
-    
+
+    const onClickDeleteBoardArticle = (bbsId, nttId) => {
+        console.log("bbsId, nttId : ",bbsId, nttId);
+        
+        const formData = new FormData();
+        formData.set("bbsId", bbsId);
+        formData.set("nttId", nttId);
+        
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                //'Content-type': 'multipart/form-data'
+            },
+            body: formData
+        }
+
+        EgovNet.requestFetch("/cop/bbs/deleteBoardArticleAPI.do",
+            requestOptions,
+            function (resp) {
+                console.log("====>>> board delete= ", resp);
+                if (resp !== undefined)
+                    if (resp.resultCode === 200)
+                        window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
+                    else
+                        alert("ERR : " + resp.resultMessage);
+
+            }
+        );
+    }
     //componentDidMount (1회만)
     useEffect(function () {
         console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
@@ -40,15 +68,10 @@ function EgovNoticeDetail(props) {
         EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
             requestOptions,
             function (resp) {
-                //console.log("===>>> board = " + JSON.stringify(resp));
-                //console.log("*===>>> board = " + JSON.stringify(resultList));
                 setBoardResult(resp);
                 setBoardDetail(resp.result);
                 if (resp.resultFiles !== undefined)
                     setBoardResultFiles(resp.resultFiles);
-                // setDate("2021-05-11");
-                // console.log("===>>> date = " + _date);
-                // console.log("===>>> myStr = " + myStr);
                 console.log("===>>> resp.sessionUniqId = " + resp.sessionUniqId);
                 console.log("===>>> resp.result = ", resp.result);
                 console.log("===>>> resp.brdMstrVO = ", resp.brdMstrVO);
@@ -121,12 +144,15 @@ function EgovNoticeDetail(props) {
                             <div className="board_attach">
                                 <EgovAttachFile boardFiles={boardResultFiles} />
                             </div>
-                            
+
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
                                     <Link to={URL.INFORM_NOTICE_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link>
-                                    <Link to="" className="btn btn_skyblue_h46 w_100">삭제</Link>
+                                    <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                        e.preventDefault();
+                                        onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
+                                    }}>삭제</a>
                                     <Link to={URL.INFORM_NOTICE_REPLY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                 </div>
 
