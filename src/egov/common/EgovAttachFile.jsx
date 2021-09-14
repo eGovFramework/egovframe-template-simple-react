@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as EgovNet from 'context/egovFetch';
 import { SERVER_URL } from 'context/config';
+import CODE from 'context/code';
 
 function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
     console.group("EgovAttachFile");
@@ -29,7 +30,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
             function (json) {
                 console.log("===>>> board file delete= " , json);
                 if (json !== undefined)
-                    if (json.resultCode === 200) {
+                    if (json.resultCode === CODE.SUCCESS) {
                         // 성공
                         console.log("OK fileIndex = " , fileIndex);
                         debugger;

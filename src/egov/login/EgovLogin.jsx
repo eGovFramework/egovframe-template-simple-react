@@ -30,10 +30,10 @@ class EgovLogin extends Component {
                         <EgovLoginContent
                             onChangeLogin={
                                 function (_loginVO) {
-                                    console.log("EgovLogin is = " + _loginVO);
+                                    console.log("EgovLogin is = " , _loginVO);
                                     this.setState(_loginVO);
                                     this.props.onChangeLogin(_loginVO);
-                                    console.log("EgovLogin JSON = " + JSON.stringify(this.state.loginVO));
+                                    console.log("EgovLogin JSON = ", this.state.loginVO);
                                 }.bind(this)}></EgovLoginContent>
                     </div>
                 </div>

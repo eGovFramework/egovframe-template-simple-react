@@ -74,8 +74,9 @@ function EgovNoticeList(props) {
                         nttId: item.nttId,
                         bbsId: item.bbsId,
                         pageIndex: currentPageNo
-                    },{ 
-                        addQueryPrefix: true });
+                    }, {
+                        addQueryPrefix: true
+                    });
 
                     listTag.push(
                         <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >

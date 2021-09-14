@@ -5,34 +5,30 @@ import qs from 'qs';
 
 function EgovPaging(props) {
     console.group("EgovPaging");
-    console.log("  EgovPaging [props] : ", props);
+    console.log("EgovPaging [props] : ", props);
     let history = useHistory();
-    console.log("  EgovPaging [history] ", history);
-
+    console.log("EgovPaging [history] ", history);
 
     // const query = qs.parse(props.location.search, {
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
 
-    console.log("  EgovPaging [query] = ", query);
+    console.log("EgovPaging [query] = ", query);
 
     let paginationTag = [];
-    //let queryString;
 
     const getQueryString = (query, pageIndex) => {
         query["pageIndex"] = pageIndex;
         const queryString = qs.stringify(query, { addQueryPrefix: true });
-        console.log("  pageIndex = %i , queryString = ", pageIndex, queryString);
-
         return queryString;
     }
 
     if (props.pagination === undefined) {
-        console.log("  EgovPagination > pagination NULL");
+        console.log("EgovPaging > pagination NULL");
         paginationTag = "-";
     } else {
-        console.log("  EgovPagination > pagination = ", props.pagination);
+        console.log("EgovPaging > pagination = ", props.pagination);
 
         const currentPageNo = props.pagination.currentPageNo;
         const pageSize = props.pagination.pageSize;
@@ -60,7 +56,6 @@ function EgovPaging(props) {
         }
 
         for (let i = currentFirstPage; i <= currentLastPage; i++) {
-            console.log("  ===>>> count i = " + i)
             if (i === currentPageNo) {
                 // 현재 페이지
                 // const currentPage = <li key={i}><strong>{i}</strong></li>;
@@ -79,17 +74,18 @@ function EgovPaging(props) {
             // 다음 페이지 이동
             const nextPageIndex = (currentLastPage + 1 < totalPageCount) ? currentLastPage + 1 : totalPageCount;
             //const nextPageTag = <li key="np">&#160;<a href={getQueryString(query,nextPageIndex)} onclick=""><img src="/images/board/icon_next.gif" alt="다음" border="0" /></a></li>;
-            const nextPageTag = <li key="np" className="btn"><a href={getQueryString(query, nextPageIndex)} onclick="" className="next">다음</a></li>;
+            const nextPageTag = <li key="np" className="btn"><a href={getQueryString(query, nextPageIndex)} onClick="" className="next">다음</a></li>;
             // <li className="btn"><Link to="" className="next">다음</Link></li>
             paginationTag.push(nextPageTag);
             // 마지막 페이지 이동
-            const lastPageTag = <li key="lp" className="btn"><a href={getQueryString(query, totalPageCount)} onclick="" className="last"></a></li>;
+            const lastPageTag = <li key="lp" className="btn"><a href={getQueryString(query, totalPageCount)} onClick="" className="last"></a></li>;
             //<li className="btn"><Link to="" className="last">마지막</Link></li>
             paginationTag.push(lastPageTag);
         }
     }
-    console.log(paginationTag);
+    console.log("paginationTag", paginationTag);
     console.groupEnd("EgovPaging");
+
     return (
         <div className="paging">
             <ul>

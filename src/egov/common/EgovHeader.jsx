@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
 
 import URL from 'context/url';
-
+import CODE from 'context/code';
 
 class EgovHeader extends Component {
     constructor(props) {
@@ -15,23 +15,24 @@ class EgovHeader extends Component {
     logInOutHandler(e) {
         e.preventDefault();
         console.log("로그인/로그아웃 클릭!!!");
+        console.log("this.props.loginVO : ",this.props.loginVO);
+        
+        // 로그인 정보 없을 시
         if (this.props.loginVO === null) {
-            window.location.href = "/login";
+            window.location.href = URL.LOGIN;
             return;
         }
 
         const requestOptions = {
             credentials : 'include',
         }
-
         EgovNet.requestFetch('/uat/uia/actionLogoutAPI.do', requestOptions,
-            function (json) {
-                console.log("===>>> logout = " + JSON.stringify(json));
-                console.log("===>>> logout = " + json.resultCode);
-                if (json.resultCode === 0) {
+            function (resp) {
+                console.log("===>>> logout resp= " , resp);
+                if (resp.resultCode == CODE.SUCCESS) {
                     this.props.onChangeLogin({ loginVO: null });
                     window.alert("로그아웃되었습니다!");
-                    window.location.href = "/";
+                    window.location.href = URL.MAIN;
                 }
             }.bind(this)
         );

@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
+import CODE from 'context/code';
 import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
@@ -47,7 +48,7 @@ function EgovNoticeDetail(props) {
             function (resp) {
                 console.log("====>>> board delete= ", resp);
                 if (resp !== undefined)
-                    if (resp.resultCode === 200)
+                    if (resp.resultCode === CODE.SUCCESS)
                         window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
                     else
                         alert("ERR : " + resp.resultMessage);

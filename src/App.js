@@ -67,7 +67,7 @@ class App extends Component {
           onChangeLogin={function (_loginVO) {
             console.log(_loginVO);
             this.setState(_loginVO);
-            console.log("app = " + JSON.stringify(this.state.loginVO));
+            console.log("app EgovHeader = " ,this.state.loginVO);
           }.bind(this)}></EgovHeader>
         <Switch>
           {/* MAIN */}
@@ -78,9 +78,9 @@ class App extends Component {
           {/* LOGIN */}
           <Route path={URL.LOGIN}>
             <EgovLogin onChangeLogin={function (_loginVO) {
-              console.log("App is " + _loginVO);
+              console.log("App isEgovLogin _loginVO= " , _loginVO);
               this.setState(_loginVO);
-              console.log("app = " + JSON.stringify(this.state.loginVO));
+              console.log("app EgovLogin= " , this.state.loginVO);
             }.bind(this)}></EgovLogin>
           </Route>
           

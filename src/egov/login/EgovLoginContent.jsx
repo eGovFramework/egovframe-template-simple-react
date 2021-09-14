@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SERVER_URL } from 'context/config';
+
+import CODE from 'context/code';
 //import * as EgovNet from 'context/egovFetch';
 
 class EgovLoginContent extends Component {
@@ -42,21 +44,21 @@ class EgovLoginContent extends Component {
             })
         }
 
-        console.log("requestOptions.body : ",requestOptions.body);
+        console.log("requestOptions.body : ", requestOptions.body);
         fetch(SERVER_URL + '/uat/uia/actionLoginAPI.do', requestOptions)
             .then(function (response) {
-                console.log("===>>> response = "+response);
-                console.log("===>>> response.headers = "+response.headers);
+                console.log("===>>> response = ", response);
+                console.log("===>>> response.headers = ", response.headers);
                 //console.log("===>>> json 1 = "+response.json());
                 return response.json();
             })
             .then(function (json) {
-                console.log("===>>> json = " + JSON.stringify(json));
+                console.log("===>>> json = " ,json);
                 
                 var resultVO = json.resultVO;
                 var resultCode = json.resultCode;
-                console.log("===>>> json = " + JSON.stringify(resultVO));
-                if(resultCode === '200'){
+
+                if(resultCode === CODE.SUCCESS){
                     this.setState({ loginVO: resultVO });
                     this.props.onChangeLogin({ loginVO: resultVO });
                     this.props.history.push('/');

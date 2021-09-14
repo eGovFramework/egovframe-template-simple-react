@@ -1,56 +1,56 @@
 
 const URL = {
-    MAIN                  : "/", //메인페이지   
+    MAIN                        : "/", //메인페이지   
     
-    LOGIN                 : "/login", //로그인
+    LOGIN                       : "/login", //로그인
     
-    ABOUT                 : "/about", //사이트소개   
-    ABOUT_SITE            : "/about/site", // 사이트소개/소개
-    ABOUT_HISTORY         : "/about/history", // 사이트소개/연혁
-    ABOUT_GROUP           : "/about/group", // 사이트소개/조직소개
-    ABOUT_LOCATION        : "/about/location", // 사이트소개/찾아오시는길
+    ABOUT                       : "/about", //사이트소개   
+    ABOUT_SITE                  : "/about/site", // 사이트소개/소개
+    ABOUT_HISTORY               : "/about/history", // 사이트소개/연혁
+    ABOUT_GROUP                 : "/about/group", // 사이트소개/조직소개
+    ABOUT_LOCATION              : "/about/location", // 사이트소개/찾아오시는길
     
-    INTRO                  : "/intro", //정보마당
-    INTRO_WORKS            : "/intro/works", // 정보마당/주요사업소개
-    INTRO_SERVICE          : "/intro/service", // 정보마당/주요서비스소개
+    INTRO                       : "/intro", //정보마당
+    INTRO_WORKS                 : "/intro/works", // 정보마당/주요사업소개
+    INTRO_SERVICE               : "/intro/service", // 정보마당/주요서비스소개
     
-    SUPPORT                 : "/support", // 고객지원
-    SUPPORT_DOWNLOAD        : "/support/download", // 고객지원/자료실
-    SUPPORT_DOWNLOAD_DETAIL : "/support/download/detail", // 고객지원/자료실/상세
-    SUPPORT_DOWNLOAD_CREATE : "/support/download/create", // 고객지원/자료실/등록
-    SUPPORT_QNA             : "/support/qna", // 고객지원/묻고답하기
-    SUPPORT_QNA_DETAIL      : "/support/qna/detail", // 고객지원/묻고답하기/상세
-    SUPPORT_APPLY           : "/support/apply", // 고객지원/서비스신청
+    SUPPORT                     : "/support", // 고객지원
+    SUPPORT_DOWNLOAD            : "/support/download", // 고객지원/자료실
+    SUPPORT_DOWNLOAD_DETAIL     : "/support/download/detail", // 고객지원/자료실/상세
+    SUPPORT_DOWNLOAD_CREATE     : "/support/download/create", // 고객지원/자료실/등록
+    SUPPORT_QNA                 : "/support/qna", // 고객지원/묻고답하기
+    SUPPORT_QNA_DETAIL          : "/support/qna/detail", // 고객지원/묻고답하기/상세
+    SUPPORT_APPLY               : "/support/apply", // 고객지원/서비스신청
     
-    INFORM                : "/inform", // 알림마당 
-    INFORM_DAILY          : "/inform/daily", // 알림마당/오늘의행사
-    INFORM_WEEKLY         : "/inform/weekly", // 알림마당/금주의행사
-    INFORM_NOTICE         : "/inform/notice", // 알림마당/공지사항
-    INFORM_NOTICE_DETAIL  : "/inform/notice/detail", // 알림마당/공지사항상세
-    INFORM_NOTICE_CREATE  : "/inform/notice/create", // 알림마당/공지사항등록
-    INFORM_NOTICE_MODIFY  : "/inform/notice/modify", // 알림마당/공지사항수정
-    INFORM_NOTICE_REPLY   : "/inform/notice/reply", // 알림마당/공지사항답글
-    INFORM_GALLERY        : "/inform/gallery", // 알림마당/사이트갤러리
-    INFORM_GALLERY_DETAIL : "/inform/gallery/detail", // 알림마당/사이트갤러리상세
-    INFORM_GALLERY_CREATE : "/inform/gallery/create", // 알림마당/사이트갤러리등록
-    INFORM_GALLERY_MODIFY : "/inform/gallery/modify", // 알림마당/사이트갤러리수정
-    INFORM_GALLERY_REPLY  : "/inform/gallery/reply", // 알림마당/사이트갤러리답글
+    INFORM                      : "/inform", // 알림마당 
+    INFORM_DAILY                : "/inform/daily", // 알림마당/오늘의행사
+    INFORM_WEEKLY               : "/inform/weekly", // 알림마당/금주의행사
+    INFORM_NOTICE               : "/inform/notice", // 알림마당/공지사항
+    INFORM_NOTICE_DETAIL        : "/inform/notice/detail", // 알림마당/공지사항상세
+    INFORM_NOTICE_CREATE        : "/inform/notice/create", // 알림마당/공지사항등록
+    INFORM_NOTICE_MODIFY        : "/inform/notice/modify", // 알림마당/공지사항수정
+    INFORM_NOTICE_REPLY         : "/inform/notice/reply", // 알림마당/공지사항답글
+    INFORM_GALLERY              : "/inform/gallery", // 알림마당/사이트갤러리
+    INFORM_GALLERY_DETAIL       : "/inform/gallery/detail", // 알림마당/사이트갤러리상세
+    INFORM_GALLERY_CREATE       : "/inform/gallery/create", // 알림마당/사이트갤러리등록
+    INFORM_GALLERY_MODIFY       : "/inform/gallery/modify", // 알림마당/사이트갤러리수정
+    INFORM_GALLERY_REPLY        : "/inform/gallery/reply", // 알림마당/사이트갤러리답글
     
-    ADMIN                 : "/admin", // 사이트관리
-    ADMIN_SCHEDULE        : "/admin/schedule", // 사이트관리/일정관리
-    ADMIN_TEMPLATE        : "/admin/template", // 사이트관리/게시판템플릿관리
-    ADMIN_BOARD           : "/admin/board", // 사이트관리/게시판생성관리
-    ADMIN_USAGE           : "/admin/usage", // 사이트관리/게시판사용관리
-    ADMIN_NOTICE          : "/admin/notice", // 사이트관리/공지사항관리
-    ADMIN_GALLERY         : "/admin/gallery", // 사이트관리/사이트갤러리관리
+    ADMIN                       : "/admin", // 사이트관리
+    ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
+    ADMIN_TEMPLATE              : "/admin/template", // 사이트관리/게시판템플릿관리
+    ADMIN_BOARD                 : "/admin/board", // 사이트관리/게시판생성관리
+    ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리
+    ADMIN_NOTICE                : "/admin/notice", // 사이트관리/공지사항관리
+    ADMIN_GALLERY               : "/admin/gallery", // 사이트관리/사이트갤러리관리
     
-    ADMIN_BOARD_DETAIL    : "/admin/board/detail", // 사이트관리/게시판생성관리상세
-    ADMIN_BOARD_CREATE    : "/admin/board/create", // 사이트관리/게시판생성관리생성
-    ADMIN_BOARD_MODIFY    : "/admin/board/modify", // 사이트관리/게시판생성관리수정
+    ADMIN_BOARD_DETAIL          : "/admin/board/detail", // 사이트관리/게시판생성관리상세
+    ADMIN_BOARD_CREATE          : "/admin/board/create", // 사이트관리/게시판생성관리생성
+    ADMIN_BOARD_MODIFY          : "/admin/board/modify", // 사이트관리/게시판생성관리수정
     
-    ADMIN_NOTICE_DETAIL   : "/admin/notice/detail", // 사이트관리/공지사항관리상세
-    ADMIN_NOTICE_CREATE   : "/admin/notice/create", // 사이트관리/공지사항관리생성
-    ADMIN_NOTICE_MODIFY   : "/admin/notice/modify", // 사이트관리/공지사항관리수정
+    ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리상세
+    ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리생성
+    ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리수정
     
 
     /* 삭제대상 */
