@@ -22,10 +22,10 @@ function EgovNoticeList(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
     console.log("EgovNoticeList [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState({});
-    let [paginationInfo, setPaginationInfo] = useState();
-    let [listTag, setListTag] = useState();
-    let [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
+    const [boardResult, setBoardResult] = useState({});
+    const [paginationInfo, setPaginationInfo] = useState();
+    const [listTag, setListTag] = useState();
+    const [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
 
     const onClickSearch = () => {
         console.log("[func] onClickSearch");

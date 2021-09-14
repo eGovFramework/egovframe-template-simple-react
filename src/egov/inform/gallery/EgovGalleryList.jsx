@@ -22,10 +22,10 @@ function EgovGalleryList(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // 갤러리 게시판 URL
     console.log("EgovGalleryList [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState({});
-    let [paginationInfo, setPaginationInfo] = useState();
-    let [listTag, setListTag] = useState();
-    let [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
+    const [boardResult, setBoardResult] = useState({});
+    const [paginationInfo, setPaginationInfo] = useState();
+    const [listTag, setListTag] = useState();
+    const [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
 
     const onClickSearch = () => {
         console.log("[func] onClickSearch");
@@ -105,7 +105,7 @@ function EgovGalleryList(props) {
 
     //componentDidMount (1회만)
     useEffect(function () {
-        console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
+        console.log('*===>>> useEffect (componentDidMount)');
 
         searchList(query);
         return function () {
@@ -163,7 +163,8 @@ function EgovGalleryList(props) {
                                     <span className="f_search w_500">
                                         <input type="text" name="" value={searchCondition.searchWrd} placeholder=""
                                             onChange={e => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })} />
-                                        <button type="button">조회</button>
+                                        <button type="button"
+                                            onClick={onClickSearch}>조회</button>
                                     </span>
                                 </li>
                                 <li>
