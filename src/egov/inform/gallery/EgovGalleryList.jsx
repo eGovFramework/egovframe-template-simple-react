@@ -20,7 +20,7 @@ function EgovGalleryList(props) {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
     });
     if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // 갤러리 게시판 URL
-    console.log("EgovNoticeList [query] : ", query);
+    console.log("EgovGalleryList [query] : ", query);
 
     let [boardResult, setBoardResult] = useState({});
     let [paginationInfo, setPaginationInfo] = useState();

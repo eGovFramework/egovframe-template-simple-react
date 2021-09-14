@@ -9,6 +9,7 @@ import { GALLERY_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import EgovImageGallery from 'egov/common/EgovImageGallery';
 
 function EgovGalleryDetail(props) {
     console.log("------------------------------");
@@ -23,9 +24,9 @@ function EgovGalleryDetail(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // default = 공지사항
     console.log("EgovGalleryDetail [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState();
-    let [boardResultFiles, setBoardResultFiles] = useState();
-    let [boardDetail, setBoardDetail] = useState({});
+    const [boardResult, setBoardResult] = useState({});
+    const [boardResultFiles, setBoardResultFiles] = useState();
+    const [boardDetail, setBoardDetail] = useState({});
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
         console.log("bbsId, nttId : ",bbsId, nttId);
@@ -100,7 +101,8 @@ function EgovGalleryDetail(props) {
                     <ul>
                         <li><Link to="" className="home">Home</Link></li>
                         <li><Link to="">알림마당</Link></li>
-                        <li>공지사항</li>
+                        <li>{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm} </li>
+                        {/* brdMstrVO */}
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -117,7 +119,7 @@ function EgovGalleryDetail(props) {
                             <h1 className="tit_1">알림마당</h1>
                         </div>
 
-                        <h2 className="tit_2">공지사항</h2>
+                        <h2 className="tit_2">{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</h2>
 
                         {/* <!-- 게시판 상세보기 --> */}
                         <div className="board_view">
@@ -142,9 +144,9 @@ function EgovGalleryDetail(props) {
                             <div className="board_article">
                                 <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail.nttCn}></textarea>
                             </div>
-                            <div className="board_attach_img">
-                                <img src="" alt=""/><br/>
-                            </div>
+                            
+                            <EgovImageGallery boardFiles={boardResultFiles}/>
+                            
                             <div className="board_attach">
                                 <EgovAttachFile boardFiles={boardResultFiles} />
                             </div>

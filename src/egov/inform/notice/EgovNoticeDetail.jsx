@@ -23,9 +23,9 @@ function EgovNoticeDetail(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
     console.log("EgovNoticeDetail [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState();
-    let [boardResultFiles, setBoardResultFiles] = useState();
-    let [boardDetail, setBoardDetail] = useState({});
+    const [boardResult, setBoardResult] = useState({});
+    const [boardResultFiles, setBoardResultFiles] = useState();
+    const [boardDetail, setBoardDetail] = useState({});
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
         console.log("bbsId, nttId : ",bbsId, nttId);

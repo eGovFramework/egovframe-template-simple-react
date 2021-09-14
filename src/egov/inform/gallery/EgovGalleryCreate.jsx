@@ -23,10 +23,10 @@ function EgovGalleryCreate(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // default = 공지사항
     console.log("EgovGalleryCreate [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState({});
-    let [boardResultFiles, setBoardResultFiles] = useState();
-    let [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
-    let [boardInfo, setBoardInfo] = useState({});
+    const [boardResult, setBoardResult] = useState({});
+    const [boardResultFiles, setBoardResultFiles] = useState();
+    const [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
+    const [boardInfo, setBoardInfo] = useState({});
 
     const onClickUpdate = () => {
         console.log("[func] onClickUpdate", query);
@@ -63,7 +63,7 @@ function EgovGalleryCreate(props) {
                 console.log("====>>> board update= " , resp);
                 if (resp !== undefined)
                     if (resp.resultCode === 0)
-                        window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
+                        window.location.href = URL.INFORM_GALLERY + qs.stringify(query, { addQueryPrefix: true });
                     else
                         alert("ERR : " + resp.resultMessage);
 
@@ -154,14 +154,14 @@ function EgovGalleryCreate(props) {
                     <EgovLeftNav></EgovLeftNav>
                     {/* <!--// Navigation --> */}
 
-                    <div className="contents NOTICE_LIST" id="contents">
+                    <div className="contents SITE_GALLARY_VIEW" id="contents">
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
                             <h1 className="tit_1">알림마당</h1>
                         </div>
 
-                        <h2 className="tit_2">공지사항 {boardInfo.modeTitle}</h2>
+                        <h2 className="tit_2">{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm} {boardInfo.modeTitle}</h2>
                         {/* <h2 className="tit_2">{boardInfo.bbsNm} {boardInfo.modeTitle}</h2> */}
 
                         <div className="board_view2">
@@ -212,7 +212,7 @@ function EgovGalleryCreate(props) {
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href={URL.INFORM_NOTICE} className="btn btn_blue_h46 w_100">목록</a>
+                                    <a href={URL.INFORM_GALLERY} className="btn btn_blue_h46 w_100">목록</a>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}

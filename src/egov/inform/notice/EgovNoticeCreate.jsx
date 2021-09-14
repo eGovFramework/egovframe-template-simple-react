@@ -23,10 +23,10 @@ function EgovNoticeCreate(props) {
     if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
     console.log("EgovNoticeCreate [query] : ", query);
 
-    let [boardResult, setBoardResult] = useState({});
-    let [boardResultFiles, setBoardResultFiles] = useState();
-    let [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
-    let [boardInfo, setBoardInfo] = useState({});
+    const [boardResult, setBoardResult] = useState({});
+    const [boardResultFiles, setBoardResultFiles] = useState();
+    const [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
+    const [boardInfo, setBoardInfo] = useState({});
 
     const onClickUpdate = () => {
         console.log("[func] onClickUpdate", query);
@@ -144,7 +144,7 @@ function EgovNoticeCreate(props) {
                     <ul>
                         <li><Link to="" className="home">Home</Link></li>
                         <li><Link to="">알림마당</Link></li>
-                        <li>공지사항</li>
+                        <li>{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</li>
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -161,7 +161,7 @@ function EgovNoticeCreate(props) {
                             <h1 className="tit_1">알림마당</h1>
                         </div>
 
-                        <h2 className="tit_2">공지사항 {boardInfo.modeTitle}</h2>
+                        <h2 className="tit_2">{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm} {boardInfo.modeTitle}</h2>
                         {/* <h2 className="tit_2">{boardInfo.bbsNm} {boardInfo.modeTitle}</h2> */}
 
                         <div className="board_view2">
