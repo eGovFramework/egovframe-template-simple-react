@@ -97,4 +97,4 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
     );
 }
 
-export default EgovAttachFile;
+export default React.memo(EgovAttachFile);

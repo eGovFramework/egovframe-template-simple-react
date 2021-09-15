@@ -96,4 +96,4 @@ function EgovPaging(props) {
 }
 
 
-export default EgovPaging;
+export default React.memo(EgovPaging);

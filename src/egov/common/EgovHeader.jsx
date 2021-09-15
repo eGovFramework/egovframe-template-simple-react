@@ -204,4 +204,4 @@ class EgovHeader extends Component {
     }
 }
 
-export default EgovHeader;
+export default React.memo(EgovHeader);
