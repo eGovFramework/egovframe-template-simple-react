@@ -58,7 +58,7 @@ class EgovLoginContent extends Component {
                 var resultVO = json.resultVO;
                 var resultCode = json.resultCode;
 
-                if(resultCode === CODE.SUCCESS){
+                if(resultCode === CODE.RCV_SUCCESS){
                     this.setState({ loginVO: resultVO });
                     this.props.onChangeLogin({ loginVO: resultVO });
                     this.props.history.push('/');

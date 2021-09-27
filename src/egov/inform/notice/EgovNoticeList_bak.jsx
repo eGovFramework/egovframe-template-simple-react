@@ -4,33 +4,31 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
-import { GALLERY_BBS_ID } from 'context/config';
+import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 
-function EgovGalleryList(props) {
-    console.group("EgovGalleryList");
-    console.log("[Start] EgovGalleryList ------------------------------");
-    console.log("EgovGalleryList [props] : ", props);
+function EgovNoticeList(props) {
+    console.log("------------------------------");
+    console.log("EgovNoticeList [props] : ", props);
 
     let history = useHistory();
-    console.log("EgovGalleryList [history] : ", history);
+    console.log("EgovNoticeList [history] : ", history);
 
     const query = qs.parse(history.location.search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
     });
-    if (query["bbsId"] === undefined) query["bbsId"] = GALLERY_BBS_ID; // 갤러리 게시판 URL
-    console.log("EgovGalleryList [query] : ", query);
+    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
+    console.log("EgovNoticeList [query] : ", query);
 
-    const [targetPage, setTargetPage] = useState(0);
     const [boardResult, setBoardResult] = useState({});
     const [paginationInfo, setPaginationInfo] = useState();
     const [listTag, setListTag] = useState();
     const [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
 
     const onClickSearch = () => {
-        console.log("EgovGalleryList [func] onClickSearch");
+        console.log("[func] onClickSearch");
         let _query;
         if (searchCondition.searchWrd.length > 0) {
             _query = { ...query, pageIndex: 1, searchCnd: searchCondition.searchCnd, searchWrd: searchCondition.searchWrd };
@@ -41,7 +39,8 @@ function EgovGalleryList(props) {
     }
 
     const searchList = (_query) => {
-        console.groupCollapsed("EgovGalleryList.searchList()");
+        console.log("[func] searchList");
+
         const requestOptions = {
             method: "POST",
             headers: {
@@ -54,18 +53,20 @@ function EgovGalleryList(props) {
         EgovNet.requestFetch('/cop/bbs/selectBoardListAPI.do',
             requestOptions,
             function (resp) {
-                setBoardResult(resp.result);
-                setPaginationInfo(resp.result.paginationInfo);
+                console.log("[RESULT] /cop/bbs/selectBoardListAPI.do", resp);
+
+                setBoardResult(resp);
+                setPaginationInfo(resp.paginationInfo);
 
                 let listTag = [];
                 listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
 
-                let resultCnt = resp.result.resultCnt * 1;
-                let currentPageNo = resp.result.paginationInfo.currentPageNo;
-                let pageSize = resp.result.paginationInfo.pageSize;
+                let resultCnt = resp.resultCnt * 1;
+                let currentPageNo = resp.paginationInfo.currentPageNo;
+                let pageSize = resp.paginationInfo.pageSize;
 
                 // 리스트 항목 구성
-                resp.result.resultList.forEach(function (item, index) {
+                resp.resultList.forEach(function (item, index) {
                     if (index === 0) listTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
@@ -78,7 +79,7 @@ function EgovGalleryList(props) {
                     });
 
                     listTag.push(
-                        <Link to={URL.INFORM_GALLERY_DETAIL + queryString} key={listIdx} className="list_item" >
+                        <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
                                 <><div className="al reply">
@@ -100,28 +101,25 @@ function EgovGalleryList(props) {
                 console.log("err response : ", response);
             }
         );
-        console.groupEnd("EgovGalleryList.searchList()");
     }
 
     //componentDidMount (1회만)
     useEffect(function () {
-        console.log('<<<===EgovGalleryList useEffect [] mouted!!');
+        console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
 
         searchList(query);
         return function () {
-            console.log('EgovGalleryList useEffect [] unmouted....===>>>');
+            //console.log('===>>> useEffect return (componentWillUnmount)');
         }
     }, []); // 빈 배열로 전달
 
-    // useEffect(function () {
-    //     console.log('<<<===EgovGalleryList useEffect [listTag, paginationInfo] mouted!!');
-        
-    //     return function () {
-    //         console.log('EgovGalleryList useEffect [listTag, paginationInfo] unmouted....===>>>');
-    //     }
-    // }, [listTag, paginationInfo]);
-    console.log("------------------------------EgovGalleryList [End]");
-    console.groupEnd("EgovGalleryList");
+    useEffect(function () {
+        console.log('===>>> useEffect (listTag)');
+        console.log("===>>> board length = ", listTag);
+
+    }, [listTag, paginationInfo]);
+
+
     return (
         <div className="container">
             <div className="c_wrap">
@@ -130,6 +128,7 @@ function EgovGalleryList(props) {
                     <ul>
                         <li><Link to="" className="home">Home</Link></li>
                         <li><Link to="">알림마당</Link></li>
+                        {/* <li>공지사항</li> */}
                         <li>{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</li>
                     </ul>
                 </div>
@@ -140,13 +139,14 @@ function EgovGalleryList(props) {
                     <EgovLeftNav></EgovLeftNav>
                     {/* <!--// Navigation --> */}
 
-                    <div className="contents SITE_GALLARY_LIST" id="contents">
+                    <div className="contents NOTICE_LIST" id="contents">
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
                             <h1 className="tit_1">알림마당</h1>
                         </div>
 
+                        {/* <h2 className="tit_2">공지사항</h2> */}
                         <h2 className="tit_2">{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</h2>
 
                         {/* <!-- 검색조건 --> */}
@@ -171,7 +171,7 @@ function EgovGalleryList(props) {
                                     </span>
                                 </li>
                                 <li>
-                                    <a href={URL.INFORM_GALLERY_CREATE} className="btn btn_blue_h46 pd35">등록</a>
+                                    <a href={URL.INFORM_NOTICE_CREATE} className="btn btn_blue_h46 pd35">등록</a>
                                 </li>
                             </ul>
                         </div>
@@ -194,7 +194,7 @@ function EgovGalleryList(props) {
 
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
-                            <EgovPaging pagination={paginationInfo} moveToPage={ passedPage => setTargetPage(passedPage)}></EgovPaging>
+                            <EgovPaging pagination={paginationInfo}></EgovPaging>
                             {/* <!--/ Paging --> */}
                         </div>
 
@@ -207,4 +207,4 @@ function EgovGalleryList(props) {
 }
 
 
-export default EgovGalleryList;
+export default EgovNoticeList;

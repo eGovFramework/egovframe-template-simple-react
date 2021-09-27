@@ -5,7 +5,8 @@ import { SERVER_URL } from 'context/config';
 import CODE from 'context/code';
 
 function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
-    console.group("EgovAttachFile");
+    console.groupCollapsed("EgovAttachFile");
+
 
     function onClickDownFile(atchFileId, fileSn) {
         window.open(SERVER_URL + "/cmm/fms/FileDown.do?atchFileId=" + atchFileId + "&fileSn=" + fileSn + "");
@@ -27,19 +28,19 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
         }
         EgovNet.requestFetch("/cmm/fms/deleteFileInfsAPI.do",
             requestOptions,
-            function (json) {
-                console.log("===>>> board file delete= " , json);
-                if (json !== undefined)
-                    if (json.resultCode === CODE.SUCCESS) {
-                        // 성공
-                        console.log("OK fileIndex = " , fileIndex);
-                        debugger;
-                        //const _deleteFile = boardFiles.splice(fileIndex, 1);
-                        const _boardFiles = Object.assign([], boardFiles);
-                        fnDeleteFile(_boardFiles);
-                    } else {
-                        alert("ERR : " + json.resultMessage);
-                    }
+            function (resp) {
+                console.log("===>>> board file delete= " , resp);
+                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                    // 성공
+                    console.log("Deleted fileIndex = " , fileIndex);
+                    const _deleteFile = boardFiles.splice(fileIndex, 1);
+                    const _boardFiles = Object.assign([], boardFiles);
+                    fnDeleteFile(_boardFiles);
+                    alert("첨부파일이 삭제되었습니다.");
+                    fnChangeFile({});
+                } else {
+                    alert("ERR : " + resp.resultMessage);
+                }
             }
         );
     }
@@ -69,12 +70,12 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
                 </>
             );
 
-            if (mode === "edit") {
+            if (mode === CODE.MODE_MODIFY) {
                 filesTag.push(
                     <>
                         <button className="btn btn_delete" onClick={(e) => {
                             onClickDeleteFile(item.atchFileId, item.fileSn, index);
-                        }}>delete</button>
+                        }}></button>
                     </>
                 );
             }
@@ -90,7 +91,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
             <dd>
                 <span className="file_attach">
                     {filesTag}
-                    {(mode === "edit" || mode === "new") && <input name="file_0" id="egovComFileUploader" type="file" onChange={e => onChangeFileInput(e)}></input>}
+                    {(mode === CODE.MODE_MODIFY || mode === CODE.MODE_CREATE) && <input name="file_0" id="egovComFileUploader" type="file" onChange={e => onChangeFileInput(e)}></input>}
                 </span>
             </dd>
         </dl>

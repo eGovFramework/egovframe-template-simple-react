@@ -15,83 +15,72 @@ function EgovNoticeDetail(props) {
     console.log("------------------------------");
     console.log("EgovNoticeDetail [props] : ", props);
 
-    let history = useHistory();
+    const history = useHistory();
     console.log("EgovNoticeDetail [history] : ", history);
 
-    const query = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true
-    });
-    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
-    console.log("EgovNoticeDetail [query] : ", query);
+    const bbsId = props.location.state?.bbsId || NOTICE_BBS_ID;
+    const nttId = props.location.state?.nttId;
+    const searchCondition = props.location.state?.searchCondition;
 
-    const [boardResult, setBoardResult] = useState({});
-    const [boardResultFiles, setBoardResultFiles] = useState();
+    const [masterBoard, setMasterBoard] = useState({});
     const [boardDetail, setBoardDetail] = useState({});
+    const [boardAttachFiles, setBoardAttachFiles] = useState();
 
-    const onClickDeleteBoardArticle = (bbsId, nttId) => {
-        console.log("bbsId, nttId : ",bbsId, nttId);
-        
-        const formData = new FormData();
-        formData.set("bbsId", bbsId);
-        formData.set("nttId", nttId);
-        
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                //'Content-type': 'multipart/form-data'
-            },
-            body: formData
-        }
-
-        EgovNet.requestFetch("/cop/bbs/deleteBoardArticleAPI.do",
-            requestOptions,
-            function (resp) {
-                console.log("====>>> board delete= ", resp);
-                if (resp !== undefined)
-                    if (resp.resultCode === CODE.SUCCESS)
-                        window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
-                    else
-                        alert("ERR : " + resp.resultMessage);
-
-            }
-        );
-    }
-    //componentDidMount (1회만)
-    useEffect(function () {
-        console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
+    const retrieveDetail = () => {
+        const retrieveDetailURL = '/cop/bbs/selectBoardArticleAPI.do';
         const requestOptions = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(query)
+            body: JSON.stringify({
+                bbsId: bbsId,
+                nttId: nttId
+            })
         }
-        EgovNet.requestFetch('/cop/bbs/selectBoardArticleAPI.do',
+        EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
             function (resp) {
-                console.log("[RESULT] /cop/bbs/selectBoardArticleAPI.do", resp);
-                setBoardResult(resp);
-                setBoardDetail(resp.result);
-                if (resp.resultFiles !== undefined)
-                    setBoardResultFiles(resp.resultFiles);
-                console.log("===>>> resp.sessionUniqId = " + resp.sessionUniqId);
-                console.log("===>>> resp.result = ", resp.result);
-                console.log("===>>> resp.brdMstrVO = ", resp.brdMstrVO);
-                console.log("===>>> resp.resultFiles = ", resp.resultFiles);
+                setMasterBoard(resp.result.brdMstrVO);
+                setBoardDetail(resp.result.boardVO);
+                setBoardAttachFiles(resp.result.resultFiles);
+            }
+        );
+    }
+
+    const onClickDeleteBoardArticle = (bbsId, nttId) => {
+        const deleteBoardURL = "/cop/bbs/deleteBoardArticleAPI.do";
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                bbsId: bbsId,
+                nttId: nttId
+            })
+        }
+
+        EgovNet.requestFetch(deleteBoardURL,
+            requestOptions,
+            (resp) => {
+                console.log("====>>> board delete= ", resp);
+                if (resp.resultCode === CODE.RCV_SUCCESS) {
+                    //window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
+                    history.push(URL.INFORM_NOTICE);
+                } else {
+                    alert("ERR : " + resp.resultMessage);
+                }
 
             }
         );
-
-        return function () {
-            console.log('===>>> useEffect return (componentWillUnmount)');
-        }
-    }, []);
+    }
 
     useEffect(function () {
-        console.log('===>>> useEffect (boardResult)');
-        console.log("===>>> boardResult = ", boardResult);
-
-    }, [boardDetail]);
+        retrieveDetail();
+        return function () {
+        }
+    }, []);
 
     return (
         <div className="container">
@@ -99,9 +88,9 @@ function EgovNoticeDetail(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to="" className="home">Home</Link></li>
-                        <li><Link to="">알림마당</Link></li>
-                        <li>공지사항</li>
+                        <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                        <li><Link to={URL.INFORM}>알림마당</Link></li>
+                        <li>{masterBoard && masterBoard.bbsNm}</li>
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -118,48 +107,68 @@ function EgovNoticeDetail(props) {
                             <h1 className="tit_1">알림마당</h1>
                         </div>
 
-                        <h2 className="tit_2">공지사항</h2>
+                        <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
 
                         {/* <!-- 게시판 상세보기 --> */}
                         <div className="board_view">
                             <div className="board_view_top">
-                                <div className="tit">{boardDetail.nttSj}</div>
+                                <div className="tit">{boardDetail && boardDetail.nttSj}</div>
                                 <div className="info">
                                     <dl>
                                         <dt>작성자</dt>
-                                        <dd>{boardDetail.frstRegisterNm}</dd>
+                                        <dd>{boardDetail && boardDetail.frstRegisterNm}</dd>
                                     </dl>
                                     <dl>
                                         <dt>작성일</dt>
-                                        <dd>{boardDetail.frstRegisterPnttm}</dd>
+                                        <dd>{boardDetail && boardDetail.frstRegisterPnttm}</dd>
                                     </dl>
                                     <dl>
                                         <dt>조회수</dt>
-                                        <dd>{boardDetail.inqireCo}</dd>
+                                        <dd>{boardDetail && boardDetail.inqireCo}</dd>
                                     </dl>
                                 </div>
                             </div>
 
                             <div className="board_article">
-                                <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail.nttCn}></textarea>
+                                <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail && boardDetail.nttCn}></textarea>
                             </div>
                             <div className="board_attach">
-                                <EgovAttachFile boardFiles={boardResultFiles} />
+                                <EgovAttachFile boardFiles={boardAttachFiles} />
                             </div>
 
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
-                                    <Link to={URL.INFORM_NOTICE_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link>
+                                    {/* <Link to={URL.INFORM_NOTICE_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link> */}
+                                    <Link to={{
+                                        pathname: URL.INFORM_NOTICE_MODIFY,
+                                        state: {
+                                            nttId: nttId,
+                                            bbsId: bbsId
+                                        }
+                                    }} className="btn btn_skyblue_h46 w_100">수정</Link>
                                     <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
                                         e.preventDefault();
                                         onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                     }}>삭제</a>
-                                    <Link to={URL.INFORM_NOTICE_REPLY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">답글작성</Link>
+                                    <Link to={{
+                                        pathname: URL.INFORM_NOTICE_REPLY,
+                                        state: {
+                                            nttId: nttId,
+                                            bbsId: bbsId
+                                        }
+                                    }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <Link to={URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_blue_h46 w_100">목록</Link>
+                                    <Link to={{
+                                        pathname: URL.INFORM_NOTICE,
+                                        state: {
+                                            nttId: nttId,
+                                            bbsId: bbsId,
+                                            searchCondition: searchCondition
+                                        }
+                                    }} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                         </div>

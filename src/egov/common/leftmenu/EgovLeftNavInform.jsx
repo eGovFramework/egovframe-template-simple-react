@@ -3,7 +3,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from 'context/url';
 
-function EgovLeftNavInform() {
+function EgovLeftNavInform() { 
+    console.groupCollapsed("EgovLeftNavInform");
+    console.log("[Start] EgovLeftNavInform ------------------------------");
+    console.log("------------------------------EgovLeftNavInform [End]");
+    console.groupEnd("EgovLeftNavInform");
     return (
         <div className="nav">
             <div className="inner">

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import qs from 'qs';
 
 function EgovPaging(props) {
-    console.group("EgovPaging");
+    console.groupCollapsed("EgovPaging");
     console.log("EgovPaging [props] : ", props);
     let history = useHistory();
     console.log("EgovPaging [history] ", history);
@@ -59,13 +59,16 @@ function EgovPaging(props) {
             if (i === currentPageNo) {
                 // 현재 페이지
                 // const currentPage = <li key={i}><strong>{i}</strong></li>;
-                const currentPage = <li key={i}><a href={getQueryString(query, i)} className="cur">{i}</a></li>;
+                const currentPage = <li key={i}><a href="" className="cur" >{i}</a></li>;
                 //<li><Link to="" className="cur">1</Link></li>
                 paginationTag.push(currentPage);
             } else {
                 // 다른 페이지
                 //const otherPage = <li key={i}><a href={getQueryString(query,i)} onclick="fn_egov_select_noticeList(2);return false; ">{i}</a></li>;
-                const otherPage = <li key={i}><a href={getQueryString(query, i)} >{i}</a></li>;
+                const otherPage = <li key={i}><a href="" onClick={e => {
+                    e.preventDefault();
+                    console.log("paging!!!!!!!!!!!!!!!!!!!!!!! : ",i);
+                    props.moveToPage(i)}}>{i}</a></li>;
                 //<li><Link to="">2</Link></li>
                 paginationTag.push(otherPage);
             }
@@ -74,11 +77,11 @@ function EgovPaging(props) {
             // 다음 페이지 이동
             const nextPageIndex = (currentLastPage + 1 < totalPageCount) ? currentLastPage + 1 : totalPageCount;
             //const nextPageTag = <li key="np">&#160;<a href={getQueryString(query,nextPageIndex)} onclick=""><img src="/images/board/icon_next.gif" alt="다음" border="0" /></a></li>;
-            const nextPageTag = <li key="np" className="btn"><a href={getQueryString(query, nextPageIndex)} onClick="" className="next">다음</a></li>;
+            const nextPageTag = <li key="np" className="btn"><Link to={getQueryString(query, nextPageIndex)} onClick="" className="next">다음</Link></li>;
             // <li className="btn"><Link to="" className="next">다음</Link></li>
             paginationTag.push(nextPageTag);
             // 마지막 페이지 이동
-            const lastPageTag = <li key="lp" className="btn"><a href={getQueryString(query, totalPageCount)} onClick="" className="last"></a></li>;
+            const lastPageTag = <li key="lp" className="btn"><Link href={getQueryString(query, totalPageCount)} onClick="" className="last"></Link></li>;
             //<li className="btn"><Link to="" className="last">마지막</Link></li>
             paginationTag.push(lastPageTag);
         }

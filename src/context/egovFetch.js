@@ -1,9 +1,9 @@
 import { SERVER_URL } from './config';
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
-    console.group("requestFetch");
-    console.log("=====> egov fetch : ", SERVER_URL + url);
-    console.log("=====> requestOptions : ", requestOptions);
+    console.groupCollapsed("requestFetch");
+    console.log("requestFetch [URL] : ", SERVER_URL + url);
+    console.log("requestFetch [requestOption] : ", requestOptions);
 
     //CORS ISSUE 로 인한 조치 - origin 및 credentials 추가 
     // origin 추가
@@ -16,29 +16,33 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     }
 
     fetch(SERVER_URL + url, requestOptions)
-        .then(function (response) {
-            //console.log("@@@@@@@@@fetch response ", response);
+        .then(response =>  {// response Stream. Not completion object
+            //console.log("requestFetch [Response Stream] ", response); 
             return response.json();
         })
-        .then(function (json) {
-            console.log("===>>> json = ", json);
-            console.log("===>> typeof handler : ", typeof handler);
+        .then( (resp) => {
+            console.groupCollapsed("requestFetch.then()");
+            console.log("requestFetch [response] ", resp);
             if (typeof handler === 'function') {
-                handler(json);
+                handler(resp);
             } else {
                 console.log('egov fetch handler not assigned!');
             }
-            //}.bind(this))
+            console.groupEnd("requestFetch.then()");
         })
         .catch(error => {
-            console.log(error);
             console.error('There was an error!', error);
             if (typeof errorHandler === 'function') {
                 errorHandler(error);
             } else {
-                console.log('egov error handler not assigned!');
+                console.error('egov error handler not assigned!');
                 alert("ERR : " + error.message);
             }
+        })
+        .finally(() => {
+            console.log("requestFetch finally end");    
+            console.groupEnd("requestFetch");
         });
-    console.group("requestFetch");
+        console.log("requestFetch end");    
+    
 }

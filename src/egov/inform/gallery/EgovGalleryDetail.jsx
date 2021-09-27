@@ -49,7 +49,7 @@ function EgovGalleryDetail(props) {
             function (resp) {
                 console.log("====>>> board delete= ", resp);
                 if (resp !== undefined)
-                    if (resp.resultCode === CODE.SUCCESS)
+                    if (resp.resultCode === CODE.RCV_SUCCESS)
                         window.location.href = URL.INFORM_GALLERY + qs.stringify(query, { addQueryPrefix: true });
                     else
                         alert("ERR : " + resp.resultMessage);
@@ -84,7 +84,7 @@ function EgovGalleryDetail(props) {
         );
 
         return function () {
-            console.log('===>>> useEffect return (componentWillUnmount)');
+            //console.log('===>>> useEffect return (componentWillUnmount)');
         }
     }, []);
 

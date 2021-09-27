@@ -40,17 +40,19 @@ const URL = {
     ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
     ADMIN_TEMPLATE              : "/admin/template", // 사이트관리/게시판템플릿관리
     ADMIN_BOARD                 : "/admin/board", // 사이트관리/게시판생성관리
-    ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리
-    ADMIN_NOTICE                : "/admin/notice", // 사이트관리/공지사항관리
-    ADMIN_GALLERY               : "/admin/gallery", // 사이트관리/사이트갤러리관리
-    
     ADMIN_BOARD_DETAIL          : "/admin/board/detail", // 사이트관리/게시판생성관리상세
     ADMIN_BOARD_CREATE          : "/admin/board/create", // 사이트관리/게시판생성관리생성
     ADMIN_BOARD_MODIFY          : "/admin/board/modify", // 사이트관리/게시판생성관리수정
-    
+    ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리
+    ADMIN_NOTICE                : "/admin/notice", // 사이트관리/공지사항관리
     ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리상세
     ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리생성
     ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리수정
+    ADMIN_GALLERY               : "/admin/gallery", // 사이트관리/사이트갤러리관리
+    
+    
+    
+    
     
 
     /* 삭제대상 */

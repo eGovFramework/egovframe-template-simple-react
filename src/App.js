@@ -10,6 +10,7 @@ import './css/response.css';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 import URL from './context/url';
+import CODE from 'context/code';
 
 import EgovHeader from 'egov/common/EgovHeader';
 import EgovFooter from 'egov/common/EgovFooter';
@@ -32,7 +33,7 @@ import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 
 import EgovNoticeList from 'egov/inform/notice/EgovNoticeList';
 import EgovNoticeDetail from 'egov/inform/notice/EgovNoticeDetail';
-import EgovNoticeCreate from 'egov/inform/notice/EgovNoticeCreate';
+import EgovNoticeEdit from 'egov/inform/notice/EgovNoticeEdit';
 
 import EgovGalleryList from 'egov/inform/gallery/EgovGalleryList';
 import EgovGalleryDetail from 'egov/inform/gallery/EgovGalleryDetail';
@@ -47,7 +48,7 @@ import EgovAdminUsageList from 'egov/admin/usage/EgovAdminUsageList';
 
 import EgovAdminNoticeList from 'egov/admin/notice/EgovAdminNoticeList';
 import EgovAdminNoticeDetail from 'egov/admin/notice/EgovAdminNoticeDetail';
-import EgovAdminNoticeModify from 'egov/admin/notice/EgovAdminNoticeModify';
+import EgovAdminNoticeCreate from 'egov/admin/notice/EgovAdminNoticeCreate';
 
 import EgovAdminGalleryList from 'egov/admin/gallery/EgovAdminGalleryList';
 
@@ -67,7 +68,7 @@ class App extends Component {
           onChangeLogin={function (_loginVO) {
             console.log(_loginVO);
             this.setState(_loginVO);
-            console.log("app EgovHeader = " ,this.state.loginVO);
+            console.log("app EgovHeader = ", this.state.loginVO);
           }.bind(this)}></EgovHeader>
         <Switch>
           {/* MAIN */}
@@ -78,64 +79,65 @@ class App extends Component {
           {/* LOGIN */}
           <Route path={URL.LOGIN}>
             <EgovLogin onChangeLogin={function (_loginVO) {
-              console.log("App isEgovLogin _loginVO= " , _loginVO);
+              console.log("App isEgovLogin _loginVO= ", _loginVO);
               this.setState(_loginVO);
-              console.log("app EgovLogin= " , this.state.loginVO);
+              console.log("app EgovLogin= ", this.state.loginVO);
             }.bind(this)}></EgovLogin>
           </Route>
-          
+
           {/* ABOUT */}
           <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
 
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
           <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
-          
+
           {/* SUPPORT */}
           <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
 
           <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownloadList} />
           <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
           <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
-          
+
           <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQnaList} />
           <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
 
           {/* INFORM */}
           <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
-          
+
           <Route path={URL.INFORM_DAILY} component={EgovDailyList} />
           <Route path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
-          
+
           <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
           <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} />
           {/* <Route path={URL.INFORM_NOTICE_DETAIL} component={() => <EgovNoticeDetail/>} /> */}
-          {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */} 
-          <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeCreate mode="new"/>} />
-          <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeCreate mode="edit"/>} />
-          <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeCreate mode="reply"/>} />
-          
+          {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */}
+          <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeEdit mode={CODE.MODE_CREATE} />} />
+          <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeEdit mode={CODE.MODE_MODIFY} />} />
+          <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeEdit mode={CODE.MODE_REPLY} />} />
+
           <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
           <Route path={URL.INFORM_GALLERY_DETAIL} component={EgovGalleryDetail} />
-          <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryCreate mode="new"/>} />
-          <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryCreate mode="edit"/>} />
-          <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryCreate mode="reply"/>} />
-          
+          <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryCreate mode="new" />} />
+          <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryCreate mode="edit" />} />
+          <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryCreate mode="reply" />} />
+
           {/* ADMIN */}
           <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />
-          
+
           <Route path={URL.ADMIN_SCHEDULE} component={EgovAdminScheduleList} />
           <Route path={URL.ADMIN_TEMPLATE} component={EgovAdminTemplateList} />
-          
+
           <Route exact path={URL.ADMIN_BOARD} component={EgovAdminBoardList} />
           <Route path={`${URL.ADMIN_BOARD_DETAIL}/:boardId`} component={EgovAdminBoardDetail} />
           <Route path={`${URL.ADMIN_BOARD_MODIFY}/:boardId`} component={EgovAdminBoardModify} />
-          
+
           <Route path={URL.ADMIN_USAGE} component={EgovAdminUsageList} />
-          
-          <Route exact path={URL.ADMIN_NOTICE} component={EgovAdminNoticeList} />
-          <Route path={`${URL.ADMIN_NOTICE_DETAIL}/:boardId`} component={EgovAdminNoticeDetail} />
-          <Route path={`${URL.ADMIN_NOTICE_MODIFY}/:boardId`} component={EgovAdminNoticeModify} />
-          
+
+          {/* <Route exact path={URL.ADMIN_NOTICE} component={EgovAdminNoticeList} />
+          <Route path={URL.ADMIN_NOTICE_DETAIL} render={() => <EgovAdminNoticeDetail mode="new"/>} />
+          <Route path={URL.ADMIN_NOTICE_MODIFY} render={() => <EgovNoticeCreate mode="edit"/>} /> */}
+
+
           <Route path={URL.ADMIN_GALLERY} component={EgovAdminGalleryList} />
           <Route path={URL.ADMIN_BOARD_CREATE} component={EgovAdminBoardModify} />
 

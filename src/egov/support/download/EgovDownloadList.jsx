@@ -232,7 +232,7 @@ function EgovDownloadList() {
                             </div>
 
                             <div className="right_col btn1">
-                                <Link to="" className="btn btn_upload"><span>자료 올리기</span></Link>
+                                <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_upload"><span>자료 올리기</span></Link>
                             </div>
                         </div>
 

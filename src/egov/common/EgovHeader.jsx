@@ -29,7 +29,7 @@ class EgovHeader extends Component {
         EgovNet.requestFetch('/uat/uia/actionLogoutAPI.do', requestOptions,
             function (resp) {
                 console.log("===>>> logout resp= " , resp);
-                if (resp.resultCode == CODE.SUCCESS) {
+                if (resp.resultCode == CODE.RCV_SUCCESS) {
                     this.props.onChangeLogin({ loginVO: null });
                     window.alert("로그아웃되었습니다!");
                     window.location.href = URL.MAIN;
