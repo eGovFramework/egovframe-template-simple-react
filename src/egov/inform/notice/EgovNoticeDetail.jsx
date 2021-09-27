@@ -65,8 +65,9 @@ function EgovNoticeDetail(props) {
             requestOptions,
             (resp) => {
                 console.log("====>>> board delete= ", resp);
-                if (resp.resultCode === CODE.RCV_SUCCESS) {
+                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     //window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
+                    alert("게시글이 삭제되었습니다.")
                     history.push(URL.INFORM_NOTICE);
                 } else {
                     alert("ERR : " + resp.resultMessage);
