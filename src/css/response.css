@@ -73,6 +73,12 @@
 
     .location {display: none;}
 
+    .wrap_pop .pop_inner {width: 100%;}
+    .wrap_pop .pop_header {height: 50px; padding: 0;}
+    .wrap_pop .pop_header h1 {height: 50px; padding: 0 10px; font-size: 16px; line-height: 50px;}
+    .wrap_pop .pop_header .close {right: 15px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px;}
+    .wrap_pop .pop_container {padding: 10px;}
+
     .contents .tit_3:first-child {margin-top: 26px;}
     .tit_1 + .tit_2 {margin-top: 11px;}
     .condition + .board_list {margin-top: 0;}
@@ -87,6 +93,11 @@
 
 
     /* Components */
+    .list_1 {padding: 14px 15px;}
+    .list_1 li {padding-left: 12px; font-size: 14px;}
+    .list_1 li::before {top: 8px;}
+
+
     .btn_blue_h46 {height: 40px; font-size: 13px; line-height: 40px;}
     .btn_skyblue_h46 {height: 40px; font-size: 13px; line-height: 40px;}
     .btn_calendar {width: 40px; height: 40px; background-size: contain;}
@@ -405,7 +416,7 @@
     .BRD008 .result .list_item > div:nth-child(5)::after {content: none;}
 
     .QNA_LIST .third_2 .w_500 {width: 100%;}
-    
+
     .BRD009 .head {display: none;}
     .BRD009 .result .list_item {padding: 16px 0; border-bottom: 1px solid #dde2e5;}
     .BRD009 .result .list_item > div {border-bottom: 0; font-size: 14px;}
@@ -425,7 +436,59 @@
     .BOARD_USE_LIST .board_view2 dl:nth-child(2) dd .f_select {width: 100%;}
     .BOARD_USE_LIST .board_view2 dl:nth-child(2) dd .f_input2 {width: 100%; margin: 15px 0 0 0;}
     
+    .SITE_CONTACT_US .map {margin-top: 20px;}
+    .SITE_CONTACT_US .addr {padding-bottom: 22px;}
+    .SITE_CONTACT_US .addr,
+    .SITE_CONTACT_US .addr > * {display: block;}
+    .SITE_CONTACT_US .addr .left_col {padding-top: 15px;}
+    .SITE_CONTACT_US .addr .left_col h3  {font-size: 14px;}
+    .SITE_CONTACT_US .addr .left_col dl > * {font-size: 12px;}
+    .SITE_CONTACT_US .addr .left_col dl dt {width: 85px;}
+    .SITE_CONTACT_US .addr .left_col dl dt::before {margin-right: 5px;}
+    .SITE_CONTACT_US .addr .right_col {display: none;}
 
+    .SITE_CONTACT_US .way {display: block;}
+    .SITE_CONTACT_US .way > * {display: block; width: 100%;}
+    .SITE_CONTACT_US .way h3 {padding-bottom: 18px; font-size: 14px;}
+    .SITE_CONTACT_US .way dl > * {font-size: 12px;}
+    .SITE_CONTACT_US .way .left_col dl dt {width: 85px; letter-spacing: -1px;}
+    .SITE_CONTACT_US .way .left_col dl dt::before {top: 0; width: 14px; height: 18px; background: url(css/images/ico_subway.png) no-repeat; background-size: contain;}
+    .SITE_CONTACT_US .way .right_col {margin-top: 28px;}
+    .SITE_CONTACT_US .way .right_col dl dt.call::before {top: 2px;}
+    .SITE_CONTACT_US .way .right_col dl dt.email::before {top: 3px;}
+
+    .BUSINESS_INTRO .img {margin-top: 30px;}
+    .BUSINESS_INTRO .img .m {display: block;}
+    .BUSINESS_INTRO .img .w {display: none;}
+
+    .SERVICE_INTRO .msg {padding: 23px 25px;}
+    .SERVICE_INTRO .msg ul {margin-top: 20px; padding: 165px 0 0 0;}
+    .SERVICE_INTRO .msg.second ul {padding: 18px 0 63px 0;}
+    .SERVICE_INTRO .msg p {font-size: 13px; line-height: 18px;}
+    .SERVICE_INTRO .msg ul {background-size: 150px; background-position: center top;}
+    .SERVICE_INTRO .msg ul li {padding-left: 14px; font-size: 12px; line-height: 18px;}
+    .SERVICE_INTRO .msg ul li::before {top: 8px; width: 4px; height: 4px;}
+    .SERVICE_INTRO .msg.second ul {padding: 170px 0 33px 0; background-size: 150px; background-position: center top;}
+
+    .TEMPLATE_INTRO .pop_container .btn {width: 100%;}
+
+    .ERROR {width: 90%; margin: 50px auto 0;}
+    .ERROR h1 {font-size: 30px;}
+    .ERROR .box {margin-top: 30px; padding-top: 50px;}
+    .ERROR .box p {padding: 145px 0 0 0; font-size: 16px; justify-content: center;}
+    .ERROR .box p::before {left: 50%; transform: translateX(-50%);}
+
+    .calendar_list thead th {height: 50px; font-size: 14px; line-height: 50px;}
+    .calendar_list tbody td {height: 60px; padding: 7px 0 20px 0;}
+    .calendar_list .day {font-size: 14px;}
+    .calendar_list .schedule {height: 8px;}
+    .calendar_list .schedule::before {width: 8px; height: 8px;}
+    .condition + .calendar_list {margin-top: 0;}
+    .calendar_info h2 {height: 45px; font-size: 13px; line-height: 42px;}
+    .calendar_info ul li {padding: 11px 120px 16px 0; line-height: 14px;}
+    .calendar_info ul li::before {content: none;}
+    .calendar_info ul li a {font-size: 11px;}
+    .calendar_info ul li span {display: block; top: 14px; font-size: 11px; text-align: right;}
 }
 
 @media (max-width: 414px) {
@@ -474,6 +537,5 @@
     .BRD009 .result .list_item > div:nth-child(4)::after,
     .BRD009 .result .list_item > div:nth-child(5)::after,
     .BRD009 .result .list_item > div:nth-child(6)::after {margin-left: 15px;}
-    
     
 }

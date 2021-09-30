@@ -1,6 +1,16 @@
 import $ from 'jquery';
 
 $(function() {
+    // 메인화면 미니보드
+    $('.mini_board .tab li a').on('click', function(e) {
+        e.preventDefault();
+        $(this).addClass('on');
+        $(this).parent().siblings().find('a').removeClass('on');
+        
+        var idx = $('.mini_board .tab li a').index(this);
+        $('.mini_board .list > div').hide();
+        $('.mini_board .list > div').eq(idx).show();
+    });
 
     /* 전체메뉴 */
         // 웹
@@ -38,12 +48,14 @@ $(function() {
                 $(this).parent().next('ul').slideDown(150);
             }
         });
+
+
     
     /* Form */
         // Checkbox
         $('.f_chk').on('keyup', function(e) {
             e.preventDefault();
-            if (window.event.keyCode === 13) {
+            if (window.event.keyCode == 13) {
                 $(this).toggleClass('on');
                 if ( $(this).find('input').prop('checked') ) {
                     $(this).find('input').prop('checked', false);
@@ -63,4 +75,32 @@ $(function() {
             $(this).siblings().removeClass('on');
             $(this).find('input').prop('checked', true);
         });
+
+
+        // 홈페이지 템플릿 소개팝업
+        var template = {
+            init: function() {
+                this.$tg = $('.TEMPLATE_INTRO');
+                this.$btn = $('.lnk_go_template');
+                this.$btnClose = this.$tg.find('.pop_header .close');
+                this.addEvent();
+            },
+            addEvent: function() {
+                var obj = this.$tg;
+                var objClose = this.$btnClose;
+                this.$btn.on('click', function(e) {
+                    e.preventDefault();
+                    obj.show();
+                    // obj.attr('tabindex', 0);
+                    // obj.focus();
+                });
+                this.$btnClose.on('click', function(e) {
+                    e.preventDefault();
+                    obj.hide();
+                    // objClose.focus();
+                });
+            }
+        }
+        $('.lnk_go_template').length && template.init();
+    
 });
