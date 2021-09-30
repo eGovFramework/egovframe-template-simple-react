@@ -15,6 +15,7 @@ import CODE from 'context/code';
 import EgovHeader from 'egov/common/EgovHeader';
 import EgovFooter from 'egov/common/EgovFooter';
 import EgovInfoPopup from 'egov/common/EgovInfoPopup';
+import EgovError from 'egov/common/EgovError';
 //import EgovContainer from 'egov/common/EgovContainer';
 
 import EgovMain from 'egov/main/EgovMain';
@@ -33,6 +34,7 @@ import EgovSupportDownloadDetail from 'egov/support/download/EgovDownloadDetail'
 import EgovSupportDownloadCreate from 'egov/support/download/EgovDownloadCreate';
 import EgovSupportQnaList from 'egov/support/qna/EgovQnaList';
 import EgovSupportQnaDetail from 'egov/support/qna/EgovQnaDetail';
+import EgovSupportApply from 'egov/support/apply/EgovSupportApply';
 
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
 import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
@@ -69,7 +71,10 @@ class App extends Component {
     console.log('App render');
     return (
       <div className="wrap">
-        <EgovHeader
+        <Switch>
+          <Route exact path={URL.ERROR} component={EgovError}/>
+          <Route>
+          <EgovHeader
           loginVO={this.state.loginVO}
           onChangeLogin={function (_loginVO) {
             console.log(_loginVO);
@@ -91,9 +96,11 @@ class App extends Component {
             }.bind(this)}></EgovLogin>
           </Route>
 
+          {/* LOGIN */}
+          <Route path={URL.ERROR} component={EgovError} />
+
           {/* ABOUT */}
           <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
-
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
           <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
           <Route path={URL.ABOUT_ORGANIZATION} component={EgovAboutOrganization} />
@@ -113,6 +120,8 @@ class App extends Component {
 
           <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQnaList} />
           <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
+          
+          <Route exact path={URL.SUPPORT_APPLY} component={EgovSupportApply} />
 
           {/* INFORM */}
           <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
@@ -157,6 +166,9 @@ class App extends Component {
         </Switch>
         <EgovFooter></EgovFooter>
         <EgovInfoPopup></EgovInfoPopup>
+          </Route>
+        </Switch>
+        
       </div>
     )
   }
