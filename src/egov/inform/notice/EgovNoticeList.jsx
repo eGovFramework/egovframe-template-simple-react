@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-//import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { NOTICE_BBS_ID } from 'context/config';
@@ -16,6 +15,7 @@ function EgovNoticeList(props) {
 
     const history = useHistory();
     console.log("EgovNoticeList [history] : ", history);
+
     const bbsId = NOTICE_BBS_ID;
     let searchCnd = '0';
     let searchWrd = '';

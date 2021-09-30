@@ -13,7 +13,7 @@ function EgovLeftNavAdmin() {
                     <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
                     <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
                     <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
-                    <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">게시판사용관리</NavLink></li>
+                    <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
                     <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
                 </ul>
             </div>

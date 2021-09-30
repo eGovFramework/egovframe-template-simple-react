@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
-import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
@@ -12,6 +11,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
 function EgovNoticeDetail(props) {
+    console.group("EgovNoticeDetail");
     console.log("------------------------------");
     console.log("EgovNoticeDetail [props] : ", props);
 
@@ -82,6 +82,8 @@ function EgovNoticeDetail(props) {
         return function () {
         }
     }, []);
+    
+    console.groupEnd("EgovNoticeDetail");
 
     return (
         <div className="container">
@@ -131,7 +133,7 @@ function EgovNoticeDetail(props) {
                             </div>
 
                             <div className="board_article">
-                                <textarea name="" cols="30" rows="10" readOnly="readonly" value={boardDetail && boardDetail.nttCn}></textarea>
+                                <textarea name="" cols="30" rows="10" readOnly="readonly" defaultValue={boardDetail && boardDetail.nttCn}></textarea>
                             </div>
                             <div className="board_attach">
                                 <EgovAttachFile boardFiles={boardAttachFiles} />
@@ -140,7 +142,6 @@ function EgovNoticeDetail(props) {
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
-                                    {/* <Link to={URL.INFORM_NOTICE_MODIFY + qs.stringify(query, { addQueryPrefix: true })} className="btn btn_skyblue_h46 w_100">수정</Link> */}
                                     <Link to={{
                                         pathname: URL.INFORM_NOTICE_MODIFY,
                                         state: {

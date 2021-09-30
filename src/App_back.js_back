@@ -45,7 +45,7 @@ import EgovNoticeEdit from 'egov/inform/notice/EgovNoticeEdit';
 
 import EgovGalleryList from 'egov/inform/gallery/EgovGalleryList';
 import EgovGalleryDetail from 'egov/inform/gallery/EgovGalleryDetail';
-import EgovGalleryEdit from 'egov/inform/gallery/EgovGalleryEdit';
+import EgovGalleryCreate from 'egov/inform/gallery/EgovGalleryCreate';
 
 import EgovAdminScheduleList from 'egov/admin/schedule/EgovAdminScheduleList';
 import EgovAdminTemplateList from 'egov/admin/template/EgovAdminTemplateList';
@@ -129,15 +129,17 @@ class App extends Component {
 
               <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
               <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} />
+              {/* <Route path={URL.INFORM_NOTICE_DETAIL} component={() => <EgovNoticeDetail/>} /> */}
+              {/* <Route path={URL.INFORM_NOTICE_CREATE} component={EgovNoticeCreate} /> */}
               <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeEdit mode={CODE.MODE_CREATE} />} />
               <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeEdit mode={CODE.MODE_MODIFY} />} />
               <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeEdit mode={CODE.MODE_REPLY} />} />
 
               <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
               <Route path={URL.INFORM_GALLERY_DETAIL} component={EgovGalleryDetail} />
-              <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryEdit mode={CODE.MODE_MODIFY} />} />
-              <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryEdit mode={CODE.MODE_REPLY} />} />
+              <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryCreate mode="new" />} />
+              <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryCreate mode="edit" />} />
+              <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryCreate mode="reply" />} />
 
               {/* ADMIN */}
               <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />

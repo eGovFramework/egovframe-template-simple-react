@@ -5,20 +5,20 @@ import { Link, useHistory } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
-import { NOTICE_BBS_ID } from 'context/config';
+import { GALLERY_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovNoticeEdit(props) {
-    console.group("EgovNoticeEdit");
+function EgovGalleryEdit(props) {
+    console.group("EgovGalleryEdit");
     console.log("------------------------------");
-    console.log("EgovNoticeEdit [props] : ", props);
+    console.log("EgovGalleryEdit [props] : ", props);
 
     const history = useHistory();
-    console.log("EgovNoticeEdit [history] : ", history);
+    console.log("EgovGalleryEdit [history] : ", history);
 
-    const bbsId = history.location.state?.bbsId || NOTICE_BBS_ID;
+    const bbsId = history.location.state?.bbsId || GALLERY_BBS_ID;
     const nttId = history.location.state?.nttId || "";
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
@@ -111,7 +111,7 @@ function EgovNoticeEdit(props) {
             requestOptions,
             (resp) => {
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    history.push({ pathname: URL.INFORM_NOTICE });
+                    history.push({ pathname: URL.INFORM_GALLERY });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -132,7 +132,7 @@ function EgovNoticeEdit(props) {
         }
     }, [boardDetail,boardAttachFiles]);
 
-    console.groupEnd("EgovNoticeEdit");
+    console.groupEnd("EgovGalleryEdit");
 
     return (
         <div className="container">
@@ -140,7 +140,7 @@ function EgovNoticeEdit(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                    <li><Link to={URL.MAIN} className="home">Home</Link></li>
                         <li><Link to={URL.INFORM}>알림마당</Link></li>
                         <li>{masterBoard && masterBoard.bbsNm}</li>
                     </ul>
@@ -152,7 +152,7 @@ function EgovNoticeEdit(props) {
                     <EgovLeftNav></EgovLeftNav>
                     {/* <!--// Navigation --> */}
 
-                    <div className="contents NOTICE_LIST" id="contents">
+                    <div className="contents SITE_GALLARY_VIEW" id="contents">
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
@@ -193,6 +193,7 @@ function EgovNoticeEdit(props) {
                                 boardFiles={boardAttachFiles}
                                 mode={props.mode} />
 
+
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
@@ -204,7 +205,7 @@ function EgovNoticeEdit(props) {
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href={URL.INFORM_NOTICE} className="btn btn_blue_h46 w_100">목록</a>
+                                    <a href={URL.INFORM_GALLERY} className="btn btn_blue_h46 w_100">목록</a>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}
@@ -219,4 +220,4 @@ function EgovNoticeEdit(props) {
     );
 }
 
-export default EgovNoticeEdit;
+export default EgovGalleryEdit;
