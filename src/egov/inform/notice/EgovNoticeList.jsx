@@ -19,11 +19,12 @@ function EgovNoticeList(props) {
     const bbsId = NOTICE_BBS_ID;
     let searchCnd = '0';
     let searchWrd = '';
-    
+
     const [searchCondition, setSearchCondition] = useState(props.location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [masterBoard, setMasterBoard] = useState({});
+    const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});
-    
+
     const [listTag, setListTag] = useState([]);
 
     // const initSearch = () => {
@@ -54,6 +55,7 @@ function EgovNoticeList(props) {
             (resp) => {
                 setMasterBoard(resp.result.brdMstrVO);
                 setPaginationInfo(resp.result.paginationInfo);
+                setUser(resp.result.user);
 
                 let mutListTag = [];
                 listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
@@ -184,9 +186,11 @@ function EgovNoticeList(props) {
                                             }}>조회</button>
                                     </span>
                                 </li>
-                                <li>
-                                    <Link to={URL.INFORM_NOTICE_CREATE} className="btn btn_blue_h46 pd35">등록</Link>
-                                </li>
+                                {user.id &&
+                                    <li>
+                                        <Link to={URL.INFORM_NOTICE_CREATE} className="btn btn_blue_h46 pd35">등록</Link>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         {/* <!--// 검색조건 --> */}

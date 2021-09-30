@@ -23,6 +23,7 @@ function EgovNoticeDetail(props) {
     const searchCondition = props.location.state?.searchCondition;
 
     const [masterBoard, setMasterBoard] = useState({});
+    const [user, setUser] = useState({});
     const [boardDetail, setBoardDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
 
@@ -43,6 +44,7 @@ function EgovNoticeDetail(props) {
             function (resp) {
                 setMasterBoard(resp.result.brdMstrVO);
                 setBoardDetail(resp.result.boardVO);
+                setUser(resp.result.user);
                 setBoardAttachFiles(resp.result.resultFiles);
             }
         );
@@ -141,27 +143,29 @@ function EgovNoticeDetail(props) {
 
 
                             <div className="board_btn_area">
-                                <div className="left_col btn3">
-                                    <Link to={{
-                                        pathname: URL.INFORM_NOTICE_MODIFY,
-                                        state: {
-                                            nttId: nttId,
-                                            bbsId: bbsId
-                                        }
-                                    }} className="btn btn_skyblue_h46 w_100">수정</Link>
-                                    <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
-                                        e.preventDefault();
-                                        onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
-                                    }}>삭제</a>
-                                    <Link to={{
-                                        pathname: URL.INFORM_NOTICE_REPLY,
-                                        state: {
-                                            nttId: nttId,
-                                            bbsId: bbsId
-                                        }
-                                    }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
-                                </div>
-
+                                {user.id &&
+                                    <div className="left_col btn3">
+                                        <Link to={{
+                                            pathname: URL.INFORM_NOTICE_MODIFY,
+                                            state: {
+                                                nttId: nttId,
+                                                bbsId: bbsId
+                                            }
+                                        }} className="btn btn_skyblue_h46 w_100">수정</Link>
+                                        <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                            e.preventDefault();
+                                            onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
+                                        }}>삭제</a>
+                                        <Link to={{
+                                            pathname: URL.INFORM_NOTICE_REPLY,
+                                            state: {
+                                                nttId: nttId,
+                                                bbsId: bbsId
+                                            }
+                                        }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
+                                    </div>
+                                }
+                                
                                 <div className="right_col btn1">
                                     <Link to={{
                                         pathname: URL.INFORM_NOTICE,

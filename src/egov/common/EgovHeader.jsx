@@ -15,8 +15,8 @@ class EgovHeader extends Component {
     logInOutHandler(e) {
         e.preventDefault();
         console.log("로그인/로그아웃 클릭!!!");
-        console.log("this.props.loginVO : ",this.props.loginVO);
-        
+        console.log("this.props.loginVO : ", this.props.loginVO);
+
         // 로그인 정보 없을 시
         if (this.props.loginVO === null) {
             window.location.href = URL.LOGIN;
@@ -24,11 +24,11 @@ class EgovHeader extends Component {
         }
 
         const requestOptions = {
-            credentials : 'include',
+            credentials: 'include',
         }
         EgovNet.requestFetch('/uat/uia/actionLogoutAPI.do', requestOptions,
             function (resp) {
-                console.log("===>>> logout resp= " , resp);
+                console.log("===>>> logout resp= ", resp);
                 if (resp.resultCode == CODE.RCV_SUCCESS) {
                     this.props.onChangeLogin({ loginVO: null });
                     window.alert("로그아웃되었습니다!");
@@ -40,7 +40,7 @@ class EgovHeader extends Component {
 
     render() {
         var loginInfo = this.props.loginVO;
-
+        console.log("loginInfo", loginInfo);
         return (
             // <!-- header -->
             <div className="header">
@@ -59,7 +59,9 @@ class EgovHeader extends Component {
                             <li><NavLink to={URL.INTRO} activeClassName="cur">정보마당</NavLink></li>
                             <li><NavLink to={URL.SUPPORT} activeClassName="cur">고객지원</NavLink></li>
                             <li><NavLink to={URL.INFORM} activeClassName="cur">알림마당</NavLink></li>
-                            <li><NavLink to={URL.ADMIN} activeClassName="cur">사이트관리</NavLink></li>
+                            {loginInfo &&
+                                <li><NavLink to={URL.ADMIN} activeClassName="cur">사이트관리</NavLink></li>
+                            }
                         </ul>
                     </div>
 
@@ -130,17 +132,19 @@ class EgovHeader extends Component {
                                 <li><NavLink to={URL.INFORM_GALLERY} activeClassName="cur">사이트 갤러리</NavLink></li>
                             </ul>
                         </div>
-                        <div className="col">
-                            <h3>사이트관리</h3>
-                            <ul>
-                                <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
-                            </ul>
-                        </div>
+                        {loginInfo &&
+                            <div className="col">
+                                <h3>사이트관리</h3>
+                                <ul>
+                                    <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
                 {/* <!-- All menu : mobile --> */}
@@ -187,15 +191,19 @@ class EgovHeader extends Component {
                             <li><NavLink to={URL.INFORM_NOTICE} activeClassName="cur">공지사항</NavLink></li>
                             <li><NavLink to={URL.INFORM_GALLERY} activeClassName="cur">사이트 갤러리</NavLink></li>
                         </ul>
-                        <h3><Link to={URL.ADMIN}>사이트관리</Link></h3>
-                        <ul>
-                            <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
-                            <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
-                            <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
-                            <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
-                            <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
-                            <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
-                        </ul>
+                        {loginInfo &&
+                            <>
+                                <h3><Link to={URL.ADMIN}>사이트관리</Link></h3>
+                                <ul>
+                                    <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
+                                </ul>
+                            </>
+                        }
                     </div>
                 </div>
                 {/* <!--// All menu --> */}

@@ -154,6 +154,10 @@ class App extends Component {
               <Route path={URL.ADMIN_GALLERY} component={EgovAdminGalleryList} />
               <Route path={URL.ADMIN_BOARD_CREATE} component={EgovAdminBoardModify} />
 
+                
+
+
+
             </Switch>
             <EgovFooter></EgovFooter>
             <EgovInfoPopup></EgovInfoPopup>
