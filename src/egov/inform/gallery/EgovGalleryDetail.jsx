@@ -19,9 +19,9 @@ function EgovGalleryDetail(props) {
     const history = useHistory();
     console.log("EgovGalleryDetail [history] : ", history);
 
-    const bbsId = props.location.state?.bbsId || GALLERY_BBS_ID;
-    const nttId = props.location.state?.nttId;
-    const searchCondition = props.location.state?.searchCondition;
+    const bbsId = history.location.state.bbsId || GALLERY_BBS_ID;
+    const nttId = history.location.state.nttId;
+    const searchCondition = history.location.state.searchCondition;
 
     const [masterBoard, setMasterBoard] = useState({});
     const [user, setUser] = useState({});

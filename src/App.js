@@ -128,13 +128,16 @@ class App extends Component {
               <Route path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
 
               <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
-              <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} />
+              {/* <Route path={URL.INFORM_NOTICE_DETAIL} component={EgovNoticeDetail} /> */}
+              {/* <Route path={URL.INFORM_NOTICE_DETAIL} render={() => <EgovNoticeDetail mode={ {crud : CODE.MODE_READ, menu : URL.INFORM}} />} /> */}
+              <Route path={URL.INFORM_NOTICE_DETAIL} render={() => <EgovNoticeDetail/>} />
               <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeEdit mode={CODE.MODE_CREATE} />} />
               <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeEdit mode={CODE.MODE_MODIFY} />} />
               <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeEdit mode={CODE.MODE_REPLY} />} />
 
               <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
-              <Route path={URL.INFORM_GALLERY_DETAIL} component={EgovGalleryDetail} />
+              {/* <Route path={URL.INFORM_GALLERY_DETAIL} component={EgovGalleryDetail} /> */}
+              <Route path={URL.INFORM_GALLERY_DETAIL} render={() => <EgovGalleryDetail/>} />
               <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryEdit mode={CODE.MODE_CREATE} />} />
               <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryEdit mode={CODE.MODE_MODIFY} />} />
               <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryEdit mode={CODE.MODE_REPLY} />} />

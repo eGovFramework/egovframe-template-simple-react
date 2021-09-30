@@ -18,9 +18,9 @@ function EgovNoticeDetail(props) {
     const history = useHistory();
     console.log("EgovNoticeDetail [history] : ", history);
 
-    const bbsId = props.location.state?.bbsId || NOTICE_BBS_ID;
-    const nttId = props.location.state?.nttId;
-    const searchCondition = props.location.state?.searchCondition;
+    const bbsId = history.location.state.bbsId || NOTICE_BBS_ID;
+    const nttId = history.location.state.nttId;
+    const searchCondition = history.location.state.searchCondition;
 
     const [masterBoard, setMasterBoard] = useState({});
     const [user, setUser] = useState({});
@@ -165,7 +165,7 @@ function EgovNoticeDetail(props) {
                                         }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                     </div>
                                 }
-                                
+
                                 <div className="right_col btn1">
                                     <Link to={{
                                         pathname: URL.INFORM_NOTICE,

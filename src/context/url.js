@@ -49,6 +49,7 @@ const URL = {
     ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리상세
     ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리생성
     ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리수정
+    ADMIN_NOTICE_REPLY         : "/admin/notice/reply", // 사이트관리/공지사항관리답글
     ADMIN_GALLERY               : "/admin/gallery", // 사이트관리/사이트갤러리관리
     
     
