@@ -27,7 +27,7 @@ function EgovSupportApply() {
 
                         <h1 className="tit_3">고객지원</h1>
 
-                        <p className="txt_1">표준프레임워크 경량환경 포털사이트를 소개합니다.</p>
+                        <p className="txt_1">프레임워크 경량환경의 원하시는 서비스를 신청하실 수 있습니다.</p>
                         
                         <h2 className="tit_4">서비스 신청</h2>
 
