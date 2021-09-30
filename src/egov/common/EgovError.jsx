@@ -1,9 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function EgovError() {
+function EgovError(props) {
     const history = useHistory();
     console.log("EgovError [history] : ", history);
+    
+    const errormessage = props.errormessage || "알 수 없는 에러가 발생했습니다.";
 
     const goBack = () => {
         history.goBack();
@@ -14,7 +16,7 @@ function EgovError() {
             <h1>Error</h1>
             <div className="box">
                 <p>
-                    세션이 만료되었습니다.
+                    {errormessage}
                 </p>
                 <div className="btn_area">
                     <button className="btn btn_blue_h46 w_130"

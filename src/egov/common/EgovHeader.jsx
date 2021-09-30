@@ -65,13 +65,14 @@ class EgovHeader extends Component {
 
                     {/* <!-- PC web에서 보여지는 영역 --> */}
                     <div className="user_info">
+                        {/* 로그인 정보 있을때 */}
                         {loginInfo &&
                             <>
                                 <span className="person">{this.props.loginVO.name} </span> 님이, 관리자로 로그인하셨습니다.
                                 <Link to="" onClick={this.logInOutHandler} className="btn">로그아웃</Link>
                             </>
                         }
-
+                        {/* 로그인 정보 없을 때 */}
                         {!loginInfo &&
                             <Link to="" onClick={this.logInOutHandler} className="btn login">로그인</Link>
                         }

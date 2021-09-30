@@ -1,5 +1,7 @@
 import { SERVER_URL } from './config';
 
+import URL from 'context/url';
+
 export function requestFetch(url, requestOptions, handler, errorHandler) {
     console.groupCollapsed("requestFetch");
     console.log("requestFetch [URL] : ", SERVER_URL + url);
@@ -37,6 +39,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
             } else {
                 console.error('egov error handler not assigned!');
                 alert("ERR : " + error.message);
+                
             }
         })
         .finally(() => {
