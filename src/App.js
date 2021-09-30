@@ -14,6 +14,7 @@ import CODE from 'context/code';
 
 import EgovHeader from 'egov/common/EgovHeader';
 import EgovFooter from 'egov/common/EgovFooter';
+import EgovInfoPopup from 'egov/common/EgovInfoPopup';
 //import EgovContainer from 'egov/common/EgovContainer';
 
 import EgovMain from 'egov/main/EgovMain';
@@ -21,6 +22,11 @@ import EgovLogin from 'egov/login/EgovLogin';
 
 import EgovAboutSite from 'egov/about/EgovAboutSite';
 import EgovAboutHistory from 'egov/about/EgovAboutHistory';
+import EgovAboutOrganization from 'egov/about/EgovAboutOrganization';
+import EgovAboutLocation from 'egov/about/EgovAboutLocation';
+
+import EgovIntroWork from 'egov/intro/EgovIntroWork';
+import EgovIntroService from 'egov/intro/EgovIntroService';
 
 import EgovSupportDownloadList from 'egov/support/download/EgovDownloadList';
 import EgovSupportDownloadDetail from 'egov/support/download/EgovDownloadDetail';
@@ -90,6 +96,13 @@ class App extends Component {
 
           <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
           <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
+          <Route path={URL.ABOUT_ORGANIZATION} component={EgovAboutOrganization} />
+          <Route path={URL.ABOUT_LOCATION} component={EgovAboutLocation} />
+
+          {/* INTRO */}
+          <Redirect exact from={URL.INTRO} to={URL.INTRO_WORKS} />
+          <Route exact path={URL.INTRO_WORKS} component={EgovIntroWork} />
+          <Route exact path={URL.INTRO_SERVICE} component={EgovIntroService} />
 
           {/* SUPPORT */}
           <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
@@ -143,6 +156,7 @@ class App extends Component {
 
         </Switch>
         <EgovFooter></EgovFooter>
+        <EgovInfoPopup></EgovInfoPopup>
       </div>
     )
   }

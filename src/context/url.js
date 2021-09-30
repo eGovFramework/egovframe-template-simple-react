@@ -7,7 +7,7 @@ const URL = {
     ABOUT                       : "/about", //사이트소개   
     ABOUT_SITE                  : "/about/site", // 사이트소개/소개
     ABOUT_HISTORY               : "/about/history", // 사이트소개/연혁
-    ABOUT_GROUP                 : "/about/group", // 사이트소개/조직소개
+    ABOUT_ORGANIZATION          : "/about/organization", // 사이트소개/조직소개
     ABOUT_LOCATION              : "/about/location", // 사이트소개/찾아오시는길
     
     INTRO                       : "/intro", //정보마당
