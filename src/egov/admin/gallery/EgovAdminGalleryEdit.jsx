@@ -7,7 +7,7 @@ import URL from 'context/url';
 import CODE from 'context/code';
 import { GALLERY_BBS_ID } from 'context/config';
 
-import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
 function EgovAdminGalleryEdit(props) {
