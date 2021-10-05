@@ -1,85 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import qs from 'qs';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import { NOTICE_BBS_ID } from 'context/config';
 
-import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 
-function EgovNoticeList(props) {
-    console.log("------------------------------");
-    console.log("EgovNoticeList [props] : ", props);
+function EgovAdminNoticeList(props) {
+    console.group("EgovAdminNoticeList");
+    console.log("[Start] EgovAdminNoticeList ------------------------------");
+    console.log("EgovAdminNoticeList [props] : ", props);
 
-    let history = useHistory();
-    console.log("EgovNoticeList [history] : ", history);
+    const history = useHistory();
+    console.log("EgovAdminNoticeList [history] : ", history);
 
-    const query = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소에서 '?'를 생략해주는 옵션
-    });
-    if (query["bbsId"] === undefined) query["bbsId"] = NOTICE_BBS_ID; // default = 공지사항
-    console.log("EgovNoticeList [query] : ", query);
+    const bbsId = NOTICE_BBS_ID;
+    let searchCnd = '0';
+    let searchWrd = '';
 
-    const [boardResult, setBoardResult] = useState({});
-    const [paginationInfo, setPaginationInfo] = useState();
-    const [listTag, setListTag] = useState();
-    const [searchCondition, setSearchCondition] = useState({ searchWrd: '', searchCnd: '0' });
+    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+    const [masterBoard, setMasterBoard] = useState({});
+    const [user, setUser] = useState({});
+    const [paginationInfo, setPaginationInfo] = useState({});
 
-    const onClickSearch = () => {
-        console.log("[func] onClickSearch");
-        let _query;
-        if (searchCondition.searchWrd.length > 0) {
-            _query = { ...query, pageIndex: 1, searchCnd: searchCondition.searchCnd, searchWrd: searchCondition.searchWrd };
-        } else {
-            _query = { ...query, pageIndex: 1 };
-        }
-        searchList(_query);
-    }
+    const [listTag, setListTag] = useState([]);
 
-    const searchList = (_query) => {
-        console.log("[func] searchList");
+    const retrieveList = (searchCondition) => {
+        console.groupCollapsed("EgovAdminNoticeList.retrieveList()");
 
+        const retrieveListURL = '/cop/bbs/selectBoardListAPI.do';
         const requestOptions = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
-            credentials: 'include',
-            body: JSON.stringify(_query)
+            body: JSON.stringify(searchCondition)
         }
 
-        EgovNet.requestFetch('/cop/bbs/selectBoardListAPI.do',
+        EgovNet.requestFetch(retrieveListURL,
             requestOptions,
-            function (resp) {
-                console.log("[RESULT] /cop/bbs/selectBoardListAPI.do", resp);
+            (resp) => {
+                setMasterBoard(resp.result.brdMstrVO);
+                setPaginationInfo(resp.result.paginationInfo);
+                setUser(resp.result.user);
 
-                setBoardResult(resp);
-                setPaginationInfo(resp.paginationInfo);
-
-                let listTag = [];
+                let mutListTag = [];
                 listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
 
-                let resultCnt = resp.resultCnt * 1;
-                let currentPageNo = resp.paginationInfo.currentPageNo;
-                let pageSize = resp.paginationInfo.pageSize;
+                let resultCnt = resp.result.resultCnt * 1;
+                let currentPageNo = resp.result.paginationInfo.currentPageNo;
+                let pageSize = resp.result.paginationInfo.pageSize;
 
                 // 리스트 항목 구성
-                resp.resultList.forEach(function (item, index) {
-                    if (index === 0) listTag = []; // 목록 초기화
+                resp.result.resultList.forEach(function (item, index) {
+                    if (index === 0) mutListTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
-                    const queryString = qs.stringify({
-                        nttId: item.nttId,
-                        bbsId: item.bbsId,
-                        pageIndex: currentPageNo
-                    }, {
-                        addQueryPrefix: true
-                    });
-
-                    listTag.push(
-                        <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >
+                    mutListTag.push(
+                        <Link to={{
+                            pathname: URL.ADMIN_NOTICE_DETAIL,
+                            state: {
+                                nttId: item.nttId,
+                                bbsId: item.bbsId,
+                                searchCondition: searchCondition
+                            }
+                        }} key={listIdx} className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
                                 <><div className="al reply">
@@ -95,40 +82,32 @@ function EgovNoticeList(props) {
                         </Link>
                     );
                 });
-                setListTag(listTag);
+                setListTag(mutListTag);
             },
-            function (response) {
-                console.log("err response : ", response);
+            function (resp) {
+                console.log("err response : ", resp);
             }
         );
+        console.groupEnd("EgovAdminNoticeList.retrieveList()");
     }
 
-    //componentDidMount (1회만)
-    useEffect(function () {
-        console.log('*===>>> useEffect (componentDidMount)'); // bbsId: 'BBSMSTR_AAAAAAAAAAAA'
-
-        searchList(query);
-        return function () {
-            //console.log('===>>> useEffect return (componentWillUnmount)');
+    useEffect(() => {
+        retrieveList(searchCondition);
+        return () => {
         }
-    }, []); // 빈 배열로 전달
+    }, [searchCondition]);
 
-    useEffect(function () {
-        console.log('===>>> useEffect (listTag)');
-        console.log("===>>> board length = ", listTag);
-
-    }, [listTag, paginationInfo]);
-
+    console.log("------------------------------EgovAdminNoticeList [End]");
+    console.groupEnd("EgovAdminNoticeList");
     return (
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to="" className="home">Home</Link></li>
-                        <li><Link to="">알림마당</Link></li>
-                        {/* <li>공지사항</li> */}
-                        <li>{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</li>
+                        <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                        <li><Link to={URL.INFORM}>사이트 관리</Link></li>
+                        <li>{masterBoard && masterBoard.bbsNm}</li>
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -142,19 +121,22 @@ function EgovNoticeList(props) {
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
-                            <h1 className="tit_1">알림마당</h1>
+                            <h1 className="tit_1">사이트관리</h1>
                         </div>
 
-                        {/* <h2 className="tit_2">공지사항</h2> */}
-                        <h2 className="tit_2">{boardResult.brdMstrVO && boardResult.brdMstrVO.bbsNm}</h2>
+                        <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
 
                         {/* <!-- 검색조건 --> */}
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
                                     <label className="f_select" htmlFor="sel1">
-                                        <select name="" id="sel1" title="조건"
-                                            onChange={e => setSearchCondition({ ...searchCondition, searchCnd: e.target.value })}>
+                                        <select id="sel1" title="조건" defaultValue={searchCondition.searchCnd}
+                                            onChange={e => {
+                                                searchCnd = e.target.value;
+                                                // setSearchCondition({ ...searchCondition, searchCnd: e.target.value });
+                                            }}
+                                        >
                                             <option value="0">제목</option>
                                             <option value="1">내용</option>
                                             <option value="2">작성자</option>
@@ -163,14 +145,21 @@ function EgovNoticeList(props) {
                                 </li>
                                 <li className="third_2 R">
                                     <span className="f_search w_500">
-                                        <input type="text" name="" value={searchCondition.searchWrd} placeholder=""
-                                            onChange={e => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })} />
+                                        <input type="text" name="" defaultValue={searchCondition.searchWrd} placeholder=""
+                                            onChange={e => {
+                                                searchWrd = e.target.value;
+                                                //setSearchCondition({ ...searchCondition, searchWrd: e.target.value });
+                                            }}
+                                        />
                                         <button type="button"
-                                            onClick={onClickSearch}>조회</button>
+                                            onClick={e => {
+                                                // onClickSearch
+                                                setSearchCondition({ ...searchCondition, pageIndex: 1, searchCnd: searchCnd, searchWrd: searchWrd });
+                                            }}>조회</button>
                                     </span>
                                 </li>
                                 <li>
-                                    <a href={URL.INFORM_NOTICE_CREATE} className="btn btn_blue_h46 pd35">등록</a>
+                                    <Link to={URL.ADMIN_NOTICE_CREATE} className="btn btn_blue_h46 pd35">등록</Link>
                                 </li>
                             </ul>
                         </div>
@@ -193,7 +182,9 @@ function EgovNoticeList(props) {
 
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
-                            <EgovPaging pagination={paginationInfo}></EgovPaging>
+                            <EgovPaging pagination={paginationInfo} moveToPage={passedPage => {
+                                setSearchCondition({ ...searchCondition, pageIndex: passedPage });
+                            }}></EgovPaging>
                             {/* <!--/ Paging --> */}
                         </div>
 
@@ -206,4 +197,4 @@ function EgovNoticeList(props) {
 }
 
 
-export default EgovNoticeList;
+export default EgovAdminNoticeList;

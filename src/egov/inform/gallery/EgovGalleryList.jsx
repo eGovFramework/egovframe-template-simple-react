@@ -20,7 +20,7 @@ function EgovGalleryList(props) {
     let searchCnd = '0';
     let searchWrd = '';
 
-    const [searchCondition, setSearchCondition] = useState(props.location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [masterBoard, setMasterBoard] = useState({});
     const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});

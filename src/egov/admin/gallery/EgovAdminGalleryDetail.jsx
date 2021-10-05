@@ -5,20 +5,21 @@ import { Link, useHistory } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
-import { NOTICE_BBS_ID } from 'context/config';
+import { GALLERY_BBS_ID } from 'context/config';
 
-import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
+import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import EgovImageGallery from 'egov/common/EgovImageGallery';
 
-function EgovAdminNoticeDetail(props) {
-    console.group("EgovAdminNoticeDetail");
+function EgovAdminGalleryDetail(props) {
+    console.groupEnd("EgovAdminGalleryDetail");
     console.log("------------------------------");
-    console.log("EgovAdminNoticeDetail [props] : ", props);
+    console.log("EgovAdminGalleryDetail [props] : ", props);
 
     const history = useHistory();
-    console.log("EgovAdminNoticeDetail [history] : ", history);
+    console.log("EgovAdminGalleryDetail [history] : ", history);
 
-    const bbsId = history.location.state.bbsId || NOTICE_BBS_ID;
+    const bbsId = history.location.state.bbsId || GALLERY_BBS_ID;
     const nttId = history.location.state.nttId;
     const searchCondition = history.location.state.searchCondition;
 
@@ -68,9 +69,8 @@ function EgovAdminNoticeDetail(props) {
             (resp) => {
                 console.log("====>>> board delete= ", resp);
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    //window.location.href = URL.ADMIN_NOTICE + qs.stringify(query, { addQueryPrefix: true });
                     alert("게시글이 삭제되었습니다.")
-                    history.push(URL.ADMIN_NOTICE);
+                    history.push(URL.ADMIN_GALLERY);
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -84,8 +84,8 @@ function EgovAdminNoticeDetail(props) {
         return function () {
         }
     }, []);
-    
-    console.groupEnd("EgovAdminNoticeDetail");
+
+    console.groupEnd("EgovAdminGalleryDetail");
 
     return (
         <div className="container">
@@ -94,8 +94,9 @@ function EgovAdminNoticeDetail(props) {
                 <div className="location">
                     <ul>
                         <li><Link to={URL.MAIN} className="home">Home</Link></li>
-                        <li><Link to={URL.ADMIN}>사이트관리</Link></li>
+                        <li><Link to={URL.INFORM}>사이트관리</Link></li>
                         <li>{masterBoard && masterBoard.bbsNm}</li>
+                        {/* brdMstrVO */}
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -137,6 +138,9 @@ function EgovAdminNoticeDetail(props) {
                             <div className="board_article">
                                 <textarea name="" cols="30" rows="10" readOnly="readonly" defaultValue={boardDetail && boardDetail.nttCn}></textarea>
                             </div>
+
+                            <EgovImageGallery boardFiles={boardAttachFiles} />
+
                             <div className="board_attach">
                                 <EgovAttachFile boardFiles={boardAttachFiles} />
                             </div>
@@ -145,7 +149,7 @@ function EgovAdminNoticeDetail(props) {
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
                                     <Link to={{
-                                        pathname: URL.ADMIN_NOTICE_MODIFY,
+                                        pathname: URL.ADMIN_GALLERY_MODIFY,
                                         state: {
                                             nttId: nttId,
                                             bbsId: bbsId
@@ -156,17 +160,16 @@ function EgovAdminNoticeDetail(props) {
                                         onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                     }}>삭제</a>
                                     <Link to={{
-                                        pathname: URL.ADMIN_NOTICE_REPLY,
+                                        pathname: URL.ADMIN_GALLERY_REPLY,
                                         state: {
                                             nttId: nttId,
                                             bbsId: bbsId
                                         }
                                     }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                 </div>
-
                                 <div className="right_col btn1">
                                     <Link to={{
-                                        pathname: URL.ADMIN_NOTICE,
+                                        pathname: URL.ADMIN_GALLERY,
                                         state: {
                                             nttId: nttId,
                                             bbsId: bbsId,
@@ -187,4 +190,4 @@ function EgovAdminNoticeDetail(props) {
 }
 
 
-export default EgovAdminNoticeDetail;
+export default EgovAdminGalleryDetail;

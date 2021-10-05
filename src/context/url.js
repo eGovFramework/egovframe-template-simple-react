@@ -1,20 +1,24 @@
 
 const URL = {
+    //COMMON
     MAIN                        : "/", //메인페이지   
     
     LOGIN                       : "/login", //로그인
     ERROR                       : "/error", //로그인
     
+    //ABOUT
     ABOUT                       : "/about", //사이트소개   
     ABOUT_SITE                  : "/about/site", // 사이트소개/소개
     ABOUT_HISTORY               : "/about/history", // 사이트소개/연혁
     ABOUT_ORGANIZATION          : "/about/organization", // 사이트소개/조직소개
     ABOUT_LOCATION              : "/about/location", // 사이트소개/찾아오시는길
     
+    //INTRO
     INTRO                       : "/intro", //정보마당
     INTRO_WORKS                 : "/intro/works", // 정보마당/주요사업소개
     INTRO_SERVICE               : "/intro/service", // 정보마당/주요서비스소개
     
+    //SUPPORT
     SUPPORT                     : "/support", // 고객지원
     SUPPORT_DOWNLOAD            : "/support/download", // 고객지원/자료실
     SUPPORT_DOWNLOAD_DETAIL     : "/support/download/detail", // 고객지원/자료실/상세
@@ -23,6 +27,7 @@ const URL = {
     SUPPORT_QNA_DETAIL          : "/support/qna/detail", // 고객지원/묻고답하기/상세
     SUPPORT_APPLY               : "/support/apply", // 고객지원/서비스신청
     
+    //INFORM
     INFORM                      : "/inform", // 알림마당 
     INFORM_DAILY                : "/inform/daily", // 알림마당/오늘의행사
     INFORM_WEEKLY               : "/inform/weekly", // 알림마당/금주의행사
@@ -37,35 +42,34 @@ const URL = {
     INFORM_GALLERY_MODIFY       : "/inform/gallery/modify", // 알림마당/사이트갤러리수정
     INFORM_GALLERY_REPLY        : "/inform/gallery/reply", // 알림마당/사이트갤러리답글
     
+    //ADMIN
     ADMIN                       : "/admin", // 사이트관리
     ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
-    ADMIN_TEMPLATE              : "/admin/template", // 사이트관리/게시판템플릿관리
-    ADMIN_BOARD                 : "/admin/board", // 사이트관리/게시판생성관리
-    ADMIN_BOARD_DETAIL          : "/admin/board/detail", // 사이트관리/게시판생성관리상세
-    ADMIN_BOARD_CREATE          : "/admin/board/create", // 사이트관리/게시판생성관리생성
-    ADMIN_BOARD_MODIFY          : "/admin/board/modify", // 사이트관리/게시판생성관리수정
-    ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리
-    ADMIN_NOTICE                : "/admin/notice", // 사이트관리/공지사항관리
-    ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리상세
-    ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리생성
-    ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리수정
-    ADMIN_NOTICE_REPLY         : "/admin/notice/reply", // 사이트관리/공지사항관리답글
+
+    ADMIN_TEMPLATE              : "/admin/template", // 사이트관리/게시판템플릿관리 목록
+    ADMIN_TEMPLATE_CREATE       : "/admin/template/create", // 사이트관리/게시판템플릿관리 등록
+    ADMIN_TEMPLATE_MODIFY       : "/admin/template/modify", // 사이트관리/게시판템플릿관리 상세/수정
+
+    ADMIN_BOARD                 : "/admin/board", // 사이트관리/게시판생성관리 목록
+    ADMIN_BOARD_CREATE          : "/admin/board/create", // 사이트관리/게시판생성관리 등록
+    ADMIN_BOARD_MODIFY          : "/admin/board/modify", // 사이트관리/게시판생성관리 상세/수정
+
+    ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리 목록
+    ADMIN_USAGE_CREATE          : "/admin/usage/create", // 사이트관리/게시판사용관리 등록
+    ADMIN_USAGE_MODIFY          : "/admin/usage/modify", // 사이트관리/게시판사용관리 상세/수정
+
+    ADMIN_NOTICE                : "/admin/notice/", // 사이트관리/공지사항관리 목록
+    ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리 상세
+    ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리 등록
+    ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리 수정
+    ADMIN_NOTICE_REPLY          : "/admin/notice/reply", // 사이트관리/공지사항관리 답글 등록
+
     ADMIN_GALLERY               : "/admin/gallery", // 사이트관리/사이트갤러리관리
+    ADMIN_GALLERY_DETAIL        : "/admin/gallery/detail", // 사이트관리/사이트갤러리관리 상세
+    ADMIN_GALLERY_CREATE        : "/admin/gallery/create", // 사이트관리/사이트갤러리관리 등록
+    ADMIN_GALLERY_MODIFY        : "/admin/gallery/modify", // 사이트관리/사이트갤러리관리 수정
+    ADMIN_GALLERY_REPLY         : "/admin/gallery/reply", // 사이트관리/사이트갤러리관리 답글 등록
     
-    
-    
-    
-    
-
-    /* 삭제대상 */
-    BOARD_LIST            : "/board/list", // 게시판 목록
-    BOARD_DETAIL          : "/board/detail", // 게시판 상세보기
-    BOARD_MODIFY          : "/board/edit", // 게시판 수정
-    BOARD_CREATE          : "/board/new", // 게시판 등록
-    BOARD_REPLY           : "/baord/reply", // 게시판 답글달기
-
-    SCHDUL_MANAGE         : "/schdul/manage", // 게시판 답글달기
-    /* 삭제대상 */
 }
 
 export default URL;
