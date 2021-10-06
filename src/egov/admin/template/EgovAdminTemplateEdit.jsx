@@ -24,8 +24,8 @@ function EgovAdminTemplateEdit(props) {
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [useAt, setUseAt] = useState("Y");
     const [templateDetail, setTemplateDetail] = useState({ nttSj: '', nttCn: '' });
+    const [useAtRadioGroup, setUseAtRadioGroup] = useState([{value: "Y", label:"Y Label"}, {value: "N", label:"N Label"}])
     const [radioGroup, setRadioGroup] = useState({ Y: true, N: false, F: false })
-    const [useAtRadioGroup, setUseAtRadioGroup] = useState({ Y: true, N: false, F: false })
 
     const intMode = () => {
         switch (props.mode) {
@@ -167,30 +167,6 @@ function EgovAdminTemplateEdit(props) {
                             <dl>
                                 <dt>사용여부<span className="req">필수</span></dt>
                                 <dd>
-                                    {/* <EgovRadioButton label="Y" value="Y" checkedValue={useAt} setter={setUseAt} />
-                                    <EgovRadioButton label="N" value="N" checkedValue={useAt} setter={setUseAt} /> */}
-                                    {/* <label className={`f_rdo ${radioGroup["Y"] && " on"}`}>
-                                        <input
-                                            type="radio"
-                                            name="useAt"
-                                            value="Y"
-                                            title="Ylabel"
-                                            checked={radioGroup["Y"]}
-                                            onChange={handleUseAtRadio}
-                                        />
-                                        <em>Ylabel</em>
-                                    </label>
-                                    <label className={`f_rdo ${radioGroup["N"] && " on"}`}>
-                                        <input
-                                            type="radio"
-                                            name="useAt"
-                                            value="N"
-                                            title="Nlabel"
-                                            checked={radioGroup["N"]}
-                                            onChange={handleUseAtRadio}
-                                        />
-                                        <em>Nlabel</em>
-                                    </label> */}
                                     {/* <label className={`f_rdo ${"Y" === useAt && " on"}`}>
                                         <input
                                             type="radio"
@@ -213,7 +189,7 @@ function EgovAdminTemplateEdit(props) {
                                         />
                                         <em>Nlabel</em>
                                     </label> */}
-                                    <EgovRadioButton
+                                    {/* <EgovRadioButton
                                         name="useAt"
                                         label="Y value"
                                         value="Y"
@@ -226,12 +202,12 @@ function EgovAdminTemplateEdit(props) {
                                         value="N"
                                         checkedValue={useAt}
                                         setter={setUseAt} 
-                                    />
-                                    {/* <EgovRadioButtonGroup
+                                    /> */}
+                                    <EgovRadioButtonGroup
                                         name="useAt"
                                         radioGroup={useAtRadioGroup}
-                                        checkedValue={useAt}
-                                        setter={setUseAt}/> */}
+                                        setValue={useAt}
+                                        setter={setUseAt}/>
                                 </dd>
                             </dl>
 
