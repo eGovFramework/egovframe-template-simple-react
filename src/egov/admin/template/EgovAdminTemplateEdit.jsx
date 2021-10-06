@@ -9,6 +9,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 import EgovRadioButton from 'egov/common/EgovRadioButton';
+import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
 function EgovAdminTemplateEdit(props) {
     console.group("EgovAdminTemplateEdit");
@@ -24,6 +25,7 @@ function EgovAdminTemplateEdit(props) {
     const [useAt, setUseAt] = useState("Y");
     const [templateDetail, setTemplateDetail] = useState({ nttSj: '', nttCn: '' });
     const [radioGroup, setRadioGroup] = useState({ Y: true, N: false, F: false })
+    const [useAtRadioGroup, setUseAtRadioGroup] = useState({ Y: true, N: false, F: false })
 
     const intMode = () => {
         switch (props.mode) {
@@ -101,6 +103,12 @@ function EgovAdminTemplateEdit(props) {
         return () => {
         }
     }, []);
+    
+    useEffect(() => {
+        // setUseAt(useAt)
+        return () => {
+        }
+    }, [useAt]);
 
     console.log("------------------------------EgovAdminTemplateEdit [End]");
     console.groupEnd("EgovAdminTemplateEdit");
@@ -161,7 +169,7 @@ function EgovAdminTemplateEdit(props) {
                                 <dd>
                                     {/* <EgovRadioButton label="Y" value="Y" checkedValue={useAt} setter={setUseAt} />
                                     <EgovRadioButton label="N" value="N" checkedValue={useAt} setter={setUseAt} /> */}
-                                    <label className={`f_rdo ${radioGroup["Y"] && " on"}`}>
+                                    {/* <label className={`f_rdo ${radioGroup["Y"] && " on"}`}>
                                         <input
                                             type="radio"
                                             name="useAt"
@@ -182,7 +190,48 @@ function EgovAdminTemplateEdit(props) {
                                             onChange={handleUseAtRadio}
                                         />
                                         <em>Nlabel</em>
+                                    </label> */}
+                                    {/* <label className={`f_rdo ${"Y" === useAt && " on"}`}>
+                                        <input
+                                            type="radio"
+                                            name="useAt"
+                                            value="Y"
+                                            title="Ylabel"
+                                            checked={"Y" === useAt}
+                                            onChange={ () => setUseAt("Y")}
+                                        />
+                                        <em>Ylabel</em>
                                     </label>
+                                    <label className={`f_rdo ${"N" === useAt && " on"}`}>
+                                        <input
+                                            type="radio"
+                                            name="useAt"
+                                            value="N"
+                                            title="Nlabel"
+                                            checked={"N" === useAt}
+                                            onChange={() => setUseAt("N")}
+                                        />
+                                        <em>Nlabel</em>
+                                    </label> */}
+                                    <EgovRadioButton
+                                        name="useAt"
+                                        label="Y value"
+                                        value="Y"
+                                        checkedValue={useAt}
+                                        setter={setUseAt}
+                                    />
+                                    <EgovRadioButton
+                                        name="useAt"
+                                        label="N value"
+                                        value="N"
+                                        checkedValue={useAt}
+                                        setter={setUseAt} 
+                                    />
+                                    {/* <EgovRadioButtonGroup
+                                        name="useAt"
+                                        radioGroup={useAtRadioGroup}
+                                        checkedValue={useAt}
+                                        setter={setUseAt}/> */}
                                 </dd>
                             </dl>
 
