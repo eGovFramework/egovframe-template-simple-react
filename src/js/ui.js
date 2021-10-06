@@ -70,11 +70,11 @@ $(function() {
         });
 
         // Radio
-        $('.f_rdo').on('click', function() {
-            $(this).addClass('on');
-            $(this).siblings().removeClass('on');
-            $(this).find('input').prop('checked', true);
-        });
+        // $('.f_rdo').on('click', function() {
+        //     $(this).addClass('on');
+        //     $(this).siblings().removeClass('on');
+        //     $(this).find('input').prop('checked', true);
+        // });
 
 
         // 홈페이지 템플릿 소개팝업
