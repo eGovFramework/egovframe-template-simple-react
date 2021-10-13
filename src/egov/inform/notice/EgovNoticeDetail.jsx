@@ -152,10 +152,10 @@ function EgovNoticeDetail(props) {
                                                 bbsId: bbsId
                                             }
                                         }} className="btn btn_skyblue_h46 w_100">수정</Link>
-                                        <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                        <button className="btn btn_skyblue_h46 w_100" onClick={(e) => {
                                             e.preventDefault();
                                             onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
-                                        }}>삭제</a>
+                                        }}>삭제</button>
                                         <Link to={{
                                             pathname: URL.INFORM_NOTICE_REPLY,
                                             state: {

@@ -113,6 +113,33 @@ function EgovAdminBoardEdit(props) {
         );
     }
 
+    const deleteBoardArticle = (bbsId) => {
+        const deleteBoardURL = "/cop/bbs/deleteBBSMasterInfAPI.do";
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                bbsId: bbsId
+            })
+        }
+
+        EgovNet.requestFetch(deleteBoardURL,
+            requestOptions,
+            (resp) => {
+                console.log("====>>> board delete= ", resp);
+                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                    alert("게시글이 삭제되었습니다.")
+                    history.push(URL.ADMIN_BOARD);
+                } else {
+                    alert("ERR : " + resp.resultMessage);
+                }
+
+            }
+        );
+    }
+
     const getSelectedLabel = (objArray, findLabel = "") => {
         let foundValueLabelObj = objArray.find(o => o['value'] === findLabel);
         return foundValueLabelObj['label'];
@@ -330,6 +357,10 @@ function EgovAdminBoardEdit(props) {
                                 <div className="left_col btn1">
                                     <button className="btn btn_skyblue_h46 w_100"
                                         onClick={() => updateBoard()}>저장</button>
+                                    <button className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                            // e.preventDefault();
+                                            deleteBoardArticle(boardDetail.bbsId);
+                                        }}>삭제</button>
                                 </div>
 
                                 <div className="right_col btn1">
