@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function EgovRadioButton({ name, label, value, checkedValue, setter}) {
     const checked = value === checkedValue;

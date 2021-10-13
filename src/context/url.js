@@ -51,10 +51,12 @@ const URL = {
     ADMIN_TEMPLATE_MODIFY       : "/admin/template/modify", // 사이트관리/게시판템플릿관리 상세/수정
 
     ADMIN_BOARD                 : "/admin/board", // 사이트관리/게시판생성관리 목록
+    ADMIN_BOARD_DETAIL          : "/admin/board/detail", // 사이트관리/게시판생성관리 상세
     ADMIN_BOARD_CREATE          : "/admin/board/create", // 사이트관리/게시판생성관리 등록
     ADMIN_BOARD_MODIFY          : "/admin/board/modify", // 사이트관리/게시판생성관리 상세/수정
 
     ADMIN_USAGE                 : "/admin/usage", // 사이트관리/게시판사용관리 목록
+    ADMIN_USAGE_DETAIL          : "/admin/usage/detail", // 사이트관리/게시판사용관리 상세
     ADMIN_USAGE_CREATE          : "/admin/usage/create", // 사이트관리/게시판사용관리 등록
     ADMIN_USAGE_MODIFY          : "/admin/usage/modify", // 사이트관리/게시판사용관리 상세/수정
 

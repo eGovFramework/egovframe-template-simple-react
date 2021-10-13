@@ -160,6 +160,7 @@ class App extends Component {
               <Route path={URL.ADMIN_TEMPLATE_MODIFY} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_MODIFY} />} />
 
               <Route exact path={URL.ADMIN_BOARD} component={() => <EgovAdminBoardList />} />
+              {/* <Route path={URL.ADMIN_BOARD_DETAIL} render={() => <EgovAdminBoardEdit mode={CODE.MODE_READ} />} /> */}
               <Route path={URL.ADMIN_BOARD_CREATE} render={() => <EgovAdminBoardEdit mode={CODE.MODE_CREATE} />} />
               <Route path={URL.ADMIN_BOARD_MODIFY} render={() => <EgovAdminBoardEdit mode={CODE.MODE_MODIFY} />} />
 
@@ -172,8 +173,6 @@ class App extends Component {
               <Route path={URL.ADMIN_NOTICE_CREATE} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_CREATE} />} />
               <Route path={URL.ADMIN_NOTICE_MODIFY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_MODIFY} />} />
               <Route path={URL.ADMIN_NOTICE_REPLY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_REPLY} />} />
-
-
 
               <Route exact path={URL.ADMIN_GALLERY} render={() => <EgovAdminGalleryList />} />
               <Route path={URL.ADMIN_GALLERY_DETAIL} render={() => <EgovAdminGalleryDetail />} />
@@ -190,7 +189,7 @@ class App extends Component {
             <EgovInfoPopup></EgovInfoPopup>
           </Route>
         </Switch>
-
+        
       </div>
     )
   }

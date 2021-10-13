@@ -1,6 +1,7 @@
 import { SERVER_URL } from './config';
 
 import URL from 'context/url';
+import CODE from 'context/code';
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
     console.groupCollapsed("requestFetch");
@@ -22,6 +23,15 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
             //console.log("requestFetch [Response Stream] ", response); 
             return response.json();
         })
+        .then( (resp) => {
+            if (Number(resp.resultCode) === Number(CODE.RCV_ERROR_AUTH)) {
+                alert("Login Alert");
+                window.location.href = URL.LOGIN;
+                return false;
+            }else {
+                return resp;
+            }
+        } )
         .then( (resp) => {
             console.groupCollapsed("requestFetch.then()");
             console.log("requestFetch [response] ", resp);

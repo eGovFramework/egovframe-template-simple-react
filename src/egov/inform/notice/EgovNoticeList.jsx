@@ -79,14 +79,17 @@ function EgovNoticeList(props) {
 
                     mutListTag.push(
                         // <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >
-                        <Link to={{
-                            pathname: URL.INFORM_NOTICE_DETAIL,
-                            state: {
-                                nttId: item.nttId,
-                                bbsId: item.bbsId,
-                                searchCondition: searchCondition
-                            }
-                        }} key={listIdx} className="list_item" >
+                        <Link
+                            to={{
+                                pathname: URL.INFORM_NOTICE_DETAIL,
+                                state: {
+                                    nttId: item.nttId,
+                                    bbsId: item.bbsId,
+                                    searchCondition: searchCondition
+                                }
+                            }}
+                            key={listIdx}
+                            className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
                                 <><div className="al reply">

@@ -26,7 +26,7 @@ function EgovNoticeEdit(props) {
     const [boardDetail, setBoardDetail] = useState({ nttSj: '', nttCn: '' });
     const [boardAttachFiles, setBoardAttachFiles] = useState();
 
-    const intMode = () => {
+    const initMode = () => {
         switch (props.mode) {
             case CODE.MODE_CREATE:
                 setModeInfo({
@@ -121,7 +121,7 @@ function EgovNoticeEdit(props) {
     }
 
     useEffect(function () {
-        intMode();
+        initMode();
         return function () {
         }
     }, []);
@@ -196,15 +196,12 @@ function EgovNoticeEdit(props) {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
-                                    <a href="" className="btn btn_skyblue_h46 w_100"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            updateBoard();
-                                        }}>저장</a>
+                                    <button className="btn btn_skyblue_h46 w_100"
+                                        onClick={() => updateBoard()}>저장</button>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href={URL.INFORM_NOTICE} className="btn btn_blue_h46 w_100">목록</a>
+                                    <Link to={URL.INFORM_NOTICE} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}
