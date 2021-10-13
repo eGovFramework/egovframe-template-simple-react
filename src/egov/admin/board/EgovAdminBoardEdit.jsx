@@ -7,6 +7,7 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
+import EgovSelect from 'egov/common/EgovSelect';
 
 function EgovAdminBoardEdit(props) {
     console.group("EgovAdminBoardEdit");
