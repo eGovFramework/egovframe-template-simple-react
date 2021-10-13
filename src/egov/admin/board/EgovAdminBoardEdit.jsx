@@ -31,7 +31,7 @@ function EgovAdminBoardEdit(props) {
     // const [bbsAttrbCode, setBbsAttrbCode] = useState("");
     const [bbsAttrbCodeOptions, setBbsAttrbCodeOptions] = useState([{ value: "", label: "선택" }, { value: "BBSA02", label: "갤러리" }, { value: "BBSA03", label: "일반게시판" }])
     // const [posblAtchFileNumber, setPosblAtchFileNumber] = useState(0);
-    const [posblAtchFileNumberOptions, setPosblAtchFileNumberOptions] = useState([{ value: "0", label: "선택하세요" }, { value: "1", label: "1개" }, { value: "2", label: "2개" }, { value: "3", label: "3개" }])
+    const [posblAtchFileNumberOptions, setPosblAtchFileNumberOptions] = useState([{ value: 0, label: "선택하세요" }, { value: 1, label: "1개" }, { value: 2, label: "2개" }, { value: 3, label: "3개" }])
 
     const initMode = () => {
         switch (props.mode) {
@@ -47,7 +47,7 @@ function EgovAdminBoardEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "수정",
-                    editURL: '/cop/bbs/UpdateBBSMasterInfAPI.do'
+                    editURL: '/cop/bbs/updateBBSMasterInfAPI.do'
                 });
                 break;
         }
@@ -56,11 +56,15 @@ function EgovAdminBoardEdit(props) {
 
     const retrieveDetail = () => {
         if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
-            setBoardDetail({ bbsId: "", nttCn: "" });
+            setBoardDetail({ 
+                tmplatId: "TMPLAT_BOARD_DEFAULT" ,  //Template 고정
+                replyPosblAt : "Y",                 //답장가능여부 초기값
+                fileAtchPosblAt: "Y"                //파일첨부가능여부 초기값
+            });
             return;
         }
 
-        const retrieveDetailURL = '/cop/bbs/SelectBBSMasterInfAPI.do';
+        const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
 
         const requestOptions = {
             method: "POST",
@@ -74,20 +78,9 @@ function EgovAdminBoardEdit(props) {
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
             function (resp) {
-
+                // 수정모드일 경우 조회값 세팅
                 if (modeInfo.mode === CODE.MODE_MODIFY) {
                     setBoardDetail(resp.result.boardMasterVO);
-
-                    // setReplyPosblAt(resp.result.boardMasterVO.replyPosblAt);
-                    // setFileAtchPosblAt(resp.result.boardMasterVO.fileAtchPosblAt);
-                    // setBbsTyCode(resp.result.boardMasterVO.bbsTyCode);
-                    // setBbsAttrbCode(resp.result.boardMasterVO.bbsAttrbCode);
-                    // setPosblAtchFileNumber(resp.result.boardMasterVO.posblAtchFileNumber);
-                }
-
-                // 초기 setBoardAttachFiles 설정 => (수정) 모드 일때...
-                if (modeInfo.mode === CODE.MODE_MODIFY) {
-                    // setBoardAttachFiles(resp.result.resultFiles);
                 }
             }
         );
@@ -97,7 +90,7 @@ function EgovAdminBoardEdit(props) {
         const formData = new FormData();
         for (let key in boardDetail) {
             formData.append(key, boardDetail[key]);
-            //console.log("boardDetail [%s] ", key, boardDetail[key]);
+            console.log("boardDetail [%s] ", key, boardDetail[key]);
         }
 
         const requestOptions = {
@@ -113,7 +106,6 @@ function EgovAdminBoardEdit(props) {
             (resp) => {
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     history.push({ pathname: URL.ADMIN_BOARD });
-
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -121,11 +113,21 @@ function EgovAdminBoardEdit(props) {
         );
     }
 
+    const getSelectedLabel = (objArray, findLabel = "") => {
+        let foundValueLabelObj = objArray.find(o => o['value'] === findLabel);
+        return foundValueLabelObj['label'];
+    }
+
     useEffect(() => {
         initMode();
         return () => {
         }
     }, []);
+
+    useEffect(() => {
+        return () => {
+        }
+    }, [boardDetail]);
 
     console.log("------------------------------EgovAdminBoardEdit [End]");
     console.groupEnd("EgovAdminBoardEdit");
@@ -155,124 +157,171 @@ function EgovAdminBoardEdit(props) {
                             <h1 className="tit_1">사이트관리</h1>
                         </div>
 
-                        <h2 className="tit_2">게시판 생성</h2>
+                        {modeInfo.mode === CODE.MODE_CREATE &&
+                            <h2 className="tit_2">게시판 생성</h2>
+                        }
+
+                        {modeInfo.mode === CODE.MODE_MODIFY &&
+                            <h2 className="tit_2">게시판 수정</h2>
+                        }
 
                         <div className="board_view2">
                             <dl>
                                 <dt><label htmlFor="bbsNm">게시판명</label><span className="req">필수</span></dt>
                                 <dd>
                                     <input className="f_input2 w_full" type="text" name="bbsNm" title="" id="bbsNm" placeholder=""
-                                        defaultValue={boardDetail.bbsNm} />
+                                        defaultValue={boardDetail.bbsNm}
+                                        onChange={e => setBoardDetail({ ...boardDetail, bbsNm: e.target.value })}
+                                    />
                                 </dd>
                             </dl>
                             <dl>
                                 <dt><label htmlFor="bbsIntrcn">게시판 소개</label><span className="req">필수</span></dt>
                                 <dd>
                                     <textarea className="f_txtar w_full h_100" name="bbsIntrcn" id="bbsIntrcn" cols="30" rows="10" placeholder=""
-                                        defaultValue={boardDetail.bbsIntrcn}></textarea>
+                                        defaultValue={boardDetail.bbsIntrcn}
+                                        onChange={e => setBoardDetail({ ...boardDetail, bbsIntrcn: e.target.value })}
+                                    ></textarea>
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>게시판 유형<span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select w_130" for="schdulIpcrCode">
-                                        <EgovSelect
+                                    {/* 수정/조회 일때 변경 불가 */}
+                                    {modeInfo.mode === CODE.MODE_CREATE &&
+                                        <label className="f_select w_130" htmlFor="schdulIpcrCode">
+                                            {/* <EgovSelect
+                                                id="bbsTyCode"
+                                                name="bbsTyCode"
+                                                title="게시판유형선택"
+                                                options={bbsTyCodeOptions}
+                                                setValue={boardDetail.bbsTyCode}
+                                                setter={(v) => setBoardDetail({ ...boardDetail, bbsTyCode: v })}
+                                            /> */}
+                                            <select
                                             id="bbsTyCode"
                                             name="bbsTyCode"
                                             title="게시판유형선택"
-                                            options={bbsTyCodeOptions}
-                                            // setValue={bbsTyCode}
-                                            // setter={setBbsTyCode}
-                                            setValue={boardDetail.bbsTyCode}
-                                            setter={(v) => setBoardDetail({...boardDetail, bbsTyCode : v})}
-                                        />
-                                        {/* <select id="bbsTyCode" name="bbsTyCode" title="게시판유형선택"
-                                            defaultValue={boardDetail.bbsTyCode}>
-                                            <option value="" >선택</option>
-                                            <option value="BBST01">일반게시판</option>
-                                            <option value="BBST03">공지게시판</option>
-                                        </select> */}
-                                    </label>
+                                            onChange={(e) => setBoardDetail({ ...boardDetail, bbsTyCode: e.target.value })}
+                                            value={boardDetail.bbsTyCode}
+                                        >
+                                            {bbsTyCodeOptions.map((option, i) => {
+                                                return (
+                                                    <option value={option.value} key={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                )
+                                            })}
+                                        </select>
+                                        </label>
+                                    }
+                                    {modeInfo.mode === CODE.MODE_MODIFY &&
+                                        <span>
+                                            {boardDetail.bbsTyCode && getSelectedLabel(bbsTyCodeOptions, boardDetail.bbsTyCode)}
+                                        </span>
+                                    }
+
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>게시판 속성<span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select w_130" for="bbsAttrbCode">
-                                        <EgovSelect
+                                    {/* 등록 일때 변경 가능 */}
+                                    {modeInfo.mode === CODE.MODE_CREATE &&
+                                        <label className="f_select w_130" for="bbsAttrbCode">
+                                            {/* <EgovSelect
+                                                id="bbsAttrbCode"
+                                                name="bbsAttrbCode"
+                                                title="게시판속성선택"
+                                                options={bbsAttrbCodeOptions}
+                                                setValue={boardDetail.bbsAttrbCode}
+                                                setter={(v) => setBoardDetail({ ...boardDetail, bbsAttrbCode: v })}
+                                            /> */}
+                                        <select
                                             id="bbsAttrbCode"
                                             name="bbsAttrbCode"
                                             title="게시판속성선택"
-                                            options={bbsAttrbCodeOptions}
-                                            // setValue={bbsAttrbCode}
-                                            // setter={setBbsAttrbCode}
-                                            setValue={boardDetail.bbsAttrbCode}
-                                            setter={(v) => setBoardDetail({...boardDetail, bbsAttrbCode : v})}
-                                        />
-                                        {/* <select id="bbsAttrbCode" name="bbsAttrbCode" title="게시판속성선택"
-                                            defaultValue={boardDetail.bbsAttrbCode}>
-                                            <option value="" >선택</option>
-                                            <option value="BBSA02">갤러리</option>
-                                            <option value="BBSA03">일반게시판</option>
-                                        </select> */}
-                                    </label>
+                                            onChange={(e) => setBoardDetail({ ...boardDetail, bbsAttrbCode: e.target.value })}
+                                            value={boardDetail.bbsAttrbCode}
+                                        >
+                                            {bbsAttrbCodeOptions.map((option, i) => {
+                                                return (
+                                                    <option value={option.value} key={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                )
+                                            })}
+                                        </select>
+                                        </label>
+                                    }
+                                    {/* 수정/조회 일때 변경 불가 */}
+                                    {modeInfo.mode === CODE.MODE_MODIFY &&
+                                        <span>
+                                            {/* {bbsTyCodeOptions.find(o => o.value === boardDetail.bbsTyCode)['label']} */}
+                                            {boardDetail.bbsAttrbCode && getSelectedLabel(bbsAttrbCodeOptions, boardDetail.bbsAttrbCode)}
+                                        </span>
+                                    }
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>답장가능여부<span className="req">필수</span></dt>
                                 <dd>
-                                    {/* <span className="f_rdo on"><input type="radio" name="replyPosblAt" title="가능" checked="checked" /><em>가능</em></span>
-                                    <span className="f_rdo"><input type="radio" name="replyPosblAt" title="불가능" /><em>불가능</em></span> */}
-                                    <EgovRadioButtonGroup
-                                        name="replyPosblAt"
-                                        radioGroup={replyPosblAtRadioGroup}
-                                        setValue={boardDetail.replyPosblAt}
-                                        setter={(v) => setBoardDetail({...boardDetail, replyPosblAt : v})} />
+                                    {/* 등록 일때 변경 가능 */}
+                                    {modeInfo.mode === CODE.MODE_CREATE &&
+                                        <EgovRadioButtonGroup
+                                            name="replyPosblAt"
+                                            radioGroup={replyPosblAtRadioGroup}
+                                            setValue={boardDetail.replyPosblAt}
+                                            setter={(v) => setBoardDetail({ ...boardDetail, replyPosblAt: v })} />
+                                    }
+                                    {/* 수정/조회 일때 변경 불가 */}
+                                    {modeInfo.mode === CODE.MODE_MODIFY &&
+                                        <span>
+                                            {boardDetail.replyPosblAt && getSelectedLabel(replyPosblAtRadioGroup, boardDetail.replyPosblAt)}
+                                        </span>
+
+                                    }
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>파일첨부가능여부<span className="req">필수</span></dt>
                                 <dd>
-                                    {/* <span className="f_rdo on"><input type="radio" name="replyPosblAt" title="가능" checked="checked" /><em>가능</em></span>
-                                    <span className="f_rdo"><input type="radio" name="replyPosblAt" title="불가능" /><em>불가능</em></span> */}
                                     <EgovRadioButtonGroup
                                         name="fileAtchPosblAt"
                                         radioGroup={fileAtchPosblAtRadioGroup}
                                         setValue={boardDetail.fileAtchPosblAt}
-                                        setter={(v) => setBoardDetail({...boardDetail, fileAtchPosblAt : v})} />
+                                        setter={(v) => setBoardDetail({ ...boardDetail, fileAtchPosblAt: v })} />
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulDeptName">첨부파일가능파일 숫자</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="schdulDeptName">첨부파일가능파일 숫자</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select " for="posblAtchFileNumber">
-                                        <EgovSelect
+                                    <label className="f_select " htmlFor="posblAtchFileNumber">
+                                        {/* <EgovSelect
                                             id="posblAtchFileNumber"
                                             name="posblAtchFileNumber"
                                             title="첨부가능파일 숫자선택"
                                             options={posblAtchFileNumberOptions}
-                                            // setValue={posblAtchFileNumber}
-                                            // setter={setPosblAtchFileNumber}
                                             setValue={boardDetail.posblAtchFileNumber}
-                                            setter={(v) => setBoardDetail({...boardDetail, posblAtchFileNumber : v})}
-                                        />
-                                        {/* <select id="posblAtchFileNumber" name="posblAtchFileNumber" title="첨부가능파일 숫자선택"
-                                            defaultValue={boardDetail.posblAtchFileNumber}>
-                                            <option value="0">선택하세요</option>
-                                            <option value="1">1개</option>
-                                            <option value="2">2개</option>
-                                            <option value="3">3개</option>
-                                        </select> */}
+                                            setter={(v) => setBoardDetail({ ...boardDetail, posblAtchFileNumber: v })}
+                                        /> */}
+                                        <select
+                                            id="posblAtchFileNumber"
+                                            name="posblAtchFileNumber"
+                                            title="첨부가능파일 숫자선택"
+                                            onChange={(e) => setBoardDetail({ ...boardDetail, posblAtchFileNumber: e.target.value })}
+                                            value={boardDetail.posblAtchFileNumber}
+                                        >
+                                            {posblAtchFileNumberOptions.map((option, i) => {
+                                                return (
+                                                    <option value={option.value} key={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                )
+                                            })}
+                                        </select>
+
                                     </label>
-                                </dd>
-                            </dl>
-                            <dl>
-                                <dt><label for="schdulNm">템플릿 정보</label><span className="req">필수</span></dt>
-                                <dd>
-                                    <span className="f_search2">
-                                        <input type="text" name="" title="" id="" placeholder="" />
-                                        <button type="button">조회</button>
-                                    </span>
                                 </dd>
                             </dl>
 
