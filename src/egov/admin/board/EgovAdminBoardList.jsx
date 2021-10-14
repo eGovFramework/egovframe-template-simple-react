@@ -23,7 +23,7 @@ function EgovAdminBoardList(props) {
 
     const [listTag, setListTag] = useState([]);
 
-    const retrieveList = (searchCondition) => {
+    const retrieveList = (srchCnd) => {
         console.groupCollapsed("EgovAdminBoardList.retrieveList()");
 
         const retrieveListURL = '/cop/bbs/selectBBSMasterInfsAPI.do';
@@ -32,7 +32,7 @@ function EgovAdminBoardList(props) {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(searchCondition)
+            body: JSON.stringify(srchCnd)
         }
 
         EgovNet.requestFetch(retrieveListURL,
@@ -82,12 +82,11 @@ function EgovAdminBoardList(props) {
         console.groupEnd("EgovAdminBoardList.retrieveList()");
     }
 
-
     useEffect(() => {
         retrieveList(searchCondition);
         return () => {
         }
-    }, [searchCondition]);
+    }, []);
 
     console.log("------------------------------EgovAdminBoardList [End]");
     console.groupEnd("EgovAdminBoardList");
@@ -124,7 +123,9 @@ function EgovAdminBoardList(props) {
                                 <li className="third_1 L">
                                     <span className="lb">검색유형선택</span>
                                     <label className="f_select" htmlFor="searchCnd">
-                                        <select id="searchCnd" name="searchCnd" title="검색유형선력">
+                                        <select id="searchCnd" name="searchCnd" title="검색유형선력"
+                                            onChange={(e) => setSearchCondition({ ...searchCondition, searchCnd: e.target.value })}
+                                        >
                                             <option value="0">게시판명</option>
                                             <option value="1">게시판유형</option>
                                         </select>
@@ -133,8 +134,11 @@ function EgovAdminBoardList(props) {
                                 <li className="third_2 R">
                                     <span className="lb">검색어</span>
                                     <span className="f_search w_400">
-                                        <input type="text" name="" defaultValue="" placeholder="" />
-                                        <button type="button">조회</button>
+                                        <input type="text" name="" defaultValue={searchCondition && searchCondition.searchWrd} placeholder=""
+                                            onChange={(e) => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })}
+                                        />
+                                        <button type="button"
+                                            onClick={() => retrieveList(searchCondition)}>조회</button>
                                     </span>
                                 </li>
                                 <li>
