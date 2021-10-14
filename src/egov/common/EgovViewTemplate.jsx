@@ -9,7 +9,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovViewTemplate() {
+function EgovViewTemplate(props) {
     console.group("EgovViewTemplate");
     console.log("[Start] EgovViewTemplate ------------------------------");
     console.log("EgovViewTemplate [props] : ", props);
