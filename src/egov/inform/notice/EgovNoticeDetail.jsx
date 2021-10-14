@@ -153,7 +153,7 @@ function EgovNoticeDetail(props) {
                                             }
                                         }} className="btn btn_skyblue_h46 w_100">수정</Link>
                                         <button className="btn btn_skyblue_h46 w_100" onClick={(e) => {
-                                            e.preventDefault();
+                                            // e.preventDefault();
                                             onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                         }}>삭제</button>
                                         <Link to={{

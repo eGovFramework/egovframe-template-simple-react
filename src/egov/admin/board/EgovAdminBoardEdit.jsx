@@ -22,15 +22,10 @@ function EgovAdminBoardEdit(props) {
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [boardDetail, setBoardDetail] = useState({});
-    // const [replyPosblAt, setReplyPosblAt] = useState("Y");
     const [replyPosblAtRadioGroup, setReplyPosblAtRadioGroup] = useState([{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }])
-    // const [fileAtchPosblAt, setFileAtchPosblAt] = useState("Y");
     const [fileAtchPosblAtRadioGroup, setFileAtchPosblAtRadioGroup] = useState([{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }])
-    // const [bbsTyCode, setBbsTyCode] = useState("");
     const [bbsTyCodeOptions, setBbsTyCodeOptions] = useState([{ value: "", label: "선택" }, { value: "BBST01", label: "일반게시판" }, { value: "BBST03", label: "공지게시판" }])
-    // const [bbsAttrbCode, setBbsAttrbCode] = useState("");
     const [bbsAttrbCodeOptions, setBbsAttrbCodeOptions] = useState([{ value: "", label: "선택" }, { value: "BBSA02", label: "갤러리" }, { value: "BBSA03", label: "일반게시판" }])
-    // const [posblAtchFileNumber, setPosblAtchFileNumber] = useState(0);
     const [posblAtchFileNumberOptions, setPosblAtchFileNumberOptions] = useState([{ value: 0, label: "선택하세요" }, { value: 1, label: "1개" }, { value: 2, label: "2개" }, { value: 3, label: "3개" }])
 
     const initMode = () => {
@@ -56,9 +51,9 @@ function EgovAdminBoardEdit(props) {
 
     const retrieveDetail = () => {
         if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
-            setBoardDetail({ 
-                tmplatId: "TMPLAT_BOARD_DEFAULT" ,  //Template 고정
-                replyPosblAt : "Y",                 //답장가능여부 초기값
+            setBoardDetail({
+                tmplatId: "TMPLAT_BOARD_DEFAULT",  //Template 고정
+                replyPosblAt: "Y",                 //답장가능여부 초기값
                 fileAtchPosblAt: "Y"                //파일첨부가능여부 초기값
             });
             return;
@@ -75,6 +70,7 @@ function EgovAdminBoardEdit(props) {
                 bbsId: bbsId
             })
         }
+        
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
             function (resp) {
@@ -96,7 +92,6 @@ function EgovAdminBoardEdit(props) {
         const requestOptions = {
             method: "POST",
             headers: {
-
             },
             body: formData
         }
@@ -135,7 +130,6 @@ function EgovAdminBoardEdit(props) {
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
-
             }
         );
     }
@@ -226,20 +220,20 @@ function EgovAdminBoardEdit(props) {
                                                 setter={(v) => setBoardDetail({ ...boardDetail, bbsTyCode: v })}
                                             /> */}
                                             <select
-                                            id="bbsTyCode"
-                                            name="bbsTyCode"
-                                            title="게시판유형선택"
-                                            onChange={(e) => setBoardDetail({ ...boardDetail, bbsTyCode: e.target.value })}
-                                            value={boardDetail.bbsTyCode}
-                                        >
-                                            {bbsTyCodeOptions.map((option, i) => {
-                                                return (
-                                                    <option value={option.value} key={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                )
-                                            })}
-                                        </select>
+                                                id="bbsTyCode"
+                                                name="bbsTyCode"
+                                                title="게시판유형선택"
+                                                onChange={(e) => setBoardDetail({ ...boardDetail, bbsTyCode: e.target.value })}
+                                                value={boardDetail.bbsTyCode}
+                                            >
+                                                {bbsTyCodeOptions.map((option, i) => {
+                                                    return (
+                                                        <option value={option.value} key={option.value}>
+                                                            {option.label}
+                                                        </option>
+                                                    )
+                                                })}
+                                            </select>
                                         </label>
                                     }
                                     {modeInfo.mode === CODE.MODE_MODIFY &&
@@ -264,21 +258,21 @@ function EgovAdminBoardEdit(props) {
                                                 setValue={boardDetail.bbsAttrbCode}
                                                 setter={(v) => setBoardDetail({ ...boardDetail, bbsAttrbCode: v })}
                                             /> */}
-                                        <select
-                                            id="bbsAttrbCode"
-                                            name="bbsAttrbCode"
-                                            title="게시판속성선택"
-                                            onChange={(e) => setBoardDetail({ ...boardDetail, bbsAttrbCode: e.target.value })}
-                                            value={boardDetail.bbsAttrbCode}
-                                        >
-                                            {bbsAttrbCodeOptions.map((option, i) => {
-                                                return (
-                                                    <option value={option.value} key={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                )
-                                            })}
-                                        </select>
+                                            <select
+                                                id="bbsAttrbCode"
+                                                name="bbsAttrbCode"
+                                                title="게시판속성선택"
+                                                onChange={(e) => setBoardDetail({ ...boardDetail, bbsAttrbCode: e.target.value })}
+                                                value={boardDetail.bbsAttrbCode}
+                                            >
+                                                {bbsAttrbCodeOptions.map((option, i) => {
+                                                    return (
+                                                        <option value={option.value} key={option.value}>
+                                                            {option.label}
+                                                        </option>
+                                                    )
+                                                })}
+                                            </select>
                                         </label>
                                     }
                                     {/* 수정/조회 일때 변경 불가 */}
@@ -306,7 +300,6 @@ function EgovAdminBoardEdit(props) {
                                         <span>
                                             {boardDetail.replyPosblAt && getSelectedLabel(replyPosblAtRadioGroup, boardDetail.replyPosblAt)}
                                         </span>
-
                                     }
                                 </dd>
                             </dl>
@@ -357,10 +350,12 @@ function EgovAdminBoardEdit(props) {
                                 <div className="left_col btn1">
                                     <button className="btn btn_skyblue_h46 w_100"
                                         onClick={() => updateBoard()}>저장</button>
-                                    <button className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                    {modeInfo.mode === CODE.MODE_MODIFY &&
+                                        <button className="btn btn_skyblue_h46 w_100" onClick={(e) => {
                                             // e.preventDefault();
                                             deleteBoardArticle(boardDetail.bbsId);
                                         }}>삭제</button>
+                                    }
                                 </div>
 
                                 <div className="right_col btn1">
