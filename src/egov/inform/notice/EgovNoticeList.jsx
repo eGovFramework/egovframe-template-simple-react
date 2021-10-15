@@ -16,7 +16,7 @@ function EgovNoticeList(props) {
     const history = useHistory();
     console.log("EgovNoticeList [history] : ", history);
 
-    const bbsId = NOTICE_BBS_ID;
+    const bbsId = history.location.state?.bbsId || NOTICE_BBS_ID; 
     let searchCnd = '0';
     let searchWrd = '';
 
