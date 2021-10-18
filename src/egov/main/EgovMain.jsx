@@ -1,7 +1,111 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-function EgovMain() {
+import * as EgovNet from 'context/egovFetch';
+import URL from 'context/url';
+
+function EgovMain(props) {
+    console.group("EgovMain");
+    console.log("[Start] EgovMain ------------------------------");
+    console.log("EgovMain [props] : ", props);
+
+    const history = useHistory();
+    console.log("EgovMain [history] : ", history);
+
+    const [noticeBoard, setNoticeBoard] = useState();
+    const [gallaryBoard, setGallaryBoard] = useState();
+    const [noticeListTag, setNoticeListTag] = useState();
+    const [gallaryListTag, setGallaryListTag] = useState();
+
+    const retrieveList = () => {
+        console.groupCollapsed("EgovMain.retrieveList()");
+
+        const retrieveListURL = '/cmm/main/mainPageAPI.do';
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify()
+        }
+
+        EgovNet.requestFetch(retrieveListURL,
+            requestOptions,
+            (resp) => {
+
+                setNoticeBoard(resp.result.notiList);
+                setGallaryBoard(resp.result.galList);
+
+                let mutNotiListTag = [];
+                mutNotiListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
+
+                // 리스트 항목 구성
+                resp.result.notiList.forEach(function (item, index) {
+                    if (index === 0) mutNotiListTag = []; // 목록 초기화
+                     console.log("item, index : ", item, index);
+                    mutNotiListTag.push(
+                        <li key={index}>
+                            <Link
+                                to={{
+                                    pathname: URL.INFORM_NOTICE_DETAIL,
+                                    state: {
+                                        nttId: item.nttId,
+                                        bbsId: item.bbsId
+                                    }
+                                }}
+                            >
+                                {item.nttSj}
+                                <span>{item.frstRegisterPnttm}</span>
+                            </Link>
+                        </li>
+                    );
+                });
+                setNoticeListTag(mutNotiListTag);
+
+
+                let mutGallaryListTag = [];
+                mutGallaryListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
+
+                // 리스트 항목 구성
+                resp.result.galList.forEach(function (item, index) {
+                    if (index === 0) mutGallaryListTag = []; // 목록 초기화
+                    console.log("item, index : ", item, index);
+                    mutGallaryListTag.push(
+                        <li key={index}>
+                            <Link
+                                to={{
+                                    pathname: URL.INFORM_GALLERY_DETAIL,
+                                    state: {
+                                        nttId: item.nttId,
+                                        bbsId: item.bbsId
+                                    }
+                                }}
+                            >
+                                {item.nttSj}
+                                <span>{item.frstRegisterPnttm}</span>
+                            </Link>
+                        </li>
+                    );
+                });
+                setGallaryListTag(mutGallaryListTag);
+
+
+            },
+            function (resp) {
+                console.log("err response : ", resp);
+            }
+        );
+        console.groupEnd("EgovMain.retrieveList()");
+    }
+    useEffect(() => {
+        retrieveList();
+        return () => {
+        }
+    }, []);
+
+    console.log("------------------------------EgovMain [End]");
+    console.groupEnd("EgovMain");
+
     return (
         <div className="container P_MAIN">
             <div className="c_wrap">
@@ -13,42 +117,44 @@ function EgovMain() {
                     <div className="right_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><Link to="" className="on">공지사항</Link></li>
-                                <li><Link to="">갤러리</Link></li>
+                                <li><Link to={URL.INFORM_NOTICE} className="on">공지사항</Link></li>
+                                <li><Link to={URL.INFORM_GALLERY}>갤러리</Link></li>
                             </ul>
                             <div className="list">
                                 <div className="notice">
                                     <h2 className="blind">공지사항</h2>
                                     <ul>
+                                        {/* <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
+                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li> */}
+                                        {noticeListTag}
                                     </ul>
-                                    <Link to="" className="more">더보기</Link>
+                                    <Link to={URL.INFORM_NOTICE} className="more">더보기</Link>
                                 </div>
 
                                 <div className="gallary">
                                     <h2 className="blind">갤러리</h2>
                                     <ul>
+                                        {/* <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
                                         <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
+                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li> */}
+                                        {gallaryListTag}
                                     </ul>
-                                    <Link to="" className="more">더보기</Link>
+                                    <Link to={URL.INFORM_GALLERY} className="more">더보기</Link>
                                 </div>
                             </div>
                         </div>
 
                         <div className="banner">
-                            <Link to="" className="bn1">
+                            <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
                                 <strong>자료실</strong>
                                 <span>다양한 자료를<br />다운로드 받으실 수 있습니다.</span>
                             </Link>
-                            <Link to="" className="bn2">
+                            <Link to={URL.ABOUT} className="bn2">
                                 <strong>표준프레임워크센터</strong>
                                 <span>표준프레임워크센터의<br />약도 등의 정보를 제공합니다.</span>
                             </Link>
@@ -63,7 +169,7 @@ function EgovMain() {
                             <p>표준프레임워크가 제공하는<br />
                                 주요 사업을 소개합니다.</p>
                         </div>
-                        <Link to="">자세히 보기</Link>
+                        <Link to={URL.INTRO_WORKS}>자세히 보기</Link>
                     </div>
                     <div className="b2">
                         <div>
@@ -72,7 +178,7 @@ function EgovMain() {
                                 서비스 그룹에서 제공하는<br />
                                 대표서비스입니다.</p>
                         </div>
-                        <Link to="">자세히 보기</Link>
+                        <Link to={URL.INTRO_SERVICE}>자세히 보기</Link>
                     </div>
                     <div className="b3">
                         <div>
@@ -81,7 +187,7 @@ function EgovMain() {
                                 홈페이지의 다양한 서비스를<br />
                                 신청 하실 수 있습니다.</p>
                         </div>
-                        <Link to="">자세히 보기</Link>
+                        <Link to={URL.SUPPORT_APPLY}>자세히 보기</Link>
                     </div>
                     <div className="b4">
                         <div>
@@ -90,7 +196,7 @@ function EgovMain() {
                                 홈페이지의 전체적인 일정<br />
                                 현황을 조회하실 수 있습니다.</p>
                         </div>
-                        <Link to="">자세히 보기</Link>
+                        <Link to={URL.INFORM}>자세히 보기</Link>
                     </div>
                 </div>
             </div>
