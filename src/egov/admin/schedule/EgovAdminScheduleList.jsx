@@ -21,6 +21,7 @@ function EgovAdminScheduleList(props) {
 
     const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '0', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
     const [calendarTag, setCalendarTag] = useState([]);
+    const [scheduleList, setScheduleList] = useState([]);
 
 
     const getLastDateOfMonth = (year, month) => {
@@ -62,6 +63,7 @@ function EgovAdminScheduleList(props) {
         EgovNet.requestFetch(retrieveListURL,
             requestOptions,
             (resp) => {
+                setScheduleList(resp.result.resultList);
                 drawCalendar();
             },
             function (resp) {
@@ -129,6 +131,11 @@ function EgovAdminScheduleList(props) {
         // lastWeek Date Set END
         console.log("monthArr : ", monthArr);
 
+
+        let sUseYear = searchCondition.year.toString();
+        let sUseMonth = (searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString();
+        let sUseYearMonth = sUseYear + sUseMonth;
+
         let mutCalendarTagList = [];
         //draw Calendar
         monthArr.forEach((week, weekIdx) => {
@@ -136,10 +143,36 @@ function EgovAdminScheduleList(props) {
                 <tr key={weekIdx}>{
                     week.map((day, dayIdx) => {
                         if (day !== 0) {
-                            return (
-                                <td>
-                                    <Link className="day">{day}</Link>
-                                </td>);
+                            let sDate = day.toString().length === 1 ? "0" + day.toString() : day.toString();
+                            let iUseDate = parseInt(sUseYearMonth + sDate);
+                            if (scheduleList.length > 0) {
+                                return (
+                                    <td>
+                                        <Link className="day">{day}</Link><br />
+                                        {
+                                            scheduleList.map((schedule) => {
+                                                let iBeginDate = parseInt(schedule.schdulBgnde.substring(0, 8));
+                                                let iEndDate = parseInt(schedule.schdulEndde.substring(0, 8));
+                                                console.log("schedule DATE : ", iBeginDate, iUseDate, iEndDate);
+                                                if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
+                                                    return (
+                                                        <>
+                                                            <Link >{schedule.schdulNm}
+                                                            </Link>
+                                                            <br />
+                                                        </>
+                                                    );
+                                                }
+                                            })
+                                        }
+                                    </td>
+                                );
+                            } else {
+                                return (
+                                    <td>
+                                        <Link className="day">{day}</Link>
+                                    </td>);
+                            }
                         } else if (day === 0) {
                             return (<td></td>);
                         }
@@ -192,6 +225,9 @@ function EgovAdminScheduleList(props) {
                                 <li>
                                     <label className="f_select" htmlFor="sel1">
                                         <select name="" id="sel1" title="조건"
+                                            onChange={e => {
+                                                setSearchCondition({ ...searchCondition, searchCnd: e.target.value });
+                                            }}
                                         >
                                             <option value="">전체</option>
                                             <option value="1">회의</option>
@@ -367,7 +403,7 @@ function EgovAdminScheduleList(props) {
                             </table>
                         </div>
 
-                        <div className="calendar_info">
+                        {/* <div className="calendar_info">
                             <h2>2021년 9월 7일 </h2>
                             <ul>
                                 <li>
@@ -379,7 +415,7 @@ function EgovAdminScheduleList(props) {
                                     <span>오전 10:00 ~ 오전 11:30</span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
 
                         {/* <!--// 본문 --> */}
                     </div>
