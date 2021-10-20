@@ -180,10 +180,6 @@ class App extends Component {
               <Route path={URL.ADMIN_GALLERY_MODIFY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
               <Route path={URL.ADMIN_GALLERY_REPLY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
 
-
-
-
-
             </Switch>
             <EgovFooter></EgovFooter>
             <EgovInfoPopup></EgovInfoPopup>

@@ -19,20 +19,20 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     }
 
     fetch(SERVER_URL + url, requestOptions)
-        .then(response =>  {// response Stream. Not completion object
+        .then(response => {// response Stream. Not completion object
             //console.log("requestFetch [Response Stream] ", response); 
             return response.json();
         })
-        .then( (resp) => {
+        .then((resp) => {
             if (Number(resp.resultCode) === Number(CODE.RCV_ERROR_AUTH)) {
                 alert("Login Alert");
                 window.location.href = URL.LOGIN;
                 return false;
-            }else {
+            } else {
                 return resp;
             }
-        } )
-        .then( (resp) => {
+        })
+        .then((resp) => {
             console.groupCollapsed("requestFetch.then()");
             console.log("requestFetch [response] ", resp);
             if (typeof handler === 'function') {
@@ -49,13 +49,11 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
             } else {
                 console.error('egov error handler not assigned!');
                 alert("ERR : " + error.message);
-                
+
             }
         })
         .finally(() => {
-            console.log("requestFetch finally end");    
+            console.log("requestFetch finally end");
             console.groupEnd("requestFetch");
         });
-        console.log("requestFetch end");    
-    
 }

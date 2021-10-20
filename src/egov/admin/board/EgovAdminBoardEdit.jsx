@@ -17,16 +17,16 @@ function EgovAdminBoardEdit(props) {
     const history = useHistory();
     console.log("EgovAdminBoardEdit [history] : ", history);
 
+    const replyPosblAtRadioGroup = [{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }];
+    const fileAtchPosblAtRadioGroup = [{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }];
+    const bbsTyCodeOptions = [{ value: "", label: "선택" }, { value: "BBST01", label: "일반게시판" }, { value: "BBST03", label: "공지게시판" }];
+    const bbsAttrbCodeOptions = [{ value: "", label: "선택" }, { value: "BBSA02", label: "갤러리" }, { value: "BBSA03", label: "일반게시판" }];
+    const posblAtchFileNumberOptions = [{ value: 0, label: "선택하세요" }, { value: 1, label: "1개" }, { value: 2, label: "2개" }, { value: 3, label: "3개" }];
     const bbsId = history.location.state?.bbsId || "";
     const searchCondition = history.location.state?.searchCondition;
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [boardDetail, setBoardDetail] = useState({});
-    const [replyPosblAtRadioGroup, setReplyPosblAtRadioGroup] = useState([{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }])
-    const [fileAtchPosblAtRadioGroup, setFileAtchPosblAtRadioGroup] = useState([{ value: "Y", label: "가능" }, { value: "N", label: "불가능" }])
-    const [bbsTyCodeOptions, setBbsTyCodeOptions] = useState([{ value: "", label: "선택" }, { value: "BBST01", label: "일반게시판" }, { value: "BBST03", label: "공지게시판" }])
-    const [bbsAttrbCodeOptions, setBbsAttrbCodeOptions] = useState([{ value: "", label: "선택" }, { value: "BBSA02", label: "갤러리" }, { value: "BBSA03", label: "일반게시판" }])
-    const [posblAtchFileNumberOptions, setPosblAtchFileNumberOptions] = useState([{ value: 0, label: "선택하세요" }, { value: 1, label: "1개" }, { value: 2, label: "2개" }, { value: 3, label: "3개" }])
 
     const initMode = () => {
         switch (props.mode) {
@@ -70,7 +70,7 @@ function EgovAdminBoardEdit(props) {
                 bbsId: bbsId
             })
         }
-        
+
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
             function (resp) {
