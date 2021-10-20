@@ -10,6 +10,11 @@ const CODE = {
     MODE_MODIFY         : "modify", // 수정 모드 
     MODE_READ           : "read",   // 읽기 모드
     MODE_REPLY          : "reply",  // 답글 모드
+
+    DATE_YEAR           : "year",
+    DATE_MONTH          : "month",
+    DATE_DATE           : "date",
+    DATE_day            : "day",
 }
 
 export default CODE;

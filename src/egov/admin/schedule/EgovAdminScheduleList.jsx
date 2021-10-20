@@ -11,7 +11,7 @@ function EgovAdminScheduleList(props) {
     console.group("EgovAdminScheduleList");
     console.log("[Start] EgovAdminScheduleList ------------------------------");
     console.log("EgovAdminScheduleList [props] : ", props);
-
+    // debugger;
     const history = useHistory();
     console.log("EgovAdminScheduleList [history] : ", history);
 
@@ -19,10 +19,14 @@ function EgovAdminScheduleList(props) {
     const DATE = new Date();
     const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '0', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
+    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
     const [calendarTag, setCalendarTag] = useState([]);
+
     const [scheduleList, setScheduleList] = useState([]);
 
+    const innerConsole = (...args) => {
+        console.log(...args);
+    }
 
     const getLastDateOfMonth = (year, month) => {
         const LAST_DATE_SUPPLMENT = 1;
@@ -45,10 +49,12 @@ function EgovAdminScheduleList(props) {
 
         setSearchCondition({ ...searchCondition, year: changedDate.getFullYear(), month: changedDate.getMonth(), date: changedDate.getDate() });
 
-        retrieveList(searchCondition);
+        //retrieveList(searchCondition);
     }
 
     const retrieveList = (srchcnd) => {
+        // debugger;
+
         console.groupCollapsed("EgovAdminScheduleList.retrieveList()");
 
         const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageMonthListAPI.do';
@@ -63,17 +69,21 @@ function EgovAdminScheduleList(props) {
         EgovNet.requestFetch(retrieveListURL,
             requestOptions,
             (resp) => {
+                // debugger;
                 setScheduleList(resp.result.resultList);
-                drawCalendar();
+                // drawCalendar();
             },
             function (resp) {
                 console.log("err response : ", resp);
             }
         );
+
         console.groupEnd("EgovAdminScheduleList.retrieveList()");
     }
 
     const drawCalendar = () => {
+        // debugger;
+        console.groupCollapsed("EgovAdminScheduleList.drawCalendar()");
         const PREV_MONTH_ADDITION = -1;
 
         let lastOfLastMonth = getLastDateOfMonth(searchCondition.year, searchCondition.month + PREV_MONTH_ADDITION);
@@ -83,9 +93,11 @@ function EgovAdminScheduleList(props) {
         console.log("lastOfLastMonth : ", lastOfLastMonth, lastOfLastMonth.getDay());
         console.log("firstOfThisMonth :", firstOfThisMonth, firstOfThisMonth.getDay());
         console.log("lastOfThisMonth :", lastOfThisMonth, lastOfThisMonth.getDay());
+        console.log("scheduleList : ", scheduleList);
 
         let firstDayOfThisMonth = firstOfThisMonth.getDay();
         let lastDateOfThisMonth = lastOfThisMonth.getDate();
+        console.log("firstDayOfThisMonth", firstDayOfThisMonth, "lastDateOfThisMonth", lastDateOfThisMonth)
 
         let monthArr = [];
         let weekArr = [];
@@ -101,15 +113,17 @@ function EgovAdminScheduleList(props) {
             }
         }
         monthArr.push(weekArr);
-        console.log("monthArr : ", monthArr);
+        console.log("FirstWeek monthArr : ", monthArr);
         // firstWeek Date Set END
+
+        // debugger;
 
         // otherWeek Date Set START
         let dayCount = 0;
         weekArr = [];//초기화
         for (let day = firstWeekDateCount + 1; day <= lastDateOfThisMonth; day++) {
 
-            if (dayCount % 7 != 6) {
+            if (dayCount % 7 !== 6) {
                 weekArr.push(day);
             } else {
                 weekArr.push(day);
@@ -121,6 +135,8 @@ function EgovAdminScheduleList(props) {
         }
         // otherWeek Date Set END
 
+        // debugger;
+
         // lastWeek Date Set START
         if (weekArr.length > 0) {//남은 부분
             for (let day = weekArr.length; day < 7; day++) {
@@ -129,35 +145,42 @@ function EgovAdminScheduleList(props) {
             monthArr.push(weekArr);
         }
         // lastWeek Date Set END
-        console.log("monthArr : ", monthArr);
+        console.log("OtherWeek monthArr : ", monthArr);
 
+        // debugger;
 
-        let sUseYear = searchCondition.year.toString();
-        let sUseMonth = (searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString();
-        let sUseYearMonth = sUseYear + sUseMonth;
+        // let sUseYear = searchCondition.year.toString();
+        // let sUseMonth = (searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString();
+        // setSUseYearMonth(sUseYear + sUseMonth);
+        // let sUseYearMonth = sUseYear + sUseMonth;
+        let mutsUseYearMonth = searchCondition.year.toString() + ((searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString());
+        console.log("mutsUseYearMonth : ", mutsUseYearMonth);
+        // console.log("setSUseYearMonth() : ", searchCondition.year.toString() + ((searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString()));
 
         let mutCalendarTagList = [];
+        let keyIdx = 0;
         //draw Calendar
         monthArr.forEach((week, weekIdx) => {
+            console.log();
             mutCalendarTagList.push(
-                <tr key={weekIdx}>{
+                <tr key={keyIdx++}>{
                     week.map((day, dayIdx) => {
                         if (day !== 0) {
                             let sDate = day.toString().length === 1 ? "0" + day.toString() : day.toString();
-                            let iUseDate = parseInt(sUseYearMonth + sDate);
+                            let iUseDate = Number(mutsUseYearMonth + sDate);
                             if (scheduleList.length > 0) {
                                 return (
-                                    <td>
-                                        <Link className="day">{day}</Link><br />
+                                    <td key={keyIdx++}>
+                                        <Link to={URL.MAIN} className="day" key={keyIdx++}>{day}</Link><br />
                                         {
-                                            scheduleList.map((schedule) => {
-                                                let iBeginDate = parseInt(schedule.schdulBgnde.substring(0, 8));
-                                                let iEndDate = parseInt(schedule.schdulEndde.substring(0, 8));
-                                                console.log("schedule DATE : ", iBeginDate, iUseDate, iEndDate);
+                                            scheduleList.map((schedule, scheduleIdx) => {
+                                                let iBeginDate = Number(schedule.schdulBgnde.substring(0, 8));
+                                                let iEndDate = Number(schedule.schdulEndde.substring(0, 8));
+                                                innerConsole("scheduleList ", day, scheduleIdx, iBeginDate, iUseDate, iEndDate, iUseDate >= iBeginDate && iUseDate <= iEndDate);
                                                 if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                                                     return (
                                                         <>
-                                                            <Link >{schedule.schdulNm}
+                                                            <Link to={URL.MAIN} key={keyIdx++}>{schedule.schdulNm}
                                                             </Link>
                                                             <br />
                                                         </>
@@ -169,25 +192,36 @@ function EgovAdminScheduleList(props) {
                                 );
                             } else {
                                 return (
-                                    <td>
-                                        <Link className="day">{day}</Link>
+                                    <td key={keyIdx++}>
+                                        <Link to={URL.MAIN} className="day" key={keyIdx++}>{day}</Link>
                                     </td>);
                             }
                         } else if (day === 0) {
-                            return (<td></td>);
+                            return (<td key={keyIdx++}></td>);
                         }
                     })
                 }</tr>);
         })
         console.log("mutCalendarTagList : ", mutCalendarTagList);
         setCalendarTag(mutCalendarTagList);
+        console.groupEnd("EgovAdminScheduleList.drawCalendar()");
     }
+
     useEffect(() => {
+        // debugger;
         retrieveList(searchCondition);
 
         return () => {
         }
-    }, [searchCondition]);
+    }, [searchCondition.year, searchCondition.month]);
+
+    useEffect(() => {
+        drawCalendar();
+        return () => {
+        }
+    }, [scheduleList]);
+
+
 
 
     console.log("------------------------------EgovAdminScheduleList [End]");
@@ -224,9 +258,9 @@ function EgovAdminScheduleList(props) {
                             <ul>
                                 <li>
                                     <label className="f_select" htmlFor="sel1">
-                                        <select name="" id="sel1" title="조건"
+                                        <select name="schdulSe" id="sel1" title="조건"
                                             onChange={e => {
-                                                setSearchCondition({ ...searchCondition, searchCnd: e.target.value });
+                                                setSearchCondition({ ...searchCondition, schdulSe: e.target.value });
                                             }}
                                         >
                                             <option value="">전체</option>
@@ -242,6 +276,8 @@ function EgovAdminScheduleList(props) {
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, -1);
+                                            // drawCalendar();
+                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="prev">이전연도로이동</a> */}
@@ -249,6 +285,8 @@ function EgovAdminScheduleList(props) {
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, 1);
+                                            // drawCalendar();
+                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="next">다음연도로이동</a> */}
@@ -257,6 +295,8 @@ function EgovAdminScheduleList(props) {
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_MONTH, -1);
+                                            // drawCalendar();
+                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="prev">이전월로이동</a> */}
@@ -264,6 +304,8 @@ function EgovAdminScheduleList(props) {
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_MONTH, 1);
+                                            // drawCalendar();
+                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="next">다음월로이동</a> */}
@@ -286,118 +328,6 @@ function EgovAdminScheduleList(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {/* <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <Link to="" className="day">1</Link>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">2</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">3</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">4</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="" className="day">5</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">6</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">7</a>
-                                        </td>
-                                        <td className="selected">
-                                            <a href="" className="day">8</a>
-                                            <a href="" className="schedule">스케쥴</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">9</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">10</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">11</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="" className="day">12</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">13</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">14</a>
-                                            <a href="" className="schedule">스케쥴</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">15</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">16</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">17</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">18</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="" className="day">19</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">20</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">21</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">22</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">23</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">24</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">25</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="" className="day">26</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">27</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">28</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">29</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">30</a>
-                                        </td>
-                                        <td>
-                                            <a href="" className="day">31</a>
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                    </tr> */}
-                                    {/* 새로 시작 */}
                                     {calendarTag}
                                 </tbody>
                             </table>
