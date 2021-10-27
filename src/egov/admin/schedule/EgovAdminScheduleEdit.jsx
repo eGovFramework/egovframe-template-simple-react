@@ -8,6 +8,7 @@ import CODE from 'context/code';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
 function EgovAdminScheduleEdit(props) {
     console.group("EgovAdminScheduleEdit");
@@ -16,8 +17,13 @@ function EgovAdminScheduleEdit(props) {
 
     const history = useHistory();
     console.log("EgovAdminScheduleEdit [history] : ", history);
-    
+
+    const reptitSeCodeRadioGroup = [{ value: "1", label: "당일" }, { value: "2", label: "반복" }, { value: "3", label: "연속" }];
+
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
+    const [scheduleDetail, setScheduleDetail] = useState({});
+    const [boardAttachFiles, setBoardAttachFiles] = useState();
+    const [user, setUser] = useState({});
 
     const initMode = () => {
         switch (props.mode) {
@@ -36,9 +42,93 @@ function EgovAdminScheduleEdit(props) {
                 });
                 break;
         }
-        //retrieveDetail();
+        retrieveDetail();
     }
 
+    const retrieveDetail = () => {
+        if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
+            setScheduleDetail({
+                reptitSeCode : "1" // 반복구분 초기값 설정 
+            });
+            return;
+        }
+
+        const retrieveDetailURL = '/cop/smt/sim/egovIndvdlSchdulManageDetailAPI.do';
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                schdulId: history.location.state?.schdulId
+            })
+        }
+        EgovNet.requestFetch(retrieveDetailURL,
+            requestOptions,
+            function (resp) {
+                let rawScheduleDetail = resp.result.scheduleDetail;
+                rawScheduleDetail.startDateTime = convertDate(rawScheduleDetail.schdulBgnde);
+                rawScheduleDetail.endDateTime = convertDate(rawScheduleDetail.schdulEndde);
+                rawScheduleDetail.reptitSeCodeNm = getCodeName(resp.result.reptitSeCode, resp.result.scheduleDetail.reptitSeCode);
+                rawScheduleDetail.schdulIpcrCodeNm = getCodeName(resp.result.schdulIpcrCode, resp.result.scheduleDetail.schdulIpcrCode);
+                rawScheduleDetail.schdulSeNm = getCodeName(resp.result.schdulSe, resp.result.scheduleDetail.schdulSe);
+                setScheduleDetail(rawScheduleDetail);
+                setUser(resp.result.user);
+                setBoardAttachFiles(resp.result.resultFiles);
+            }
+        );
+    }
+    const convertDate = (str) => {
+        let year = str.substring(0, 4);
+        let month = str.substring(4, 6);
+        let date = str.substring(6, 8);
+        let hour = str.substring(8, 10);
+        let minute = str.substring(10, 12);
+        return {
+            year: year,
+            month: month,
+            date: date,
+            hour: hour,
+            minute: minute,
+            dateForm: year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 "
+        }
+    }
+
+    const getCodeName = (codeArr, code) => {
+        return (
+            codeArr.map((codeObj) => {
+                if (codeObj.code == code) return codeObj.codeNm;
+            })
+        );
+    }
+
+    const updateSchedule = () => {
+        const formData = new FormData();
+        for (let key in scheduleDetail) {
+            formData.append(key, scheduleDetail[key]);
+            //console.log("boardDetail [%s] ", key, boardDetail[key]);
+        }
+
+        const requestOptions = {
+            method: "POST",
+            headers: {
+
+            },
+            body: formData
+        }
+
+        EgovNet.requestFetch(modeInfo.editURL,
+            requestOptions,
+            (resp) => {
+                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                    history.push({ pathname: URL.ADMIN_SCHEDULE });
+                } else {
+                    alert("ERR : " + resp.resultMessage);
+                }
+
+            }
+        );
+    }
 
     useEffect(function () {
         initMode();
@@ -80,8 +170,10 @@ function EgovAdminScheduleEdit(props) {
                             <dl>
                                 <dt>일정구분<span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select w_130" for="schdulSe">
-                                        <select id="schdulSe" name="schdulSe" title="일정구분">
+                                    <label className="f_select w_130" htmlFor="schdulSe">
+                                        <select id="schdulSe" name="schdulSe" title="일정구분"
+                                            defaultValue={scheduleDetail.schdulSe}
+                                            onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulSe: e.target.value })}>
                                             <option value="">선택</option>
                                             <option value="1">회의</option>
                                             <option value="2">세미나</option>
@@ -95,8 +187,10 @@ function EgovAdminScheduleEdit(props) {
                             <dl>
                                 <dt>중요도<span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select w_130" for="schdulIpcrCode">
-                                        <select id="schdulIpcrCode" name="schdulIpcrCode" title="중요도">
+                                    <label className="f_select w_130" htmlFor="schdulIpcrCode">
+                                        <select id="schdulIpcrCode" name="schdulIpcrCode" title="중요도"
+                                            defaultValue={scheduleDetail.schdulIpcrCode}
+                                            onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulIpcrCode: e.target.value })}>
                                             <option value="">선택</option>
                                             <option value="A">높음</option>
                                             <option value="B">보통</option>
@@ -106,46 +200,58 @@ function EgovAdminScheduleEdit(props) {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulDeptName">부서</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="schdulDeptName">부서</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="text" name="" title="부서" id="schdulDeptName" placeholder="관리자부서" />
+                                    <input className="f_input2 w_full" type="text" name="schdulDeptName" title="부서" id="schdulDeptName" defaultValue="관리자부서" readOnly />
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulNm">일정명</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="schdulNm">일정명</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="text" name="" title="부서" id="schdulNm" placeholder="일정 테스트" />
+                                    <input className="f_input2 w_full" type="text" name="schdulNm" title="부서" id="schdulNm" placeholder="일정 테스트"
+                                        defaultValue={scheduleDetail.schdulNm}
+                                        onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulNm: e.target.value })} />
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulCn">일정내용</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="schdulCn">일정내용</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <textarea className="f_txtar w_full h_100" name="" id="schdulCns" cols="30" rows="10" placeholder="일정내용"></textarea>
+                                    <textarea className="f_txtar w_full h_100" name="schdulCn" id="schdulCn" cols="30" rows="10" placeholder="일정내용"
+                                        defaultValue={scheduleDetail.schdulCn}
+                                        onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulCn: e.target.value })}
+                                    ></textarea>
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>반복구분<span className="req">필수</span></dt>
                                 <dd>
-                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode1" title="당일" /><em>당일</em></span>
+                                    {/* <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode1" title="당일" /><em>당일</em></span>
                                     <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode2" title="반복" /><em>반복</em></span>
-                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode3" title="연속" /><em>연속</em></span>
+                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode3" title="연속" /><em>연속</em></span> */}
+                                    <EgovRadioButtonGroup
+                                        name="reptitSeCode"
+                                        radioGroup={reptitSeCodeRadioGroup}
+                                        setValue={scheduleDetail.reptitSeCode}
+                                        setter={(v) => setScheduleDetail({ ...scheduleDetail, reptitSeCode: v })} />
                                 </dd>
                             </dl>
                             <dl>
                                 <dt>날짜/시간<span className="req">필수</span></dt>
                                 <dd className="datetime">
                                     <span className="line_break">
-                                        <input className="f_input w_120" type="text" name="" placeholder="" readonly="readonly" />
+                                        <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" />
                                         <a href="" className="btn btn_calendar">달력</a>
                                         <span className="f_inn_txt">~</span>
                                     </span>
                                     <span className="line_break">
-                                        <input className="f_input w_120" type="text" name="" placeholder="" readonly="readonly" />
+                                        <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" />
                                         <a href="" className="btn btn_calendar">달력</a>
                                     </span>
                                     <span className="line_break">
-                                        <label className="f_select w_80" for="schdulBgndeHH">
-                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분">
+                                        <label className="f_select w_80" htmlFor="schdulBgndeHH">
+                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분"
+                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeHH: e.target.value })}
+                                            >
                                                 <option value="00">00</option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -173,8 +279,10 @@ function EgovAdminScheduleEdit(props) {
                                             </select>
                                         </label>
                                         <span className="f_inn_txt">시</span>
-                                        <label className="f_select w_80" for="schdulBgndeMM">
-                                            <select id="schdulBgndeMM" name="schdulBgndeMM">
+                                        <label className="f_select w_80" htmlFor="schdulBgndeMM">
+                                            <select id="schdulBgndeMM" name="schdulBgndeMM"
+                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeMM: e.target.value })}
+                                            >
                                                 <option value="00">00</option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -241,8 +349,10 @@ function EgovAdminScheduleEdit(props) {
                                     </span>
                                     <span className="line_break">
                                         <span className="f_inn_txt m_hide">~</span>
-                                        <label className="f_select w_80" for="schdulBgndeHH">
-                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분">
+                                        <label className="f_select w_80" htmlFor="schdulBgndeHH">
+                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분"
+                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeHH: e.target.value })}
+                                            >
                                                 <option value="00">00</option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -270,8 +380,10 @@ function EgovAdminScheduleEdit(props) {
                                             </select>
                                         </label>
                                         <span className="f_inn_txt">시</span>
-                                        <label className="f_select w_80" for="schdulBgndeMM">
-                                            <select id="schdulBgndeMM" name="schdulBgndeMM">
+                                        <label className="f_select w_80" htmlFor="schdulBgndeMM">
+                                            <select id="schdulBgndeMM" name="schdulBgndeMM"
+                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeMM: e.target.value })}
+                                            >
                                                 <option value="00">00</option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -339,12 +451,14 @@ function EgovAdminScheduleEdit(props) {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label for="schdulChargerName">담당자</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="schdulChargerName">담당자</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="text" name="" id="schdulChargerName" placeholder="관리자" />
+                                    <input className="f_input2 w_full" type="text" name="schdulChargerName" id="schdulChargerName" defaultValue="관리자" readOnly
+                                    // onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulChargerName: e.target.value })}
+                                    />
                                 </dd>
                             </dl>
-                            <dl>
+                            {/* <dl>
                                 <dt>파일첨부<span className="req">필수</span></dt>
                                 <dd>
                                     <input type="file" />
@@ -355,17 +469,30 @@ function EgovAdminScheduleEdit(props) {
                                         </span>
                                     </div>
                                 </dd>
-                            </dl>
+                            </dl> */}
+                            <EgovAttachFile
+                                fnChangeFile={(attachfile) => {
+                                    console.log("====>>> Changed attachfile file = ", attachfile);
+                                    setScheduleDetail({ ...scheduleDetail, file_1: attachfile });
+                                }}
+                                fnDeleteFile={(deletedFile) => {
+                                    console.log("====>>> Delete deletedFile = ", deletedFile);
+                                    setBoardAttachFiles(deletedFile);
+                                }}
+                                boardFiles={boardAttachFiles}
+                                mode={props.mode} />
 
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
                                     <a href="" className="btn btn_skyblue_h46 w_100">삭제</a>
-                                    <a href="" className="btn btn_skyblue_h46 w_100">수정</a>
+                                    <button className="btn btn_skyblue_h46 w_100"
+                                        onClick={() => updateSchedule()}
+                                    > 저장</button>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href="" className="btn btn_blue_h46 w_100">목록</a>
+                                    <Link to={URL.ADMIN_SCHEDULE} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}
@@ -376,7 +503,7 @@ function EgovAdminScheduleEdit(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
