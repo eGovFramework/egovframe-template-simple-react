@@ -30,7 +30,9 @@ const URL = {
     //INFORM
     INFORM                      : "/inform", // 알림마당 
     INFORM_DAILY                : "/inform/daily", // 알림마당/오늘의행사
+    INFORM_DAILY_DETAIL         : "/inform/daily/detail", // 알림마당/오늘의행사상세
     INFORM_WEEKLY               : "/inform/weekly", // 알림마당/금주의행사
+    INFORM_WEEKLY_DETAIL        : "/inform/weekly/detail", // 알림마당/금주의행사상세
     INFORM_NOTICE               : "/inform/notice", // 알림마당/공지사항
     INFORM_NOTICE_DETAIL        : "/inform/notice/detail", // 알림마당/공지사항상세
     INFORM_NOTICE_CREATE        : "/inform/notice/create", // 알림마당/공지사항등록
@@ -45,6 +47,9 @@ const URL = {
     //ADMIN
     ADMIN                       : "/admin", // 사이트관리
     ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
+    ADMIN_SCHEDULE_DETAIL       : "/admin/schedule/detail", // 사이트관리/일정관리상세
+    ADMIN_SCHEDULE_CREATE       : "/admin/schedule/create", // 사이트관리/일정관리생성
+    ADMIN_SCHEDULE_MODIFY       : "/admin/schedule/modify", // 사이트관리/일정관리수정
 
     ADMIN_TEMPLATE              : "/admin/template", // 사이트관리/게시판템플릿관리 목록
     ADMIN_TEMPLATE_CREATE       : "/admin/template/create", // 사이트관리/게시판템플릿관리 등록

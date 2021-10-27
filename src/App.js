@@ -54,6 +54,8 @@ import EgovGalleryEdit from 'egov/inform/gallery/EgovGalleryEdit';
 
 //ADMIN
 import EgovAdminScheduleList from 'egov/admin/schedule/EgovAdminScheduleList';
+import EgovAdminScheduleDetail from 'egov/admin/schedule/EgovAdminScheduleDetail';
+import EgovAdminScheduleEdit from 'egov/admin/schedule/EgovAdminScheduleEdit';
 
 import EgovAdminTemplateList from 'egov/admin/template/EgovAdminTemplateList';
 import EgovAdminTemplateEdit from 'egov/admin/template/EgovAdminTemplateEdit';
@@ -153,7 +155,11 @@ class App extends Component {
 
               {/* ADMIN */}
               <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />
-              <Route path={URL.ADMIN_SCHEDULE} component={EgovAdminScheduleList} />
+              <Route exact path={URL.ADMIN_SCHEDULE} component={EgovAdminScheduleList} />
+              {/* <Route path={URL.ADMIN_SCHEDULE_DETAIL} render={() => <EgovAdminScheduleDetail />} /> */}
+              <Route path={URL.ADMIN_SCHEDULE_DETAIL} component={EgovAdminScheduleDetail} />
+              <Route path={URL.ADMIN_SCHEDULE_CREATE} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_CREATE} />} />
+              <Route path={URL.ADMIN_SCHEDULE_MODIFY} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_MODIFY} />} />
 
               <Route exact path={URL.ADMIN_TEMPLATE} component={() => <EgovAdminTemplateList />} />
               <Route path={URL.ADMIN_TEMPLATE_CREATE} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_CREATE} />} />
@@ -185,7 +191,7 @@ class App extends Component {
             <EgovInfoPopup></EgovInfoPopup>
           </Route>
         </Switch>
-        
+
       </div>
     )
   }

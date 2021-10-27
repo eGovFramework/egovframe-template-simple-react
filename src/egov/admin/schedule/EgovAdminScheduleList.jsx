@@ -165,22 +165,28 @@ function EgovAdminScheduleList(props) {
             mutCalendarTagList.push(
                 <tr key={keyIdx++}>{
                     week.map((day, dayIdx) => {
-                        if (day !== 0) {
+                        if (day !== 0) {//당월 일별 구현
                             let sDate = day.toString().length === 1 ? "0" + day.toString() : day.toString();
                             let iUseDate = Number(mutsUseYearMonth + sDate);
-                            if (scheduleList.length > 0) {
+                            if (scheduleList.length > 0) {//일정 있는 경우
                                 return (
                                     <td key={keyIdx++}>
-                                        <Link to={URL.MAIN} className="day" key={keyIdx++}>{day}</Link><br />
+                                        <Link to={URL.ADMIN_SCHEDULE_CREATE} className="day" key={keyIdx++}>{day}</Link><br />
                                         {
                                             scheduleList.map((schedule, scheduleIdx) => {
                                                 let iBeginDate = Number(schedule.schdulBgnde.substring(0, 8));
                                                 let iEndDate = Number(schedule.schdulEndde.substring(0, 8));
                                                 innerConsole("scheduleList ", day, scheduleIdx, iBeginDate, iUseDate, iEndDate, iUseDate >= iBeginDate && iUseDate <= iEndDate);
+                                                innerConsole("schedule.schdulId ", schedule.schdulId);
                                                 if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                                                     return (
                                                         <>
-                                                            <Link to={URL.MAIN} key={keyIdx++}>{schedule.schdulNm}
+                                                            <Link to={{
+                                                                pathname: URL.ADMIN_SCHEDULE_DETAIL,
+                                                                state: {
+                                                                    schdulId : schedule.schdulId
+                                                                }
+                                                            }} key={keyIdx++}>{schedule.schdulNm}
                                                             </Link>
                                                             <br />
                                                         </>
@@ -190,13 +196,13 @@ function EgovAdminScheduleList(props) {
                                         }
                                     </td>
                                 );
-                            } else {
+                            } else {//일정 없는 경우
                                 return (
                                     <td key={keyIdx++}>
-                                        <Link to={URL.MAIN} className="day" key={keyIdx++}>{day}</Link>
+                                        <Link to={URL.ADMIN_SCHEDULE_CREATE} className="day" key={keyIdx++}>{day}</Link>
                                     </td>);
                             }
-                        } else if (day === 0) {
+                        } else if (day === 0) {// 이전달/다음달 구현
                             return (<td key={keyIdx++}></td>);
                         }
                     })
