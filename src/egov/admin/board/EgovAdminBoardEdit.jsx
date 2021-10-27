@@ -371,11 +371,6 @@ function EgovAdminBoardEdit(props) {
             </div>
         </div>
 
-
-
-
-
-
     );
 }
 

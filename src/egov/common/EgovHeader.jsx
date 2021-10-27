@@ -137,7 +137,7 @@ class EgovHeader extends Component {
                                 <h3>사이트관리</h3>
                                 <ul>
                                     <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
-                                    <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
+                                    {/* <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li> */}
                                     <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
@@ -196,7 +196,7 @@ class EgovHeader extends Component {
                                 <h3><Link to={URL.ADMIN}>사이트관리</Link></h3>
                                 <ul>
                                     <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
-                                    <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li>
+                                    {/* <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li> */}
                                     <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
