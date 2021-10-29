@@ -263,3 +263,6 @@ select::-ms-expand {display:none;}
 .list_1 li + li {margin-top: 6px;}
 .list_1 li::before {content: ""; display: block; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: #222;}
 
+/* 리액트 관련 */
+.react-datepicker-wrapper,
+.react-datepicker__input-container {display: inline-block; vertical-align: top; width: auto;}

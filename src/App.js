@@ -42,6 +42,7 @@ import EgovSupportApply from 'egov/support/apply/EgovSupportApply';
 
 //INFORM
 import EgovDailyList from 'egov/inform/daily/EgovDailyList';
+import EgovDailyDetail from 'egov/inform/daily/EgovDailyDetail';
 import EgovWeeklyList from 'egov/inform/weekly/EgovWeeklyList';
 
 import EgovNoticeList from 'egov/inform/notice/EgovNoticeList';
@@ -138,8 +139,10 @@ class App extends Component {
               {/* INFORM */}
               <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
 
-              <Route path={URL.INFORM_DAILY} component={EgovDailyList} />
-              <Route path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
+              <Route exact path={URL.INFORM_DAILY} component={EgovDailyList} />
+              <Route path={URL.INFORM_DAILY_DETAIL} component={EgovDailyDetail} />
+              <Route exact path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
+              <Route path={URL.INFORM_WEEKLY_DETAIL} component={EgovDailyDetail} />
 
               <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
               <Route path={URL.INFORM_NOTICE_DETAIL} render={() => <EgovNoticeDetail />} />

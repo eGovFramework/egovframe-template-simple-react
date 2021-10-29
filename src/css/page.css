@@ -93,10 +93,17 @@
     /* 금주의 행사 */
     .BRD003 .head > span:nth-child(1) {width: 200px;}
     .BRD003 .head > span:nth-child(2) {width: 150px;}
+    .BRD003 .head > span:nth-child(3) {width: 470px;}
     .BRD003 .head > span:nth-child(4) {width: 150px;}
     .BRD003 .result .list_item > div:nth-child(1) {width: 200px;}
-    .BRD003 .result .list_item > div:nth-child(2) {width: 150px;}
-    .BRD003 .result .list_item > div:nth-child(4) {width: 150px;}
+    .BRD003 .result .list_item > div:nth-child(2) {width: 620px;}
+    .BRD003 .result .list_item > div:nth-child(2) > a {display: table; width: 100%; color: #666;}
+    .BRD003 .result .list_item > div:nth-child(2) > a:hover {text-decoration: underline;}
+    .BRD003 .result .list_item > div:nth-child(2) > a > * {display: table-cell;}
+    .BRD003 .result .list_item > div:nth-child(2) > a > span:nth-child(1) {width: 150px;}
+    .BRD003 .result .list_item > div:nth-child(2) > a > span:nth-child(2) {width: auto; text-align: left;}
+    /* .BRD003 .result .list_item > div:nth-child(3) {width: 470px;} */
+    .BRD003 .result .list_item > div:nth-child(3) {width: 150px;}
 
     /* 게시판템플릿관리 */
     .BRD004 .head > span:nth-child(1) {width: 70px;}

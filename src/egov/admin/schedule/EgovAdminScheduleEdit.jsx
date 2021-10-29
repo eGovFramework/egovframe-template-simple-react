@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import DatePicker from "react-datepicker";
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
@@ -9,6 +10,8 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 function EgovAdminScheduleEdit(props) {
     console.group("EgovAdminScheduleEdit");
@@ -24,6 +27,10 @@ function EgovAdminScheduleEdit(props) {
     const [scheduleDetail, setScheduleDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
     const [user, setUser] = useState({});
+
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
 
     const initMode = () => {
         switch (props.mode) {
@@ -48,7 +55,7 @@ function EgovAdminScheduleEdit(props) {
     const retrieveDetail = () => {
         if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
             setScheduleDetail({
-                reptitSeCode : "1" // 반복구분 초기값 설정 
+                reptitSeCode: "1" // 반복구분 초기값 설정 
             });
             return;
         }
@@ -69,9 +76,9 @@ function EgovAdminScheduleEdit(props) {
                 let rawScheduleDetail = resp.result.scheduleDetail;
                 rawScheduleDetail.startDateTime = convertDate(rawScheduleDetail.schdulBgnde);
                 rawScheduleDetail.endDateTime = convertDate(rawScheduleDetail.schdulEndde);
-                rawScheduleDetail.reptitSeCodeNm = getCodeName(resp.result.reptitSeCode, resp.result.scheduleDetail.reptitSeCode);
-                rawScheduleDetail.schdulIpcrCodeNm = getCodeName(resp.result.schdulIpcrCode, resp.result.scheduleDetail.schdulIpcrCode);
-                rawScheduleDetail.schdulSeNm = getCodeName(resp.result.schdulSe, resp.result.scheduleDetail.schdulSe);
+                rawScheduleDetail.reptitSeCodeNm = getCodeName(resp.result.reptitSeCode, rawScheduleDetail.reptitSeCode);
+                rawScheduleDetail.schdulIpcrCodeNm = getCodeName(resp.result.schdulIpcrCode, rawScheduleDetail.schdulIpcrCode);
+                rawScheduleDetail.schdulSeNm = getCodeName(resp.result.schdulSe, rawScheduleDetail.schdulSe);
                 setScheduleDetail(rawScheduleDetail);
                 setUser(resp.result.user);
                 setBoardAttachFiles(resp.result.resultFiles);
@@ -239,13 +246,30 @@ function EgovAdminScheduleEdit(props) {
                                 <dt>날짜/시간<span className="req">필수</span></dt>
                                 <dd className="datetime">
                                     <span className="line_break">
-                                        <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" />
-                                        <a href="" className="btn btn_calendar">달력</a>
+                                        {/* <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" /> */}
+                                        {/* <a href="" className="btn btn_calendar">달력</a> */}
+                                        <DatePicker
+                                            selected={startDate}
+                                            className="f_input w_120"
+                                            onChange={(date) => {
+                                                console.log("setStartDate : ", date);
+                                                setStartDate(date);
+                                            }} />
                                         <span className="f_inn_txt">~</span>
                                     </span>
                                     <span className="line_break">
-                                        <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" />
-                                        <a href="" className="btn btn_calendar">달력</a>
+                                        {/* <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" /> */}
+                                        {/* <a href="" className="btn btn_calendar">달력</a> */}
+                                        <DatePicker
+                                            selected={endDate}
+                                            className="f_input w_120"
+                                            minDate={startDate}
+                                            onChange={(date) => {
+                                                console.log("setEndDate: ", date);
+                                                setEndDate(date);
+                                            }
+                                            } />
+                                        {/* https://reactdatepicker.com/#example-custom-input */}
                                     </span>
                                     <span className="line_break">
                                         <label className="f_select w_80" htmlFor="schdulBgndeHH">

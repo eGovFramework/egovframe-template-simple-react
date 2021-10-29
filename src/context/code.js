@@ -14,7 +14,8 @@ const CODE = {
     DATE_YEAR           : "year",
     DATE_MONTH          : "month",
     DATE_DATE           : "date",
-    DATE_day            : "day",
+    DATE_WEEK           : "week",
+    DATE_DAY            : "day",
 }
 
 export default CODE;

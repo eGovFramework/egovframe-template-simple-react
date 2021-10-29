@@ -1,20 +1,154 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+
+import * as EgovNet from 'context/egovFetch';
+import URL from 'context/url';
+import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
+import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovWeeklyList() {
-    console.log("EgovWeeklyList create");
+function EgovWeeklyList(props) {
+    console.group("EgovWeeklyList");
+    console.log("[Start] EgovWeeklyList ------------------------------");
+    console.log("EgovWeeklyList [props] : ", props);
+
+    const history = useHistory();
+    console.log("EgovWeeklyList [history] : ", history);
+
+    const DATE = new Date();
+    const FIRST_DAY_OF_THIS_WEEK = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate() - DATE.getDay());
+
+    const getWeekOfMonth = (date) => {
+        let adjustedDate = date.getDate() + date.getDay();
+        console.log("getWeekOfMonth : ", date, date.getDate(), date.getDay(), adjustedDate, adjustedDate / 7, 0 | adjustedDate / 7);
+        let weeksOrder = [0, 1, 2, 3, 4, 5];
+        let returnVal = parseInt(weeksOrder[0 | adjustedDate / 7]);
+        console.log("returnVal:", returnVal);
+        return (returnVal);
+    }
+
+    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '', year: FIRST_DAY_OF_THIS_WEEK.getFullYear(), month: FIRST_DAY_OF_THIS_WEEK.getMonth(), date: FIRST_DAY_OF_THIS_WEEK.getDate(), weekDay: FIRST_DAY_OF_THIS_WEEK.getDay(), weekOfMonth: getWeekOfMonth(FIRST_DAY_OF_THIS_WEEK) });
+
+    const [scheduleList, setScheduleList] = useState([]);
+    const [listTag, setListTag] = useState([]);
+
+    const changeDate = (target, amount) => {
+        let changedDate;
+
+        if (target === CODE.DATE_YEAR) {
+            changedDate = new Date(searchCondition.year + amount, searchCondition.month, searchCondition.date);
+        }
+
+        if (target === CODE.DATE_MONTH) {
+            changedDate = new Date(searchCondition.year, searchCondition.month + amount, searchCondition.date);
+        }
+
+        if (target === CODE.DATE_WEEK) {
+            // let addtionOfDays = 7 * amount - searchCondition.weekDay;
+            let addtionOfDays = 7 * amount;
+            changedDate = new Date(searchCondition.year, searchCondition.month, searchCondition.date + addtionOfDays);//다음주의 첫날
+        }
+        console.log("changedDate : ", changedDate);
+        setSearchCondition({ ...searchCondition, year: changedDate.getFullYear(), month: changedDate.getMonth(), date: changedDate.getDate(), weekDay: changedDate.getDay(), weekOfMonth: getWeekOfMonth(changedDate) });
+    }
+
+
+    const retrieveList = (srchcnd) => {
+        console.groupCollapsed("EgovWeeklyList.retrieveList()");
+
+        const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageWeekListAPI.do';
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(srchcnd)
+        }
+
+        EgovNet.requestFetch(retrieveListURL,
+            requestOptions,
+            (resp) => {
+
+                setScheduleList(resp.result.resultList);
+                drawList();
+            },
+            function (resp) {
+                console.log("err response : ", resp);
+            }
+        );
+
+        console.groupEnd("EgovWeeklyList.retrieveList()");
+    }
+
+    const drawList = () => {
+        const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+        let mutListTag = [];
+
+        let keyPropertyCnt = 0;
+        // 리스트 항목 구성
+        for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+            let scheduleDate = new Date(searchCondition.year, searchCondition.month, searchCondition.date + dayIdx);
+            let scheduleDateStr = scheduleDate.getFullYear() + "년 " + (scheduleDate.getMonth() + 1) + "월 " + scheduleDate.getDate() + "일 " + dayNames[scheduleDate.getDay()];
+            keyPropertyCnt++;
+            mutListTag.push(
+                <div class="list_item" key={keyPropertyCnt}>
+                    <div>{scheduleDateStr}</div>
+                    <div>
+                        {scheduleList.length === 0 && <span>일정이 존재하지 않습니다.</span>}
+                        {scheduleList.length !== 0 && scheduleList.map((item) => {
+                            keyPropertyCnt++;
+                            return (
+                                <Link
+                                    key={keyPropertyCnt}
+                                    to={{
+                                        pathname: URL.INFORM_WEEKLY_DETAIL,
+                                        state: {
+                                            schdulId: item.schdulId,
+                                            prevPath: URL.INFORM_WEEKLY
+                                        }
+                                    }} >
+                                    <span>{getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}</span>
+                                    <span>{item.schdulNm}</span>
+                                    <span>{item.userNm}</span>
+                                </Link>
+                            )
+                        })}
+
+
+                    </div>
+                </div>
+            )
+        }
+        setListTag(mutListTag);
+
+    }
+    const getTimeForm = (str) => {
+        let hour = str.substring(8, 10);
+        let starminute = str.substring(10, 12);
+        return hour + ":" + starminute;
+    }
+
+    useEffect(() => {
+        retrieveList(searchCondition);
+        drawList();
+        return () => {
+        }
+    }, [scheduleList, searchCondition.schdulSe, searchCondition.year, searchCondition.month, searchCondition.weekOfMonth]);
+
+
+    console.log("------------------------------EgovWeeklyList [End]");
+    console.groupEnd("EgovWeeklyList");
     return (
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to="" className="home">Home</Link></li>
-                        <li><Link to="">알림마당</Link></li>
-                        <li>금주의 행사</li>
+                        <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                        <li><Link to={URL.INFORM}>알림마당</Link></li>
+                        <li>오늘의 행사</li>
                     </ul>
                 </div>
                 {/* <!--// Location --> */}
@@ -49,19 +183,45 @@ function EgovWeeklyList() {
                                     </label>
                                 </li>
                                 <li>
-                                    <Link to="" className="prev">이전연도로이동</Link>
-                                    <span>2021년</span>
-                                    <Link to="" className="next">다음연도로이동</Link>
+                                    {/* <a href="" className="prev">이전연도로이동</a> */}
+                                    <button className="prev"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_YEAR, -1);
+                                        }}
+                                    ></button>
+                                    <span>{searchCondition.year}년</span>
+                                    {/* <a href="" className="next">다음연도로이동</a> */}
+                                    <button className="next"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_YEAR, 1);
+                                        }}
+                                    ></button>
                                 </li>
                                 <li className="half L">
-                                    <Link to="" className="prev">이전월로이동</Link>
-                                    <span>8월</span>
-                                    <Link to="" className="next">다음월로이동</Link>
+                                    <button className="prev"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_MONTH, -1);
+                                        }}
+                                    ></button>
+                                    <span>{(searchCondition.month + 1)}월</span>
+                                    <button className="next"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_MONTH, 1);
+                                        }}
+                                    ></button>
                                 </li>
                                 <li className="half R">
-                                    <Link to="" className="prev">이전주로이동</Link>
-                                    <span>1주</span>
-                                    <Link to="" className="next">다음주로이동</Link>
+                                    <button className="prev"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_WEEK, -1);
+                                        }}
+                                    ></button>
+                                    <span>{searchCondition.weekOfMonth + 1}주</span>
+                                    <button className="next"
+                                        onClick={() => {
+                                            changeDate(CODE.DATE_WEEK, 1);
+                                        }}
+                                    ></button>
                                 </li>
                             </ul>
                         </div>
@@ -76,49 +236,87 @@ function EgovWeeklyList() {
                                 <span>담당자</span>
                             </div>
                             <div className="result">
-                                {/* <!-- case : 데이터 없을때 --> */}
-                                <p className="no_data">검색된 결과가 없습니다.</p>
-
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                <Link to="" className="list_item">
+                                {/* <a href="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </Link>
-                                <Link to="" className="list_item">
+                                </a>
+                                <a href="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </Link>
-                                <Link to="" className="list_item">
+                                </a>
+                                <a href="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </Link>
-                                <Link to="" className="list_item">
+                                </a>
+                                <a href="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </Link>
-                                <Link to="" className="list_item">
+                                </a>
+                                <a href="" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
-                                </Link>
+                                </a> 
+                                                                <div class="list_item">
+                                    <div>2021년07월11일 일요일</div>
+                                    <div>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                    </div>
+                                    <div>관리자</div>
+                                </div>
+                                <div class="list_item">
+                                    <div>2021년07월11일 일요일</div>
+                                    <div>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                    </div>
+                                    <div>관리자</div>
+                                </div>
+                                <div class="list_item">
+                                    <div>2021년07월11일 일요일</div>
+                                    <div>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                        <a href="">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                    </div>
+                                    <div>관리자</div>
+                                </div>
+                                
+                                
+                                */}
+                                {listTag}
                             </div>
                         </div>
                         {/* <!--// 게시판목록 --> */}
 
-                        <div className="board_bot">
-                            {/* <!-- Paging --> */}
-                            <EgovPaging></EgovPaging>
-                            {/* <!--/ Paging --> */}
-                        </div>
 
                         {/* <!--// 본문 --> */}
                     </div>
@@ -127,6 +325,5 @@ function EgovWeeklyList() {
         </div>
     );
 }
-
 
 export default EgovWeeklyList;
