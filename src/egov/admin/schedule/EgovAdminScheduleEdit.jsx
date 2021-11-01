@@ -114,28 +114,40 @@ function EgovAdminScheduleEdit(props) {
                 body: formData
             }
 
-            // EgovNet.requestFetch(modeInfo.editURL,
-            //     requestOptions,
-            //     (resp) => {
-            //         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            //             history.push({ pathname: URL.ADMIN_SCHEDULE });
-            //         } else {
-            //             alert("ERR : " + resp.resultMessage);
-            //         }
-            //     }
-            // );
+            EgovNet.requestFetch(modeInfo.editURL,
+                requestOptions,
+                (resp) => {
+                    if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                        history.push({ pathname: URL.ADMIN_SCHEDULE });
+                    } else {
+                        alert("ERR : " + resp.resultMessage);
+                    }
+                }
+            );
         }
 
     }
 
-    const formValidator = (form) => {
-        console.log("form : ", form);
-        console.log("form['schdulBgnde'] : ", form.schdulBgnde, form.schdulEndde);
-        if (form['schdulBgnde'] > form['schdulEndde']) {
+    const formValidator = (formData) => {
+        console.log("form : ", formData);
+        console.log("formData.get('schdulSe') ", formData.get('schdulSe'));
+        if (formData.get('schdulSe') === null || formData.get('schdulSe') === "") {
+            alert("일정구분은 필수 값입니다.");
+            return false;
+        }
+        if (formData.get('schdulIpcrCode') === null || formData.get('schdulIpcrCode') === "") {
+            alert("중요도은 필수 값입니다.");
+            return false;
+        }
+        if (formData.get('reptitSeCode') === null ||formData.get('reptitSeCode') === "") {
+            alert("반복구분은 필수 값입니다.");
+            return false;
+        }
+        if (formData.get('schdulBgnde') > formData.get('schdulEndde')) {
             alert("종료일시는 시작일시보다 앞 설 수 없습니다.");
             return false;
         }
-        return true;
+        return false;
     }
     const getDateFourteenDigit = (date) => {
         return getYYYYMMDD(date).toString() + makeTwoDigit(date.getHours()) + makeTwoDigit(date.getMinutes()) + makeTwoDigit(date.getSeconds());
