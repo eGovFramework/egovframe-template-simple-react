@@ -6,9 +6,6 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'egov/common/EgovPaging';
-import EgovAttachFile from 'egov/common/EgovAttachFile';
-import EgovRadioButton from 'egov/common/EgovRadioButton';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
 function EgovAdminTemplateEdit(props) {

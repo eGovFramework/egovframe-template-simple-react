@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 
@@ -7,11 +7,10 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 function EgovAdminScheduleEdit(props) {
     console.group("EgovAdminScheduleEdit");
@@ -24,12 +23,14 @@ function EgovAdminScheduleEdit(props) {
     const reptitSeCodeRadioGroup = [{ value: "1", label: "당일" }, { value: "2", label: "반복" }, { value: "3", label: "연속" }];
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
-    const [scheduleDetail, setScheduleDetail] = useState({});
+    const [scheduleDetail, setScheduleDetail] = useState({ schdulDeptName: "관리자부서", schdulChargerName: "관리자", schdulKindCode: 2, reptitSeCode: "1", startDate: new Date(), endDate: new Date() });
     const [boardAttachFiles, setBoardAttachFiles] = useState();
     const [user, setUser] = useState({});
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [schdulBgndeHH, setSchdulBgndeHH] = useState();
+    const [schdulBgndeMM, setSchdulBgndeMM] = useState();
+    const [schdulEnddeHH, setSchdulEnddeHH] = useState();
+    const [schdulEnddeMM, setSchdulEnddeMM] = useState();
 
 
     const initMode = () => {
@@ -52,10 +53,21 @@ function EgovAdminScheduleEdit(props) {
         retrieveDetail();
     }
 
+    const convertDate = (str) => {
+        let year = str.substring(0, 4);
+        let month = str.substring(4, 6);
+        let date = str.substring(6, 8);
+        let hour = str.substring(8, 10);
+        let minute = str.substring(10, 12);
+        return new Date(year, month - 1, date, hour, minute)
+    }
+
     const retrieveDetail = () => {
         if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
             setScheduleDetail({
-                reptitSeCode: "1" // 반복구분 초기값 설정 
+                ...scheduleDetail,
+                schdulBgnde: getDateFourteenDigit(scheduleDetail.startDate),
+                schdulEndde: getDateFourteenDigit(scheduleDetail.endDate)
             });
             return;
         }
@@ -74,38 +86,16 @@ function EgovAdminScheduleEdit(props) {
             requestOptions,
             function (resp) {
                 let rawScheduleDetail = resp.result.scheduleDetail;
-                rawScheduleDetail.startDateTime = convertDate(rawScheduleDetail.schdulBgnde);
-                rawScheduleDetail.endDateTime = convertDate(rawScheduleDetail.schdulEndde);
-                rawScheduleDetail.reptitSeCodeNm = getCodeName(resp.result.reptitSeCode, rawScheduleDetail.reptitSeCode);
-                rawScheduleDetail.schdulIpcrCodeNm = getCodeName(resp.result.schdulIpcrCode, rawScheduleDetail.schdulIpcrCode);
-                rawScheduleDetail.schdulSeNm = getCodeName(resp.result.schdulSe, rawScheduleDetail.schdulSe);
-                setScheduleDetail(rawScheduleDetail);
+                //기본값 설정
+                setScheduleDetail({
+                    ...scheduleDetail,
+                    ...rawScheduleDetail,
+                    startDate: convertDate(rawScheduleDetail.schdulBgnde),
+                    endDate: convertDate(rawScheduleDetail.schdulEndde),
+                });
                 setUser(resp.result.user);
                 setBoardAttachFiles(resp.result.resultFiles);
             }
-        );
-    }
-    const convertDate = (str) => {
-        let year = str.substring(0, 4);
-        let month = str.substring(4, 6);
-        let date = str.substring(6, 8);
-        let hour = str.substring(8, 10);
-        let minute = str.substring(10, 12);
-        return {
-            year: year,
-            month: month,
-            date: date,
-            hour: hour,
-            minute: minute,
-            dateForm: year + "년 " + month + "월 " + date + "일 " + hour + "시 " + minute + "분 "
-        }
-    }
-
-    const getCodeName = (codeArr, code) => {
-        return (
-            codeArr.map((codeObj) => {
-                if (codeObj.code == code) return codeObj.codeNm;
-            })
         );
     }
 
@@ -113,28 +103,48 @@ function EgovAdminScheduleEdit(props) {
         const formData = new FormData();
         for (let key in scheduleDetail) {
             formData.append(key, scheduleDetail[key]);
-            //console.log("boardDetail [%s] ", key, boardDetail[key]);
+            console.log("scheduleDetail [%s] ", key, scheduleDetail[key]);
         }
 
-        const requestOptions = {
-            method: "POST",
-            headers: {
-
-            },
-            body: formData
-        }
-
-        EgovNet.requestFetch(modeInfo.editURL,
-            requestOptions,
-            (resp) => {
-                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    history.push({ pathname: URL.ADMIN_SCHEDULE });
-                } else {
-                    alert("ERR : " + resp.resultMessage);
-                }
-
+        if (formValidator(formData)) {
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                },
+                body: formData
             }
-        );
+
+            // EgovNet.requestFetch(modeInfo.editURL,
+            //     requestOptions,
+            //     (resp) => {
+            //         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+            //             history.push({ pathname: URL.ADMIN_SCHEDULE });
+            //         } else {
+            //             alert("ERR : " + resp.resultMessage);
+            //         }
+            //     }
+            // );
+        }
+
+    }
+
+    const formValidator = (form) => {
+        console.log("form : ", form);
+        console.log("form['schdulBgnde'] : ", form.schdulBgnde, form.schdulEndde);
+        if (form['schdulBgnde'] > form['schdulEndde']) {
+            alert("종료일시는 시작일시보다 앞 설 수 없습니다.");
+            return false;
+        }
+        return true;
+    }
+    const getDateFourteenDigit = (date) => {
+        return getYYYYMMDD(date).toString() + makeTwoDigit(date.getHours()) + makeTwoDigit(date.getMinutes()) + makeTwoDigit(date.getSeconds());
+    }
+    const getYYYYMMDD = (date) => {
+        return date.getFullYear().toString() + makeTwoDigit(Number(date.getMonth() + 1)) + makeTwoDigit(date.getDate());
+    }
+    const makeTwoDigit = (number) => {
+        return number < 10 ? "0" + number : number.toString();
     }
 
     useEffect(function () {
@@ -179,7 +189,7 @@ function EgovAdminScheduleEdit(props) {
                                 <dd>
                                     <label className="f_select w_130" htmlFor="schdulSe">
                                         <select id="schdulSe" name="schdulSe" title="일정구분"
-                                            defaultValue={scheduleDetail.schdulSe}
+                                            value={scheduleDetail.schdulSe}
                                             onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulSe: e.target.value })}>
                                             <option value="">선택</option>
                                             <option value="1">회의</option>
@@ -196,7 +206,7 @@ function EgovAdminScheduleEdit(props) {
                                 <dd>
                                     <label className="f_select w_130" htmlFor="schdulIpcrCode">
                                         <select id="schdulIpcrCode" name="schdulIpcrCode" title="중요도"
-                                            defaultValue={scheduleDetail.schdulIpcrCode}
+                                            value={scheduleDetail.schdulIpcrCode}
                                             onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulIpcrCode: e.target.value })}>
                                             <option value="">선택</option>
                                             <option value="A">높음</option>
@@ -209,7 +219,9 @@ function EgovAdminScheduleEdit(props) {
                             <dl>
                                 <dt><label htmlFor="schdulDeptName">부서</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="text" name="schdulDeptName" title="부서" id="schdulDeptName" defaultValue="관리자부서" readOnly />
+                                    <input className="f_input2 w_full" type="text" name="schdulDeptName" title="부서" id="schdulDeptName"
+                                        value="관리자부서" readOnly
+                                    />
                                 </dd>
                             </dl>
                             <dl>
@@ -232,9 +244,6 @@ function EgovAdminScheduleEdit(props) {
                             <dl>
                                 <dt>반복구분<span className="req">필수</span></dt>
                                 <dd>
-                                    {/* <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode1" title="당일" /><em>당일</em></span>
-                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode2" title="반복" /><em>반복</em></span>
-                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode3" title="연속" /><em>연속</em></span> */}
                                     <EgovRadioButtonGroup
                                         name="reptitSeCode"
                                         radioGroup={reptitSeCodeRadioGroup}
@@ -246,231 +255,39 @@ function EgovAdminScheduleEdit(props) {
                                 <dt>날짜/시간<span className="req">필수</span></dt>
                                 <dd className="datetime">
                                     <span className="line_break">
-                                        {/* <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" /> */}
-                                        {/* <a href="" className="btn btn_calendar">달력</a> */}
                                         <DatePicker
-                                            selected={startDate}
-                                            className="f_input w_120"
+                                            selected={scheduleDetail.startDate}
+                                            name="schdulBgnde"
+                                            className="f_input"
+                                            dateFormat="yyyy-MM-dd HH:mm"
+                                            showTimeInput
                                             onChange={(date) => {
                                                 console.log("setStartDate : ", date);
-                                                setStartDate(date);
+                                                setScheduleDetail({ ...scheduleDetail, schdulBgnde: getDateFourteenDigit(date), schdulBgndeYYYMMDD: getYYYYMMDD(date), schdulBgndeHH: date.getHours(), schdulBgndeMM: date.getMinutes(), startDate: date });
+                                                setSchdulBgndeHH(date.getHours());
+                                                setSchdulBgndeMM(date.getMinutes());
                                             }} />
                                         <span className="f_inn_txt">~</span>
+                                        <input type="hidden" name="schdulBgndeHH" defaultValue={schdulBgndeHH} readOnly />
+                                        <input type="hidden" name="schdulBgndeMM" defaultValue={schdulBgndeMM} readOnly />
                                     </span>
                                     <span className="line_break">
-                                        {/* <input className="f_input w_120" type="text" name="" placeholder="" readOnly="readonly" /> */}
-                                        {/* <a href="" className="btn btn_calendar">달력</a> */}
                                         <DatePicker
-                                            selected={endDate}
-                                            className="f_input w_120"
-                                            minDate={startDate}
+                                            selected={scheduleDetail.endDate}
+                                            name="schdulEndde"
+                                            className="f_input"
+                                            dateFormat="yyyy-MM-dd HH:mm"
+                                            showTimeInput
+                                            minDate={scheduleDetail.startDate}
                                             onChange={(date) => {
                                                 console.log("setEndDate: ", date);
-                                                setEndDate(date);
+                                                setScheduleDetail({ ...scheduleDetail, schdulEndde: getDateFourteenDigit(date), schdulEnddeYYYMMDD: getYYYYMMDD(date), schdulEnddeHH: date.getHours(), schdulEnddeMM: date.getMinutes(), endDate: date });
+                                                setSchdulEnddeHH(date.getHours());
+                                                setSchdulEnddeMM(date.getMinutes());
                                             }
                                             } />
-                                        {/* https://reactdatepicker.com/#example-custom-input */}
-                                    </span>
-                                    <span className="line_break">
-                                        <label className="f_select w_80" htmlFor="schdulBgndeHH">
-                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분"
-                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeHH: e.target.value })}
-                                            >
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                            </select>
-                                        </label>
-                                        <span className="f_inn_txt">시</span>
-                                        <label className="f_select w_80" htmlFor="schdulBgndeMM">
-                                            <select id="schdulBgndeMM" name="schdulBgndeMM"
-                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeMM: e.target.value })}
-                                            >
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="24">24</option>
-                                                <option value="25">25</option>
-                                                <option value="26">26</option>
-                                                <option value="27">27</option>
-                                                <option value="28">28</option>
-                                                <option value="29">29</option>
-                                                <option value="30">30</option>
-                                                <option value="31">31</option>
-                                                <option value="32">32</option>
-                                                <option value="33">33</option>
-                                                <option value="34">34</option>
-                                                <option value="35">35</option>
-                                                <option value="36">36</option>
-                                                <option value="37">37</option>
-                                                <option value="38">38</option>
-                                                <option value="39">39</option>
-                                                <option value="40">40</option>
-                                                <option value="41">41</option>
-                                                <option value="42">42</option>
-                                                <option value="43">43</option>
-                                                <option value="44">44</option>
-                                                <option value="45">45</option>
-                                                <option value="46">46</option>
-                                                <option value="47">47</option>
-                                                <option value="48">48</option>
-                                                <option value="49">49</option>
-                                                <option value="50">50</option>
-                                                <option value="51">51</option>
-                                                <option value="52">52</option>
-                                                <option value="53">53</option>
-                                                <option value="54">54</option>
-                                                <option value="55">55</option>
-                                                <option value="56">56</option>
-                                                <option value="57">57</option>
-                                                <option value="58">58</option>
-                                                <option value="59">59</option>
-                                            </select>
-                                        </label>
-                                        <span className="f_inn_txt">분</span>
-                                    </span>
-                                    <span className="line_break">
-                                        <span className="f_inn_txt m_hide">~</span>
-                                        <label className="f_select w_80" htmlFor="schdulBgndeHH">
-                                            <select id="schdulBgndeHH" name="schdulBgndeHH" title="분"
-                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeHH: e.target.value })}
-                                            >
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                            </select>
-                                        </label>
-                                        <span className="f_inn_txt">시</span>
-                                        <label className="f_select w_80" htmlFor="schdulBgndeMM">
-                                            <select id="schdulBgndeMM" name="schdulBgndeMM"
-                                                onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulBgndeMM: e.target.value })}
-                                            >
-                                                <option value="00">00</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="24">24</option>
-                                                <option value="25">25</option>
-                                                <option value="26">26</option>
-                                                <option value="27">27</option>
-                                                <option value="28">28</option>
-                                                <option value="29">29</option>
-                                                <option value="30">30</option>
-                                                <option value="31">31</option>
-                                                <option value="32">32</option>
-                                                <option value="33">33</option>
-                                                <option value="34">34</option>
-                                                <option value="35">35</option>
-                                                <option value="36">36</option>
-                                                <option value="37">37</option>
-                                                <option value="38">38</option>
-                                                <option value="39">39</option>
-                                                <option value="40">40</option>
-                                                <option value="41">41</option>
-                                                <option value="42">42</option>
-                                                <option value="43">43</option>
-                                                <option value="44">44</option>
-                                                <option value="45">45</option>
-                                                <option value="46">46</option>
-                                                <option value="47">47</option>
-                                                <option value="48">48</option>
-                                                <option value="49">49</option>
-                                                <option value="50">50</option>
-                                                <option value="51">51</option>
-                                                <option value="52">52</option>
-                                                <option value="53">53</option>
-                                                <option value="54">54</option>
-                                                <option value="55">55</option>
-                                                <option value="56">56</option>
-                                                <option value="57">57</option>
-                                                <option value="58">58</option>
-                                                <option value="59">59</option>
-                                            </select>
-                                        </label>
-                                        <span className="f_inn_txt">분</span>
+                                        <input type="hidden" name="schdulEnddeHH" defaultValue={schdulEnddeHH} readOnly />
+                                        <input type="hidden" name="schdulEnddeMM" defaultValue={schdulEnddeMM} readOnly />
                                     </span>
                                 </dd>
                             </dl>
@@ -478,22 +295,9 @@ function EgovAdminScheduleEdit(props) {
                                 <dt><label htmlFor="schdulChargerName">담당자</label><span className="req">필수</span></dt>
                                 <dd>
                                     <input className="f_input2 w_full" type="text" name="schdulChargerName" id="schdulChargerName" defaultValue="관리자" readOnly
-                                    // onChange={(e) => setScheduleDetail({ ...scheduleDetail, schdulChargerName: e.target.value })}
                                     />
                                 </dd>
                             </dl>
-                            {/* <dl>
-                                <dt>파일첨부<span className="req">필수</span></dt>
-                                <dd>
-                                    <input type="file" />
-                                    <div id="egovComFileList" className="file_add">
-                                        <span className="file_attach">
-                                            <a href="">file_name.hwp</a> <span>[3626] byte</span>
-                                            <button className="btn btn_delete">delete</button>
-                                        </span>
-                                    </div>
-                                </dd>
-                            </dl> */}
                             <EgovAttachFile
                                 fnChangeFile={(attachfile) => {
                                     console.log("====>>> Changed attachfile file = ", attachfile);
