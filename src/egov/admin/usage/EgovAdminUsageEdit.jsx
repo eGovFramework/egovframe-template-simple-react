@@ -23,6 +23,7 @@ function EgovAdminBoardEdit(props) {
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [boardDetail, setBoardDetail] = useState({});
+    const [notUsedBdMstrList, setNotUsedBdMstrList] = useState([]);
 
     const [useAtRadioGroup, setUseAtRadioGroup] = useState([{ value: "Y", label: "사용" }, { value: "N", label: "미사용" }])
 
@@ -53,6 +54,24 @@ function EgovAdminBoardEdit(props) {
                 useAt: "Y",                         //사용여부 초기값
                 trgetId: "SYSTEM_DEFAULT_BOARD"     //시스템 targetId default값
             });
+
+            const retrieveMasterBdURL = '/cop/com/selectNotUsedBdMstrList.do';
+
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                })
+            }
+            EgovNet.requestFetch(retrieveMasterBdURL,
+                requestOptions,
+                function (resp) {
+                    setNotUsedBdMstrList(resp.result.resultList);
+                }
+            );
+
             return;
         }
 
@@ -74,6 +93,7 @@ function EgovAdminBoardEdit(props) {
                 // 수정모드일 경우 조회값 세팅
                 if (modeInfo.mode === CODE.MODE_MODIFY) {
                     setBoardDetail(resp.result.bdUseVO);
+                    setNotUsedBdMstrList(resp.result.resultList);
                 }
             }
         );
@@ -86,25 +106,38 @@ function EgovAdminBoardEdit(props) {
             console.log("boardDetail [%s] ", key, boardDetail[key]);
         }
 
-        const requestOptions = {
-            method: "POST",
-            headers: {
-            },
-            body: formData
-        }
-
-        EgovNet.requestFetch(modeInfo.editURL,
-            requestOptions,
-            (resp) => {
-                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    history.push({ pathname: URL.ADMIN_USAGE });
-                } else {
-                    alert("ERR : " + resp.resultMessage);
-                }
+        if (formValidator(formData)) {
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                },
+                body: formData
             }
-        );
+
+            EgovNet.requestFetch(modeInfo.editURL,
+                requestOptions,
+                (resp) => {
+                    if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+                        history.push({ pathname: URL.ADMIN_USAGE });
+                    } else {
+                        alert("ERR : " + resp.resultMessage);
+                    }
+                }
+            );
+        }
     }
 
+    const formValidator = (formData) => {
+        if (formData.get('bbsId') === null || formData.get('bbsId') === "") {
+            alert("게시판명은 필수 값입니다.");
+            return false;
+        }
+        if (formData.get('trgetType') === null || formData.get('trgetType') === "") {
+            alert("커뮤니티/동호회명은 필수 값입니다.");
+            return false;
+        }
+        return true;
+    }
     useEffect(() => {
         initMode();
         return () => {
@@ -145,25 +178,49 @@ function EgovAdminBoardEdit(props) {
                             {/* 등록일때 일때 */}
                             {modeInfo.mode === CODE.MODE_CREATE && <>
                                 <dl>
-                                    <dt><label for="">게시판명</label><span className="req">필수</span></dt>
+                                    <dt>게시판명<span className="req">필수</span></dt>
                                     <dd>
-                                        <span className="f_search2 w_full">
+                                        {/* <span className="f_search2 w_full">
                                             <input type="text" name="" title="" id="" placeholder="" />
                                             <button type="button">조회</button>
-                                        </span>
+                                        </span> */}
+                                        <label className="f_select " htmlFor="bbsId">
+                                            <select
+                                                id="bbsId"
+                                                name="bbsId"
+                                                title="게시판선택"
+                                                onChange={(e) => {
+                                                    let index = e.nativeEvent.target.selectedIndex;
+                                                    let label = e.nativeEvent.target[index].text;
+                                                    console.log("bbsId onChange : ", e.nativeEvent);
+                                                    setBoardDetail({ ...boardDetail, bbsId: e.target.value, bbsNm: label });
+                                                }}
+                                                value={boardDetail.bbsId}
+                                            >
+                                                <option value="">선택하세요</option>
+                                                {notUsedBdMstrList.map((option, i) => {
+                                                    console.log("notUsedBdMstrList option : ", option);
+                                                    return (
+                                                        <option value={option.bbsId} key={option.bbsId}>
+                                                            {option.bbsNm}
+                                                        </option>
+                                                    )
+                                                })}
+                                            </select>
+                                        </label>
                                     </dd>
                                 </dl>
                                 <dl>
                                     <dt>커뮤니티/동호회명<span className="req">필수</span></dt>
                                     <dd>
-                                        <label className="f_select " for="trgetType">
+                                        <label className="f_select " htmlFor="trgetType">
                                             <select id="trgetType" name="trgetType" className="select" title=""
                                                 onChange={(e) => setBoardDetail({ ...boardDetail, trgetType: e.target.value, trgetId: "SYSTEM_DEFAULT_BOARD" })}>
                                                 <option value="">선택하세요</option>
-                                                <option value="SYSTEM">시스템</option>
+                                                <option value="SYSTEM">시스템 활용</option>
                                             </select>
                                         </label>
-                                        <input className="f_input2" type="text" name="" title="" id="bbsNm" placeholder="" />
+                                        {/* <input className="f_input2" type="text" name="" title="" id="bbsNm" placeholder="" /> */}
                                     </dd>
                                 </dl>
                             </>}

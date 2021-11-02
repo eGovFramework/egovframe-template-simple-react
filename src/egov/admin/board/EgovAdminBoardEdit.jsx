@@ -249,7 +249,7 @@ function EgovAdminBoardEdit(props) {
                                 <dd>
                                     {/* 등록 일때 변경 가능 */}
                                     {modeInfo.mode === CODE.MODE_CREATE &&
-                                        <label className="f_select w_130" for="bbsAttrbCode">
+                                        <label className="f_select w_130" htmlFor="bbsAttrbCode">
                                             {/* <EgovSelect
                                                 id="bbsAttrbCode"
                                                 name="bbsAttrbCode"

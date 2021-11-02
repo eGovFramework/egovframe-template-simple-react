@@ -129,8 +129,6 @@ function EgovAdminScheduleEdit(props) {
     }
 
     const formValidator = (formData) => {
-        console.log("form : ", formData);
-        console.log("formData.get('schdulSe') ", formData.get('schdulSe'));
         if (formData.get('schdulSe') === null || formData.get('schdulSe') === "") {
             alert("일정구분은 필수 값입니다.");
             return false;
@@ -147,7 +145,7 @@ function EgovAdminScheduleEdit(props) {
             alert("종료일시는 시작일시보다 앞 설 수 없습니다.");
             return false;
         }
-        return false;
+        return true;
     }
     const getDateFourteenDigit = (date) => {
         return getYYYYMMDD(date).toString() + makeTwoDigit(date.getHours()) + makeTwoDigit(date.getMinutes()) + makeTwoDigit(date.getSeconds());
