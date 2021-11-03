@@ -132,11 +132,15 @@ function EgovWeeklyList(props) {
 
     useEffect(() => {
         retrieveList(searchCondition);
+        return () => {
+        }
+    }, [searchCondition.schdulSe, searchCondition.year, searchCondition.month, searchCondition.weekOfMonth]);
+
+    useEffect(() => {
         drawList();
         return () => {
         }
-    }, [scheduleList, searchCondition.schdulSe, searchCondition.year, searchCondition.month, searchCondition.weekOfMonth]);
-
+    },[scheduleList]);
 
     console.log("------------------------------EgovWeeklyList [End]");
     console.groupEnd("EgovWeeklyList");
