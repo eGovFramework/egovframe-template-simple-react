@@ -266,3 +266,6 @@ select::-ms-expand {display:none;}
 /* 리액트 관련 */
 .react-datepicker-wrapper,
 .react-datepicker__input-container {display: inline-block; vertical-align: top; width: auto;}
+
+/* 리액트 관련 */
+.react-datepicker__tab-loop {display: inline-block;}

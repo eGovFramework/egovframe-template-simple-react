@@ -277,9 +277,9 @@ function EgovAdminScheduleEdit(props) {
                                                 setSchdulBgndeHH(date.getHours());
                                                 setSchdulBgndeMM(date.getMinutes());
                                             }} />
-                                        <span className="f_inn_txt">~</span>
                                         <input type="hidden" name="schdulBgndeHH" defaultValue={schdulBgndeHH} readOnly />
                                         <input type="hidden" name="schdulBgndeMM" defaultValue={schdulBgndeMM} readOnly />
+                                        <span className="f_inn_txt">~</span>
                                     </span>
                                     <span className="line_break">
                                         <DatePicker
