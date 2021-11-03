@@ -11,10 +11,9 @@ function EgovAdminScheduleList(props) {
     console.group("EgovAdminScheduleList");
     console.log("[Start] EgovAdminScheduleList ------------------------------");
     console.log("EgovAdminScheduleList [props] : ", props);
-    // debugger;
+    
     const history = useHistory();
     console.log("EgovAdminScheduleList [history] : ", history);
-
 
     const DATE = new Date();
     const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
@@ -46,15 +45,10 @@ function EgovAdminScheduleList(props) {
         if (target === CODE.DATE_MONTH) {
             changedDate = new Date(searchCondition.year, searchCondition.month + amount, searchCondition.date);
         }
-
         setSearchCondition({ ...searchCondition, year: changedDate.getFullYear(), month: changedDate.getMonth(), date: changedDate.getDate() });
-
-        //retrieveList(searchCondition);
     }
 
     const retrieveList = (srchcnd) => {
-        // debugger;
-
         console.groupCollapsed("EgovAdminScheduleList.retrieveList()");
 
         const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageMonthListAPI.do';
@@ -69,20 +63,16 @@ function EgovAdminScheduleList(props) {
         EgovNet.requestFetch(retrieveListURL,
             requestOptions,
             (resp) => {
-                // debugger;
                 setScheduleList(resp.result.resultList);
-                // drawCalendar();
             },
             function (resp) {
                 console.log("err response : ", resp);
             }
         );
-
         console.groupEnd("EgovAdminScheduleList.retrieveList()");
     }
 
     const drawCalendar = () => {
-        // debugger;
         console.groupCollapsed("EgovAdminScheduleList.drawCalendar()");
         const PREV_MONTH_ADDITION = -1;
 
@@ -116,8 +106,6 @@ function EgovAdminScheduleList(props) {
         console.log("FirstWeek monthArr : ", monthArr);
         // firstWeek Date Set END
 
-        // debugger;
-
         // otherWeek Date Set START
         let dayCount = 0;
         weekArr = [];//초기화
@@ -135,8 +123,6 @@ function EgovAdminScheduleList(props) {
         }
         // otherWeek Date Set END
 
-        // debugger;
-
         // lastWeek Date Set START
         if (weekArr.length > 0) {//남은 부분
             for (let day = weekArr.length; day < 7; day++) {
@@ -147,18 +133,12 @@ function EgovAdminScheduleList(props) {
         // lastWeek Date Set END
         console.log("OtherWeek monthArr : ", monthArr);
 
-        // debugger;
-
-        // let sUseYear = searchCondition.year.toString();
-        // let sUseMonth = (searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString();
-        // setSUseYearMonth(sUseYear + sUseMonth);
-        // let sUseYearMonth = sUseYear + sUseMonth;
         let mutsUseYearMonth = searchCondition.year.toString() + ((searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString());
         console.log("mutsUseYearMonth : ", mutsUseYearMonth);
-        // console.log("setSUseYearMonth() : ", searchCondition.year.toString() + ((searchCondition.month + 1).toString().length === 1 ? "0" + (searchCondition.month + 1).toString() : (searchCondition.month + 1).toString()));
 
         let mutCalendarTagList = [];
         let keyIdx = 0;
+        
         //draw Calendar
         monthArr.forEach((week, weekIdx) => {
             console.log();
@@ -214,7 +194,6 @@ function EgovAdminScheduleList(props) {
     }
 
     useEffect(() => {
-        // debugger;
         retrieveList(searchCondition);
 
         return () => {
@@ -226,9 +205,6 @@ function EgovAdminScheduleList(props) {
         return () => {
         }
     }, [scheduleList]);
-
-
-
 
     console.log("------------------------------EgovAdminScheduleList [End]");
     console.groupEnd("EgovAdminScheduleList");
@@ -282,8 +258,6 @@ function EgovAdminScheduleList(props) {
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, -1);
-                                            // drawCalendar();
-                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="prev">이전연도로이동</a> */}
@@ -291,18 +265,13 @@ function EgovAdminScheduleList(props) {
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, 1);
-                                            // drawCalendar();
-                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
-                                    {/* <a href="" className="next">다음연도로이동</a> */}
                                 </li>
                                 <li className="half R">
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_MONTH, -1);
-                                            // drawCalendar();
-                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
                                     {/* <a href="" className="prev">이전월로이동</a> */}
@@ -310,11 +279,8 @@ function EgovAdminScheduleList(props) {
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_MONTH, 1);
-                                            // drawCalendar();
-                                            // retrieveList(searchCondition);
                                         }}
                                     ></button>
-                                    {/* <a href="" className="next">다음월로이동</a> */}
                                 </li>
                             </ul>
                         </div>
@@ -338,21 +304,6 @@ function EgovAdminScheduleList(props) {
                                 </tbody>
                             </table>
                         </div>
-
-                        {/* <div className="calendar_info">
-                            <h2>2021년 9월 7일 </h2>
-                            <ul>
-                                <li>
-                                    <a href="">[C3] 팀 주간 회의</a>
-                                    <span>오전 9:00 ~ 오전 10:00</span>
-                                </li>
-                                <li>
-                                    <a href="">[표준프레임워크] 주간회의 3차 회의 일정</a>
-                                    <span>오전 10:00 ~ 오전 11:30</span>
-                                </li>
-                            </ul>
-                        </div> */}
-
                         {/* <!--// 본문 --> */}
                     </div>
                 </div>

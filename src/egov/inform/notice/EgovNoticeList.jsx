@@ -27,17 +27,6 @@ function EgovNoticeList(props) {
 
     const [listTag, setListTag] = useState([]);
 
-    // const initSearch = () => {
-    //     let mutSearchCondition = { ...searchCondition, pageIndex: 1 };
-    //     setSearchCondition(mutSearchCondition);
-
-    //     retrieveList(mutSearchCondition);
-    // }
-
-    // const onClickSearch = () => {
-    //     retrieveList(setSearchCondition);
-    // }
-
     const retrieveList = (searchCondition) => {
         console.groupCollapsed("EgovNoticeList.retrieveList()");
 
@@ -69,16 +58,7 @@ function EgovNoticeList(props) {
                     if (index === 0) mutListTag = []; // 목록 초기화
                     var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
-                    // const queryString = qs.stringify({
-                    //     nttId: item.nttId,
-                    //     bbsId: item.bbsId,
-                    //     pageIndex: currentPageNo
-                    // }, {
-                    //     addQueryPrefix: true
-                    // });
-
                     mutListTag.push(
-                        // <Link to={URL.INFORM_NOTICE_DETAIL + queryString} key={listIdx} className="list_item" >
                         <Link
                             to={{
                                 pathname: URL.INFORM_NOTICE_DETAIL,
@@ -92,13 +72,13 @@ function EgovNoticeList(props) {
                             className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
-                                <><div className="al reply">
+                                <div className="al reply">
                                     {item.nttSj}
-                                </div></>}
+                                </div>}
                             {(item.replyLc * 1 ? false : true) &&
-                                <><div className="al">
+                                <div className="al">
                                     {item.nttSj}
-                                </div></>}
+                                </div>}
                             <div>{item.frstRegisterNm}</div>
                             <div>{item.frstRegisterPnttm}</div>
                             <div>{item.inqireCo}</div>
@@ -113,12 +93,6 @@ function EgovNoticeList(props) {
         );
         console.groupEnd("EgovNoticeList.retrieveList()");
     }
-
-    // useEffect(() => {
-    //     initSearch();
-    //     return () => {
-    //     }
-    // }, []);
 
     useEffect(() => {
         retrieveList(searchCondition);
