@@ -180,10 +180,6 @@ function EgovAdminBoardEdit(props) {
                                 <dl>
                                     <dt>게시판명<span className="req">필수</span></dt>
                                     <dd>
-                                        {/* <span className="f_search2 w_full">
-                                            <input type="text" name="" title="" id="" placeholder="" />
-                                            <button type="button">조회</button>
-                                        </span> */}
                                         <label className="f_select " htmlFor="bbsId">
                                             <select
                                                 id="bbsId"
@@ -220,7 +216,6 @@ function EgovAdminBoardEdit(props) {
                                                 <option value="SYSTEM">시스템 활용</option>
                                             </select>
                                         </label>
-                                        {/* <input className="f_input2" type="text" name="" title="" id="bbsNm" placeholder="" /> */}
                                     </dd>
                                 </dl>
                             </>}
@@ -242,8 +237,6 @@ function EgovAdminBoardEdit(props) {
                                 <dl>
                                     <dt><label htmlFor="">사용여부</label><span className="req">필수</span></dt>
                                     <dd>
-                                        {/* <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode1" title="사용" /><em>사용</em></span>
-                                    <span className="f_rdo"><input type="radio" name="reptitSeCode" id="reptitSeCode2" title="미사용" /><em>미사용</em></span> */}
                                         <EgovRadioButtonGroup
                                             name="useAt"
                                             radioGroup={useAtRadioGroup}
@@ -256,7 +249,6 @@ function EgovAdminBoardEdit(props) {
                                     <dd>
                                         <Link
                                             to={{
-                                                // pathname: boardDetail.provdUrl,
                                                 pathname: URL.INFORM_NOTICE,
                                                 state: {
                                                     bbsId: boardDetail.bbsId,
