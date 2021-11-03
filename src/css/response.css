@@ -316,8 +316,7 @@
     .BRD003 .result .list_item > div:nth-child(2) > a {padding: 5px 0; border-bottom: 1px dashed #ddd;}
     .BRD003 .result .list_item > div:nth-child(2) > a:first-child {border-top: 1px dashed #ddd;}
     .BRD003 .result .list_item > div:nth-child(2) > a > span:nth-child(1) {width: 100px;}
-    /* .BRD003 .result .list_item > div:nth-child(3) {width: 100%; padding: 0px 0 16px 0; color: #222; font-size: 14px;} */
-    .BRD003 .result .list_item > div:nth-child(3    ) {display: none;}
+    .BRD003 .result .list_item > div:nth-child(2) > a > span:nth-child(3) {display: none;}
 
     .TEMPLATE_LIST .condition > ul li .f_search {width: 100%;}
     .BRD004 .head {display: none;}
