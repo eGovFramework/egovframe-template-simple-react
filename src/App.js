@@ -1,15 +1,7 @@
-import React, { Component } from 'react';
-
-import './js/ui';
-
-import './css/base.css';
-import './css/layout.css';
-import './css/component.css';
-import './css/page.css';
-import './css/response.css';
-
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import URL from './context/url';
+
+import URL from 'context/url';
 import CODE from 'context/code';
 
 //COMMON
@@ -17,7 +9,6 @@ import EgovHeader from 'egov/common/EgovHeader';
 import EgovFooter from 'egov/common/EgovFooter';
 import EgovInfoPopup from 'egov/common/EgovInfoPopup';
 import EgovError from 'egov/common/EgovError';
-//import EgovContainer from 'egov/common/EgovContainer';
 
 import EgovMain from 'egov/main/EgovMain';
 import EgovLogin from 'egov/login/EgovLogin';
@@ -75,133 +66,125 @@ import EgovAdminGalleryList from 'egov/admin/gallery/EgovAdminGalleryList';
 import EgovAdminGalleryDetail from 'egov/admin/gallery/EgovAdminGalleryDetail';
 import EgovAdminGalleryEdit from 'egov/admin/gallery/EgovAdminGalleryEdit';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loginVO: null
-    }
-  }
-  render() {
-    console.log('App render');
-    return (
-      <div className="wrap">
-        <Switch>
-          <Route exact path={URL.ERROR} component={EgovError} />
-          <Route>
-            <EgovHeader
-              loginVO={this.state.loginVO}
-              onChangeLogin={function (_loginVO) {
-                console.log(_loginVO);
-                this.setState(_loginVO);
-                console.log("app EgovHeader = ", this.state.loginVO);
-              }.bind(this)}></EgovHeader>
-            <Switch>
-              {/* MAIN */}
-              <Route exact path={URL.MAIN} component={EgovMain} />
+import './js/ui';
 
-              {/* LOGIN */}
-              <Route path={URL.LOGIN}>
-                <EgovLogin onChangeLogin={function (_loginVO) {
-                  console.log("App isEgovLogin _loginVO= ", _loginVO);
-                  this.setState(_loginVO);
-                  console.log("app EgovLogin= ", this.state.loginVO);
-                }.bind(this)}></EgovLogin>
-              </Route>
+import './css/base.css';
+import './css/layout.css';
+import './css/component.css';
+import './css/page.css';
+import './css/response.css';
 
-              {/* LOGIN */}
-              <Route path={URL.ERROR} component={EgovError} />
+function App() {
+  const [loginVO, setLoginVO] = useState({});
+  return (
+    <div className="wrap">
+      <Switch>
+        <Route exact path={URL.ERROR} component={EgovError} />
+        <Route>
+          <EgovHeader
+            loginUser={loginVO}
+            onChangeLogin={(user) => setLoginVO(user)}
+          ></EgovHeader>
+          <Switch>
+            {/* MAIN */}
+            <Route exact path={URL.MAIN} component={EgovMain} />
 
-              {/* ABOUT */}
-              <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
-              <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
-              <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
-              <Route path={URL.ABOUT_ORGANIZATION} component={EgovAboutOrganization} />
-              <Route path={URL.ABOUT_LOCATION} component={EgovAboutLocation} />
+            {/* LOGIN */}
+            <Route exact path={URL.LOGIN}>
+              <EgovLogin
+                onChangeLogin={(user) => setLoginVO(user)}
+              ></EgovLogin>
+            </Route>
 
-              {/* INTRO */}
-              <Redirect exact from={URL.INTRO} to={URL.INTRO_WORKS} />
-              <Route exact path={URL.INTRO_WORKS} component={EgovIntroWork} />
-              <Route exact path={URL.INTRO_SERVICE} component={EgovIntroService} />
+            {/* ERROR */}
+            <Route path={URL.ERROR} component={EgovError} />
 
-              {/* SUPPORT */}
-              <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
+            {/* ABOUT */}
+            <Redirect exact from={URL.ABOUT} to={URL.ABOUT_SITE} />
+            <Route path={URL.ABOUT_SITE} component={EgovAboutSite} />
+            <Route path={URL.ABOUT_HISTORY} component={EgovAboutHistory} />
+            <Route path={URL.ABOUT_ORGANIZATION} component={EgovAboutOrganization} />
+            <Route path={URL.ABOUT_LOCATION} component={EgovAboutLocation} />
 
-              <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownloadList} />
-              <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
-              <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
+            {/* INTRO */}
+            <Redirect exact from={URL.INTRO} to={URL.INTRO_WORKS} />
+            <Route exact path={URL.INTRO_WORKS} component={EgovIntroWork} />
+            <Route exact path={URL.INTRO_SERVICE} component={EgovIntroService} />
 
-              <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQnaList} />
-              <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
+            {/* SUPPORT */}
+            <Redirect exact from={URL.SUPPORT} to={URL.SUPPORT_DOWNLOAD} />
 
-              <Route exact path={URL.SUPPORT_APPLY} component={EgovSupportApply} />
+            <Route exact path={URL.SUPPORT_DOWNLOAD} component={EgovSupportDownloadList} />
+            <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} component={EgovSupportDownloadDetail} />
+            <Route path={URL.SUPPORT_DOWNLOAD_CREATE} component={EgovSupportDownloadCreate} />
 
-              {/* INFORM */}
-              <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
+            <Route exact path={URL.SUPPORT_QNA} component={EgovSupportQnaList} />
+            <Route exact path={URL.SUPPORT_QNA_DETAIL} component={EgovSupportQnaDetail} />
 
-              <Route exact path={URL.INFORM_DAILY} component={EgovDailyList} />
-              <Route path={URL.INFORM_DAILY_DETAIL} component={EgovDailyDetail} />
-              <Route exact path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
-              <Route path={URL.INFORM_WEEKLY_DETAIL} component={EgovDailyDetail} />
+            <Route exact path={URL.SUPPORT_APPLY} component={EgovSupportApply} />
 
-              <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
-              <Route path={URL.INFORM_NOTICE_DETAIL} render={() => <EgovNoticeDetail />} />
-              <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeEdit mode={CODE.MODE_MODIFY} />} />
-              <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeEdit mode={CODE.MODE_REPLY} />} />
+            {/* INFORM */}
+            <Redirect exact from={URL.INFORM} to={URL.INFORM_DAILY} />
 
-              <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
-              <Route path={URL.INFORM_GALLERY_DETAIL} render={() => <EgovGalleryDetail />} />
-              <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryEdit mode={CODE.MODE_MODIFY} />} />
-              <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryEdit mode={CODE.MODE_REPLY} />} />
+            <Route exact path={URL.INFORM_DAILY} component={EgovDailyList} />
+            <Route path={URL.INFORM_DAILY_DETAIL} component={EgovDailyDetail} />
+            <Route exact path={URL.INFORM_WEEKLY} component={EgovWeeklyList} />
+            <Route path={URL.INFORM_WEEKLY_DETAIL} component={EgovDailyDetail} />
 
-              {/* ADMIN */}
-              <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />
-              <Route exact path={URL.ADMIN_SCHEDULE} component={EgovAdminScheduleList} />
-              {/* <Route path={URL.ADMIN_SCHEDULE_DETAIL} render={() => <EgovAdminScheduleDetail />} /> */}
-              <Route path={URL.ADMIN_SCHEDULE_DETAIL} component={EgovAdminScheduleDetail} />
-              <Route path={URL.ADMIN_SCHEDULE_CREATE} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_SCHEDULE_MODIFY} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_MODIFY} />} />
+            <Route exact path={URL.INFORM_NOTICE} component={EgovNoticeList} />
+            <Route path={URL.INFORM_NOTICE_DETAIL} render={() => <EgovNoticeDetail />} />
+            <Route path={URL.INFORM_NOTICE_CREATE} render={() => <EgovNoticeEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.INFORM_NOTICE_MODIFY} render={() => <EgovNoticeEdit mode={CODE.MODE_MODIFY} />} />
+            <Route path={URL.INFORM_NOTICE_REPLY} render={() => <EgovNoticeEdit mode={CODE.MODE_REPLY} />} />
 
-              <Route exact path={URL.ADMIN_TEMPLATE} component={() => <EgovAdminTemplateList />} />
-              <Route path={URL.ADMIN_TEMPLATE_CREATE} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_TEMPLATE_MODIFY} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_MODIFY} />} />
+            <Route exact path={URL.INFORM_GALLERY} component={EgovGalleryList} />
+            <Route path={URL.INFORM_GALLERY_DETAIL} render={() => <EgovGalleryDetail />} />
+            <Route path={URL.INFORM_GALLERY_CREATE} render={() => <EgovGalleryEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.INFORM_GALLERY_MODIFY} render={() => <EgovGalleryEdit mode={CODE.MODE_MODIFY} />} />
+            <Route path={URL.INFORM_GALLERY_REPLY} render={() => <EgovGalleryEdit mode={CODE.MODE_REPLY} />} />
 
-              <Route exact path={URL.ADMIN_BOARD} component={() => <EgovAdminBoardList />} />
-              {/* <Route path={URL.ADMIN_BOARD_DETAIL} render={() => <EgovAdminBoardEdit mode={CODE.MODE_READ} />} /> */}
-              <Route path={URL.ADMIN_BOARD_CREATE} render={() => <EgovAdminBoardEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_BOARD_MODIFY} render={() => <EgovAdminBoardEdit mode={CODE.MODE_MODIFY} />} />
+            {/* ADMIN */}
+            <Redirect exact from={URL.ADMIN} to={URL.ADMIN_SCHEDULE} />
+            <Route exact path={URL.ADMIN_SCHEDULE} component={EgovAdminScheduleList} />
+            <Route path={URL.ADMIN_SCHEDULE_DETAIL} component={EgovAdminScheduleDetail} />
+            <Route path={URL.ADMIN_SCHEDULE_CREATE} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_SCHEDULE_MODIFY} render={() => <EgovAdminScheduleEdit mode={CODE.MODE_MODIFY} />} />
 
-              <Route exact path={URL.ADMIN_USAGE} render={() => <EgovAdminUsageList />} />
-              <Route path={URL.ADMIN_USAGE_CREATE} render={() => <EgovAdminUsageEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_USAGE_MODIFY} render={() => <EgovAdminUsageEdit mode={CODE.MODE_MODIFY} />} />
+            <Route exact path={URL.ADMIN_TEMPLATE} component={() => <EgovAdminTemplateList />} />
+            <Route path={URL.ADMIN_TEMPLATE_CREATE} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_TEMPLATE_MODIFY} render={() => <EgovAdminTemplateEdit mode={CODE.MODE_MODIFY} />} />
 
-              <Route exact path={URL.ADMIN_NOTICE} render={() => <EgovAdminNoticeList />} />
-              <Route path={URL.ADMIN_NOTICE_DETAIL} render={() => <EgovAdminNoticeDetail />} />
-              <Route path={URL.ADMIN_NOTICE_CREATE} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_NOTICE_MODIFY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_MODIFY} />} />
-              <Route path={URL.ADMIN_NOTICE_REPLY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_REPLY} />} />
+            <Route exact path={URL.ADMIN_BOARD} component={() => <EgovAdminBoardList />} />
+            <Route path={URL.ADMIN_BOARD_CREATE} render={() => <EgovAdminBoardEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_BOARD_MODIFY} render={() => <EgovAdminBoardEdit mode={CODE.MODE_MODIFY} />} />
 
-              <Route exact path={URL.ADMIN_GALLERY} render={() => <EgovAdminGalleryList />} />
-              <Route path={URL.ADMIN_GALLERY_DETAIL} render={() => <EgovAdminGalleryDetail />} />
-              <Route path={URL.ADMIN_GALLERY_CREATE} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
-              <Route path={URL.ADMIN_GALLERY_MODIFY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
-              <Route path={URL.ADMIN_GALLERY_REPLY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
+            <Route exact path={URL.ADMIN_USAGE} render={() => <EgovAdminUsageList />} />
+            <Route path={URL.ADMIN_USAGE_CREATE} render={() => <EgovAdminUsageEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_USAGE_MODIFY} render={() => <EgovAdminUsageEdit mode={CODE.MODE_MODIFY} />} />
 
-            </Switch>
-            <EgovFooter></EgovFooter>
-            <EgovInfoPopup></EgovInfoPopup>
-          </Route>
-        </Switch>
+            <Route exact path={URL.ADMIN_NOTICE} render={() => <EgovAdminNoticeList />} />
+            <Route path={URL.ADMIN_NOTICE_DETAIL} render={() => <EgovAdminNoticeDetail />} />
+            <Route path={URL.ADMIN_NOTICE_CREATE} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_NOTICE_MODIFY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_MODIFY} />} />
+            <Route path={URL.ADMIN_NOTICE_REPLY} render={() => <EgovAdminNoticeEdit mode={CODE.MODE_REPLY} />} />
 
-      </div>
-    )
-  }
+            <Route exact path={URL.ADMIN_GALLERY} render={() => <EgovAdminGalleryList />} />
+            <Route path={URL.ADMIN_GALLERY_DETAIL} render={() => <EgovAdminGalleryDetail />} />
+            <Route path={URL.ADMIN_GALLERY_CREATE} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
+            <Route path={URL.ADMIN_GALLERY_MODIFY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
+            <Route path={URL.ADMIN_GALLERY_REPLY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
+
+          </Switch>
+          <EgovFooter></EgovFooter>
+          <EgovInfoPopup></EgovInfoPopup>
+        </Route>
+      </Switch>
+
+    </div>
+  )
 }
 
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 console.log("process.env.REACT_APP_EGOV_CONTEXT_URL", process.env.REACT_APP_EGOV_CONTEXT_URL);
-
 
 export default App;

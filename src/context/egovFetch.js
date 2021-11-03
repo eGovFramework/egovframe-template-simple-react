@@ -44,12 +44,15 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
         })
         .catch(error => {
             console.error('There was an error!', error);
+            if (error === 'TypeError: Failed to fetch') {
+                alert("서버와의 연결이 원활하지 않습니다. 서버를 확인하세요.");
+            }
+            
             if (typeof errorHandler === 'function') {
                 errorHandler(error);
             } else {
                 console.error('egov error handler not assigned!');
                 alert("ERR : " + error.message);
-
             }
         })
         .finally(() => {
