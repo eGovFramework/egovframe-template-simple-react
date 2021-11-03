@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import URL from 'context/url';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAbout';
 
 function EgovAboutLocation() {
@@ -10,8 +11,8 @@ function EgovAboutLocation() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">사이트 소개</a></li>
+                        <li><Link to={URL.MAIN} className="home" >Home</Link></li>
+                        <li><Link to={URL.ABOUT}>사이트 소개</Link></li>
                         <li>찾아오시는길</li>
                     </ul>
                 </div>
@@ -21,18 +22,18 @@ function EgovAboutLocation() {
                     {/* <!-- Navigation --> */}
                     <EgovLeftNav></EgovLeftNav>
                     {/* <!--// Navigation --> */}
-                    
+
                     <div className="contents SITE_CONTACT_US" id="contents">
                         {/* <!-- 본문 --> */}
 
                         <h1 className="tit_3">사이트 소개</h1>
 
                         <p className="txt_1">표준프레임워크 경량환경 포털사이트를 소개합니다.</p>
-                        
+
                         <h2 className="tit_4">찾아오시는길</h2>
 
                         <div className="map">
-                            <img src="/assets/images/map.png" alt=""/>
+                            <img src="/assets/images/map.png" alt="" />
                         </div>
 
                         <div className="addr">
@@ -49,11 +50,11 @@ function EgovAboutLocation() {
                             </div>
                             <div className="right_col">
                                 <h3>QR코드로 위치알아보기</h3>
-                                <p>스마트폰에서 QR코드<br/>
-                                    리더를 이용해 사진·<br/>
-                                    지도 등 다양한 정보를<br/>
+                                <p>스마트폰에서 QR코드<br />
+                                    리더를 이용해 사진·<br />
+                                    지도 등 다양한 정보를<br />
                                     확인하세요.</p>
-                                <img className="qr" src="/assets/images/qrcode.png" alt="qr code"/>
+                                <img className="qr" src="/assets/images/qrcode.png" alt="qr code" />
                             </div>
                         </div>
 

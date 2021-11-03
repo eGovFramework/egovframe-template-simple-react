@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import URL from 'context/url';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAbout';
 
 function EgovAboutHistory() {
@@ -10,8 +11,8 @@ function EgovAboutHistory() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">사이트 소개</a></li>
+                        <li><Link to={URL.MAIN} className="home" >Home</Link></li>
+                        <li><Link to={URL.ABOUT}>사이트 소개</Link></li>
                         <li>연혁</li>
                     </ul>
                 </div>
