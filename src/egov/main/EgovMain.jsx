@@ -42,7 +42,6 @@ function EgovMain(props) {
                 // 리스트 항목 구성
                 resp.result.notiList.forEach(function (item, index) {
                     if (index === 0) mutNotiListTag = []; // 목록 초기화
-                     console.log("item, index : ", item, index);
                     mutNotiListTag.push(
                         <li key={index}>
                             <Link
@@ -62,14 +61,12 @@ function EgovMain(props) {
                 });
                 setNoticeListTag(mutNotiListTag);
 
-
                 let mutGallaryListTag = [];
                 mutGallaryListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
 
                 // 리스트 항목 구성
                 resp.result.galList.forEach(function (item, index) {
                     if (index === 0) mutGallaryListTag = []; // 목록 초기화
-                    console.log("item, index : ", item, index);
                     mutGallaryListTag.push(
                         <li key={index}>
                             <Link
@@ -88,8 +85,6 @@ function EgovMain(props) {
                     );
                 });
                 setGallaryListTag(mutGallaryListTag);
-
-
             },
             function (resp) {
                 console.log("err response : ", resp);
@@ -97,6 +92,7 @@ function EgovMain(props) {
         );
         console.groupEnd("EgovMain.retrieveList()");
     }
+
     useEffect(() => {
         retrieveList();
         return () => {
@@ -124,11 +120,6 @@ function EgovMain(props) {
                                 <div className="notice">
                                     <h2 className="blind">공지사항</h2>
                                     <ul>
-                                        {/* <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 공지사항입니다.</Link><span>2021.07.01</span></li> */}
                                         {noticeListTag}
                                     </ul>
                                     <Link to={URL.INFORM_NOTICE} className="more">더보기</Link>
@@ -137,11 +128,6 @@ function EgovMain(props) {
                                 <div className="gallary">
                                     <h2 className="blind">갤러리</h2>
                                     <ul>
-                                        {/* <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li>
-                                        <li><Link to="">전자정부표준프레임워크 심플 홈페이지 갤러리입니다.</Link><span>2021.07.02</span></li> */}
                                         {gallaryListTag}
                                     </ul>
                                     <Link to={URL.INFORM_GALLERY} className="more">더보기</Link>
