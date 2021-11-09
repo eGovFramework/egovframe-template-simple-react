@@ -1,4 +1,4 @@
-# 표준프레임워크 심플홈페이지 BackEnd
+# 표준프레임워크 심플홈페이지 FrontEnd
 
 ## BackEnd 구동
 
