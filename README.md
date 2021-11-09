@@ -1,5 +1,14 @@
 # Getting Started with Create React App
 
+## BackEnd 구동
+
+[심플홈페이지Backend](https://github.com/eGovFramework/egovframe-template-simple-backend.git) 소스를 받아 구동한다.
+
+## FrontEnd 구동
+구동된 서버의 URL을 본 어플리케이션의 .env.development 파일의  REACT_APP_EGOV_CONTEXT_URL에 설정해 준다.
+> npm start
+
+=======================================================
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
