@@ -158,7 +158,6 @@ function EgovNoticeList(props) {
                                         />
                                         <button type="button"
                                             onClick={e => {
-                                                // onClickSearch
                                                 setSearchCondition({ ...searchCondition, pageIndex: 1, searchCnd: searchCnd, searchWrd: searchWrd });
                                             }}>조회</button>
                                     </span>
