@@ -47,7 +47,7 @@ function EgovAdminGalleryList(props) {
                 setUser(resp.result.user);
 
                 let mutListTag = [];
-                listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
+                mutListTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
 
                 let resultCnt = resp.result.resultCnt * 1;
                 let currentPageNo = resp.result.paginationInfo.currentPageNo;
