@@ -74,11 +74,11 @@ function EgovAboutLocation() {
                                 <h3>연락처</h3>
                                 <dl>
                                     <dt className="call">전화</dt>
-                                    <dd>1566-3598</dd>
+                                    <dd>0000-0000</dd>
                                 </dl>
                                 <dl>
                                     <dt className="email">이메일</dt>
-                                    <dd>egovframesupport@gmail.com</dd>
+                                    <dd>egovframeexample@gmail.com</dd>
                                 </dl>
                             </div>
                         </div>

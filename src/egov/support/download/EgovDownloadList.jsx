@@ -48,7 +48,7 @@ function EgovDownloadList() {
                                 <li className="third_2 R">
                                     {/* <!-- 210806 수정 --> */}
                                     <span className="f_search w_500">
-                                        <input type="text" name="" value="" placeholder=""/>
+                                        <input type="text" name="" placeholder=""/>
                                         <button type="button">조회</button>
                                     </span>
                                 </li>
@@ -213,15 +213,15 @@ function EgovDownloadList() {
                             {/* <!-- Paging --> */}
                             <div className="paging">
                                 <ul>
-                                    <li className="btn"><Link to="#" className="first">처음</Link></li>
-                                    <li className="btn"><Link to="#" className="prev">이전</Link></li>
-                                    <li><Link to="#" className="cur">1</Link></li>
-                                    <li><Link to="#">2</Link></li>
-                                    <li><Link to="#">3</Link></li>
-                                    <li><Link to="#">4</Link></li>
-                                    <li><Link to="#">5</Link></li>
-                                    <li className="btn"><Link to="#" className="next">다음</Link></li>
-                                    <li className="btn"><Link to="#" className="last">마지막</Link></li>
+                                    <li className="btn"><button to="#" className="first">처음</button></li>
+                                    <li className="btn"><button to="#" className="prev">이전</button></li>
+                                    <li><button to="#" className="cur">1</button></li>
+                                    <li><button to="#">2</button></li>
+                                    <li><button to="#">3</button></li>
+                                    <li><button to="#">4</button></li>
+                                    <li><button to="#">5</button></li>
+                                    <li className="btn"><button to="#" className="next">다음</button></li>
+                                    <li className="btn"><button to="#" className="last">마지막</button></li>
                                 </ul>
                             </div>
                             {/* <!--/ Paging --> */}

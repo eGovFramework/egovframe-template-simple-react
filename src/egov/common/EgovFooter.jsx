@@ -13,8 +13,8 @@ function EgovFooter() {
                 </h1>
                 <div className="info">
                     <p>
-                        대표문의메일 : egovframesupport@gmail.com  <span className="m_hide">|</span><br className="m_show" />  대표전화 : 1566-3598 (070-4448-2678)<br />
-                        호환성확인 : 070-4448-3673  |  교육문의 : 070-4448-2764
+                        대표문의메일 : egovframeexample@gmail.com  <span className="m_hide">|</span><br className="m_show" />  대표전화 : 0000-0000 (000-0000-0000)<br />
+                        호환성확인 : 000-0000-0000  |  교육문의 : 0000-0000-0000
                     </p>
                     <p className="copy">Copyright © 2021 Ministry Of The Interior And Safety. All Rights Reserved.</p>
                 </div>
