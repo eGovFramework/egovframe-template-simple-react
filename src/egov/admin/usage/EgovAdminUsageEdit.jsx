@@ -9,13 +9,13 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 import EgovSelect from 'egov/common/EgovSelect';
 
-function EgovAdminBoardEdit(props) {
-    console.group("EgovAdminBoardEdit");
-    console.log("[Start] EgovAdminBoardEdit ------------------------------");
-    console.log("EgovAdminBoardEdit [props] : ", props);
+function EgovAdminUsageEdit(props) {
+    console.group("EgovAdminUsageEdit");
+    console.log("[Start] EgovAdminUsageEdit ------------------------------");
+    console.log("EgovAdminUsageEdit [props] : ", props);
 
     const history = useHistory();
-    console.log("EgovAdminBoardEdit [history] : ", history);
+    console.log("EgovAdminUsageEdit [history] : ", history);
 
     const bbsId = history.location.state?.bbsId || "";
     const trgetId = history.location.state?.trgetId || "SYSTEM_DEFAULT_BOARD";
@@ -49,12 +49,14 @@ function EgovAdminBoardEdit(props) {
     }
 
     const retrieveDetail = () => {
-        if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
+        if (modeInfo.mode === CODE.MODE_CREATE) {// 등록모드일 경우 사용중이지 않은 MasterBoard만 조회
+            
             setBoardDetail({
                 useAt: "Y",                         //사용여부 초기값
                 trgetId: "SYSTEM_DEFAULT_BOARD"     //시스템 targetId default값
             });
 
+            //새로 생성된 MstrBoard 리스트 조회
             const retrieveMasterBdURL = '/cop/com/selectNotUsedBdMstrList.do';
 
             const requestOptions = {
@@ -144,8 +146,8 @@ function EgovAdminBoardEdit(props) {
         }
     }, []);
 
-    console.log("------------------------------EgovAdminBoardEdit [End]");
-    console.groupEnd("EgovAdminBoardEdit");
+    console.log("------------------------------EgovAdminUsageEdit [End]");
+    console.groupEnd("EgovAdminUsageEdit");
 
     return (
         <div className="container">
@@ -225,13 +227,13 @@ function EgovAdminBoardEdit(props) {
                                 <dl>
                                     <dt><label htmlFor="">게시판명</label></dt>
                                     <dd>
-                                        {boardDetail.bbsNm}
+                                        {boardDetail && boardDetail.bbsNm}
                                     </dd>
                                 </dl>
                                 <dl>
                                     <dt><label htmlFor="">커뮤니티/동호회명</label></dt>
                                     <dd>
-                                        {boardDetail.cmmntyNm !== "" && boardDetail.cmmntyNm}
+                                        {boardDetail && boardDetail.cmmntyNm}
                                     </dd>
                                 </dl>
                                 <dl>
@@ -285,4 +287,4 @@ function EgovAdminBoardEdit(props) {
     );
 }
 
-export default EgovAdminBoardEdit;
+export default EgovAdminUsageEdit;
