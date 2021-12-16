@@ -1,6 +1,6 @@
 # 개발환경 초기화 Initialization
 
-본 문서는 RCA(create-react-app)를 통해 처음 프로젝트를 생성하려고 할때 필요한 내용을 기술하였음.
+본 문서는 CRA(create-react-app)를 통해 처음 프로젝트를 생성하려고 할때 필요한 내용을 기술하였음.
 
 ## React 개발환경 초기화
 
