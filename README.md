@@ -23,6 +23,6 @@ ex) REACT_APP_EGOV_CONTEXT_URL=localhost:8080
 
 참조
 
-1. [Available scripts in RCA](./doc/create_react_app_script.md)
+1. [Available scripts in CRA](./doc/create_react_app_script.md)
 2. [개발환경 초기 설정](./doc/Development_Env_Setting.md)
 
