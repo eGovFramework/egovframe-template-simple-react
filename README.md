@@ -10,10 +10,10 @@ npm : 7.20.0
 
 ## FrontEnd 구동
 
-FrontEnd 서버를 구동하기전 node moudle를 설치해 준다.
+FrontEnd 서버를 구동하기전 node modules를 설치해 준다.
 > npm install 
 
-구동된 BackeEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의  REACT_APP_EGOV_CONTEXT_URL에 설정해 준다.\
+구동된 BackEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의  REACT_APP_EGOV_CONTEXT_URL에 설정해 준다.\
 (단, 개발환경에서는 사용하는 환경변수 정보는 .env.development, build 시 사용하는 환경변수는 .env.production 에 기입해 준다.)\
 ex) REACT_APP_EGOV_CONTEXT_URL=localhost:8080
 > npm start
