@@ -62,6 +62,6 @@ npm start
 
 보다 상세한 설명은 아래의 문서를 확인한다.
 
-1. [Available scripts in CRA](./doc/create_react_app_script.md)
-2. [개발환경 초기 설정](./doc/development_env_setting.md)
+1. [Available scripts in CRA](./Docs/create-react-app-script.md)
+2. [개발환경 초기 설정](./Docs/development-env-setting.md)
 
