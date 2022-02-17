@@ -323,10 +323,10 @@ function EgovAdminScheduleEdit(props) {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
-                                    <a href="" className="btn btn_skyblue_h46 w_100">삭제</a>
                                     <button className="btn btn_skyblue_h46 w_100"
                                         onClick={() => updateSchedule()}
                                     > 저장</button>
+                                    <a href="" className="btn btn_skyblue_h46 w_100">삭제</a>
                                 </div>
 
                                 <div className="right_col btn1">
