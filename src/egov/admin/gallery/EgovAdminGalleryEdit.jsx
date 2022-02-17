@@ -181,18 +181,19 @@ function EgovAdminGalleryEdit(props) {
                                         onChange={e => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}></textarea>
                                 </dd>
                             </dl>
-                            <EgovAttachFile
-                                fnChangeFile={(attachfile) => {
-                                    console.log("====>>> Changed attachfile file = ", attachfile);
-                                    setBoardDetail({ ...boardDetail, file_1: attachfile });
-                                }}
-                                fnDeleteFile={(deletedFile) => {
-                                    console.log("====>>> Delete deletedFile = ", deletedFile);
-                                    setBoardAttachFiles(deletedFile);
-                                }}
-                                boardFiles={boardAttachFiles}
-                                mode={props.mode} />
-
+                            {modeInfo?.mode !== CODE.MODE_REPLY &&
+                                <EgovAttachFile
+                                    fnChangeFile={(attachfile) => {
+                                        console.log("====>>> Changed attachfile file = ", attachfile);
+                                        setBoardDetail({ ...boardDetail, file_1: attachfile });
+                                    }}
+                                    fnDeleteFile={(deletedFile) => {
+                                        console.log("====>>> Delete deletedFile = ", deletedFile);
+                                        setBoardAttachFiles(deletedFile);
+                                    }}
+                                    boardFiles={boardAttachFiles}
+                                    mode={props.mode} />
+                            }
 
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">

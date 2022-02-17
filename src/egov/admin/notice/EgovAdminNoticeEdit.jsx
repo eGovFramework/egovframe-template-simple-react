@@ -174,24 +174,26 @@ function EgovAdminNoticeEdit(props) {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label htmlFor="nttCn">내용<span className="req">필수</span></label></dt>
+                                <dt><label htmlFor="nttCn">내용 <span className="req">필수</span></label></dt>
                                 <dd>
                                     <textarea className="f_txtar w_full h_200" id="nttCn" name="nttCn" cols="30" rows="10" placeholder=""
                                         defaultValue={boardDetail.nttCn}
                                         onChange={e => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}></textarea>
                                 </dd>
                             </dl>
-                            <EgovAttachFile
-                                fnChangeFile={(attachfile) => {
-                                    console.log("====>>> Changed attachfile file = ", attachfile);
-                                    setBoardDetail({ ...boardDetail, file_1: attachfile });
-                                }}
-                                fnDeleteFile={(deletedFile) => {
-                                    console.log("====>>> Delete deletedFile = ", deletedFile);
-                                    setBoardAttachFiles(deletedFile);
-                                }}
-                                boardFiles={boardAttachFiles}
-                                mode={props.mode} />
+                            {modeInfo?.mode !== CODE.MODE_REPLY &&
+                                <EgovAttachFile
+                                    fnChangeFile={(attachfile) => {
+                                        console.log("====>>> Changed attachfile file = ", attachfile);
+                                        setBoardDetail({ ...boardDetail, file_1: attachfile });
+                                    }}
+                                    fnDeleteFile={(deletedFile) => {
+                                        console.log("====>>> Delete deletedFile = ", deletedFile);
+                                        setBoardAttachFiles(deletedFile);
+                                    }}
+                                    boardFiles={boardAttachFiles}
+                                    mode={props.mode} />
+                            }
 
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
