@@ -233,7 +233,7 @@ function EgovAdminScheduleList(props) {
                             <h1 className="tit_1">사이트관리</h1>
                         </div>
 
-                        <h2 className="tit_2">게시판사용 관리</h2>
+                        <h2 className="tit_2">일정관리</h2>
 
                         {/* <!-- 검색조건 --> */}
                         <div className="condition">
