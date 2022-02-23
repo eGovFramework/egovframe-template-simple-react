@@ -134,9 +134,11 @@ function EgovAdminUsageEdit(props) {
             alert("게시판명은 필수 값입니다.");
             return false;
         }
-        if (formData.get('trgetType') === null || formData.get('trgetType') === "") {
-            alert("커뮤니티/동호회명은 필수 값입니다.");
-            return false;
+        if (modeInfo.mode === CODE.MODE_CREATE) {
+            if (formData.get('trgetType') === null || formData.get('trgetType') === "") {
+                alert("커뮤니티/동호회명은 필수 값입니다.");
+                return false;
+            }
         }
         return true;
     }
