@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import debug from 'debug';
+const log = debug('egov:EgovPaging');
 
 const EgovPaging = (props) => {
-  console.groupCollapsed('EgovPaging');
-  console.log('EgovPaging [props] : ', props);
+  log({ props });
+
   let history = useHistory();
-  console.log('EgovPaging [history] ', history);
+  log({ history });
 
   let paginationTag = [];
 
@@ -107,8 +109,8 @@ const EgovPaging = (props) => {
       paginationTag.push(lastPageTag);
     }
   }
-  console.log('paginationTag', paginationTag);
-  console.groupEnd('EgovPaging');
+
+  log('paginationTag', paginationTag);
 
   return (
     <div className="paging">

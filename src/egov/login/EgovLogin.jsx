@@ -4,18 +4,15 @@ import { Link } from 'react-router-dom';
 import EgovLoginContent from 'egov/login/EgovLoginContent';
 
 import URL from 'context/url';
+import debug from 'debug';
+const log = debug('egov:EgovLogin');
 
 const EgovLogin = (props) => {
-  console.group('EgovLogin');
-  console.log('[Start] EgovLogin ------------------------------');
-  console.log('EgovLogin [props] : ', props);
+  log({ props });
 
   const onChangeLogin = (user) => {
     props.onChangeLogin(user);
   };
-
-  console.log('------------------------------EgovLogin [End]');
-  console.groupEnd('EgovLogin');
 
   return (
     <div className="container">

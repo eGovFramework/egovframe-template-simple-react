@@ -6,19 +6,20 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
 
+import debug from 'debug';
+const log = debug('egov:EgovLoginContent');
+
 const EgovLoginContent = (props) => {
-  console.group('EgovLoginContent');
-  console.log('[Start] EgovLoginContent ------------------------------');
-  console.log('EgovLoginContent [props] : ', props);
+  log([props]);
 
   const history = useHistory();
-  console.log('EgovLoginContent [history] : ', history);
+  log({ history });
 
   const [userInfo, setUserInfo] = useState({ id: 'default', password: 'default', userSe: 'USR' });
   const [loginVO, setLoginVO] = useState({});
 
   const submitFormHandler = (e) => {
-    console.log('EgovLoginContent submitFormHandler()');
+    log('EgovLoginContent submitFormHandler()');
 
     const loginUrl = '/uat/uia/actionLoginAPI.do';
     const requestOptions = {
@@ -42,9 +43,6 @@ const EgovLoginContent = (props) => {
       }
     });
   };
-
-  console.log('------------------------------EgovLoginContent [End]');
-  console.groupEnd('EgovLoginContent');
 
   return (
     <div className="contents" id="contents">

@@ -7,24 +7,21 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
-import EgovSelect from 'egov/common/EgovSelect';
+
+import debug from 'debug';
+const log = debug('egov:EgovAdminBoardEdit');
 
 const EgovAdminBoardEdit = (props) => {
-  console.group('EgovAdminBoardEdit');
-  console.log('[Start] EgovAdminBoardEdit ------------------------------');
-  console.log('EgovAdminBoardEdit [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminBoardEdit [history] : ', history);
+  log({ history });
 
   const replyPosblAtRadioGroup = [
     { value: 'Y', label: '가능' },
     { value: 'N', label: '불가능' },
   ];
-  const fileAtchPosblAtRadioGroup = [
-    { value: 'Y', label: '가능' },
-    { value: 'N', label: '불가능' },
-  ];
+  const fileAtchPosblAtRadioGroup = [{ value: 'Y', label: '가능' }];
   const bbsTyCodeOptions = [
     { value: '', label: '선택' },
     { value: 'BBST01', label: '일반게시판' },
@@ -103,7 +100,7 @@ const EgovAdminBoardEdit = (props) => {
     const formData = new FormData();
     for (const key in boardDetail) {
       formData.append(key, boardDetail[key]);
-      console.log('boardDetail [%s] ', key, boardDetail[key]);
+      log({ key, 'boardDetail[key]': boardDetail[key] });
     }
 
     const requestOptions = {
@@ -133,13 +130,13 @@ const EgovAdminBoardEdit = (props) => {
       }),
     };
 
-    EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log('====>>> board delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch(deleteBoardURL, requestOptions, (response) => {
+      log('board delete', { response });
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert('게시글이 삭제되었습니다.');
         history.push(URL.ADMIN_BOARD);
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
@@ -152,9 +149,6 @@ const EgovAdminBoardEdit = (props) => {
   useEffect(() => {
     initMode();
   }, []);
-
-  console.log('------------------------------EgovAdminBoardEdit [End]');
-  console.groupEnd('EgovAdminBoardEdit');
 
   return (
     <div className="container">

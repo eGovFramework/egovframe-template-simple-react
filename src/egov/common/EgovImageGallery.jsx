@@ -1,5 +1,7 @@
 import React from 'react';
 import { SERVER_URL } from 'context/config';
+import debug from 'debug';
+const log = debug('egov:EgovImageGallery');
 
 const EgovImageGallery = ({ boardFiles, mode }) => {
   let filesTag = [];
@@ -18,8 +20,7 @@ const EgovImageGallery = ({ boardFiles, mode }) => {
       );
     });
   }
-  console.log('filesTag : ', filesTag);
-  console.groupEnd('EgovAttachFile');
+  log('filesTag:', filesTag);
 
   return <div className="board_attach_img">{filesTag}</div>;
 };

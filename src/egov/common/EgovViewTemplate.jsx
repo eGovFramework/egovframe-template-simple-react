@@ -9,15 +9,15 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
+import debug from 'debug';
+const log = debug('egov:EgovViewTemplate');
+
 const EgovViewTemplate = (props) => {
-  console.group('EgovViewTemplate');
-  console.log('[Start] EgovViewTemplate ------------------------------');
-  console.log('EgovViewTemplate [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovViewTemplate [history] : ', history);
-  console.log('------------------------------EgovViewTemplate [End]');
-  console.groupEnd('EgovViewTemplate');
+  log({ history });
+
   return (
     <div className="container">
       <div className="c_wrap"></div>

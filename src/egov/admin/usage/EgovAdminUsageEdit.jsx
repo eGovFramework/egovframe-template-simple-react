@@ -7,15 +7,14 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
-import EgovSelect from 'egov/common/EgovSelect';
+const debug = require('debug');
+const log = debug('egov:EgovAdminUsageEdit');
 
 const EgovAdminUsageEdit = (props) => {
-  console.group('EgovAdminUsageEdit');
-  console.log('[Start] EgovAdminUsageEdit ------------------------------');
-  console.log('EgovAdminUsageEdit [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminUsageEdit [history] : ', history);
+  log({ history });
 
   const bbsId = history.location.state?.bbsId || '';
   const trgetId = history.location.state?.trgetId || 'SYSTEM_DEFAULT_BOARD';
@@ -102,7 +101,10 @@ const EgovAdminUsageEdit = (props) => {
     const formData = new FormData();
     for (let key in boardDetail) {
       formData.append(key, boardDetail[key]);
-      console.log('boardDetail [%s] ', key, boardDetail[key]);
+      log('boardDetail', {
+        key,
+        'boardDetail[key]': boardDetail[key],
+      });
     }
 
     if (formValidator(formData)) {
@@ -139,9 +141,6 @@ const EgovAdminUsageEdit = (props) => {
   useEffect(() => {
     initMode();
   }, []);
-
-  console.log('------------------------------EgovAdminUsageEdit [End]');
-  console.groupEnd('EgovAdminUsageEdit');
 
   return (
     <div className="container">
@@ -193,13 +192,13 @@ const EgovAdminUsageEdit = (props) => {
                           onChange={(e) => {
                             let index = e.nativeEvent.target.selectedIndex;
                             let label = e.nativeEvent.target[index].text;
-                            console.log('bbsId onChange : ', e.nativeEvent);
+                            log('bbsId onChange:', e.nativeEvent);
                             setBoardDetail({ ...boardDetail, bbsId: e.target.value, bbsNm: label });
                           }}
                           value={boardDetail.bbsId}>
                           <option value="">선택하세요</option>
                           {notUsedBdMstrList.map((option, i) => {
-                            console.log('notUsedBdMstrList option : ', option);
+                            log('notUsedBdMstrList option:', option);
                             return (
                               <option value={option.bbsId} key={option.bbsId}>
                                 {option.bbsNm}

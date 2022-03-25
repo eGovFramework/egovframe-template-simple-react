@@ -9,14 +9,14 @@ import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import debug from 'debug';
+const log = debug('egov:EgovNoticeEdit');
 
 const EgovNoticeEdit = (props) => {
-  console.group('EgovNoticeEdit');
-  console.log('------------------------------');
-  console.log('EgovNoticeEdit [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovNoticeEdit [history] : ', history);
+  log({ history });
 
   const bbsId = history.location.state?.bbsId || NOTICE_BBS_ID;
   const nttId = history.location.state?.nttId || '';
@@ -100,7 +100,10 @@ const EgovNoticeEdit = (props) => {
     const formData = new FormData();
     for (let key in boardDetail) {
       formData.append(key, boardDetail[key]);
-      //console.log("boardDetail [%s] ", key, boardDetail[key]);
+      log('boardDetail', {
+        key,
+        'boardDetail[key]': boardDetail[key],
+      });
     }
 
     const requestOptions = {
@@ -123,10 +126,8 @@ const EgovNoticeEdit = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log('boardDetail, boardAttachFiles: useEffect');
+    log('boardDetail, boardAttachFiles: useEffect');
   }, [boardDetail, boardAttachFiles]);
-
-  console.groupEnd('EgovNoticeEdit');
 
   return (
     <div className="container">
@@ -204,11 +205,11 @@ const EgovNoticeEdit = (props) => {
               </dl>
               <EgovAttachFile
                 fnChangeFile={(attachfile) => {
-                  console.log('====>>> Changed attachfile file = ', attachfile);
+                  log('changed attachfile file', attachfile);
                   setBoardDetail({ ...boardDetail, file_1: attachfile });
                 }}
                 fnDeleteFile={(deletedFile) => {
-                  console.log('====>>> Delete deletedFile = ', deletedFile);
+                  log('delete deletedFile', deletedFile);
                   setBoardAttachFiles(deletedFile);
                 }}
                 boardFiles={boardAttachFiles}

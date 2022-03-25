@@ -6,14 +6,14 @@ import URL from 'context/url';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
+import debug from 'debug';
+const log = debug('egov:EgovAdminUsageList');
 
 const EgovAdminUsageList = (props) => {
-  console.group('EgovAdminUsageList');
-  console.log('[Start] EgovAdminUsageList ------------------------------');
-  console.log('EgovAdminUsageList [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminUsageList [history] : ', history);
+  log({ history });
 
   let searchCnd = '0';
   let searchWrd = '';
@@ -27,7 +27,7 @@ const EgovAdminUsageList = (props) => {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = (srchCnd) => {
-    console.groupCollapsed('EgovAdminUsageList.retrieveList()');
+    const log = debug('egov:EgovAdminUsageList:retrieveList()');
 
     const retrieveListURL = '/cop/com/selectBBSUseInfsAPI.do';
     const requestOptions = {
@@ -80,19 +80,13 @@ const EgovAdminUsageList = (props) => {
         });
         setListTag(mutListTag);
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response : ', error),
     );
-    console.groupEnd('EgovAdminUsageList.retrieveList()');
   };
 
   useEffect(() => {
     retrieveList(searchCondition);
   }, []);
-
-  console.log('------------------------------EgovAdminUsageList [End]');
-  console.groupEnd('EgovAdminUsageList');
 
   return (
     <div className="container">

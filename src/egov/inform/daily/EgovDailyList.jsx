@@ -4,16 +4,15 @@ import { Link, useHistory } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
-
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
+import debug from 'debug';
+const log = debug('egov:EgovDailyDetail');
 
 const EgovDailyList = (props) => {
-  console.group('EgovDailyDetail');
-  console.log('[Start] EgovDailyDetail ------------------------------');
-  console.log('EgovDailyDetail [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovDailyDetail [history] : ', history);
+  log({ history });
 
   const DATE = new Date();
   const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
@@ -66,7 +65,7 @@ const EgovDailyList = (props) => {
   };
 
   const retrieveList = (srchcnd) => {
-    console.groupCollapsed('EgovDailyDetail.retrieveList()');
+    const log = debug('egov:EgovDailyDetail:retrieveList()');
 
     const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageDailyListAPI.do';
     const requestOptions = {
@@ -84,12 +83,8 @@ const EgovDailyList = (props) => {
         setScheduleList(resp.result.resultList);
         drawList();
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response : ', { error }),
     );
-
-    console.groupEnd('EgovDailyDetail.retrieveList()');
   };
 
   const drawList = () => {
@@ -136,8 +131,6 @@ const EgovDailyList = (props) => {
     drawList();
   }, [scheduleList]);
 
-  console.log('------------------------------EgovDailyDetail [End]');
-  console.groupEnd('EgovDailyDetail');
   return (
     <div className="container">
       <div className="c_wrap">

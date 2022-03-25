@@ -6,13 +6,12 @@ import URL from 'context/url';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
+import debug from 'debug';
+const log = debug('egov:EgovAdminTemplateList');
 
 const EgovAdminTemplateList = (props) => {
-  console.group('EgovAdminTemplateList');
-  console.log('[Start] EgovAdminTemplateList ------------------------------');
-
   const history = useHistory();
-  console.log('EgovAdminTemplateList [history] : ', history);
+  log({ history });
   let searchCnd = '0';
   let searchWrd = '';
 
@@ -25,7 +24,7 @@ const EgovAdminTemplateList = (props) => {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = (searchCondition) => {
-    console.groupCollapsed('EgovAdminTemplateList.retrieveList()');
+    const log = debug('egov:EgovAdminTemplateList:retrieveList()');
 
     const retrieveListURL = '/cop/com/selectTemplateInfsAPI.do';
     const requestOptions = {
@@ -78,19 +77,14 @@ const EgovAdminTemplateList = (props) => {
         });
         setListTag(mutListTag);
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response : ', error),
     );
-    console.groupEnd('EgovNoticeList.retrieveList()');
   };
 
   useEffect(() => {
     retrieveList(searchCondition);
   }, [searchCondition]);
 
-  console.log('------------------------------EgovAdminTemplateList [End]');
-  console.groupEnd('EgovAdminTemplateList');
   return (
     <div className="container">
       <div className="c_wrap">

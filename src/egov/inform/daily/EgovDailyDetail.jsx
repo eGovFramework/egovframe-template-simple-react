@@ -8,14 +8,14 @@ import CODE from 'context/code';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import debug from 'debug';
+const log = debug('egov:EgovDailyDetail');
 
 const EgovDailyDetail = (props) => {
-  console.group('EgovDailyDetail');
-  console.log('[Start] EgovDailyDetail ------------------------------');
-  console.log('EgovDailyDetail [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovDailyDetail [history] : ', history);
+  log({ history });
 
   const [scheduleDetail, setScheduleDetail] = useState({});
   const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -87,14 +87,13 @@ const EgovDailyDetail = (props) => {
       }),
     };
 
-    EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log('====>>> Schdule delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch(deleteBoardURL, requestOptions, (response) => {
+      log('schdule delete', { response });
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert('게시글이 삭제되었습니다.');
-        // history.go(1);
         history.goBack();
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
@@ -103,8 +102,6 @@ const EgovDailyDetail = (props) => {
     retrieveDetail();
   }, []);
 
-  console.log('------------------------------EgovDailyDetail [End]');
-  console.groupEnd('EgovDailyDetail');
   return (
     <div className="container">
       <div className="c_wrap">

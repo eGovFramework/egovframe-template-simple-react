@@ -6,14 +6,14 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
+import debug from 'debug';
+const log = debug('egov:EgovAdminScheduleList');
 
 const EgovAdminScheduleList = (props) => {
-  console.group('EgovAdminScheduleList');
-  console.log('[Start] EgovAdminScheduleList ------------------------------');
-  console.log('EgovAdminScheduleList [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminScheduleList [history] : ', history);
+  log({ history });
 
   const DATE = new Date();
   const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
@@ -29,10 +29,6 @@ const EgovAdminScheduleList = (props) => {
   const [calendarTag, setCalendarTag] = useState([]);
 
   const [scheduleList, setScheduleList] = useState([]);
-
-  const innerConsole = (...args) => {
-    console.log(...args);
-  };
 
   const getLastDateOfMonth = (year, month) => {
     const LAST_DATE_SUPPLMENT = 1;
@@ -69,7 +65,7 @@ const EgovAdminScheduleList = (props) => {
   };
 
   const retrieveList = (srchcnd) => {
-    console.groupCollapsed('EgovAdminScheduleList.retrieveList()');
+    const log = debug('egov:EgovAdminScheduleList:retrieveList()');
 
     const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageMonthListAPI.do';
     const requestOptions = {
@@ -86,15 +82,12 @@ const EgovAdminScheduleList = (props) => {
       (resp) => {
         setScheduleList(resp.result.resultList);
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response:', error),
     );
-    console.groupEnd('EgovAdminScheduleList.retrieveList()');
   };
 
   const drawCalendar = () => {
-    console.groupCollapsed('EgovAdminScheduleList.drawCalendar()');
+    const log = debug('egov:EgovAdminScheduleList:drawCalendar()');
     const PREV_MONTH_ADDITION = -1;
 
     let lastOfLastMonth = getLastDateOfMonth(
@@ -104,19 +97,14 @@ const EgovAdminScheduleList = (props) => {
     let firstOfThisMonth = getFirstDateOfMonth(searchCondition.year, searchCondition.month);
     let lastOfThisMonth = getLastDateOfMonth(searchCondition.year, searchCondition.month);
 
-    console.log('lastOfLastMonth : ', lastOfLastMonth, lastOfLastMonth.getDay());
-    console.log('firstOfThisMonth :', firstOfThisMonth, firstOfThisMonth.getDay());
-    console.log('lastOfThisMonth :', lastOfThisMonth, lastOfThisMonth.getDay());
-    console.log('scheduleList : ', scheduleList);
+    log('lastOfLastMonth:', lastOfLastMonth, lastOfLastMonth.getDay());
+    log('firstOfThisMonth:', firstOfThisMonth, firstOfThisMonth.getDay());
+    log('lastOfThisMonth:', lastOfThisMonth, lastOfThisMonth.getDay());
+    log('scheduleList:', scheduleList);
 
     let firstDayOfThisMonth = firstOfThisMonth.getDay();
     let lastDateOfThisMonth = lastOfThisMonth.getDate();
-    console.log(
-      'firstDayOfThisMonth',
-      firstDayOfThisMonth,
-      'lastDateOfThisMonth',
-      lastDateOfThisMonth,
-    );
+    log('firstDayOfThisMonth', firstDayOfThisMonth, 'lastDateOfThisMonth', lastDateOfThisMonth);
 
     let monthArr = [];
     let weekArr = [];
@@ -133,7 +121,7 @@ const EgovAdminScheduleList = (props) => {
       }
     }
     monthArr.push(weekArr);
-    console.log('FirstWeek monthArr : ', monthArr);
+    log('FirstWeek monthArr:', monthArr);
     // firstWeek Date Set END
 
     // otherWeek Date Set START
@@ -161,21 +149,21 @@ const EgovAdminScheduleList = (props) => {
       monthArr.push(weekArr);
     }
     // lastWeek Date Set END
-    console.log('OtherWeek monthArr : ', monthArr);
+    log('OtherWeek monthArr:', monthArr);
 
     let mutsUseYearMonth =
       searchCondition.year.toString() +
       ((searchCondition.month + 1).toString().length === 1
         ? '0' + (searchCondition.month + 1).toString()
         : (searchCondition.month + 1).toString());
-    console.log('mutsUseYearMonth : ', mutsUseYearMonth);
+    log('mutsUseYearMonth:', mutsUseYearMonth);
 
     let mutCalendarTagList = [];
     let keyIdx = 0;
 
     //draw Calendar
     monthArr.forEach((week, weekIdx) => {
-      console.log();
+      log('');
       mutCalendarTagList.push(
         <tr key={keyIdx++}>
           {week.map((day, dayIdx) => {
@@ -194,8 +182,8 @@ const EgovAdminScheduleList = (props) => {
                     {scheduleList.map((schedule, scheduleIdx) => {
                       let iBeginDate = Number(schedule.schdulBgnde.substring(0, 8));
                       let iEndDate = Number(schedule.schdulEndde.substring(0, 8));
-                      innerConsole(
-                        'scheduleList ',
+                      log(
+                        'scheduleList:',
                         day,
                         scheduleIdx,
                         iBeginDate,
@@ -203,7 +191,7 @@ const EgovAdminScheduleList = (props) => {
                         iEndDate,
                         iUseDate >= iBeginDate && iUseDate <= iEndDate,
                       );
-                      innerConsole('schedule.schdulId ', schedule.schdulId);
+                      log('schedule.schdulId:', schedule.schdulId);
                       if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                         return (
                           <>
@@ -242,9 +230,8 @@ const EgovAdminScheduleList = (props) => {
         </tr>,
       );
     });
-    console.log('mutCalendarTagList : ', mutCalendarTagList);
+    log('mutCalendarTagList:', mutCalendarTagList);
     setCalendarTag(mutCalendarTagList);
-    console.groupEnd('EgovAdminScheduleList.drawCalendar()');
   };
 
   useEffect(() => {
@@ -255,8 +242,6 @@ const EgovAdminScheduleList = (props) => {
     drawCalendar();
   }, [scheduleList]);
 
-  console.log('------------------------------EgovAdminScheduleList [End]');
-  console.groupEnd('EgovAdminScheduleList');
   return (
     <div className="container">
       <div className="c_wrap">

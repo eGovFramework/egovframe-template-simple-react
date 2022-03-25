@@ -9,16 +9,16 @@ import CODE from 'context/code';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
+import debug from 'debug';
+const log = debug('egov:EgovAdminScheduleEdit');
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 const EgovAdminScheduleEdit = (props) => {
-  console.group('EgovAdminScheduleEdit');
-  console.log('[Start] EgovAdminScheduleEdit ------------------------------');
-  console.log('EgovAdminScheduleEdit [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminScheduleEdit [history] : ', history);
+  log({ history });
 
   const reptitSeCodeRadioGroup = [
     { value: '1', label: '당일' },
@@ -111,7 +111,10 @@ const EgovAdminScheduleEdit = (props) => {
     const formData = new FormData();
     for (let key in scheduleDetail) {
       formData.append(key, scheduleDetail[key]);
-      console.log('scheduleDetail [%s] ', key, scheduleDetail[key]);
+      log('scheduleDetail', {
+        key,
+        'scheduleDetail[key]': scheduleDetail[key],
+      });
     }
 
     if (formValidator(formData)) {
@@ -173,8 +176,6 @@ const EgovAdminScheduleEdit = (props) => {
     initMode();
   }, []);
 
-  console.log('------------------------------EgovAdminScheduleEdit [End]');
-  console.groupEnd('EgovAdminScheduleEdit');
   return (
     <div className="container">
       <div className="c_wrap">
@@ -338,7 +339,7 @@ const EgovAdminScheduleEdit = (props) => {
                       dateFormat="yyyy-MM-dd HH:mm"
                       showTimeInput
                       onChange={(date) => {
-                        console.log('setStartDate : ', date);
+                        log('setStartDate:', date);
                         setScheduleDetail({
                           ...scheduleDetail,
                           schdulBgnde: getDateFourteenDigit(date),
@@ -374,7 +375,7 @@ const EgovAdminScheduleEdit = (props) => {
                       showTimeInput
                       minDate={scheduleDetail.startDate}
                       onChange={(date) => {
-                        console.log('setEndDate: ', date);
+                        log('setEndDate:', date);
                         setScheduleDetail({
                           ...scheduleDetail,
                           schdulEndde: getDateFourteenDigit(date),
@@ -420,11 +421,11 @@ const EgovAdminScheduleEdit = (props) => {
               </dl>
               <EgovAttachFile
                 fnChangeFile={(attachfile) => {
-                  console.log('====>>> Changed attachfile file = ', attachfile);
+                  log('changed attachfile file:', attachfile);
                   setScheduleDetail({ ...scheduleDetail, file_1: attachfile });
                 }}
                 fnDeleteFile={(deletedFile) => {
-                  console.log('====>>> Delete deletedFile = ', deletedFile);
+                  log('delete deletedFile:', deletedFile);
                   setBoardAttachFiles(deletedFile);
                 }}
                 boardFiles={boardAttachFiles}

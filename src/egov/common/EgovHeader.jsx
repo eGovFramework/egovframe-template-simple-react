@@ -6,10 +6,10 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
 
-const EgovHeader = ({ loginUser, onChangeLogin }) => {
-  console.group('EgovHeader');
-  console.log('[Start] EgovHeader ------------------------------');
+import debug from 'debug';
+const log = debug('egov:EgovHeader');
 
+const EgovHeader = ({ loginUser, onChangeLogin }) => {
   const history = useHistory();
 
   const logInHandler = () => {
@@ -22,8 +22,8 @@ const EgovHeader = ({ loginUser, onChangeLogin }) => {
     const requestOptions = {
       credentials: 'include',
     };
-    EgovNet.requestFetch(logOutUrl, requestOptions, (resp) => {
-      console.log('===>>> logout resp= ', resp);
+    EgovNet.requestFetch(logOutUrl, requestOptions, (response) => {
+      log('logout response ', response);
       if (resp.resultCode == CODE.RCV_SUCCESS) {
         onChangeLogin({ loginVO: {} });
         window.alert('로그아웃되었습니다!');
@@ -31,9 +31,6 @@ const EgovHeader = ({ loginUser, onChangeLogin }) => {
       }
     });
   };
-
-  console.log('------------------------------EgovHeader [End]');
-  console.groupEnd('EgovHeader');
 
   return (
     // <!-- header -->

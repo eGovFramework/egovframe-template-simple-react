@@ -7,14 +7,14 @@ import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
+import debug from 'debug';
+const log = debug('egov:EgovAdminNoticeList');
 
 const EgovAdminNoticeList = (props) => {
-  console.group('EgovAdminNoticeList');
-  console.log('[Start] EgovAdminNoticeList ------------------------------');
-  console.log('EgovAdminNoticeList [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminNoticeList [history] : ', history);
+  log({ history });
 
   const bbsId = NOTICE_BBS_ID;
   let searchCnd = '0';
@@ -35,7 +35,7 @@ const EgovAdminNoticeList = (props) => {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = (searchCondition) => {
-    console.groupCollapsed('EgovAdminNoticeList.retrieveList()');
+    const log = debug('egov:EgovAdminNoticeList:retrieveList()');
 
     const retrieveListURL = '/cop/bbs/selectBoardListAPI.do';
     const requestOptions = {
@@ -97,11 +97,10 @@ const EgovAdminNoticeList = (props) => {
         });
         setListTag(mutListTag);
       },
-      (resp) => {
-        console.log('err response : ', resp);
+      (error) => {
+        log('error response:', { error });
       },
     );
-    console.groupEnd('EgovAdminNoticeList.retrieveList()');
   };
 
   useEffect(() => {
@@ -109,8 +108,6 @@ const EgovAdminNoticeList = (props) => {
     return () => {};
   }, [searchCondition]);
 
-  console.log('------------------------------EgovAdminNoticeList [End]');
-  console.groupEnd('EgovAdminNoticeList');
   return (
     <div className="container">
       <div className="c_wrap">

@@ -6,16 +6,15 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
-import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import debug from 'debug';
+const log = debug('egov:EgovAdminScheduleDetail');
 
 const EgovAdminScheduleDetail = (props) => {
-  console.group('EgovAdminScheduleDetail');
-  console.log('[Start] EgovAdminScheduleDetail ------------------------------');
-  console.log('EgovAdminScheduleDetail [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminScheduleDetail [history] : ', history);
+  log({ history });
 
   const [scheduleDetail, setScheduleDetail] = useState({});
   const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -87,13 +86,13 @@ const EgovAdminScheduleDetail = (props) => {
       }),
     };
 
-    EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log('====>>> Schdule delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch(deleteBoardURL, requestOptions, (response) => {
+      log('schedule delete', response);
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert('게시글이 삭제되었습니다.');
         history.push(URL.ADMIN_SCHEDULE);
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
@@ -102,8 +101,6 @@ const EgovAdminScheduleDetail = (props) => {
     retrieveDetail();
   }, []);
 
-  console.log('------------------------------EgovAdminScheduleDetail [End]');
-  console.groupEnd('EgovAdminScheduleDetail');
   return (
     <div className="container">
       <div className="c_wrap">

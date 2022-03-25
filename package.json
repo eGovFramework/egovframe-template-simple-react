@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "debug": "^4.3.4",
+    "env-cmd": "^10.1.0",
     "jquery": "^3.6.0",
     "qs": "^6.7.0",
     "react": "^17.0.2",

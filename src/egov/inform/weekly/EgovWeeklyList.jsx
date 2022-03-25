@@ -7,13 +7,14 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 
+import debug from 'debug';
+const log = debug('egov:EgovWeeklyList');
+
 const EgovWeeklyList = (props) => {
-  console.group('EgovWeeklyList');
-  console.log('[Start] EgovWeeklyList ------------------------------');
-  console.log('EgovWeeklyList [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovWeeklyList [history] : ', history);
+  log({ history });
 
   const DATE = new Date();
   const FIRST_DAY_OF_THIS_WEEK = new Date(
@@ -24,8 +25,8 @@ const EgovWeeklyList = (props) => {
 
   const getWeekOfMonth = (date) => {
     let adjustedDate = date.getDate() + date.getDay();
-    console.log(
-      'getWeekOfMonth : ',
+    log(
+      'getWeekOfMonth:',
       date,
       date.getDate(),
       date.getDay(),
@@ -35,7 +36,7 @@ const EgovWeeklyList = (props) => {
     );
     let weeksOrder = [0, 1, 2, 3, 4, 5];
     let returnVal = parseInt(weeksOrder[0 | (adjustedDate / 7)]);
-    console.log('returnVal:', returnVal);
+    log('returnVal:', returnVal);
     return returnVal;
   };
 
@@ -81,7 +82,7 @@ const EgovWeeklyList = (props) => {
         searchCondition.date + addtionOfDays,
       ); //다음주의 첫날
     }
-    console.log('changedDate : ', changedDate);
+    log('changedDate:', changedDate);
     setSearchCondition({
       ...searchCondition,
       year: changedDate.getFullYear(),
@@ -93,7 +94,7 @@ const EgovWeeklyList = (props) => {
   };
 
   const retrieveList = (srchcnd) => {
-    console.groupCollapsed('EgovWeeklyList.retrieveList()');
+    const log = debug('egov:EgovWeeklyList:retrieveList()');
 
     const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageWeekListAPI.do';
     const requestOptions = {
@@ -111,12 +112,8 @@ const EgovWeeklyList = (props) => {
         setScheduleList(resp.result.resultList);
         drawList();
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response:', error),
     );
-
-    console.groupEnd('EgovWeeklyList.retrieveList()');
   };
 
   const drawList = () => {
@@ -191,8 +188,6 @@ const EgovWeeklyList = (props) => {
     drawList();
   }, [scheduleList]);
 
-  console.log('------------------------------EgovWeeklyList [End]');
-  console.groupEnd('EgovWeeklyList');
   return (
     <div className="container">
       <div className="c_wrap">

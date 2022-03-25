@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import debug from 'debug';
+const log = debug('egov:EgovMain');
 
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 
 const EgovMain = (props) => {
-  console.group('EgovMain');
-  console.log('[Start] EgovMain ------------------------------');
-  console.log('EgovMain [props] : ', props);
+  log('props:', props);
 
   const history = useHistory();
-  console.log('EgovMain [history] : ', history);
+  log('history:', history);
 
   const [noticeBoard, setNoticeBoard] = useState();
   const [gallaryBoard, setGallaryBoard] = useState();
@@ -18,7 +18,7 @@ const EgovMain = (props) => {
   const [gallaryListTag, setGallaryListTag] = useState();
 
   const retrieveList = () => {
-    console.groupCollapsed('EgovMain.retrieveList()');
+    const log = debug('egov:EgovMain:retrieveList()');
 
     const retrieveListURL = '/cmm/main/mainPageAPI.do';
     const requestOptions = {
@@ -84,19 +84,13 @@ const EgovMain = (props) => {
         });
         setGallaryListTag(mutGallaryListTag);
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('err response : ', { error }),
     );
-    console.groupEnd('EgovMain.retrieveList()');
   };
 
   useEffect(() => {
     retrieveList();
   }, []);
-
-  console.log('------------------------------EgovMain [End]');
-  console.groupEnd('EgovMain');
 
   return (
     <div className="container P_MAIN">

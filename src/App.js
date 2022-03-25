@@ -237,7 +237,15 @@ const App = () => {
   );
 };
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log('process.env.REACT_APP_EGOV_CONTEXT_URL', process.env.REACT_APP_EGOV_CONTEXT_URL);
+import debug from 'debug';
+if (process.env.NODE_ENV === 'development') {
+  debug.enable('egov:*');
+} else {
+  debug.disable('egov:*');
+}
+
+const log = debug('egov:App');
+log('process.env.NODE_ENV', process.env.NODE_ENV);
+log('process.env.REACT_APP_EGOV_CONTEXT_URL', process.env.REACT_APP_EGOV_CONTEXT_URL);
 
 export default App;

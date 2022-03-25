@@ -7,14 +7,14 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
+import debug from 'debug';
+const log = debug('egov:EgovAdminTemplateEdit');
 
 const EgovAdminTemplateEdit = (props) => {
-  console.group('EgovAdminTemplateEdit');
-  console.log('[Start] EgovAdminTemplateEdit ------------------------------');
-  console.log('EgovAdminTemplateEdit [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminTemplateEdit [history] : ', history);
+  log({ history });
 
   const tmplatId = history.location.state?.tmplatId || '';
 
@@ -98,8 +98,6 @@ const EgovAdminTemplateEdit = (props) => {
     intMode();
   }, []);
 
-  console.log('------------------------------EgovAdminTemplateEdit [End]');
-  console.groupEnd('EgovAdminTemplateEdit');
   return (
     <div className="container">
       <div className="c_wrap">

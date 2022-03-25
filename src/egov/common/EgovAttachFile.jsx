@@ -4,9 +4,10 @@ import * as EgovNet from 'context/egovFetch';
 import { SERVER_URL } from 'context/config';
 import CODE from 'context/code';
 
-const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
-  console.groupCollapsed('EgovAttachFile');
+import debug from 'debug';
+const log = debug('egov:EgovAttachFile');
 
+const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
   const onClickDownFile = (atchFileId, fileSn) => {
     window.open(
       SERVER_URL + '/cmm/fms/FileDown.do?atchFileId=' + atchFileId + '&fileSn=' + fileSn + '',
@@ -14,7 +15,7 @@ const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
   };
 
   const onClickDeleteFile = (atchFileId, fileSn, fileIndex) => {
-    console.log('onClickDeleteFile Params : ', atchFileId, fileSn, fileIndex);
+    log('onClickDeleteFile Params:', atchFileId, fileSn, fileIndex);
 
     const formData = new FormData();
     formData.set('atchFileId', atchFileId);
@@ -27,24 +28,24 @@ const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
       },
       body: formData,
     };
-    EgovNet.requestFetch('/cmm/fms/deleteFileInfsAPI.do', requestOptions, (resp) => {
-      console.log('===>>> board file delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch('/cmm/fms/deleteFileInfsAPI.do', requestOptions, (response) => {
+      log('board file delete', response);
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         // 성공
-        console.log('Deleted fileIndex = ', fileIndex);
+        log('deleted fileIndex', fileIndex);
         const _deleteFile = boardFiles.splice(fileIndex, 1);
         const _boardFiles = Object.assign([], boardFiles);
         fnDeleteFile(_boardFiles);
         alert('첨부파일이 삭제되었습니다.');
         fnChangeFile({});
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
 
   const onChangeFileInput = (e) => {
-    console.log('===>>> e = ' + e.target.files[0]);
+    log('onChangeFileInput e', e.target.files[0]);
     fnChangeFile(e.target.files[0]);
   };
 
@@ -84,8 +85,8 @@ const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
       filesTag.push(<br />);
     });
   }
-  console.log('filesTag : ', filesTag);
-  console.groupEnd('EgovAttachFile');
+
+  log('filesTag:', filesTag);
 
   return (
     <dl>

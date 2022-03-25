@@ -9,14 +9,14 @@ import { NOTICE_BBS_ID } from 'context/config';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
+import debug from 'debug';
+const log = debug('egov:EgovAdminNoticeDetail');
 
 const EgovAdminNoticeDetail = (props) => {
-  console.group('EgovAdminNoticeDetail');
-  console.log('------------------------------');
-  console.log('EgovAdminNoticeDetail [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovAdminNoticeDetail [history] : ', history);
+  log({ history });
 
   const bbsId = history.location.state.bbsId || NOTICE_BBS_ID;
   const nttId = history.location.state.nttId;
@@ -60,14 +60,14 @@ const EgovAdminNoticeDetail = (props) => {
       }),
     };
 
-    EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log('====>>> board delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch(deleteBoardURL, requestOptions, (response) => {
+      log('board delete', { response });
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         //window.location.href = URL.ADMIN_NOTICE + qs.stringify(query, { addQueryPrefix: true });
         alert('게시글이 삭제되었습니다.');
         history.push(URL.ADMIN_NOTICE);
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
@@ -75,8 +75,6 @@ const EgovAdminNoticeDetail = (props) => {
   useEffect(() => {
     retrieveDetail();
   }, []);
-
-  console.groupEnd('EgovAdminNoticeDetail');
 
   return (
     <div className="container">

@@ -8,13 +8,14 @@ import { GALLERY_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 
+import debug from 'debug';
+const log = debug('egov:EgovGalleryList');
+
 const EgovGalleryList = (props) => {
-  console.group('EgovGalleryList');
-  console.log('[Start] EgovGalleryList ------------------------------');
-  console.log('EgovGalleryList [props] : ', props);
+  log({ props });
 
   let history = useHistory();
-  console.log('EgovGalleryList [history] : ', history);
+  log({ history });
 
   const bbsId = GALLERY_BBS_ID;
   let searchCnd = '0';
@@ -35,7 +36,7 @@ const EgovGalleryList = (props) => {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = (searchCondition) => {
-    console.groupCollapsed('EgovGalleryList.retrieveList()');
+    const log = debug('egov:EgovGalleryList:retrieveList()');
 
     const retrieveListURL = '/cop/bbs/selectBoardListAPI.do';
     const requestOptions = {
@@ -97,20 +98,14 @@ const EgovGalleryList = (props) => {
         });
         setListTag(mutListTag);
       },
-      (resp) => {
-        console.log('err response : ', resp);
-      },
+      (error) => log('error response : ', error),
     );
-    console.groupEnd('EgovGalleryList.retrieveList()');
   };
 
-  //======================================================
   useEffect(() => {
     retrieveList(searchCondition);
   }, [searchCondition]);
 
-  console.log('------------------------------EgovGalleryList [End]');
-  console.groupEnd('EgovGalleryList');
   return (
     <div className="container">
       <div className="c_wrap">

@@ -10,13 +10,14 @@ import { NOTICE_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
+import debug from 'debug';
+const log = debug('egov:EgovNoticeDetail');
+
 const EgovNoticeDetail = (props) => {
-  console.group('EgovNoticeDetail');
-  console.log('------------------------------');
-  console.log('EgovNoticeDetail [props] : ', props);
+  log({ props });
 
   const history = useHistory();
-  console.log('EgovNoticeDetail [history] : ', history);
+  log({ history });
 
   const bbsId = history.location.state.bbsId || NOTICE_BBS_ID;
   const nttId = history.location.state.nttId;
@@ -60,14 +61,14 @@ const EgovNoticeDetail = (props) => {
       }),
     };
 
-    EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log('====>>> board delete= ', resp);
-      if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
+    EgovNet.requestFetch(deleteBoardURL, requestOptions, (response) => {
+      log('board delete', response);
+      if (Number(response.resultCode) === Number(CODE.RCV_SUCCESS)) {
         //window.location.href = URL.INFORM_NOTICE + qs.stringify(query, { addQueryPrefix: true });
         alert('게시글이 삭제되었습니다.');
         history.push(URL.INFORM_NOTICE);
       } else {
-        alert('ERR : ' + resp.resultMessage);
+        alert('ERR : ' + response.resultMessage);
       }
     });
   };
@@ -75,8 +76,6 @@ const EgovNoticeDetail = (props) => {
   useEffect(() => {
     retrieveDetail();
   }, []);
-
-  console.groupEnd('EgovNoticeDetail');
 
   return (
     <div className="container">

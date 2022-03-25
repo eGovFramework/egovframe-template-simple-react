@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import debug from 'debug';
+const log = debug('egov:EgovSelect');
 
-const EgovSelect = ({ id, name, title, options, setValue, setter }) => {
-  console.log('egovSelect', id, name, title, options, setValue, setter);
+const EgovSelect = (props) => {
+  const { id, name, title, options, setValue, setter } = props;
+  log({ props });
+
   return (
     <select
       id={id}
       name={name}
       title={title}
-      // defaultValue={setValue}
       onChange={() => {
-        console.log('select Change!! : ', setValue);
+        log('select change:', setValue);
         setter(setValue);
       }}>
       {options.map((option, i) => {
