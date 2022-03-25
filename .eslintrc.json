@@ -1,0 +1,14 @@
+{
+   "extends": [
+      "plugin:react/recommended",
+      "plugin:prettier/recommended"
+   ],
+   "plugins": [
+      "react",
+      "react-hooks",
+      "prettier"
+   ],
+   "rules": {
+      "no-console": "warn"
+   }
+}
