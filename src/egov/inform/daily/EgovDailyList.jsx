@@ -193,14 +193,12 @@ function EgovDailyList(props) {
                   </label>
                 </li>
                 <li>
-                  {/* <a href="" className="prev">이전연도로이동</a> */}
                   <button
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
                     }}></button>
                   <span>{searchCondition.year}년</span>
-                  {/* <a href="" className="next">다음연도로이동</a> */}
                   <button
                     className="next"
                     onClick={() => {

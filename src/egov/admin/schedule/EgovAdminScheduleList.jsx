@@ -317,7 +317,6 @@ function EgovAdminScheduleList(props) {
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
                     }}></button>
-                  {/* <a href="" className="prev">이전연도로이동</a> */}
                   <span>{searchCondition.year}</span>
                   <button
                     className="next"
@@ -331,7 +330,6 @@ function EgovAdminScheduleList(props) {
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, -1);
                     }}></button>
-                  {/* <a href="" className="prev">이전월로이동</a> */}
                   <span>{searchCondition.month + 1}</span>
                   <button
                     className="next"

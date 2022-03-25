@@ -191,42 +191,6 @@ function EgovAdminTemplateEdit(props) {
                   사용여부<span className="req">필수</span>
                 </dt>
                 <dd>
-                  {/* <label className={`f_rdo ${"Y" === useAt && " on"}`}>
-                                        <input
-                                            type="radio"
-                                            name="useAt"
-                                            value="Y"
-                                            title="Ylabel"
-                                            checked={"Y" === useAt}
-                                            onChange={ () => setUseAt("Y")}
-                                        />
-                                        <em>Ylabel</em>
-                                    </label>
-                                    <label className={`f_rdo ${"N" === useAt && " on"}`}>
-                                        <input
-                                            type="radio"
-                                            name="useAt"
-                                            value="N"
-                                            title="Nlabel"
-                                            checked={"N" === useAt}
-                                            onChange={() => setUseAt("N")}
-                                        />
-                                        <em>Nlabel</em>
-                                    </label> */}
-                  {/* <EgovRadioButton
-                                        name="useAt"
-                                        label="Y value"
-                                        value="Y"
-                                        checkedValue={useAt}
-                                        setter={setUseAt}
-                                    />
-                                    <EgovRadioButton
-                                        name="useAt"
-                                        label="N value"
-                                        value="N"
-                                        checkedValue={useAt}
-                                        setter={setUseAt} 
-                                    /> */}
                   <EgovRadioButtonGroup
                     name="useAt"
                     radioGroup={useAtRadioGroup}

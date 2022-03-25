@@ -174,14 +174,6 @@ function EgovAdminScheduleDetail(props) {
                 <dt>담당자</dt>
                 <dd>{scheduleDetail.schdulChargerName}</dd>
               </dl>
-              {/* <dl>
-                                <dt>파일첨부</dt>
-                                <dd>
-                                    <span className="file_attach">
-                                        <a href="">file_name.hwp</a> <span>[3626] byte</span>
-                                    </span>
-                                </dd>
-                            </dl> */}
 
               <EgovAttachFile boardFiles={boardAttachFiles} />
 

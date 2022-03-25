@@ -14,7 +14,6 @@ function EgovLeftNavAdmin() {
               일정관리
             </NavLink>
           </li>
-          {/* <li><NavLink to={URL.ADMIN_TEMPLATE} activeClassName="cur">게시판템플릿관리</NavLink></li> */}
           <li>
             <NavLink to={URL.ADMIN_BOARD} activeClassName="cur">
               게시판생성관리

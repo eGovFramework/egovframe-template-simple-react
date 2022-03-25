@@ -308,7 +308,6 @@ function EgovAdminBoardEdit(props) {
                   {/* 수정/조회 일때 변경 불가 */}
                   {modeInfo.mode === CODE.MODE_MODIFY && (
                     <span>
-                      {/* {bbsTyCodeOptions.find(o => o.value === boardDetail.bbsTyCode)['label']} */}
                       {boardDetail.bbsAttrbCode &&
                         getSelectedLabel(bbsAttrbCodeOptions, boardDetail.bbsAttrbCode)}
                     </span>
