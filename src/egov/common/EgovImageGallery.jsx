@@ -1,11 +1,11 @@
 import React from 'react';
 import { SERVER_URL } from 'context/config';
 
-function EgovImageGallery({ boardFiles, mode }) {
+const EgovImageGallery = ({ boardFiles, mode }) => {
   let filesTag = [];
 
   if (boardFiles !== undefined) {
-    boardFiles.forEach(function (item, index) {
+    boardFiles.forEach((item, index) => {
       filesTag.push(
         <>
           <img
@@ -22,6 +22,6 @@ function EgovImageGallery({ boardFiles, mode }) {
   console.groupEnd('EgovAttachFile');
 
   return <div className="board_attach_img">{filesTag}</div>;
-}
+};
 
 export default EgovImageGallery;

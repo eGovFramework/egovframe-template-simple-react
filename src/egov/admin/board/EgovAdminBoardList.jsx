@@ -7,7 +7,7 @@ import URL from 'context/url';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 
-function EgovAdminBoardList(props) {
+const EgovAdminBoardList = (props) => {
   console.group('EgovAdminBoardList');
   console.log('[Start] EgovAdminBoardList ------------------------------');
   console.log('EgovAdminBoardList [props] : ', props);
@@ -52,7 +52,7 @@ function EgovAdminBoardList(props) {
         let pageSize = resp.result.paginationInfo.pageSize;
 
         // 리스트 항목 구성
-        resp.result.resultList.forEach(function (item, index) {
+        resp.result.resultList.forEach((item, index) => {
           if (index === 0) mutListTag = []; // 목록 초기화
           let listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
@@ -78,7 +78,7 @@ function EgovAdminBoardList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -198,6 +198,6 @@ function EgovAdminBoardList(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminBoardList;

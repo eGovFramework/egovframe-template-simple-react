@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from 'context/url';
 
-function EgovLeftNavInform() {
+const EgovLeftNavInform = () => {
   console.groupCollapsed('EgovLeftNavInform');
   console.log('[Start] EgovLeftNavInform ------------------------------');
   console.log('------------------------------EgovLeftNavInform [End]');
@@ -37,6 +37,6 @@ function EgovLeftNavInform() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovLeftNavInform;

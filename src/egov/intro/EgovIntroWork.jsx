@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavIntro';
 
-function EgovIntroWork() {
+const EgovIntroWork = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -73,6 +73,6 @@ function EgovIntroWork() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovIntroWork;

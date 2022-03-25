@@ -10,7 +10,7 @@ import { GALLERY_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovAdminGalleryEdit(props) {
+const EgovAdminGalleryEdit = (props) => {
   console.group('EgovAdminGalleryEdit');
   console.log('------------------------------');
   console.log('EgovAdminGalleryEdit [props] : ', props);
@@ -71,7 +71,7 @@ function EgovAdminGalleryEdit(props) {
         nttId: nttId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -246,6 +246,6 @@ function EgovAdminGalleryEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminGalleryEdit;

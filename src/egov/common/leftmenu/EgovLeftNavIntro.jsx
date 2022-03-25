@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from 'context/url';
 
-function EgovLeftNavIntro() {
+const EgovLeftNavIntro = () => {
   return (
     <div className="nav">
       <div className="inner">
@@ -23,6 +23,6 @@ function EgovLeftNavIntro() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovLeftNavIntro;

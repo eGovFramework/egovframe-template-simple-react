@@ -6,7 +6,7 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
 
-function EgovHeader({ loginUser, onChangeLogin }) {
+const EgovHeader = ({ loginUser, onChangeLogin }) => {
   console.group('EgovHeader');
   console.log('[Start] EgovHeader ------------------------------');
 
@@ -22,7 +22,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
     const requestOptions = {
       credentials: 'include',
     };
-    EgovNet.requestFetch(logOutUrl, requestOptions, function (resp) {
+    EgovNet.requestFetch(logOutUrl, requestOptions, (resp) => {
       console.log('===>>> logout resp= ', resp);
       if (resp.resultCode == CODE.RCV_SUCCESS) {
         onChangeLogin({ loginVO: {} });
@@ -384,6 +384,6 @@ function EgovHeader({ loginUser, onChangeLogin }) {
     </div>
     // <!--// header -->
   );
-}
+};
 
 export default EgovHeader;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-function EgovInfoPopup() {
+const EgovInfoPopup = () => {
   return (
     <div className="wrap_pop TEMPLATE_INTRO">
       <div className="pop_inner">
@@ -30,6 +30,6 @@ function EgovInfoPopup() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovInfoPopup;

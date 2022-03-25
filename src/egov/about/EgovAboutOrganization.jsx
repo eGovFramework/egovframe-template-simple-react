@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import URL from 'context/url';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAbout';
 
-function EgovAboutOrganization() {
+const EgovAboutOrganization = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -56,6 +56,6 @@ function EgovAboutOrganization() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAboutOrganization;

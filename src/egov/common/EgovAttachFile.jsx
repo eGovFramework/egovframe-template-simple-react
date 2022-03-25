@@ -4,16 +4,16 @@ import * as EgovNet from 'context/egovFetch';
 import { SERVER_URL } from 'context/config';
 import CODE from 'context/code';
 
-function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
+const EgovAttachFile = ({ boardFiles, mode, fnChangeFile, fnDeleteFile }) => {
   console.groupCollapsed('EgovAttachFile');
 
-  function onClickDownFile(atchFileId, fileSn) {
+  const onClickDownFile = (atchFileId, fileSn) => {
     window.open(
       SERVER_URL + '/cmm/fms/FileDown.do?atchFileId=' + atchFileId + '&fileSn=' + fileSn + '',
     );
-  }
+  };
 
-  function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
+  const onClickDeleteFile = (atchFileId, fileSn, fileIndex) => {
     console.log('onClickDeleteFile Params : ', atchFileId, fileSn, fileIndex);
 
     const formData = new FormData();
@@ -27,7 +27,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
       },
       body: formData,
     };
-    EgovNet.requestFetch('/cmm/fms/deleteFileInfsAPI.do', requestOptions, function (resp) {
+    EgovNet.requestFetch('/cmm/fms/deleteFileInfsAPI.do', requestOptions, (resp) => {
       console.log('===>>> board file delete= ', resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         // 성공
@@ -41,24 +41,24 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
         alert('ERR : ' + resp.resultMessage);
       }
     });
-  }
+  };
 
-  function onChangeFileInput(e) {
+  const onChangeFileInput = (e) => {
     console.log('===>>> e = ' + e.target.files[0]);
     fnChangeFile(e.target.files[0]);
-  }
+  };
 
   let filesTag = [];
 
   if (boardFiles !== undefined) {
-    boardFiles.forEach(function (item, index) {
+    boardFiles.forEach((item, index) => {
       filesTag.push(
         <>
           <span>
             <a
               key={index}
               href={'#LINK'}
-              onClick={function (e) {
+              onClick={(e) => {
                 e.preventDefault();
                 onClickDownFile(item.atchFileId, item.fileSn);
               }}
@@ -104,6 +104,6 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
       </dd>
     </dl>
   );
-}
+};
 
 export default React.memo(EgovAttachFile);

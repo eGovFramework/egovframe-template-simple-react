@@ -12,7 +12,7 @@ import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-function EgovAdminScheduleEdit(props) {
+const EgovAdminScheduleEdit = (props) => {
   console.group('EgovAdminScheduleEdit');
   console.log('[Start] EgovAdminScheduleEdit ------------------------------');
   console.log('EgovAdminScheduleEdit [props] : ', props);
@@ -93,7 +93,7 @@ function EgovAdminScheduleEdit(props) {
         schdulId: history.location.state?.schdulId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       let rawScheduleDetail = resp.result.scheduleDetail;
       //기본값 설정
       setScheduleDetail({
@@ -459,6 +459,6 @@ function EgovAdminScheduleEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminScheduleEdit;

@@ -8,7 +8,7 @@ import { NOTICE_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 
-function EgovAdminNoticeList(props) {
+const EgovAdminNoticeList = (props) => {
   console.group('EgovAdminNoticeList');
   console.log('[Start] EgovAdminNoticeList ------------------------------');
   console.log('EgovAdminNoticeList [props] : ', props);
@@ -62,9 +62,9 @@ function EgovAdminNoticeList(props) {
         let pageSize = resp.result.paginationInfo.pageSize;
 
         // 리스트 항목 구성
-        resp.result.resultList.forEach(function (item, index) {
+        resp.result.resultList.forEach((item, index) => {
           if (index === 0) mutListTag = []; // 목록 초기화
-          var listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
+          let listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
           mutListTag.push(
             <Link
@@ -97,7 +97,7 @@ function EgovAdminNoticeList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -228,6 +228,6 @@ function EgovAdminNoticeList(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminNoticeList;

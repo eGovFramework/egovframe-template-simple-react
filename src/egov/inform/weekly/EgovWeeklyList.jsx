@@ -7,7 +7,7 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 
-function EgovWeeklyList(props) {
+const EgovWeeklyList = (props) => {
   console.group('EgovWeeklyList');
   console.log('[Start] EgovWeeklyList ------------------------------');
   console.log('EgovWeeklyList [props] : ', props);
@@ -111,7 +111,7 @@ function EgovWeeklyList(props) {
         setScheduleList(resp.result.resultList);
         drawList();
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -304,6 +304,6 @@ function EgovWeeklyList(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovWeeklyList;

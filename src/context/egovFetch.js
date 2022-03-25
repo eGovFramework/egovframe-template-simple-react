@@ -3,7 +3,7 @@ import { SERVER_URL } from './config';
 import URL from 'context/url';
 import CODE from 'context/code';
 
-export function requestFetch(url, requestOptions, handler, errorHandler) {
+export const requestFetch = (url, requestOptions, handler, errorHandler) => {
   console.groupCollapsed('requestFetch');
   console.log('requestFetch [URL] : ', SERVER_URL + url);
   console.log('requestFetch [requestOption] : ', requestOptions);
@@ -60,4 +60,4 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
       console.log('requestFetch finally end');
       console.groupEnd('requestFetch');
     });
-}
+};

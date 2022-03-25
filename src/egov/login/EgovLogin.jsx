@@ -5,7 +5,7 @@ import EgovLoginContent from 'egov/login/EgovLoginContent';
 
 import URL from 'context/url';
 
-function EgovLogin(props) {
+const EgovLogin = (props) => {
   console.group('EgovLogin');
   console.log('[Start] EgovLogin ------------------------------');
   console.log('EgovLogin [props] : ', props);
@@ -39,6 +39,6 @@ function EgovLogin(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovLogin;

@@ -9,7 +9,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovDailyDetail(props) {
+const EgovDailyDetail = (props) => {
   console.group('EgovDailyDetail');
   console.log('[Start] EgovDailyDetail ------------------------------');
   console.log('EgovDailyDetail [props] : ', props);
@@ -32,7 +32,7 @@ function EgovDailyDetail(props) {
         schdulId: history.location.state?.schdulId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       let rawScheduleDetail = resp.result.scheduleDetail;
       rawScheduleDetail.startDateTime = convertDate(rawScheduleDetail.schdulBgnde);
       rawScheduleDetail.endDateTime = convertDate(rawScheduleDetail.schdulEndde);
@@ -204,6 +204,6 @@ function EgovDailyDetail(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovDailyDetail;

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 
-function EgovMain(props) {
+const EgovMain = (props) => {
   console.group('EgovMain');
   console.log('[Start] EgovMain ------------------------------');
   console.log('EgovMain [props] : ', props);
@@ -40,7 +40,7 @@ function EgovMain(props) {
         mutNotiListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
 
         // 리스트 항목 구성
-        resp.result.notiList.forEach(function (item, index) {
+        resp.result.notiList.forEach((item, index) => {
           if (index === 0) mutNotiListTag = []; // 목록 초기화
           mutNotiListTag.push(
             <li key={index}>
@@ -64,7 +64,7 @@ function EgovMain(props) {
         mutGallaryListTag.push(<li>검색된 결과가 없습니다.</li>); // 게시판 목록 초기값
 
         // 리스트 항목 구성
-        resp.result.galList.forEach(function (item, index) {
+        resp.result.galList.forEach((item, index) => {
           if (index === 0) mutGallaryListTag = []; // 목록 초기화
           mutGallaryListTag.push(
             <li key={index}>
@@ -84,7 +84,7 @@ function EgovMain(props) {
         });
         setGallaryListTag(mutGallaryListTag);
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -216,6 +216,6 @@ function EgovMain(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovMain;

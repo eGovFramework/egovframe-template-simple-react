@@ -7,7 +7,7 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 
-function EgovDailyList(props) {
+const EgovDailyList = (props) => {
   console.group('EgovDailyDetail');
   console.log('[Start] EgovDailyDetail ------------------------------');
   console.log('EgovDailyDetail [props] : ', props);
@@ -84,7 +84,7 @@ function EgovDailyList(props) {
         setScheduleList(resp.result.resultList);
         drawList();
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -98,7 +98,7 @@ function EgovDailyList(props) {
 
     let listCnt = 0;
     // 리스트 항목 구성
-    scheduleList.forEach(function (item, index) {
+    scheduleList.forEach((item, index) => {
       if (index === 0) mutListTag = []; // 목록 초기화
       listCnt++;
       mutListTag.push(
@@ -251,6 +251,6 @@ function EgovDailyList(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovDailyList;

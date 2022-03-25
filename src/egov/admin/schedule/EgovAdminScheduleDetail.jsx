@@ -9,7 +9,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovAdminScheduleDetail(props) {
+const EgovAdminScheduleDetail = (props) => {
   console.group('EgovAdminScheduleDetail');
   console.log('[Start] EgovAdminScheduleDetail ------------------------------');
   console.log('EgovAdminScheduleDetail [props] : ', props);
@@ -32,7 +32,7 @@ function EgovAdminScheduleDetail(props) {
         schdulId: history.location.state?.schdulId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       let rawScheduleDetail = resp.result.scheduleDetail;
       rawScheduleDetail.startDateTime = convertDate(rawScheduleDetail.schdulBgnde);
       rawScheduleDetail.endDateTime = convertDate(rawScheduleDetail.schdulEndde);
@@ -216,6 +216,6 @@ function EgovAdminScheduleDetail(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminScheduleDetail;

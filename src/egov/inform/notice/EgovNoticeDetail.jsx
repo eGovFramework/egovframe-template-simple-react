@@ -10,7 +10,7 @@ import { NOTICE_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovNoticeDetail(props) {
+const EgovNoticeDetail = (props) => {
   console.group('EgovNoticeDetail');
   console.log('------------------------------');
   console.log('EgovNoticeDetail [props] : ', props);
@@ -39,7 +39,7 @@ function EgovNoticeDetail(props) {
         nttId: nttId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setUser(resp.result.user);
@@ -203,6 +203,6 @@ function EgovNoticeDetail(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovNoticeDetail;

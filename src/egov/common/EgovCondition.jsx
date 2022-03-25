@@ -1,6 +1,6 @@
 import React from 'react';
 
-function EgovCondition() {
+const EgovCondition = () => {
   return (
     <div className="condition">
       <ul>
@@ -46,6 +46,6 @@ function EgovCondition() {
       </ul>
     </div>
   );
-}
+};
 
 export default EgovCondition;

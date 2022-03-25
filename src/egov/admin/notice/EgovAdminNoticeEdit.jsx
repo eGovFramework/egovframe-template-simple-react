@@ -10,7 +10,7 @@ import { NOTICE_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovAdminNoticeEdit(props) {
+const EgovAdminNoticeEdit = (props) => {
   console.group('EgovAdminNoticeEdit');
   console.log('------------------------------');
   console.log('EgovAdminNoticeEdit [props] : ', props);
@@ -71,7 +71,7 @@ function EgovAdminNoticeEdit(props) {
         nttId: nttId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -118,18 +118,13 @@ function EgovAdminNoticeEdit(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     intMode();
-    return function () {};
   }, []);
 
-  useEffect(
-    function () {
-      console.log('boardDetail, boardAttachFiles: useEffect');
-      return function () {};
-    },
-    [boardDetail, boardAttachFiles],
-  );
+  useEffect(() => {
+    console.log('boardDetail, boardAttachFiles: useEffect');
+  }, [boardDetail, boardAttachFiles]);
 
   console.groupEnd('EgovAdminNoticeEdit');
 
@@ -251,6 +246,6 @@ function EgovAdminNoticeEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminNoticeEdit;

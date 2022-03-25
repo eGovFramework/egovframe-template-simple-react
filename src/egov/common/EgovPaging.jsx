@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-function EgovPaging(props) {
+const EgovPaging = (props) => {
   console.groupCollapsed('EgovPaging');
   console.log('EgovPaging [props] : ', props);
   let history = useHistory();
@@ -115,6 +115,6 @@ function EgovPaging(props) {
       <ul>{paginationTag}</ul>
     </div>
   );
-}
+};
 
 export default React.memo(EgovPaging);

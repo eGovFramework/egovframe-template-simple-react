@@ -2,7 +2,7 @@ import React from 'react';
 
 import EgovRadioButton from 'egov/common/EgovRadioButton';
 
-function EgovRadioButtonGroup({ name, radioGroup, setValue, setter }) {
+const EgovRadioButtonGroup = ({ name, radioGroup, setValue, setter }) => {
   return (
     <>
       {radioGroup.map((radioOption, i) => {
@@ -19,6 +19,6 @@ function EgovRadioButtonGroup({ name, radioGroup, setValue, setter }) {
       })}
     </>
   );
-}
+};
 
 export default EgovRadioButtonGroup;

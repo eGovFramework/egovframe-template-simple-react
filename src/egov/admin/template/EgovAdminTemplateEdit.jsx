@@ -8,7 +8,7 @@ import CODE from 'context/code';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 
-function EgovAdminTemplateEdit(props) {
+const EgovAdminTemplateEdit = (props) => {
   console.group('EgovAdminTemplateEdit');
   console.log('[Start] EgovAdminTemplateEdit ------------------------------');
   console.log('EgovAdminTemplateEdit [props] : ', props);
@@ -70,7 +70,7 @@ function EgovAdminTemplateEdit(props) {
         tmplatId: tmplatId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setTemplateDetail(resp.result.templateInfVO);
 
       // // 초기 templateDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -227,6 +227,6 @@ function EgovAdminTemplateEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminTemplateEdit;

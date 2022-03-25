@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function EgovError(props) {
+const EgovError = (props) => {
   const history = useHistory();
   console.log('EgovError [history] : ', history);
 
@@ -24,6 +24,6 @@ function EgovError(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovError;

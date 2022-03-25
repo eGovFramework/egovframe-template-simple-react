@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from 'context/url';
 
-function EgovLeftNavSupport() {
+const EgovLeftNavSupport = () => {
   return (
     <div className="nav">
       <div className="inner">
@@ -28,6 +28,6 @@ function EgovLeftNavSupport() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovLeftNavSupport;

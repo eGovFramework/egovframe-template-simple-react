@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
 import URL from 'context/url';
 
-function EgovDownloadCreate() {
+const EgovDownloadCreate = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -150,6 +150,6 @@ function EgovDownloadCreate() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovDownloadCreate;

@@ -6,7 +6,7 @@ import * as EgovNet from 'context/egovFetch';
 import URL from 'context/url';
 import CODE from 'context/code';
 
-function EgovLoginContent(props) {
+const EgovLoginContent = (props) => {
   console.group('EgovLoginContent');
   console.log('[Start] EgovLoginContent ------------------------------');
   console.log('EgovLoginContent [props] : ', props);
@@ -102,6 +102,6 @@ function EgovLoginContent(props) {
       {/* <!--// 본문 --> */}
     </div>
   );
-}
+};
 
 export default withRouter(EgovLoginContent);

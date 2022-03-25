@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
 
-function EgovQnaDetail() {
+const EgovQnaDetail = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -154,6 +154,6 @@ function EgovQnaDetail() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovQnaDetail;

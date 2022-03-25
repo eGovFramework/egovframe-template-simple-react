@@ -9,7 +9,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'egov/common/EgovRadioButtonGroup';
 import EgovSelect from 'egov/common/EgovSelect';
 
-function EgovAdminBoardEdit(props) {
+const EgovAdminBoardEdit = (props) => {
   console.group('EgovAdminBoardEdit');
   console.log('[Start] EgovAdminBoardEdit ------------------------------');
   console.log('EgovAdminBoardEdit [props] : ', props);
@@ -91,7 +91,7 @@ function EgovAdminBoardEdit(props) {
       }),
     };
 
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       // 수정모드일 경우 조회값 세팅
       if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardDetail(resp.result.boardMasterVO);
@@ -418,6 +418,6 @@ function EgovAdminBoardEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminBoardEdit;

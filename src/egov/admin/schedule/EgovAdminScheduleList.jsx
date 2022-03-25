@@ -7,7 +7,7 @@ import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavAdmin';
 
-function EgovAdminScheduleList(props) {
+const EgovAdminScheduleList = (props) => {
   console.group('EgovAdminScheduleList');
   console.log('[Start] EgovAdminScheduleList ------------------------------');
   console.log('EgovAdminScheduleList [props] : ', props);
@@ -86,7 +86,7 @@ function EgovAdminScheduleList(props) {
       (resp) => {
         setScheduleList(resp.result.resultList);
       },
-      function (resp) {
+      (resp) => {
         console.log('err response : ', resp);
       },
     );
@@ -363,6 +363,6 @@ function EgovAdminScheduleList(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovAdminScheduleList;

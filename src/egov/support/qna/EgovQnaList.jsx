@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
 import URL from 'context/url';
 
-function EgovQnaList() {
+const EgovQnaList = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -161,6 +161,6 @@ function EgovQnaList() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovQnaList;

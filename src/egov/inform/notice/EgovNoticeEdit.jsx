@@ -10,7 +10,7 @@ import { NOTICE_BBS_ID } from 'context/config';
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
-function EgovNoticeEdit(props) {
+const EgovNoticeEdit = (props) => {
   console.group('EgovNoticeEdit');
   console.log('------------------------------');
   console.log('EgovNoticeEdit [props] : ', props);
@@ -71,7 +71,7 @@ function EgovNoticeEdit(props) {
         nttId: nttId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -238,6 +238,6 @@ function EgovNoticeEdit(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovNoticeEdit;

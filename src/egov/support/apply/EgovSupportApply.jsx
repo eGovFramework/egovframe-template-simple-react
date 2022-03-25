@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
 
-function EgovSupportApply() {
+const EgovSupportApply = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -61,6 +61,6 @@ function EgovSupportApply() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovSupportApply;

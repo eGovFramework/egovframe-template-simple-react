@@ -11,7 +11,7 @@ import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 import EgovImageGallery from 'egov/common/EgovImageGallery';
 
-function EgovGalleryDetail(props) {
+const EgovGalleryDetail = (props) => {
   console.groupEnd('EgovGalleryDetail');
   console.log('------------------------------');
   console.log('EgovGalleryDetail [props] : ', props);
@@ -40,7 +40,7 @@ function EgovGalleryDetail(props) {
         nttId: nttId,
       }),
     };
-    EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+    EgovNet.requestFetch(retrieveDetailURL, requestOptions, (resp) => {
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setUser(resp.result.user);
@@ -207,6 +207,6 @@ function EgovGalleryDetail(props) {
       </div>
     </div>
   );
-}
+};
 
 export default EgovGalleryDetail;

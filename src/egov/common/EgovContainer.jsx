@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import EgovLeftNav from 'egov/common/EgovLeftNav';
 
-function EgovContainer() {
+const EgovContainer = () => {
   return (
     <div className="container">
       <div className="c_wrap">
@@ -166,6 +166,6 @@ function EgovContainer() {
       </div>
     </div>
   );
-}
+};
 
 export default EgovContainer;

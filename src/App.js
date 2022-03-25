@@ -74,7 +74,7 @@ import './css/component.css';
 import './css/page.css';
 import './css/response.css';
 
-function App() {
+const App = () => {
   const [loginVO, setLoginVO] = useState({});
   return (
     <div className="wrap">
@@ -235,7 +235,7 @@ function App() {
       </Switch>
     </div>
   );
-}
+};
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 console.log('process.env.REACT_APP_EGOV_CONTEXT_URL', process.env.REACT_APP_EGOV_CONTEXT_URL);

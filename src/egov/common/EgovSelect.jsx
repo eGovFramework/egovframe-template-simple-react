@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function EgovSelect({ id, name, title, options, setValue, setter }) {
+const EgovSelect = ({ id, name, title, options, setValue, setter }) => {
   console.log('egovSelect', id, name, title, options, setValue, setter);
   return (
     <select
@@ -23,6 +23,6 @@ function EgovSelect({ id, name, title, options, setValue, setter }) {
       })}
     </select>
   );
-}
+};
 
 export default EgovSelect;
