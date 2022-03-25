@@ -13,7 +13,7 @@ const EgovAdminGalleryList = (props) => {
   console.log('[Start] EgovAdminGalleryList ------------------------------');
   console.log('EgovAdminGalleryList [props] : ', props);
 
-  let history = useHistory();
+  const history = useHistory();
   console.log('EgovAdminGalleryList [history] : ', history);
 
   const bbsId = GALLERY_BBS_ID;
@@ -57,9 +57,9 @@ const EgovAdminGalleryList = (props) => {
         let mutListTag = [];
         mutListTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
 
-        let resultCnt = resp.result.resultCnt * 1;
-        let currentPageNo = resp.result.paginationInfo.currentPageNo;
-        let pageSize = resp.result.paginationInfo.pageSize;
+        const resultCnt = resp.result.resultCnt * 1;
+        const currentPageNo = resp.result.paginationInfo.currentPageNo;
+        const pageSize = resp.result.paginationInfo.pageSize;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach((item, index) => {

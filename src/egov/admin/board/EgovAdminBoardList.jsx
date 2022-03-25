@@ -15,8 +15,6 @@ const EgovAdminBoardList = (props) => {
   const history = useHistory();
   console.log('EgovAdminBoardList [history] : ', history);
 
-  let searchCnd = '0';
-  let searchWrd = '';
   const [searchCondition, setSearchCondition] = useState(
     history.location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' },
   ); // 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
@@ -44,17 +42,17 @@ const EgovAdminBoardList = (props) => {
         setPaginationInfo(resp.result.paginationInfo);
         setUser(resp.result.user);
 
-        let mutListTag = [];
+        const mutListTag = [];
         listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
 
-        let resultCnt = resp.result.resultCnt * 1;
-        let currentPageNo = resp.result.paginationInfo.currentPageNo;
-        let pageSize = resp.result.paginationInfo.pageSize;
+        const resultCnt = resp.result.resultCnt * 1;
+        const currentPageNo = resp.result.paginationInfo.currentPageNo;
+        const pageSize = resp.result.paginationInfo.pageSize;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach((item, index) => {
           if (index === 0) mutListTag = []; // 목록 초기화
-          let listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
+          const listIdx = resultCnt + 1 - ((currentPageNo - 1) * pageSize + index + 1);
 
           mutListTag.push(
             <Link

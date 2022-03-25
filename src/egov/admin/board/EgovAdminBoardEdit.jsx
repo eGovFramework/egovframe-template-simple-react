@@ -101,7 +101,7 @@ const EgovAdminBoardEdit = (props) => {
 
   const updateBoard = () => {
     const formData = new FormData();
-    for (let key in boardDetail) {
+    for (const key in boardDetail) {
       formData.append(key, boardDetail[key]);
       console.log('boardDetail [%s] ', key, boardDetail[key]);
     }
@@ -145,7 +145,7 @@ const EgovAdminBoardEdit = (props) => {
   };
 
   const getSelectedLabel = (objArray, findLabel = '') => {
-    let foundValueLabelObj = objArray.find((o) => o['value'] === findLabel);
+    const foundValueLabelObj = objArray.find((o) => o['value'] === findLabel);
     return foundValueLabelObj['label'];
   };
 
