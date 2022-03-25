@@ -10,27 +10,24 @@ import EgovPaging from 'egov/common/EgovPaging';
 import EgovAttachFile from 'egov/common/EgovAttachFile';
 
 function EgovViewTemplate(props) {
-    console.group("EgovViewTemplate");
-    console.log("[Start] EgovViewTemplate ------------------------------");
-    console.log("EgovViewTemplate [props] : ", props);
+  console.group('EgovViewTemplate');
+  console.log('[Start] EgovViewTemplate ------------------------------');
+  console.log('EgovViewTemplate [props] : ', props);
 
-    const history = useHistory();
-    console.log("EgovViewTemplate [history] : ", history);
+  const history = useHistory();
+  console.log('EgovViewTemplate [history] : ', history);
 
-    useEffect(() => {
-        return () => {
-        }
-    }, []);
+  useEffect(() => {
+    return () => {};
+  }, []);
 
-    console.log("------------------------------EgovViewTemplate [End]");
-    console.groupEnd("EgovViewTemplate");
-    return (
-        <div className="container">
-            <div className="c_wrap">
-
-            </div>
-        </div>
-    );
+  console.log('------------------------------EgovViewTemplate [End]');
+  console.groupEnd('EgovViewTemplate');
+  return (
+    <div className="container">
+      <div className="c_wrap"></div>
+    </div>
+  );
 }
 
 export default EgovViewTemplate;
