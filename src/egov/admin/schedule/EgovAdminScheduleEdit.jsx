@@ -169,9 +169,8 @@ function EgovAdminScheduleEdit(props) {
     return number < 10 ? '0' + number : number.toString();
   };
 
-  useEffect(function () {
+  useEffect(() => {
     initMode();
-    return function () {};
   }, []);
 
   console.log('------------------------------EgovAdminScheduleEdit [End]');
@@ -224,8 +223,7 @@ function EgovAdminScheduleEdit(props) {
                       value={scheduleDetail.schdulSe}
                       onChange={(e) =>
                         setScheduleDetail({ ...scheduleDetail, schdulSe: e.target.value })
-                      }
-                    >
+                      }>
                       <option value="">선택</option>
                       <option value="1">회의</option>
                       <option value="2">세미나</option>
@@ -249,8 +247,7 @@ function EgovAdminScheduleEdit(props) {
                       value={scheduleDetail.schdulIpcrCode}
                       onChange={(e) =>
                         setScheduleDetail({ ...scheduleDetail, schdulIpcrCode: e.target.value })
-                      }
-                    >
+                      }>
                       <option value="">선택</option>
                       <option value="A">높음</option>
                       <option value="B">보통</option>
@@ -312,8 +309,7 @@ function EgovAdminScheduleEdit(props) {
                     defaultValue={scheduleDetail.schdulCn}
                     onChange={(e) =>
                       setScheduleDetail({ ...scheduleDetail, schdulCn: e.target.value })
-                    }
-                  ></textarea>
+                    }></textarea>
                 </dd>
               </dl>
               <dl>

@@ -51,8 +51,7 @@ function EgovMain(props) {
                     nttId: item.nttId,
                     bbsId: item.bbsId,
                   },
-                }}
-              >
+                }}>
                 {item.nttSj}
                 <span>{item.frstRegisterPnttm}</span>
               </Link>
@@ -76,8 +75,7 @@ function EgovMain(props) {
                     nttId: item.nttId,
                     bbsId: item.bbsId,
                   },
-                }}
-              >
+                }}>
                 {item.nttSj}
                 <span>{item.frstRegisterPnttm}</span>
               </Link>
@@ -95,7 +93,6 @@ function EgovMain(props) {
 
   useEffect(() => {
     retrieveList();
-    return () => {};
   }, []);
 
   console.log('------------------------------EgovMain [End]');

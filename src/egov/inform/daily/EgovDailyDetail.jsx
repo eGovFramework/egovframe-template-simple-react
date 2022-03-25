@@ -99,9 +99,8 @@ function EgovDailyDetail(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     retrieveDetail();
-    return function () {};
   }, []);
 
   console.log('------------------------------EgovDailyDetail [End]');

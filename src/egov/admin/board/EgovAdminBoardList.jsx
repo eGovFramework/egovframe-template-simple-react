@@ -66,8 +66,7 @@ function EgovAdminBoardList(props) {
                 },
               }}
               key={listIdx}
-              className="list_item"
-            >
+              className="list_item">
               <div>{listIdx}</div>
               <div>{item.bbsNm}</div>
               <div>{item.bbsTyCodeNm}</div>
@@ -88,7 +87,6 @@ function EgovAdminBoardList(props) {
 
   useEffect(() => {
     retrieveList(searchCondition);
-    return () => {};
   }, []);
 
   console.log('------------------------------EgovAdminBoardList [End]');
@@ -138,8 +136,7 @@ function EgovAdminBoardList(props) {
                       title="검색유형선력"
                       onChange={(e) =>
                         setSearchCondition({ ...searchCondition, searchCnd: e.target.value })
-                      }
-                    >
+                      }>
                       <option value="0">게시판명</option>
                       <option value="1">게시판유형</option>
                     </select>
@@ -191,8 +188,7 @@ function EgovAdminBoardList(props) {
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
                   setSearchCondition({ ...searchCondition, pageIndex: passedPage });
-                }}
-              ></EgovPaging>
+                }}></EgovPaging>
               {/* <!--/ Paging --> */}
             </div>
 

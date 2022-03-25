@@ -16,11 +16,6 @@ function EgovViewTemplate(props) {
 
   const history = useHistory();
   console.log('EgovViewTemplate [history] : ', history);
-
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   console.log('------------------------------EgovViewTemplate [End]');
   console.groupEnd('EgovViewTemplate');
   return (

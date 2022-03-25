@@ -72,9 +72,8 @@ function EgovNoticeDetail(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     retrieveDetail();
-    return function () {};
   }, []);
 
   console.groupEnd('EgovNoticeDetail');
@@ -138,8 +137,7 @@ function EgovNoticeDetail(props) {
                   cols="30"
                   rows="10"
                   readOnly="readonly"
-                  defaultValue={boardDetail && boardDetail.nttCn}
-                ></textarea>
+                  defaultValue={boardDetail && boardDetail.nttCn}></textarea>
               </div>
               <div className="board_attach">
                 <EgovAttachFile boardFiles={boardAttachFiles} />
@@ -156,8 +154,7 @@ function EgovNoticeDetail(props) {
                           bbsId: bbsId,
                         },
                       }}
-                      className="btn btn_skyblue_h46 w_100"
-                    >
+                      className="btn btn_skyblue_h46 w_100">
                       수정
                     </Link>
                     <button
@@ -165,8 +162,7 @@ function EgovNoticeDetail(props) {
                       onClick={(e) => {
                         // e.preventDefault();
                         onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
-                      }}
-                    >
+                      }}>
                       삭제
                     </button>
                     <Link
@@ -177,8 +173,7 @@ function EgovNoticeDetail(props) {
                           bbsId: bbsId,
                         },
                       }}
-                      className="btn btn_skyblue_h46 w_100"
-                    >
+                      className="btn btn_skyblue_h46 w_100">
                       답글작성
                     </Link>
                   </div>
@@ -194,8 +189,7 @@ function EgovNoticeDetail(props) {
                         searchCondition: searchCondition,
                       },
                     }}
-                    className="btn btn_blue_h46 w_100"
-                  >
+                    className="btn btn_blue_h46 w_100">
                     목록
                   </Link>
                 </div>

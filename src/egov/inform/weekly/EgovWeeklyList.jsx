@@ -159,8 +159,7 @@ function EgovWeeklyList(props) {
                         schdulId: item.schdulId,
                         prevPath: URL.INFORM_WEEKLY,
                       },
-                    }}
-                  >
+                    }}>
                     <span>
                       {getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}
                     </span>
@@ -183,7 +182,6 @@ function EgovWeeklyList(props) {
 
   useEffect(() => {
     retrieveList(searchCondition);
-    return () => {};
   }, [
     searchCondition.schdulSe,
     searchCondition.year,
@@ -193,7 +191,6 @@ function EgovWeeklyList(props) {
 
   useEffect(() => {
     drawList();
-    return () => {};
   }, [scheduleList]);
 
   console.log('------------------------------EgovWeeklyList [End]');
@@ -252,46 +249,40 @@ function EgovWeeklyList(props) {
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.year}년</span>
                   {/* <a href="" className="next">다음연도로이동</a> */}
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
                 <li className="half L">
                   <button
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.month + 1}월</span>
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
                 <li className="half R">
                   <button
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_WEEK, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.weekOfMonth + 1}주</span>
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_WEEK, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
               </ul>
             </div>

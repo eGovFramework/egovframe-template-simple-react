@@ -98,9 +98,8 @@ function EgovAdminScheduleDetail(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     retrieveDetail();
-    return function () {};
   }, []);
 
   console.log('------------------------------EgovAdminScheduleDetail [End]');
@@ -197,16 +196,14 @@ function EgovAdminScheduleDetail(props) {
                           schdulId: history.location.state?.schdulId,
                         },
                       }}
-                      className="btn btn_skyblue_h46 w_100"
-                    >
+                      className="btn btn_skyblue_h46 w_100">
                       수정
                     </Link>
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={(e) => {
                         onClickDeleteSchedule(history.location.state?.schdulId);
-                      }}
-                    >
+                      }}>
                       삭제
                     </button>
                   </div>

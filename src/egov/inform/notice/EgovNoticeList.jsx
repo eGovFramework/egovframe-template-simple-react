@@ -77,8 +77,7 @@ function EgovNoticeList(props) {
                 },
               }}
               key={listIdx}
-              className="list_item"
-            >
+              className="list_item">
               <div>{listIdx}</div>
               {(item.replyLc * 1 ? true : false) && <div className="al reply">{item.nttSj}</div>}
               {(item.replyLc * 1 ? false : true) && <div className="al">{item.nttSj}</div>}
@@ -99,7 +98,6 @@ function EgovNoticeList(props) {
 
   useEffect(() => {
     retrieveList(searchCondition);
-    return () => {};
   }, [searchCondition]);
 
   console.log('------------------------------EgovNoticeList [End]');
@@ -151,8 +149,7 @@ function EgovNoticeList(props) {
                       onChange={(e) => {
                         searchCnd = e.target.value;
                         // setSearchCondition({ ...searchCondition, searchCnd: e.target.value });
-                      }}
-                    >
+                      }}>
                       <option value="0">제목</option>
                       <option value="1">내용</option>
                       <option value="2">작성자</option>
@@ -180,8 +177,7 @@ function EgovNoticeList(props) {
                           searchCnd: searchCnd,
                           searchWrd: searchWrd,
                         });
-                      }}
-                    >
+                      }}>
                       조회
                     </button>
                   </span>
@@ -216,8 +212,7 @@ function EgovNoticeList(props) {
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
                   setSearchCondition({ ...searchCondition, pageIndex: passedPage });
-                }}
-              ></EgovPaging>
+                }}></EgovPaging>
               {/* <!--/ Paging --> */}
             </div>
 

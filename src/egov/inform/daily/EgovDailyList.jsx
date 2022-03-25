@@ -111,8 +111,7 @@ function EgovDailyList(props) {
             },
           }}
           key={listCnt}
-          className="list_item"
-        >
+          className="list_item">
           <div>
             {getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}
           </div>
@@ -131,12 +130,10 @@ function EgovDailyList(props) {
 
   useEffect(() => {
     retrieveList(searchCondition);
-    return () => {};
   }, [searchCondition.schdulSe, searchCondition.year, searchCondition.month, searchCondition.date]);
 
   useEffect(() => {
     drawList();
-    return () => {};
   }, [scheduleList]);
 
   console.log('------------------------------EgovDailyDetail [End]');
@@ -185,8 +182,7 @@ function EgovDailyList(props) {
                       title="조건"
                       onChange={(e) => {
                         setSearchCondition({ ...searchCondition, schdulSe: e.target.value });
-                      }}
-                    >
+                      }}>
                       <option value="">전체</option>
                       <option value="1">회의</option>
                       <option value="2">세미나</option>
@@ -202,46 +198,40 @@ function EgovDailyList(props) {
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.year}년</span>
                   {/* <a href="" className="next">다음연도로이동</a> */}
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
                 <li className="half L">
                   <button
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.month + 1}월</span>
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
                 <li className="half R">
                   <button
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_DATE, -1);
-                    }}
-                  ></button>
+                    }}></button>
                   <span>{searchCondition.date}일</span>
                   <button
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_DATE, 1);
-                    }}
-                  ></button>
+                    }}></button>
                 </li>
               </ul>
             </div>

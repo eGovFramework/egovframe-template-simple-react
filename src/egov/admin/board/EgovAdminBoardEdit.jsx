@@ -151,12 +151,7 @@ function EgovAdminBoardEdit(props) {
 
   useEffect(() => {
     initMode();
-    return () => {};
   }, []);
-
-  useEffect(() => {
-    return () => {};
-  }, [boardDetail]);
 
   console.log('------------------------------EgovAdminBoardEdit [End]');
   console.groupEnd('EgovAdminBoardEdit');
@@ -229,8 +224,9 @@ function EgovAdminBoardEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
-                    onChange={(e) => setBoardDetail({ ...boardDetail, bbsIntrcn: e.target.value })}
-                  ></textarea>
+                    onChange={(e) =>
+                      setBoardDetail({ ...boardDetail, bbsIntrcn: e.target.value })
+                    }></textarea>
                 </dd>
               </dl>
               <dl>
@@ -256,8 +252,7 @@ function EgovAdminBoardEdit(props) {
                         onChange={(e) =>
                           setBoardDetail({ ...boardDetail, bbsTyCode: e.target.value })
                         }
-                        value={boardDetail.bbsTyCode}
-                      >
+                        value={boardDetail.bbsTyCode}>
                         {bbsTyCodeOptions.map((option, i) => {
                           return (
                             <option value={option.value} key={option.value}>
@@ -299,8 +294,7 @@ function EgovAdminBoardEdit(props) {
                         onChange={(e) =>
                           setBoardDetail({ ...boardDetail, bbsAttrbCode: e.target.value })
                         }
-                        value={boardDetail.bbsAttrbCode}
-                      >
+                        value={boardDetail.bbsAttrbCode}>
                         {bbsAttrbCodeOptions.map((option, i) => {
                           return (
                             <option value={option.value} key={option.value}>
@@ -379,8 +373,7 @@ function EgovAdminBoardEdit(props) {
                       onChange={(e) =>
                         setBoardDetail({ ...boardDetail, posblAtchFileNumber: e.target.value })
                       }
-                      value={boardDetail.posblAtchFileNumber}
-                    >
+                      value={boardDetail.posblAtchFileNumber}>
                       {posblAtchFileNumberOptions.map((option, i) => {
                         return (
                           <option value={option.value} key={option.value}>
@@ -405,8 +398,7 @@ function EgovAdminBoardEdit(props) {
                       onClick={(e) => {
                         // e.preventDefault();
                         deleteBoardArticle(boardDetail.bbsId);
-                      }}
-                    >
+                      }}>
                       삭제
                     </button>
                   )}

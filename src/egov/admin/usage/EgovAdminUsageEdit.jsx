@@ -135,9 +135,9 @@ function EgovAdminUsageEdit(props) {
     }
     return true;
   };
+
   useEffect(() => {
     initMode();
-    return () => {};
   }, []);
 
   console.log('------------------------------EgovAdminUsageEdit [End]');
@@ -196,8 +196,7 @@ function EgovAdminUsageEdit(props) {
                             console.log('bbsId onChange : ', e.nativeEvent);
                             setBoardDetail({ ...boardDetail, bbsId: e.target.value, bbsNm: label });
                           }}
-                          value={boardDetail.bbsId}
-                        >
+                          value={boardDetail.bbsId}>
                           <option value="">선택하세요</option>
                           {notUsedBdMstrList.map((option, i) => {
                             console.log('notUsedBdMstrList option : ', option);
@@ -228,8 +227,7 @@ function EgovAdminUsageEdit(props) {
                               trgetType: e.target.value,
                               trgetId: 'SYSTEM_DEFAULT_BOARD',
                             })
-                          }
-                        >
+                          }>
                           <option value="">선택하세요</option>
                           <option value="SYSTEM">시스템 활용</option>
                         </select>
@@ -277,8 +275,7 @@ function EgovAdminUsageEdit(props) {
                           state: {
                             bbsId: boardDetail.bbsId,
                           },
-                        }}
-                      >
+                        }}>
                         {`${URL.INFORM_NOTICE}`}
                       </Link>
                     </dd>

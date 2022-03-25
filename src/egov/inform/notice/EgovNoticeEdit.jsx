@@ -118,18 +118,13 @@ function EgovNoticeEdit(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     initMode();
-    return function () {};
   }, []);
 
-  useEffect(
-    function () {
-      console.log('boardDetail, boardAttachFiles: useEffect');
-      return function () {};
-    },
-    [boardDetail, boardAttachFiles],
-  );
+  useEffect(() => {
+    console.log('boardDetail, boardAttachFiles: useEffect');
+  }, [boardDetail, boardAttachFiles]);
 
   console.groupEnd('EgovNoticeEdit');
 
@@ -202,8 +197,9 @@ function EgovNoticeEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}
-                  ></textarea>
+                    onChange={(e) =>
+                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
+                    }></textarea>
                 </dd>
               </dl>
               <EgovAttachFile

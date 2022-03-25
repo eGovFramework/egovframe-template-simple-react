@@ -65,8 +65,7 @@ function EgovAdminTemplateList(props) {
                 },
               }}
               key={listIdx}
-              className="list_item"
-            >
+              className="list_item">
               <div>{listIdx}</div>
               <div>{item.tmplatNm}</div>
               <div>{item.tmplatSeCodeNm}</div>
@@ -88,7 +87,6 @@ function EgovAdminTemplateList(props) {
 
   useEffect(() => {
     retrieveList(searchCondition);
-    return () => {};
   }, [searchCondition]);
 
   console.log('------------------------------EgovAdminTemplateList [End]');
@@ -138,8 +136,7 @@ function EgovAdminTemplateList(props) {
                       defaultValue={searchCondition.searchCnd}
                       onChange={(e) => {
                         searchCnd = e.target.value;
-                      }}
-                    >
+                      }}>
                       <option value="0">템플릿명</option>
                       <option value="1">템플릿구분</option>
                     </select>
@@ -166,8 +163,7 @@ function EgovAdminTemplateList(props) {
                           searchCnd: searchCnd,
                           searchWrd: searchWrd,
                         });
-                      }}
-                    >
+                      }}>
                       조회
                     </button>
                   </span>
@@ -201,8 +197,7 @@ function EgovAdminTemplateList(props) {
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
                   setSearchCondition({ ...searchCondition, pageIndex: passedPage });
-                }}
-              ></EgovPaging>
+                }}></EgovPaging>
               {/* <!--/ Paging --> */}
             </div>
 

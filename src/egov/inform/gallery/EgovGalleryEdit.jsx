@@ -118,18 +118,13 @@ function EgovGalleryEdit(props) {
     });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     intMode();
-    return function () {};
   }, []);
 
-  useEffect(
-    function () {
-      console.log('boardDetail, boardAttachFiles: useEffect');
-      return function () {};
-    },
-    [boardDetail, boardAttachFiles],
-  );
+  useEffect(() => {
+    console.log('boardDetail, boardAttachFiles: useEffect');
+  }, [boardDetail, boardAttachFiles]);
 
   console.groupEnd('EgovGalleryEdit');
 
@@ -202,8 +197,9 @@ function EgovGalleryEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}
-                  ></textarea>
+                    onChange={(e) =>
+                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
+                    }></textarea>
                 </dd>
               </dl>
               <EgovAttachFile
@@ -228,8 +224,7 @@ function EgovGalleryEdit(props) {
                     onClick={(e) => {
                       e.preventDefault();
                       updateBoard();
-                    }}
-                  >
+                    }}>
                     저장
                   </a>
                 </div>

@@ -96,13 +96,7 @@ function EgovAdminTemplateEdit(props) {
 
   useEffect(() => {
     intMode();
-    return () => {};
   }, []);
-
-  useEffect(() => {
-    // setUseAt(useAt)
-    return () => {};
-  }, [useAt]);
 
   console.log('------------------------------EgovAdminTemplateEdit [End]');
   console.groupEnd('EgovAdminTemplateEdit');
@@ -168,8 +162,7 @@ function EgovAdminTemplateEdit(props) {
                       id="tmplatSeCode"
                       name=""
                       title="템플릿 구분"
-                      defaultValue={templateDetail.tmplatSeCode}
-                    >
+                      defaultValue={templateDetail.tmplatSeCode}>
                       <option value="">선택하세요</option>
                       <option value="TMPT01">게시판템플릿</option>
                     </select>
