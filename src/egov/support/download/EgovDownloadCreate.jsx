@@ -129,8 +129,7 @@ function EgovDownloadCreate() {
                 name=""
                 id="pdsnm"
                 cols="30"
-                rows="10"
-              ></textarea>
+                rows="10"></textarea>
             </div>
 
             {/* <!-- 버튼영역 --> */}

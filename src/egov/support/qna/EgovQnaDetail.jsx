@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
-import URL from 'context/url';
 
 function EgovQnaDetail() {
   return (
@@ -131,15 +130,14 @@ function EgovQnaDetail() {
             {/* <!-- 답변달기 --> */}
             <div className="replay">
               <div className="left_col">
-                <label htmlfor="replay_write">답변달기</label>
+                <label htmlFor="replay_write">답변달기</label>
                 <div>
                   <textarea
                     className="f_txtar w_full"
                     name=""
                     id="replay_write"
                     cols="30"
-                    rows="10"
-                  ></textarea>
+                    rows="10"></textarea>
                 </div>
               </div>
               <div className="right_col">

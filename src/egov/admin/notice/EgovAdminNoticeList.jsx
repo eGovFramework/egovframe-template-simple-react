@@ -77,8 +77,7 @@ function EgovAdminNoticeList(props) {
                 },
               }}
               key={listIdx}
-              className="list_item"
-            >
+              className="list_item">
               <div>{listIdx}</div>
               {(item.replyLc * 1 ? true : false) && (
                 <>
@@ -157,8 +156,7 @@ function EgovAdminNoticeList(props) {
                       onChange={(e) => {
                         searchCnd = e.target.value;
                         // setSearchCondition({ ...searchCondition, searchCnd: e.target.value });
-                      }}
-                    >
+                      }}>
                       <option value="0">제목</option>
                       <option value="1">내용</option>
                       <option value="2">작성자</option>
@@ -187,8 +185,7 @@ function EgovAdminNoticeList(props) {
                           searchCnd: searchCnd,
                           searchWrd: searchWrd,
                         });
-                      }}
-                    >
+                      }}>
                       조회
                     </button>
                   </span>
@@ -221,8 +218,7 @@ function EgovAdminNoticeList(props) {
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
                   setSearchCondition({ ...searchCondition, pageIndex: passedPage });
-                }}
-              ></EgovPaging>
+                }}></EgovPaging>
               {/* <!--/ Paging --> */}
             </div>
 

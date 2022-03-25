@@ -62,8 +62,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
                 e.preventDefault();
                 onClickDownFile(item.atchFileId, item.fileSn);
               }}
-              download
-            >
+              download>
               {item.orignlFileNm}
             </a>
             <span>[{item.fileMg}byte]</span>
@@ -78,8 +77,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
               className="btn btn_delete"
               onClick={(e) => {
                 onClickDeleteFile(item.atchFileId, item.fileSn, index);
-              }}
-            ></button>
+              }}></button>
           </>,
         );
       }
@@ -100,8 +98,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
               name="file_0"
               id="egovComFileUploader"
               type="file"
-              onChange={(e) => onChangeFileInput(e)}
-            ></input>
+              onChange={(e) => onChangeFileInput(e)}></input>
           )}
         </span>
       </dd>

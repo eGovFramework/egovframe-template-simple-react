@@ -6,8 +6,6 @@ import URL from 'context/url';
 import CODE from 'context/code';
 
 import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavInform';
-import EgovPaging from 'egov/common/EgovPaging';
-import EgovAttachFile from 'egov/common/EgovAttachFile';
 
 function EgovWeeklyList(props) {
   console.group('EgovWeeklyList');
@@ -143,7 +141,7 @@ function EgovWeeklyList(props) {
         dayNames[scheduleDate.getDay()];
       keyPropertyCnt++;
       mutListTag.push(
-        <div class="list_item" key={keyPropertyCnt}>
+        <div className="list_item" key={keyPropertyCnt}>
           <div>{scheduleDateStr}</div>
           <div>
             {scheduleList.length === 0 && <span>일정이 존재하지 않습니다.</span>}

@@ -42,7 +42,7 @@ function EgovQnaList() {
             <div className="condition">
               <ul>
                 <li className="third_1 L">
-                  <label className="f_select" htmlfor="search_select">
+                  <label className="f_select" htmlFor="search_select">
                     <select name="search_select" id="search_select">
                       <option value="0" selected="selected">
                         전체
@@ -56,7 +56,7 @@ function EgovQnaList() {
                 <li className="third_2 R">
                   {/* <!-- 210806 수정 --> */}
                   <span className="f_search w_500">
-                    <input type="text" name="" placeholder="" />
+                    <input type="text" name="" placeholder="" aria-label="" />
                     <button type="button">조회</button>
                   </span>
                 </li>

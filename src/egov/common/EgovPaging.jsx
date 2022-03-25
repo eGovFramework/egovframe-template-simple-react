@@ -30,8 +30,7 @@ function EgovPaging(props) {
             onClick={(e) => {
               props.moveToPage(1);
             }}
-            className="first"
-          >
+            className="first">
             처음
           </button>
         </li>
@@ -46,8 +45,7 @@ function EgovPaging(props) {
             onClick={(e) => {
               props.moveToPage(prevPageIndex);
             }}
-            className="prev"
-          >
+            className="prev">
             이전
           </button>
         </li>
@@ -71,8 +69,7 @@ function EgovPaging(props) {
             <button
               onClick={(e) => {
                 props.moveToPage(i);
-              }}
-            >
+              }}>
               {i}
             </button>
           </li>
@@ -90,8 +87,7 @@ function EgovPaging(props) {
             onClick={(e) => {
               props.moveToPage(nextPageIndex);
             }}
-            className="next"
-          >
+            className="next">
             다음
           </button>
         </li>
@@ -105,8 +101,7 @@ function EgovPaging(props) {
             onClick={(e) => {
               props.moveToPage(totalPageCount);
             }}
-            className="last"
-          ></button>
+            className="last"></button>
         </li>
       );
       paginationTag.push(lastPageTag);

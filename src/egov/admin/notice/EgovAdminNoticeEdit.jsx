@@ -202,8 +202,9 @@ function EgovAdminNoticeEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) => setBoardDetail({ ...boardDetail, nttCn: e.target.value })}
-                  ></textarea>
+                    onChange={(e) =>
+                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
+                    }></textarea>
                 </dd>
               </dl>
               {modeInfo?.mode !== CODE.MODE_REPLY && (
@@ -230,8 +231,7 @@ function EgovAdminNoticeEdit(props) {
                     onClick={(e) => {
                       e.preventDefault();
                       updateBoard();
-                    }}
-                  >
+                    }}>
                     저장
                   </a>
                 </div>

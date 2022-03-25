@@ -138,8 +138,7 @@ function EgovAdminNoticeDetail(props) {
                   cols="30"
                   rows="10"
                   readOnly="readonly"
-                  defaultValue={boardDetail && boardDetail.nttCn}
-                ></textarea>
+                  defaultValue={boardDetail && boardDetail.nttCn}></textarea>
               </div>
               <div className="board_attach">
                 <EgovAttachFile boardFiles={boardAttachFiles} />
@@ -155,8 +154,7 @@ function EgovAdminNoticeDetail(props) {
                         bbsId: bbsId,
                       },
                     }}
-                    className="btn btn_skyblue_h46 w_100"
-                  >
+                    className="btn btn_skyblue_h46 w_100">
                     수정
                   </Link>
                   <a
@@ -165,8 +163,7 @@ function EgovAdminNoticeDetail(props) {
                     onClick={(e) => {
                       e.preventDefault();
                       onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
-                    }}
-                  >
+                    }}>
                     삭제
                   </a>
                   <Link
@@ -177,8 +174,7 @@ function EgovAdminNoticeDetail(props) {
                         bbsId: bbsId,
                       },
                     }}
-                    className="btn btn_skyblue_h46 w_100"
-                  >
+                    className="btn btn_skyblue_h46 w_100">
                     답글작성
                   </Link>
                 </div>
@@ -193,8 +189,7 @@ function EgovAdminNoticeDetail(props) {
                         searchCondition: searchCondition,
                       },
                     }}
-                    className="btn btn_blue_h46 w_100"
-                  >
+                    className="btn btn_blue_h46 w_100">
                     목록
                   </Link>
                 </div>

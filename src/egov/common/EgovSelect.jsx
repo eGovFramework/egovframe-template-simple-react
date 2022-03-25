@@ -11,8 +11,7 @@ function EgovSelect({ id, name, title, options, setValue, setter }) {
       onChange={() => {
         console.log('select Change!! : ', setValue);
         setter(setValue);
-      }}
-    >
+      }}>
       {options.map((option, i) => {
         let isSelect = option.value == setValue ? 'selected' : '';
         //let isSelect = option.value == setValue;

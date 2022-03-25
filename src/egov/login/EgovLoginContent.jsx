@@ -34,6 +34,7 @@ function EgovLoginContent(props) {
 
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         setLoginVO(resultVO);
+
         props.onChangeLogin(resultVO);
         history.push(URL.MAIN);
       } else {
