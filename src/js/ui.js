@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 $(() => {
   // 메인화면 미니보드
-  $('.mini_board .tab li a').on('click', (e) => {
+  $('.mini_board .tab li a').on('click', function (e) {
     e.preventDefault();
     $(this).addClass('on');
     $(this).parent().siblings().find('a').removeClass('on');
@@ -14,7 +14,7 @@ $(() => {
 
   /* 전체메뉴 */
   // 웹
-  $('.btnAllMenu').on('click', () => {
+  $('.btnAllMenu').on('click', function () {
     $(this).toggleClass('active');
     if ($('.all_menu.WEB').is(':visible')) {
       $('.all_menu.WEB').slideUp(150);
@@ -25,7 +25,7 @@ $(() => {
     }
   });
   // 모바일 전체메뉴 열기
-  $('.btnAllMenuM').on('click', () => {
+  $('.btnAllMenuM').on('click', function () {
     $('.all_menu.Mobile').stop().animate(
       {
         left: 0,
@@ -45,7 +45,7 @@ $(() => {
     $('.btnAllMenuM').attr('title', '전체메뉴 닫힘');
   });
   // Menu slide
-  $('.all_menu.Mobile h3 a').on('click', (e) => {
+  $('.all_menu.Mobile h3 a').on('click', function (e) {
     e.preventDefault();
     $(this).toggleClass('active');
     if ($(this).parent().next('ul').is(':visible')) {
@@ -97,5 +97,5 @@ $(() => {
       obj.hide();
     });
   };
-  $('.lnk_go_template').length && templateInit;
+  $('.lnk_go_template').length && templateInit();
 });
