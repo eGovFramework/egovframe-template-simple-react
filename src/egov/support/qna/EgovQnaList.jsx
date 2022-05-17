@@ -1,18 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Link} from "react-router-dom";
 
-import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
-import URL from 'context/url';
+import {default as EgovLeftNav} from "egov/common/leftmenu/EgovLeftNavSupport";
+import URL from "context/url";
 
 function EgovQnaList() {
-    return(
+    return (
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to="" className="home">Home</Link></li>
-                        <li><Link to="">고객지원</Link></li>
+                        <li>
+                            <Link to="" className="home">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="">고객지원</Link>
+                        </li>
                         <li>소개</li>
                     </ul>
                 </div>
@@ -27,18 +33,18 @@ function EgovQnaList() {
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
-                            <h1 className="tit_1">고객지원</h1>                            
+                            <h1 className="tit_1">고객지원</h1>
                         </div>
-                        
+
                         <h2 className="tit_2">묻고답하기(Q&amp;A)</h2>
 
                         {/* <!-- 검색조건 --> */}
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
-                                    <label className="f_select" htmlfor="search_select">
-                                        <select name="search_select" id="search_select">
-                                            <option value="0" selected="selected">전체</option>
+                                    <label className="f_select" htmlFor="search_select">
+                                        <select defaultValue={"0"} name="search_select" id="search_select">
+                                            <option value="0">전체</option>
                                             <option value="1">제목</option>
                                             <option value="2">제목/내용</option>
                                             <option value="3">작성자</option>
@@ -48,14 +54,14 @@ function EgovQnaList() {
                                 <li className="third_2 R">
                                     {/* <!-- 210806 수정 --> */}
                                     <span className="f_search w_500">
-                                        <input type="text" name="" placeholder=""/>
+                                        <input type="text" name="" placeholder="" />
                                         <button type="button">조회</button>
                                     </span>
                                 </li>
                             </ul>
                         </div>
                         {/* <!--// 검색조건 --> */}
-                        
+
                         {/* <!-- 게시판목록 --> */}
                         <div className="board_list BRD008">
                             <div className="head">
@@ -68,7 +74,7 @@ function EgovQnaList() {
                             <div className="result">
                                 {/* <!-- case : 데이터 없을때 --> */}
                                 {/* <p className="no_data">검색된 결과가 없습니다.</p> */}
-                                
+
                                 {/* <!-- case : 데이터 있을때 --> */}
                                 <Link to={URL.SUPPORT_QNA_DETAIL} className="list_item">
                                     <div>3</div>
@@ -99,15 +105,43 @@ function EgovQnaList() {
                             {/* <!-- Paging --> */}
                             <div className="paging">
                                 <ul>
-                                    <li className="btn"><button to="" className="first">처음</button></li>
-                                    <li className="btn"><button to="" className="prev">이전</button></li>
-                                    <li><button to="" className="cur">1</button></li>
-                                    <li><button to="">2</button></li>
-                                    <li><button to="">3</button></li>
-                                    <li><button to="">4</button></li>
-                                    <li><button to="">5</button></li>
-                                    <li className="btn"><button to="" className="next">다음</button></li>
-                                    <li className="btn"><button to="" className="last">마지막</button></li>
+                                    <li className="btn">
+                                        <button to="" className="first">
+                                            처음
+                                        </button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="" className="prev">
+                                            이전
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button to="" className="cur">
+                                            1
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button to="">2</button>
+                                    </li>
+                                    <li>
+                                        <button to="">3</button>
+                                    </li>
+                                    <li>
+                                        <button to="">4</button>
+                                    </li>
+                                    <li>
+                                        <button to="">5</button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="" className="next">
+                                            다음
+                                        </button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="" className="last">
+                                            마지막
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                             {/* <!--/ Paging --> */}
@@ -119,7 +153,6 @@ function EgovQnaList() {
             </div>
         </div>
     );
-
 }
 
 export default EgovQnaList;
