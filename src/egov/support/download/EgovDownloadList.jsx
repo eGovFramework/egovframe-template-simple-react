@@ -1,18 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Link} from "react-router-dom";
 
-import { default as EgovLeftNav } from 'egov/common/leftmenu/EgovLeftNavSupport';
-import URL from 'context/url';
+import {default as EgovLeftNav} from "egov/common/leftmenu/EgovLeftNavSupport";
+import URL from "context/url";
 
 function EgovDownloadList() {
-    return(
+    return (
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><Link to="" className="home">Home</Link></li>
-                        <li><Link to="">고객지원</Link></li>
+                        <li>
+                            <Link to="" className="home">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="">고객지원</Link>
+                        </li>
                         <li>소개</li>
                     </ul>
                 </div>
@@ -27,9 +33,9 @@ function EgovDownloadList() {
                         {/* <!-- 본문 --> */}
 
                         <div className="top_tit">
-                            <h1 className="tit_1">고객지원</h1>                            
+                            <h1 className="tit_1">고객지원</h1>
                         </div>
-                        
+
                         <h2 className="tit_2">자료실</h2>
 
                         {/* <!-- 검색조건 --> */}
@@ -37,8 +43,8 @@ function EgovDownloadList() {
                             <ul>
                                 <li className="third_1 L">
                                     <label className="f_select" htmlFor="sel1">
-                                        <select name="search_select" id="search_select">
-                                            <option value="0" selected="selected">전체</option>
+                                        <select defaultValue={"0"} name="search_select" id="search_select">
+                                            <option value="0">전체</option>
                                             <option value="1">제목</option>
                                             <option value="2">제목/내용</option>
                                             <option value="3">작성자</option>
@@ -48,12 +54,14 @@ function EgovDownloadList() {
                                 <li className="third_2 R">
                                     {/* <!-- 210806 수정 --> */}
                                     <span className="f_search w_500">
-                                        <input type="text" name="" placeholder=""/>
+                                        <input type="text" name="" placeholder="" />
                                         <button type="button">조회</button>
                                     </span>
                                 </li>
                                 <li>
-                                    <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_blue_h46 pd35">등록</Link>
+                                    <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_blue_h46 pd35">
+                                        등록
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -65,45 +73,37 @@ function EgovDownloadList() {
                             <ul>
                                 <li>
                                     <Link to={URL.SUPPORT_DOWNLOAD_DETAIL}>
-                                        <img src="/assets/images/sample_pds_list.png" alt=""/>
+                                        <img src="/assets/images/sample_pds_list.png" alt="" />
                                         <span>
                                             <strong>egovframe installer v1.03</strong>
-                                            <span>egovframe의 템플릿 설치를 도와주는 
-                                                인스톨러.....egovframe의 템플릿 
-                                                설치를 도와주는 인스톨러</span>
+                                            <span>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</span>
                                         </span>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to={URL.SUPPORT_DOWNLOAD_DETAIL}>
-                                        <img src="/assets/images/sample_pds_list.png" alt=""/>
+                                        <img src="/assets/images/sample_pds_list.png" alt="" />
                                         <span>
                                             <strong>egovframe installer v1.03</strong>
-                                            <span>egovframe의 템플릿 설치를 도와주는 
-                                                인스톨러.....egovframe의 템플릿 
-                                                설치를 도와주는 인스톨러</span>
+                                            <span>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</span>
                                         </span>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to={URL.SUPPORT_DOWNLOAD_DETAIL}>
-                                        <img src="/assets/images/sample_pds_list.png" alt=""/>
+                                        <img src="/assets/images/sample_pds_list.png" alt="" />
                                         <span>
                                             <strong>egovframe installer v1.03</strong>
-                                            <span>egovframe의 템플릿 설치를 도와주는 
-                                                인스톨러.....egovframe의 템플릿 
-                                                설치를 도와주는 인스톨러</span>
+                                            <span>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</span>
                                         </span>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to={URL.SUPPORT_DOWNLOAD_DETAIL}>
-                                        <img src="/assets/images/sample_pds_list.png" alt=""/>
+                                        <img src="/assets/images/sample_pds_list.png" alt="" />
                                         <span>
                                             <strong>egovframe installer v1.03</strong>
-                                            <span>egovframe의 템플릿 설치를 도와주는 
-                                                인스톨러.....egovframe의 템플릿 
-                                                설치를 도와주는 인스톨러</span>
+                                            <span>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</span>
                                         </span>
                                     </Link>
                                 </li>
@@ -182,7 +182,7 @@ function EgovDownloadList() {
                             <div className="result">
                                 {/* <!-- case : 데이터 없을때 --> */}
                                 {/* <p className="no_data">검색된 결과가 없습니다.</p> */}
-                                
+
                                 {/* <!-- case : 데이터 있을때 --> */}
                                 <Link to={URL.SUPPORT_DOWNLOAD_DETAIL} className="list_item">
                                     <div>3</div>
@@ -213,26 +213,55 @@ function EgovDownloadList() {
                             {/* <!-- Paging --> */}
                             <div className="paging">
                                 <ul>
-                                    <li className="btn"><button to="#" className="first">처음</button></li>
-                                    <li className="btn"><button to="#" className="prev">이전</button></li>
-                                    <li><button to="#" className="cur">1</button></li>
-                                    <li><button to="#">2</button></li>
-                                    <li><button to="#">3</button></li>
-                                    <li><button to="#">4</button></li>
-                                    <li><button to="#">5</button></li>
-                                    <li className="btn"><button to="#" className="next">다음</button></li>
-                                    <li className="btn"><button to="#" className="last">마지막</button></li>
+                                    <li className="btn">
+                                        <button to="#" className="first">
+                                            처음
+                                        </button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="#" className="prev">
+                                            이전
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button to="#" className="cur">
+                                            1
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button to="#">2</button>
+                                    </li>
+                                    <li>
+                                        <button to="#">3</button>
+                                    </li>
+                                    <li>
+                                        <button to="#">4</button>
+                                    </li>
+                                    <li>
+                                        <button to="#">5</button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="#" className="next">
+                                            다음
+                                        </button>
+                                    </li>
+                                    <li className="btn">
+                                        <button to="#" className="last">
+                                            마지막
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                             {/* <!--/ Paging --> */}
                         </div>
 
                         <div className="board_btn_area">
-                            <div className="left_col btn1">
-                            </div>
+                            <div className="left_col btn1"></div>
 
                             <div className="right_col btn1">
-                                <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_upload"><span>자료 올리기</span></Link>
+                                <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_upload">
+                                    <span>자료 올리기</span>
+                                </Link>
                             </div>
                         </div>
 
