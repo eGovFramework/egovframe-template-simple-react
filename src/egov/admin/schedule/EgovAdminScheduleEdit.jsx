@@ -101,6 +101,7 @@ function EgovAdminScheduleEdit(props) {
 
     const updateSchedule = () => {
         const formData = new FormData();
+        const jToken = localStorage.getItem('jToken');
         for (let key in scheduleDetail) {
             formData.append(key, scheduleDetail[key]);
             console.log("scheduleDetail [%s] ", key, scheduleDetail[key]);
@@ -110,6 +111,7 @@ function EgovAdminScheduleEdit(props) {
             const requestOptions = {
                 method: "POST",
                 headers: {
+                    'Authorization': jToken
                 },
                 body: formData
             }

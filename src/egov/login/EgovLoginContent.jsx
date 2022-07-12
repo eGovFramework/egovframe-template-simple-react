@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import * as EgovNet from 'context/egovFetch';
@@ -14,13 +14,46 @@ function EgovLoginContent(props) {
     const history = useHistory();
     console.log("EgovLoginContent [history] : ", history);
 
-    const [userInfo, setUserInfo] = useState({ id: 'default', password: 'default', userSe: 'USR' });
+    const [userInfo, setUserInfo] = useState({ id: '', password: 'default', userSe: 'USR' });
     const [loginVO, setLoginVO] = useState({});
+
+    const [saveIDFlag, setSaveIDFlag] = useState(false);
+
+    const checkRef = useRef();
+
+    const KEY_ID = "KEY_ID";
+    const KEY_SAVE_ID_FLAG = "KEY_SAVE_ID_FLAG";
+
+    const handleSaveIDFlag = () => {
+        localStorage.setItem(KEY_SAVE_ID_FLAG, !saveIDFlag);
+        setSaveIDFlag(!saveIDFlag);
+    };
+
+    let idFlag = JSON.parse(localStorage.getItem(KEY_SAVE_ID_FLAG));
+
+    useEffect(() => {
+
+        if (idFlag === null) {
+            setSaveIDFlag(false);
+            idFlag = false;
+        }
+        if (idFlag !== null) setSaveIDFlag(idFlag);
+        if (idFlag === false) localStorage.setItem(KEY_ID, "");
+        if (idFlag === false) {
+            checkRef.current.className = "f_chk"
+        } else {
+            checkRef.current.className = "f_chk on"
+        };
+      
+        let data = localStorage.getItem(KEY_ID);
+        if (data !== null) setUserInfo({ ...userInfo, id: data });
+      }, [idFlag]);
 
     const submitFormHandler = (e) => {
         console.log("EgovLoginContent submitFormHandler()");
         
-        const loginUrl = "/uat/uia/actionLoginAPI.do"
+        //const loginUrl = "/uat/uia/actionLoginAPI.do"
+        const loginUrl = "/uat/uia/actionLoginJWT.do"
         const requestOptions = {
             method: "POST",
             headers: {
@@ -33,10 +66,14 @@ function EgovLoginContent(props) {
             requestOptions,
             (resp) => {
                 let resultVO = resp.resultVO;
+                let jToken = resp?.jToken
+
+                localStorage.setItem('jToken', jToken);
 
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     setLoginVO(resultVO);
                     props.onChangeLogin(resultVO);
+                    if (saveIDFlag) localStorage.setItem(KEY_ID, resultVO?.id);
                     history.push(URL.MAIN);
                 } else {
                     alert(resp.resultMessage)
@@ -59,14 +96,14 @@ function EgovLoginContent(props) {
                         <fieldset>
                             <legend>로그인</legend>
                             <span className="group">
-                                <input type="text" name="" title="아이디" placeholder="아이디"
+                                <input type="text" name="" title="아이디" placeholder="아이디" value={userInfo?.id}
                                     onChange={e => setUserInfo({ ...userInfo, id: e.target.value })} />
                                 <input type="password" name="" title="비밀번호" placeholder="비밀번호"
                                     onChange={e => setUserInfo({ ...userInfo, password: e.target.value })} />
                             </span>
                             <div className="chk">
-                                <label className="f_chk" htmlFor="saveid">
-                                    <input type="checkbox" name="" id="saveid" /> <em>ID저장</em>
+                                <label className="f_chk" htmlFor="saveid" ref={checkRef}>
+                                    <input type="checkbox" name="" id="saveid" onChange={handleSaveIDFlag} checked={saveIDFlag}/> <em>ID저장</em>
                                 </label>
                             </div>
                             <button type="button" onClick={submitFormHandler}><span>LOGIN</span></button>

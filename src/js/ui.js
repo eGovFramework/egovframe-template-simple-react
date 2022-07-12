@@ -55,7 +55,7 @@ $(function() {
         // Checkbox
         $('.f_chk').on('keyup', function(e) {
             e.preventDefault();
-            if (window.event.keyCode == 13) {
+            if (window.event.keyCode === 13) {
                 $(this).toggleClass('on');
                 if ( $(this).find('input').prop('checked') ) {
                     $(this).find('input').prop('checked', false);

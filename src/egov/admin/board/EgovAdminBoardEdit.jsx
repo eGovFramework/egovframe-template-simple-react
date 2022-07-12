@@ -60,11 +60,13 @@ function EgovAdminBoardEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
+        const jToken = localStorage.getItem('jToken');
 
         const requestOptions = {
             method: "POST",
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': jToken
             },
             body: JSON.stringify({
                 bbsId: bbsId
@@ -84,6 +86,7 @@ function EgovAdminBoardEdit(props) {
 
     const updateBoard = () => {
         const formData = new FormData();
+        const jToken = localStorage.getItem('jToken');
         for (let key in boardDetail) {
             formData.append(key, boardDetail[key]);
             console.log("boardDetail [%s] ", key, boardDetail[key]);
@@ -92,6 +95,7 @@ function EgovAdminBoardEdit(props) {
         const requestOptions = {
             method: "POST",
             headers: {
+                'Authorization': jToken
             },
             body: formData
         }
@@ -110,10 +114,12 @@ function EgovAdminBoardEdit(props) {
 
     const deleteBoardArticle = (bbsId) => {
         const deleteBoardURL = "/cop/bbs/deleteBBSMasterInfAPI.do";
+        const jToken = localStorage.getItem('jToken');
         const requestOptions = {
             method: "POST",
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': jToken
             },
             body: JSON.stringify({
                 bbsId: bbsId
