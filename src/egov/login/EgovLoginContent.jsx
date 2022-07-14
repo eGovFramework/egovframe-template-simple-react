@@ -29,7 +29,13 @@ function EgovLoginContent(props) {
         setSaveIDFlag(!saveIDFlag);
     };
 
-    let idFlag = JSON.parse(localStorage.getItem(KEY_SAVE_ID_FLAG));
+    let idFlag;
+        try {
+            idFlag = JSON.parse(localStorage.getItem(KEY_SAVE_ID_FLAG));
+        }
+        catch(err) {
+            idFlag = null;
+        } 
 
     useEffect(() => {
 
