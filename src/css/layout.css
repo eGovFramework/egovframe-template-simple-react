@@ -28,9 +28,10 @@ body {min-width: 1400px;}
 .header .right_a .btn.mobile {display: none;}
 
 /* All menu */
-.all_menu {z-index: 10;}
-.all_menu.Mobile {display: none;}
-.all_menu.WEB {display: none; position: absolute; left: 0; top: 150px; width: 100%; background: #fff;}
+.all_menu {transition: transform .2s ease-in-out, opacity .2s ease-in-out; transform-origin: top; z-index: 10;}
+.all_menu.Mobile { display: none; }
+.all_menu.WEB.closed { transform: scaleY(0); opacity: 0; }
+.all_menu.WEB {position: absolute; left: 0; top: 150px; width: 100%; background: #fff;}
 .all_menu.WEB::after {content: ""; display: block; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: #ddd;}
 .all_menu.WEB .inner {width: 1400px; margin: 0 auto; padding: 41px 50px 47px 50px;}
 .all_menu.WEB .inner::after {content: ""; display: block; clear: both;}

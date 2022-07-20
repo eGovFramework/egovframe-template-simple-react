@@ -113,8 +113,8 @@ function EgovMain(props) {
                     <div className="right_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><Link to={URL.INFORM_NOTICE} className="on">공지사항</Link></li>
-                                <li><Link to={URL.INFORM_GALLERY}>갤러리</Link></li>
+                                <li><a href="#공지사항" className="on">공지사항</a></li>
+                                <li><a href="#갤러리">갤러리</a></li>
                             </ul>
                             <div className="list">
                                 <div className="notice">

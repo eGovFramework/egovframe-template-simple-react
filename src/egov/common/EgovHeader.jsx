@@ -83,7 +83,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
             </div>
 
             {/* <!-- All menu : web --> */}
-            <div className="all_menu WEB">
+            <div className="all_menu WEB closed">
                 <h2 className="blind">전체메뉴</h2>
                 <div className="inner">
                     <div className="col">
@@ -134,7 +134,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                 </div>
             </div>
             {/* <!-- All menu : mobile --> */}
-            <div className="all_menu Mobile">
+            <div className="all_menu Mobile closed">
                 <div className="user_info_m">
                     {/* 로그아웃 : 로그인 정보 있을때 */}
                     {loginUser?.id &&
@@ -152,40 +152,50 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                 </div>
                 <div className="menu">
                     <h3><Link to={URL.ABOUT}>사이트소개</Link></h3>
-                    <ul>
-                        <li><NavLink to={URL.ABOUT_SITE} activeClassName="cur">소개</NavLink></li>
-                        <li><NavLink to={URL.ABOUT_HISTORY} activeClassName="cur">연혁</NavLink></li>
-                        <li><NavLink to={URL.ABOUT_ORGANIZATION} activeClassName="cur">조직소개</NavLink></li>
-                        <li><NavLink to={URL.ABOUT_LOCATION} activeClassName="cur">찾아오시는 길</NavLink></li>
-                    </ul>
+                    <div className="submenu closed">
+                        <ul>
+                            <li><NavLink to={URL.ABOUT_SITE} activeClassName="cur">소개</NavLink></li>
+                            <li><NavLink to={URL.ABOUT_HISTORY} activeClassName="cur">연혁</NavLink></li>
+                            <li><NavLink to={URL.ABOUT_ORGANIZATION} activeClassName="cur">조직소개</NavLink></li>
+                            <li><NavLink to={URL.ABOUT_LOCATION} activeClassName="cur">찾아오시는 길</NavLink></li>
+                        </ul>
+                    </div>
                     <h3><Link to={URL.INTRO}>정보마당</Link></h3>
-                    <ul>
-                        <li><NavLink to={URL.INTRO_WORKS} activeClassName="cur">주요사업 소개</NavLink></li>
-                        <li><NavLink to={URL.INTRO_SERVICE} activeClassName="cur">대표서비스 소개</NavLink></li>
-                    </ul>
+                    <div className="submenu closed">
+                        <ul>
+                            <li><NavLink to={URL.INTRO_WORKS} activeClassName="cur">주요사업 소개</NavLink></li>
+                            <li><NavLink to={URL.INTRO_SERVICE} activeClassName="cur">대표서비스 소개</NavLink></li>
+                        </ul>
+                    </div>
                     <h3><Link to={URL.SUPPORT}>고객지원</Link></h3>
-                    <ul>
-                        <li><NavLink to={URL.SUPPORT_DOWNLOAD} activeClassName="cur">자료실</NavLink></li>
-                        <li><NavLink to={URL.SUPPORT_QNA} activeClassName="cur">묻고 답하기</NavLink></li>
-                        <li><NavLink to={URL.SUPPORT_APPLY} activeClassName="cur">서비스 신청</NavLink></li>
-                    </ul>
+                    <div className="submenu closed">
+                        <ul>
+                            <li><NavLink to={URL.SUPPORT_DOWNLOAD} activeClassName="cur">자료실</NavLink></li>
+                            <li><NavLink to={URL.SUPPORT_QNA} activeClassName="cur">묻고 답하기</NavLink></li>
+                            <li><NavLink to={URL.SUPPORT_APPLY} activeClassName="cur">서비스 신청</NavLink></li>
+                        </ul>
+                    </div>
                     <h3><Link to={URL.INFORM}>알림마당</Link></h3>
-                    <ul>
-                        <li><NavLink to={URL.INFORM_DAILY}>오늘의 행사</NavLink></li>
-                        <li><NavLink to={URL.INFORM_WEEKLY} activeClassName="cur">금주의 행사</NavLink></li>
-                        <li><NavLink to={URL.INFORM_NOTICE} activeClassName="cur">공지사항</NavLink></li>
-                        <li><NavLink to={URL.INFORM_GALLERY} activeClassName="cur">사이트 갤러리</NavLink></li>
-                    </ul>
+                    <div className="submenu closed">
+                        <ul>
+                            <li><NavLink to={URL.INFORM_DAILY}>오늘의 행사</NavLink></li>
+                            <li><NavLink to={URL.INFORM_WEEKLY} activeClassName="cur">금주의 행사</NavLink></li>
+                            <li><NavLink to={URL.INFORM_NOTICE} activeClassName="cur">공지사항</NavLink></li>
+                            <li><NavLink to={URL.INFORM_GALLERY} activeClassName="cur">사이트 갤러리</NavLink></li>
+                        </ul>
+                    </div>
                     {loginUser?.id &&
                         <>
                             <h3><Link to={URL.ADMIN}>사이트관리</Link></h3>
-                            <ul>
-                                <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
-                                <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
-                            </ul>
+                            <div className="submenu closed">
+                                <ul>
+                                    <li><NavLink to={URL.ADMIN_SCHEDULE} activeClassName="cur">일정관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_BOARD} activeClassName="cur">게시판생성관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_USAGE} activeClassName="cur">게시판사용관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_NOTICE} activeClassName="cur">공지사항관리</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_GALLERY} activeClassName="cur">사이트갤러리관리</NavLink></li>
+                                </ul>
+                            </div>
                         </>
                     }
                 </div>
