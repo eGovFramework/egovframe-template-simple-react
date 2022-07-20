@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import URL from 'context/url';
@@ -66,7 +66,7 @@ import EgovAdminGalleryList from 'egov/admin/gallery/EgovAdminGalleryList';
 import EgovAdminGalleryDetail from 'egov/admin/gallery/EgovAdminGalleryDetail';
 import EgovAdminGalleryEdit from 'egov/admin/gallery/EgovAdminGalleryEdit';
 
-import './js/ui';
+import initPage from './js/ui';
 
 import './css/base.css';
 import './css/layout.css';
@@ -76,6 +76,11 @@ import './css/response.css';
 
 function App() {
   const [loginVO, setLoginVO] = useState({});
+
+  useEffect(() => {
+    initPage();
+  });
+
   return (
     <div className="wrap">
       <Switch>

@@ -20,7 +20,8 @@
 
     .all_menu.WEB {display: none !important;}
 
-    .all_menu.Mobile {display: block; position: fixed; left: -800px; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto;}
+    .all_menu.Mobile {display: block; position: fixed; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto;}
+    .all_menu.Mobile.closed { transform: translateX(-800px); }
     .user_info_m {display: block; position: relative; height: 70px; padding: 0 20px; color: #666; font-size: 12px; line-height: 70px; background: #fff;}
     .user_info_m .person {color: #169bd5; font-weight: 700; letter-spacing: -1px;}
     .user_info_m .person::before {content: ""; display: inline-block; width: 22px; height: 22px; margin-right: 9px; background: url(css/images/ico_person.png) no-repeat; background-size: contain; vertical-align: -6px;}
@@ -34,7 +35,9 @@
     .all_menu.Mobile h3 a {display: block; position: relative; padding: 20px; color: #222; font-size: 15px; background: #fff;}
     .all_menu.Mobile h3 a::after {content: ""; display: block; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 18px; height: 10px; background: url(css/images/ico_arrow_black_36x20.png) no-repeat; background-size: contain;}
     .all_menu.Mobile h3 a.active::after {transform: translateY(-50%) rotate(180deg);}
-    .all_menu.Mobile ul {display: none; padding: 9px 0; background: #f5f8fa;}
+    .all_menu.Mobile .submenu { overflow: hidden; transition: height .2s ease-in-out, padding .2s ease-in-out; }
+    .all_menu.Mobile .submenu.closed { height: 0; }
+    .all_menu.Mobile ul { padding: 9px 0; background: #f5f8fa; }
     .all_menu.Mobile ul li a {display: block; padding: 11px 30px; color: #222; font-size: 14px;}
 
     .c_wrap {width: 100%; padding: 0;}
