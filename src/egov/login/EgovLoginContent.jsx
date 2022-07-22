@@ -44,8 +44,8 @@ function EgovLoginContent(props) {
             idFlag = false;
         }
         if (idFlag !== null) setSaveIDFlag(idFlag);
-        if (idFlag === false) localStorage.setItem(KEY_ID, "");
         if (idFlag === false) {
+            localStorage.setItem(KEY_ID, "");
             checkRef.current.className = "f_chk"
         } else {
             checkRef.current.className = "f_chk on"
