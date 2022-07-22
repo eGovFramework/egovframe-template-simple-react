@@ -98,11 +98,13 @@ function EgovGalleryEdit(props) {
             formData.append(key, boardDetail[key]);
             //console.log("boardDetail [%s] ", key, boardDetail[key]);
         }
+
+        const jToken = localStorage.getItem('jToken');
         
         const requestOptions = {
             method: "POST",
             headers: {
-
+                'Authorization': jToken
             },
             body: formData
         }
