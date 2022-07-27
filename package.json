@@ -19,7 +19,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write --config ./.prettierrc.js \"**/*.{js,jsx}\"",
+    "lint": "eslint --ext .jsx --ext .js ./src",
+    "lint:fix": "eslint ./src/**/*.{jsx,js} --fix",
+    "format": "prettier --check ./src/**/*.{jsx,js}",
+    "write": "prettier --write \"**/*.js\" && prettier --write \"**/*.jsx\"",
+    "stylelint":  "stylelint --ignore-path .gitignore '**/*.css'",
+    "stylelint:fix":  "stylelint --ignore-path .gitignore '**/*.css' --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -38,5 +46,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
+    "stylelint": "^14.9.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^26.0.0"
   }
 }

@@ -32,10 +32,10 @@
 /* Board */
 .board_list {border-top: 2px solid #222;}
 .board_list .head {display: table; table-layout: fixed; width: 100%;}
-.board_list .head > span {display: table-cell; padding: 25px 0 27px 0; border-bottom: 1px solid #888; font-size: 16px; font-weight: 500px; text-align: center;}
+.board_list .head > span {display: table-cell; padding: 25px 0 27px; border-bottom: 1px solid #888; font-size: 16px; font-weight: 500px; text-align: center;}
 .board_list .result .list_item {display: table; width: 100%; table-layout: fixed;}
-.board_list .result .list_item > div {display: table-cell; padding: 18px 0 20px 0; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; text-align: center; vertical-align: middle;}
-.board_list .result .list_item > div.al {padding: 18px 30px 20px 30px; text-align: left;}
+.board_list .result .list_item > div {display: table-cell; padding: 18px 0 20px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; text-align: center; vertical-align: middle;}
+.board_list .result .list_item > div.al {padding: 18px 30px 20px; text-align: left;}
 .board_list .result .list_item > div.reply {position: relative; padding: 18px 30px 20px 52px;}
 .board_list .result .list_item > div.reply::before {content: ""; display: block; position: absolute; left: 27px; top: 24px; width: 22px; height: 14px; background: url(css/images/ico_reply.png) no-repeat;}
 .board_list .no_data {height: 60px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; line-height: 60px; text-align: center;}
@@ -59,6 +59,7 @@
 .board_view_top {border-bottom: 1px solid #dde2e5;}
 .board_view_top .tit {padding: 21px; border-bottom: 1px solid #888; color: #222; font-size: 18px; font-weight: 500; text-align: center;}
 .board_view_top .info {font-size: 0;}
+
 .board_view_top .info dl,
 .board_view_top .info dt,
 .board_view_top .info dd {display: inline-block; font-size: 16px; vertical-align: top;}
@@ -96,6 +97,7 @@
 .board_view2 dl dt .req {display: inline-block; width: 7px; height: 7px; margin-left: 2px; font-size: 0; background: url(css/images/ico_req.png) no-repeat; vertical-align: 17px;}
 .board_view2 dl dd {padding: 12px 15px; color: #222; font-size: 16px; font-weight: 300;}
 .board_view2 .file_add {margin-top: 5px;}
+
 .board_view2 .f_select,
 .board_view2 .f_input2 {vertical-align: top;}
 
@@ -133,7 +135,7 @@
 
 .qna_a {position: relative; padding: 8px 30px 3px 75px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; font-weight: 300; line-height: 30px;}
 .qna_a > span {display: block; position: absolute; left: 30px; top: 30px; width: 32px; height: 32px; border-radius: 50%; color: #fff; font-size: 20px; line-height: 32px; text-align: center; background: #fc8175;}
-.qna_a ul li {position: relative; padding: 21px 0 30px 0; border-bottom: 1px dashed #dde2e5;}
+.qna_a ul li {position: relative; padding: 21px 0 30px; border-bottom: 1px dashed #dde2e5;}
 .qna_a ul li:last-child {border-bottom: 0;}
 .qna_a ul li span {display: block;}
 .qna_a ul li .delete {position: absolute; right: 20px; bottom: 11px; color: #222; font-size: 16px; font-weight: 300;}
@@ -167,6 +169,7 @@
 
 /* Condition */
 .condition {padding: 26px; border: 1px solid #dde2e5; border-radius: 10px; font-size: 0; text-align: center;}
+
 .condition > ul,
 .condition > ul li {display: inline-block; vertical-align: top;}
 .condition > ul li + li {margin-left: 20px;}
@@ -186,21 +189,23 @@ input[type=password],
 input[type=email],
 input[type=search],
 input[type=image],
-input[type=tel] {-webkit-border-radius: 0; -webkit-appearance: none;}
+input[type=tel] {border-radius: 0; appearance: none;}
 
 /* for IE10 */
 input::placeholder {color: #aaa; opacity: 1; /* 파이어폭스에서 뿌옇게 나오는 현상을 방지하기 위한 css */}
-input::-webkit-input-placeholder {color: #aaa;}
+input::input-placeholder {color: #aaa;}
+
 /* IE */
-input:-ms-input-placeholder {color: #aaa;}
+input:input-placeholder {color: #aaa;}
 input[type=text]::-ms-clear {display:none;}
+
 /* Firefox */
 input:-mos-input-placeholder {color: #aaa;}
 
-select {font-family: 'NotoSans', sans-serif; font-weight: 400;
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    -webkit-border-radius: 0;
+select {font-family: NotoSans, sans-serif; font-weight: 400;
+    appearance:none; /* Firefox */
+    appearance:none; /* Safari and Chrome */
+    border-radius: 0;
     appearance:none;}
 select::-ms-expand {display:none;}
 

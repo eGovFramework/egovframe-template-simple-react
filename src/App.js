@@ -81,19 +81,14 @@ function App() {
       <Switch>
         <Route exact path={URL.ERROR} component={EgovError} />
         <Route>
-          <EgovHeader
-            loginUser={loginVO}
-            onChangeLogin={(user) => setLoginVO(user)}
-          ></EgovHeader>
+          <EgovHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)}></EgovHeader>
           <Switch>
             {/* MAIN */}
             <Route exact path={URL.MAIN} component={EgovMain} />
 
             {/* LOGIN */}
             <Route exact path={URL.LOGIN}>
-              <EgovLogin
-                onChangeLogin={(user) => setLoginVO(user)}
-              ></EgovLogin>
+              <EgovLogin onChangeLogin={(user) => setLoginVO(user)}></EgovLogin>
             </Route>
 
             {/* ERROR */}
@@ -173,18 +168,16 @@ function App() {
             <Route path={URL.ADMIN_GALLERY_CREATE} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
             <Route path={URL.ADMIN_GALLERY_MODIFY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
             <Route path={URL.ADMIN_GALLERY_REPLY} render={() => <EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
-
           </Switch>
           <EgovFooter></EgovFooter>
           <EgovInfoPopup></EgovInfoPopup>
         </Route>
       </Switch>
-
     </div>
-  )
+  );
 }
 
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-console.log("process.env.REACT_APP_EGOV_CONTEXT_URL", process.env.REACT_APP_EGOV_CONTEXT_URL);
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('process.env.REACT_APP_EGOV_CONTEXT_URL', process.env.REACT_APP_EGOV_CONTEXT_URL);
 
 export default App;

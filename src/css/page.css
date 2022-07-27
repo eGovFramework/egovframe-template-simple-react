@@ -5,11 +5,13 @@
 .Plogin .txt {margin-top: 43px; color: #666; font-size: 20px; line-height: 30px; text-align: center;}
 .Plogin .login_box {position: relative; width: 690px; margin: 54px auto 0; padding: 70px 95px ; border: 1px solid #dde2e5; border-radius: 25px; box-shadow: 3px 4px 5px #ccc;}
 .Plogin .login_box .group {display: block; width: 320px;}
+
 .Plogin .login_box input[type=text],
 .Plogin .login_box input[type=password] {width: 100%; height: 46px; padding: 0 20px; border: 0; border-radius: 8px; color: #666; font-size: 16px; background: #f5f5f5;}
 .Plogin .login_box .group input + input {margin-top: 18px;}
-.Plogin .login_box input[type=text]:-ms-input-placeholder,
-.Plogin .login_box input[type=password]:-ms-input-placeholder {color: #aaa; opacity: 1;}
+
+.Plogin .login_box input[type=text]:input-placeholder,
+.Plogin .login_box input[type=password]:input-placeholder {color: #aaa; opacity: 1;}
 .Plogin .login_box button {display: block; position: absolute; left: 435px; top: 70px; width: 160px; height: 110px; border-radius: 8px; color: #fff; font-size: 20px; font-weight: 500; text-align: center; line-height: 110px; background: #169bd5;}
 .Plogin .login_box button span {display: block; position: relative; height: 100%;}
 .Plogin .login_box .chk {margin-top: 20px; font-size: 0;}
@@ -22,6 +24,7 @@
 
 
 /* Board */
+
     /* 메인 */
     .P_MAIN {position: relative; background: #f5f5f5;}
     .P_MAIN::before {content: ""; display: block; position: absolute; left: 0; top: 0; width: 100%; height: 360px; background: #fff;}
@@ -58,7 +61,7 @@
     .P_MAIN .banner > a:nth-child(1) {margin-right: 10px;}
     .P_MAIN .banner > a:nth-child(2) {margin-left: 10px;}
 
-    .P_MAIN .banner_bot {padding: 60px 0 70px 0;}
+    .P_MAIN .banner_bot {padding: 60px 0 70px;}
     .P_MAIN .banner_bot::after {content: ""; display: block; clear: both;}
     .P_MAIN .banner_bot > div {float: left; width: 310px; height: 480px; padding: 0 30px; border-radius: 30px; text-align: center; background: #fff;}
     .P_MAIN .banner_bot > div + div {margin-left: 20px;}
@@ -191,7 +194,7 @@
     .BRD007 .result .list_item > div:nth-child(4) {width: 90px;}
     .BRD007 .result .list_item > div:nth-child(5) {width: 120px;}
 
-    .PDS_REG .pds_desc_edit {margin: 14px 0 30px 0;}
+    .PDS_REG .pds_desc_edit {margin: 14px 0 30px;}
 
 
     /* 묻고답하기 */
@@ -283,14 +286,14 @@
     .ERROR h1 {color: #222; font-size: 48px; font-weight: 500; text-align: center;}
     .ERROR .box {margin-top: 35px; padding: 30px; border: 1px solid #dde2e5; border-radius: 25px;}
     .ERROR .box p {display: flex; position: relative; min-height: 128px; padding-left: 168px; color: #666; font-size: 24px; font-weight: 400; align-items: center;}
-    .ERROR .box p::before {content: ""; display: block; position: absolute; left: 10px; top: 0px; width: 128px; height: 128px; background: url(css/images/ico_error.png) no-repeat;}
+    .ERROR .box p::before {content: ""; display: block; position: absolute; left: 10px; top: 0; width: 128px; height: 128px; background: url(css/images/ico_error.png) no-repeat;}
     .ERROR .box .btn_area {margin-top: 20px; text-align: center;}
 
     .calendar_list {border-top: 2px solid #222;}
     .calendar_list thead th {height: 70px; border-bottom: 1px solid #888; color: #000; font-size: 16px; font-weight: 400; line-height: 70px;}
     .calendar_list thead th:first-child {color: #eb6877;}
     .calendar_list thead th:last-child {color: #169bd5;}
-    .calendar_list tbody td {height: 90px; padding: 18px 0 20px 0; border-right: 1px solid #c8d0d5; border-bottom: 1px solid #c8d0d5; text-align: center; vertical-align: top;}
+    .calendar_list tbody td {height: 90px; padding: 18px 0 20px; border-right: 1px solid #c8d0d5; border-bottom: 1px solid #c8d0d5; text-align: center; vertical-align: top;}
     .calendar_list tbody tr td:last-child {border-right: 0;}
     .calendar_list .day {color: #666; font-size: 16px; font-weight: 400;}
     .calendar_list tbody td:first-child .day {color: #eb6877;}

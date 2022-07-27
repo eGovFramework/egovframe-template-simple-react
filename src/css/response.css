@@ -2,7 +2,6 @@
 
 
 @media (max-width: 800px) {
-
     /* Layout */
     body {min-width: auto;}
 
@@ -11,6 +10,7 @@
     .header .logo .w {display: none;}
     .header .logo .m {display: block;}
     .header .logo .m img {height: 25px;}
+
     .lnk_go_template,
     .header .gnb,
     .header .user_info {display: none;}
@@ -53,7 +53,7 @@
     .c_wrap .layout .nav ul li a:hover::after {content: none;}
     .c_wrap .layout .nav ul li a.cur {border-bottom: 2px solid #000;}
 
-    .c_wrap .layout .contents {display: block; padding: 0 20px 60px 20px;}
+    .c_wrap .layout .contents {display: block; padding: 0 20px 60px;}
 
     .footer {height: 297px; border-top: 10px solid #f5f5f5;}
     .footer::before {content: none;}
@@ -121,11 +121,12 @@
     .paging ul li {margin-top: 0; font-size: 0;}
     .paging ul li button {width: 32px; height: 32px; font-size: 14px; line-height: 32px;}
 
-    .board_view_top .tit {padding: 16px 16px 0 16px; border-bottom: 0; font-size: 14px;}
+    .board_view_top .tit {padding: 16px 16px 0; border-bottom: 0; font-size: 14px;}
     .board_view_top .info {text-align: center;}
+
     .board_view_top .info dl:nth-child(1),
     .board_view_top .info dl:nth-child(2) {margin-right: 0;}
-    .board_view_top .info dl {padding: 7px 0 10px 0;}
+    .board_view_top .info dl {padding: 7px 0 10px;}
     .board_view_top .info dt {display: none;}
     .board_view_top .info dd {position: relative; margin-left: 15px; padding-right: 15px; font-size: 12px;}
     .board_view_top .info dd::after {content: ""; display: block; position: absolute; right: 0; top: 4px; width: 1px; height: 11px; background: #ccc;}
@@ -139,22 +140,22 @@
 
     .board_btn_area {min-height: 40px;}
     .board_btn_area .left_col.btn1 .btn {width: 100%;}
-    .board_btn_area .left_col.btn1 .btn + .btn {margin: 15px 0 0 0;}
+    .board_btn_area .left_col.btn1 .btn + .btn {margin: 15px 0 0;}
     .board_btn_area .left_col.btn3 .btn {width: calc((100% - 13px)/3);}
     .board_btn_area .left_col.btn3 .btn:last-child {width: 32.68%;}
     .board_btn_area .left_col.btn3 .btn + .btn {margin-left: 5px;}
     .board_btn_area .right_col {position: static; margin-top: 15px;}
     .board_btn_area .right_col.btn1 .btn {width: 100%;}
-    .board_btn_area .right_col .btn + .btn {margin: 15px 0 0 0;}
+    .board_btn_area .right_col .btn + .btn {margin: 15px 0 0;}
 
-    .board_view2 dl dt {width: 115px; padding: 19px 19px; font-size: 14px;}
+    .board_view2 dl dt {width: 115px; padding: 19px; font-size: 14px;}
     .board_view2 dl dd {padding: 19px 0 19px 15px; font-size: 13px;}
     .board_view2 .line_break {display: block; height: 40px;}
     .board_view2 .line_break + .line_break {margin-top: 15px;}
     .board_view2 .m_hide {display: none;}
     .board_view2 input[type=file] {width: 100%;}
 
-    .board_view3 .tit {padding: 15px 14px 12px 14px; border-bottom: 0; font-size: 14px;}
+    .board_view3 .tit {padding: 15px 14px 12px; border-bottom: 0; font-size: 14px;}
     .board_view3 .info {padding-bottom: 20px;}
     .board_view3 .info > dl:nth-child(1) {width: 40%;}
     .board_view3 .info > dl:nth-child(2) {width: 60%;}
@@ -164,7 +165,7 @@
     .board_view3 .info > dl:nth-child(1) dd {text-align: right;}
     .board_view3 .info > dl:nth-child(1) dd::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: top;}
     .board_view3 .info > dl:nth-child(2) dd {padding-left: 15px;}
-    .board_view3 .info2 {display: block; padding: 30px 15px 30px 15px;}
+    .board_view3 .info2 {display: block; padding: 30px 15px;}
     .board_view3 .info2 > * {display: block;}
     .board_view3 .info2 .left_col {width: 100%; text-align: center;}
     .board_view3 .info2 .left_col img {display: inline-block;}
@@ -186,7 +187,7 @@
     .qna_a ul li .delete {font-size: 13px;}
     .qna_a ul li .delete::before {width: 14px; height: 14px;}
 
-    .replay {padding: 0 19px 18px 19px;}
+    .replay {padding: 0 19px 18px;}
     .replay .left_col {display: block; width: 100%;}
     .replay .left_col label {height: 40px; padding-left: 0; font-size: 13px; line-height: 40px;}
     .replay .left_col div {width: 100%;}
@@ -198,9 +199,9 @@
     .bottom_navi dl dt::after {right: 25px;}
 
     .file_attach a {padding-left: 22px; background-size: auto 19px;}
-    .file_attach .btn_delete {display: block; height: 14px; margin: 10px 0 0 0; padding-left: 20px; font-size: 13px; line-height: 14px;}
+    .file_attach .btn_delete {display: block; height: 14px; margin: 10px 0 0; padding-left: 20px; font-size: 13px; line-height: 14px;}
     
-    .condition {padding: 0 0 25px 0; border: 0; border-radius: 0;}
+    .condition {padding: 0 0 25px; border: 0; border-radius: 0;}
     .condition > ul {display: block;}
     .condition > ul li {width: 100%; margin: 7px 0;}
     .condition > ul li.half.L {width: 49%; margin-right: 1%;}
@@ -226,7 +227,7 @@
     .f_search2 input[type=text] {height: 40px;}
 
     .board_view2 .f_rdo {display: block;}
-    .f_rdo + .f_rdo {margin: 7px 0 0 0;}
+    .f_rdo + .f_rdo {margin: 7px 0 0;}
 
     .top_tit {margin-top: 23px;}
     .tit_1 {padding-bottom: 19px; font-size: 30px;}
@@ -243,10 +244,10 @@
 
     /* Pages */
     .P_MAIN::before {content: none;}
-    .P_MAIN .colbox .left_col {width: 100%; padding: 20px 20px 0 20px; background: #fff;}
+    .P_MAIN .colbox .left_col {width: 100%; padding: 20px 20px 0; background: #fff;}
     .P_MAIN .colbox .left_col img {box-shadow: none;}
     .P_MAIN .colbox .right_col {width: 100%; padding: 0 20px;}
-    .P_MAIN .mini_board {margin: 0 -20px; padding: 30px 20px 40px 20px; background: #fff;}
+    .P_MAIN .mini_board {margin: 0 -20px; padding: 30px 20px 40px; background: #fff;}
     .P_MAIN .mini_board .tab li + li {margin-left: 25px;}
     .P_MAIN .mini_board .tab li a {padding-bottom: 10px; font-size: 18px;}
     .P_MAIN .mini_board .list ul {margin-top: 26px;}
@@ -261,7 +262,7 @@
     .P_MAIN .banner > a strong {font-size: 16px;}
     .P_MAIN .banner > a span {font-size: 13px; line-height: 18px;}
 
-    .P_MAIN .banner_bot {padding: 60px 20px 10px 20px;}
+    .P_MAIN .banner_bot {padding: 60px 20px 10px;}
     .P_MAIN .banner_bot > div {width: calc(50% - 10px); height: 260px; margin-bottom: 20px; padding: 0 15px; letter-spacing: -1px;}
     .P_MAIN .banner_bot > div:nth-child(2n)  {margin-left: 20px;}
     .P_MAIN .banner_bot > div + div {margin-left: 0;}
@@ -271,11 +272,11 @@
     .P_MAIN .banner_bot > div a {height: 45px; font-size: 11px; line-height: 45px;}
     .P_MAIN .banner_bot > div a::before {width: 10px; height: 10px; margin-right: 7px; background-size: contain; vertical-align: -1px;}
 
-    .Plogin {padding: 34px 0 50px 0;}
+    .Plogin {padding: 34px 0 50px;}
     .Plogin h1 {font-size: 30px;}
     .Plogin .txt {margin-top: 10px; padding: 0 20px; font-size: 13px; line-height: 18px;}
     .Plogin .txt br {display: none;}
-    .Plogin .login_box {width: calc(100% - 40px); margin: 20px auto 0; padding: 50px 35px 125px 35px;}
+    .Plogin .login_box {width: calc(100% - 40px); margin: 20px auto 0; padding: 50px 35px 125px;}
     .Plogin .login_box .group {width: 100%;}
     .Plogin .login_box button {left: 35px; top: 230px; width: calc(100% - 70px); height: 55px; line-height: 54px;}
     .Plogin .list {margin-top: 34px; padding: 0 18px;}
@@ -284,10 +285,11 @@
     .Plogin .list li::before {top: 8px; width: 3px; height: 3px;}
 
     .BRD001 .head {display: none;}
+
     .BRD001 .result .list_item,
     .BRD001 .result .list_item > div {text-align: left;}
-    .BRD001 .result .list_item > div:nth-child(1) {padding: 16px 0 8px 0; border-bottom: 0; font-size: 12px;}
-    .BRD001 .result .list_item > div:nth-child(2) {width: 100%; padding: 0px 0 16px 0; color: #222; font-size: 14px;}
+    .BRD001 .result .list_item > div:nth-child(1) {padding: 16px 0 8px; border-bottom: 0; font-size: 12px;}
+    .BRD001 .result .list_item > div:nth-child(2) {width: 100%; padding: 0 0 16px; color: #222; font-size: 14px;}
     .BRD001 .result .list_item > div:nth-child(3) {display: none;}
 
     .NOTICE_LIST .condition > ul li .f_input {width: 100%;}
@@ -299,20 +301,24 @@
     .BRD002 .result .list_item > div {border-bottom: 0; font-size: 14px;}
     .BRD002 .result .list_item > div:nth-child(1) {display: none;}
     .BRD002 .result .list_item > div:nth-child(2) {width: 100%; padding-bottom: 2px; font-weight: 700;}
+
     .BRD002 .result .list_item > div:nth-child(3),
     .BRD002 .result .list_item > div:nth-child(4),
     .BRD002 .result .list_item > div:nth-child(5) {width: auto; margin-right: 15px; padding: 0;}
+
     .BRD002 .result .list_item > div:nth-child(3)::after,
     .BRD002 .result .list_item > div:nth-child(4)::after,
-    .BRD002 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0px;}
+    .BRD002 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0;}
     .BRD002 .result .list_item > div:nth-child(5)::after {content: none;}
 
     .BRD003 .head {display: none;}
+
     .BRD003 .result .list_item,
     .BRD003 .result .list_item > div {text-align: left;}
-    .BRD003 .result .list_item > div:nth-child(1) {width: auto; padding: 16px 0 8px 0; border-bottom: 0; font-size: 13px; font-weight: 700;}
+    .BRD003 .result .list_item > div:nth-child(1) {width: auto; padding: 16px 0 8px; border-bottom: 0; font-size: 13px; font-weight: 700;}
+
     /* .BRD003 .result .list_item > div:nth-child(1)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 14px; background: #ccc; vertical-align: -1px;} */
-    .BRD003 .result .list_item > div:nth-child(2) {width: auto; padding: 5px 0 8px 0; border-bottom: 0; font-size: 12px;}
+    .BRD003 .result .list_item > div:nth-child(2) {width: auto; padding: 5px 0 8px; border-bottom: 0; font-size: 12px;}
     .BRD003 .result .list_item > div:nth-child(2) > a {padding: 5px 0; border-bottom: 1px dashed #ddd;}
     .BRD003 .result .list_item > div:nth-child(2) > a:first-child {border-top: 1px dashed #ddd;}
     .BRD003 .result .list_item > div:nth-child(2) > a > span:nth-child(1) {width: 100px;}
@@ -323,14 +329,14 @@
     .BRD004 .result .list_item {border-bottom: 1px solid #dde2e5;}
     .BRD004 .result .list_item > div {width: auto !important;}
     .BRD004 .result .list_item > div:nth-child(1) {display: none;}
-    .BRD004 .result .list_item > div:nth-child(2) {padding: 18px 0 2px 0; border-bottom: 0; color: #222; font-size: 14px; text-align: left;}
-    .BRD004 .result .list_item > div:nth-child(3) {padding: 18px 0 2px 0; border-bottom: 0; font-size: 14px;}
+    .BRD004 .result .list_item > div:nth-child(2) {padding: 18px 0 2px; border-bottom: 0; color: #222; font-size: 14px; text-align: left;}
+    .BRD004 .result .list_item > div:nth-child(3) {padding: 18px 0 2px; border-bottom: 0; font-size: 14px;}
     .BRD004 .result .list_item > div:nth-child(3)::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 15px; background: #ccc;}
     .BRD004 .result .list_item > div:nth-child(4) {display: block; border-bottom: 0;}
-    .BRD004 .result .list_item > div:nth-child(5) {padding: 0 0 20px 0; border-bottom: 0;}
-    .BRD004 .result .list_item > div:nth-child(6) {padding: 0 0 20px 0; border-bottom: 0;}
+    .BRD004 .result .list_item > div:nth-child(5) {padding: 0 0 20px; border-bottom: 0;}
+    .BRD004 .result .list_item > div:nth-child(6) {padding: 0 0 20px; border-bottom: 0;}
     .BRD004 .result .list_item > div:nth-child(6)::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 15px; background: #ccc;}
-    .TEMPLATE_REG .f_inn_txt {display: block; height: auto; margin: 10px 0 0 0 !important; font-size: 13px; line-height: 16px;}
+    .TEMPLATE_REG .f_inn_txt {display: block; height: auto; margin: 10px 0 0 !important; font-size: 13px; line-height: 16px;}
 
     .TEMPLATE_PREVIEW .condition > ul li .f_search {width: 100%;}
     .BRD005 .head {display: none;}
@@ -338,12 +344,14 @@
     .BRD005 .result .list_item > div {border-bottom: 0; font-size: 14px;}
     .BRD005 .result .list_item > div:nth-child(1) {display: none;}
     .BRD005 .result .list_item > div:nth-child(2) {width: 100%; padding-bottom: 2px; font-weight: 700;}
+
     .BRD005 .result .list_item > div:nth-child(3),
     .BRD005 .result .list_item > div:nth-child(4),
     .BRD005 .result .list_item > div:nth-child(5) {width: auto; margin-right: 15px; padding: 0;}
+
     .BRD005 .result .list_item > div:nth-child(3)::after,
     .BRD005 .result .list_item > div:nth-child(4)::after,
-    .BRD005 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0px;}
+    .BRD005 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0;}
     .BRD005 .result .list_item > div:nth-child(5)::after {content: none;}
 
     .BOARD_CREATE_LIST .condition .lb {display: none;}
@@ -351,9 +359,9 @@
     .BRD006 .head {display: none;}
     .BRD006 .result .list_item {padding-bottom: 17px; border-bottom: 1px solid #dde2e5;}
     .BRD006 .result .list_item > div {width: auto !important; padding: 0; border-bottom: 0; font-size: 12px; text-align: left;}
-    .BRD006 .result .list_item > div::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 20px; background: rgb(44, 43, 43); vertical-align: -1px;}
+    .BRD006 .result .list_item > div::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 20px; background: rgb(44 43 43); vertical-align: -1px;}
     .BRD006 .result .list_item > div:nth-child(1) {display: none;}
-    .BRD006 .result .list_item > div:nth-child(2) {display: block; padding: 18px 0 3px 0; color: #222; font-size: 14px; text-align: left;}
+    .BRD006 .result .list_item > div:nth-child(2) {display: block; padding: 18px 0 3px; color: #222; font-size: 14px; text-align: left;}
     .BRD006 .result .list_item > div:nth-child(2)::before {content: none;}
     .BRD006 .result .list_item > div:nth-child(3)::before {content: none;}
 
@@ -396,25 +404,27 @@
     .BRD007 .head {display: none;}
     .BRD007 .result .list_item {padding-bottom: 17px; border-bottom: 1px solid #dde2e5;}
     .BRD007 .result .list_item > div {width: auto !important; padding: 0; border-bottom: 0; font-size: 12px; text-align: left;}
-    .BRD007 .result .list_item > div::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 20px; background: rgb(44, 43, 43); vertical-align: -1px;}
+    .BRD007 .result .list_item > div::before {content: ""; display: inline-block; width: 1px; height: 11px; margin: 0 20px; background: rgb(44 43 43); vertical-align: -1px;}
     .BRD007 .result .list_item > div:nth-child(1) {display: none;}
-    .BRD007 .result .list_item > div:nth-child(2) {display: block; padding: 18px 0 3px 0; color: #222; font-size: 14px; text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+    .BRD007 .result .list_item > div:nth-child(2) {display: block; padding: 18px 0 3px; color: #222; font-size: 14px; text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
     .BRD007 .result .list_item > div:nth-child(2)::before {content: none;}
     .BRD007 .result .list_item > div:nth-child(3)::before {content: none;}
 
-    .PDS_REG .pds_desc_edit {margin: 9px 0 30px 0;}
+    .PDS_REG .pds_desc_edit {margin: 9px 0 30px;}
 
     .BRD008 .head {display: none;}
     .BRD008 .result .list_item {padding: 16px 0; border-bottom: 1px solid #dde2e5;}
     .BRD008 .result .list_item > div {border-bottom: 0; font-size: 14px;}
     .BRD008 .result .list_item > div:nth-child(1) {display: none;}
     .BRD008 .result .list_item > div:nth-child(2) {width: 100%; padding-bottom: 2px; font-weight: 700;}
+
     .BRD008 .result .list_item > div:nth-child(3),
     .BRD008 .result .list_item > div:nth-child(4),
     .BRD008 .result .list_item > div:nth-child(5) {width: auto; margin-right: 15px; padding: 0;}
+
     .BRD008 .result .list_item > div:nth-child(3)::after,
     .BRD008 .result .list_item > div:nth-child(4)::after,
-    .BRD008 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0px;}
+    .BRD008 .result .list_item > div:nth-child(5)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 15px; background: #ccc; vertical-align: 0;}
     .BRD008 .result .list_item > div:nth-child(5)::after {content: none;}
 
     .QNA_LIST .third_2 .w_500 {width: 100%;}
@@ -423,23 +433,26 @@
     .BRD009 .result .list_item {padding: 16px 0; border-bottom: 1px solid #dde2e5;}
     .BRD009 .result .list_item > div {border-bottom: 0; font-size: 14px;}
     .BRD009 .result .list_item > div:nth-child(1) {display: none;}
-    .BRD009 .result .list_item > div:nth-child(2) {width: 100%; padding: 0 0 2px 0; font-weight: 700; text-align: left;}
+    .BRD009 .result .list_item > div:nth-child(2) {width: 100%; padding: 0 0 2px; font-weight: 700; text-align: left;}
+
     .BRD009 .result .list_item > div:nth-child(3),
     .BRD009 .result .list_item > div:nth-child(4),
     .BRD009 .result .list_item > div:nth-child(5),
     .BRD009 .result .list_item > div:nth-child(6) {width: auto; margin-right: 5px; padding: 0;}
+
     .BRD009 .result .list_item > div:nth-child(3)::after,
     .BRD009 .result .list_item > div:nth-child(4)::after,
     .BRD009 .result .list_item > div:nth-child(5)::after,
-    .BRD009 .result .list_item > div:nth-child(6)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 6px; background: #ccc; vertical-align: 0px;}
+    .BRD009 .result .list_item > div:nth-child(6)::after {content: ""; display: inline-block; width: 1px; height: 11px; margin-left: 6px; background: #ccc; vertical-align: 0;}
     .BRD009 .result .list_item > div:nth-child(6)::after {content: none;}
 
     .BOARD_USE_LIST .board_view2 dl dt {width: 95px;}
     .BOARD_USE_LIST .board_view2 dl:nth-child(2) dd .f_select {width: 100%;}
-    .BOARD_USE_LIST .board_view2 dl:nth-child(2) dd .f_input2 {width: 100%; margin: 15px 0 0 0;}
+    .BOARD_USE_LIST .board_view2 dl:nth-child(2) dd .f_input2 {width: 100%; margin: 15px 0 0;}
     
     .SITE_CONTACT_US .map {margin-top: 20px;}
     .SITE_CONTACT_US .addr {padding-bottom: 22px;}
+
     .SITE_CONTACT_US .addr,
     .SITE_CONTACT_US .addr > * {display: block;}
     .SITE_CONTACT_US .addr .left_col {padding-top: 15px;}
@@ -464,24 +477,24 @@
     .BUSINESS_INTRO .img .w {display: none;}
 
     .SERVICE_INTRO .msg {padding: 23px 25px;}
-    .SERVICE_INTRO .msg ul {margin-top: 20px; padding: 165px 0 0 0;}
-    .SERVICE_INTRO .msg.second ul {padding: 18px 0 63px 0;}
+    .SERVICE_INTRO .msg ul {margin-top: 20px; padding: 165px 0 0;}
+    .SERVICE_INTRO .msg.second ul {padding: 18px 0 63px;}
     .SERVICE_INTRO .msg p {font-size: 13px; line-height: 18px;}
     .SERVICE_INTRO .msg ul {background-size: 150px; background-position: center top;}
     .SERVICE_INTRO .msg ul li {padding-left: 14px; font-size: 12px; line-height: 18px;}
     .SERVICE_INTRO .msg ul li::before {top: 8px; width: 4px; height: 4px;}
-    .SERVICE_INTRO .msg.second ul {padding: 170px 0 33px 0; background-size: 150px; background-position: center top;}
+    .SERVICE_INTRO .msg.second ul {padding: 170px 0 33px; background-size: 150px; background-position: center top;}
 
     .TEMPLATE_INTRO .pop_container .btn {width: 100%;}
 
     .ERROR {width: 90%; margin: 50px auto 0;}
     .ERROR h1 {font-size: 30px;}
     .ERROR .box {margin-top: 30px; padding-top: 50px;}
-    .ERROR .box p {padding: 145px 0 0 0; font-size: 16px; justify-content: center;}
+    .ERROR .box p {padding: 145px 0 0; font-size: 16px; justify-content: center;}
     .ERROR .box p::before {left: 50%; transform: translateX(-50%);}
 
     .calendar_list thead th {height: 50px; font-size: 14px; line-height: 50px;}
-    .calendar_list tbody td {height: 60px; padding: 7px 0 20px 0;}
+    .calendar_list tbody td {height: 60px; padding: 7px 0 20px;}
     .calendar_list .day {font-size: 14px;}
     .calendar_list .schedule {height: 8px;}
     .calendar_list .schedule::before {width: 8px; height: 8px;}
@@ -515,6 +528,7 @@
     .condition > ul li .prev + span {padding: 0;}
 
     .paging ul li button {width: 30px; height: 30px; line-height: 30px;}
+
     .paging .btn .first,
     .paging .btn .last {display: none;}
 
@@ -535,6 +549,7 @@
     .BRD009 .result .list_item > div:nth-child(4),
     .BRD009 .result .list_item > div:nth-child(5),
     .BRD009 .result .list_item > div:nth-child(6) {margin-right: 15px;}
+
     .BRD009 .result .list_item > div:nth-child(3)::after,
     .BRD009 .result .list_item > div:nth-child(4)::after,
     .BRD009 .result .list_item > div:nth-child(5)::after,
