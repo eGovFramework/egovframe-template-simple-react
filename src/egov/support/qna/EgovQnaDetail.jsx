@@ -129,7 +129,7 @@ function EgovQnaDetail() {
                         {/* <!-- 답변달기 --> */}
                         <div className="replay">
                             <div className="left_col">
-                                <label htmlfor="replay_write">답변달기</label>
+                                <label htmlFor="replay_write">답변달기</label>
                                 <div>
                                     <textarea className="f_txtar w_full" name="" id="replay_write" cols="30" rows="10"></textarea>
                                 </div>
