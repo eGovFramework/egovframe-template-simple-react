@@ -66,7 +66,7 @@ function EgovDailyDetail(props) {
     const getCodeName = (codeArr, code) => {
         return (
             codeArr.map((codeObj) => {
-                if (codeObj.code == code) return codeObj.codeNm;
+                if (codeObj.code == code.trim()) return codeObj.codeNm;
             })
         );
     }
