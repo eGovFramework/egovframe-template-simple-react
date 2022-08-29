@@ -232,7 +232,7 @@ function EgovAdminScheduleEdit(props) {
                                 <dt><label htmlFor="schdulDeptName">부서</label><span className="req">필수</span></dt>
                                 <dd>
                                     <input className="f_input2 w_full" type="text" name="schdulDeptName" title="부서" id="schdulDeptName"
-                                        value="관리자부서" readOnly
+                                        value={scheduleDetail.schdulDeptName} readOnly
                                     />
                                 </dd>
                             </dl>

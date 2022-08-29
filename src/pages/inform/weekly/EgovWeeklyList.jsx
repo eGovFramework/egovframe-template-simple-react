@@ -83,44 +83,78 @@ function EgovWeeklyList(props) {
     const drawList = () => {
         const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
         let mutListTag = [];
-
+        
         let keyPropertyCnt = 0;
         // 리스트 항목 구성
         for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
             let scheduleDate = new Date(searchCondition.year, searchCondition.month, searchCondition.date + dayIdx);
             let scheduleDateStr = scheduleDate.getFullYear() + "년 " + (scheduleDate.getMonth() + 1) + "월 " + scheduleDate.getDate() + "일 " + dayNames[scheduleDate.getDay()];
+            let scheduleBgDate = scheduleDate.getFullYear() + (("00"+(scheduleDate.getMonth() + 1).toString()).slice(-2)) + (("00"+scheduleDate.getDate().toString()).slice(-2));
+
             keyPropertyCnt++;
-            mutListTag.push(
-                <div class="list_item" key={keyPropertyCnt}>
-                    <div>{scheduleDateStr}</div>
-                    <div>
-                        {scheduleList.length === 0 && <span>일정이 존재하지 않습니다.</span>}
-                        {scheduleList.length !== 0 && scheduleList.map((item) => {
-                            keyPropertyCnt++;
-                            return (
-                                <Link
-                                    key={keyPropertyCnt}
-                                    to={{
-                                        pathname: URL.INFORM_WEEKLY_DETAIL,
-                                        state: {
-                                            schdulId: item.schdulId,
-                                            prevPath: URL.INFORM_WEEKLY
-                                        }
-                                    }} >
-                                    <span>{getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}</span>
-                                    <span>{item.schdulNm}</span>
-                                    <span>{item.userNm}</span>
-                                </Link>
-                            )
-                        })}
 
+            let mutSubListTag = [];
+            let slicedScheduleList = [];
 
+            //scheduleList는 일주일치 일정을 한번에 가져온 데이터
+            //scheduleList를 순환하면서 날짜에 맞는 걸로만 재구성
+            scheduleList.forEach((currentElement, index) => {
+                // 하루짜리 일정일 경우 시작일과 날짜가 일치하면
+                if((currentElement.schdulBgnde.substring(0,8) === currentElement.schdulEndde.substring(0,8))  &&  (currentElement.schdulBgnde.substring(0,8) === scheduleBgDate)) {
+                    slicedScheduleList.push(scheduleList[index]);
+                // 이틀 이상 일정일 경우 시작일이 날짜보다 작거나 같으면
+                } else if((currentElement.schdulBgnde.substring(0,8) !== currentElement.schdulEndde.substring(0,8))  &&  (currentElement.schdulBgnde.substring(0,8) <= scheduleBgDate)) {
+                    slicedScheduleList.push(scheduleList[index]);
+                }
+            })
+
+            //재구성된 게 없으면(즉, 일주일치 일정이 없으면)
+            if(slicedScheduleList.length === 0){
+                mutListTag.push(
+                    <div className="list_item" key={keyPropertyCnt}>
+                        <div>{scheduleDateStr}</div>
+                        <div>
+                            <span>일정이 존재하지 않습니다.</span>  
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            }
+
+            else {
+                mutListTag.push(
+                    <div className="list_item" key={keyPropertyCnt}>
+                            <div>{scheduleDateStr}</div>
+                            <div>{mutSubListTag}</div>
+                    </div>
+                )
+
+                let subKeyPropertyCnt =0;
+                
+                mutSubListTag.push(
+                    <>
+                        {slicedScheduleList.length !== 0 && slicedScheduleList.map((item) => {
+                            subKeyPropertyCnt++;
+                                return (
+                                    <Link
+                                        key={subKeyPropertyCnt}
+                                        to={{
+                                            pathname: URL.INFORM_WEEKLY_DETAIL,
+                                            state: {
+                                                schdulId: item.schdulId,
+                                                prevPath: URL.INFORM_WEEKLY
+                                            }
+                                            }} >
+                                        <span>{getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}</span>
+                                        <span>{item.schdulNm}</span>
+                                        <span>{item.userNm}</span>
+                                    </Link>
+                                )
+                        })}
+                    </>
+                )
+            }   
         }
         setListTag(mutListTag);
-
     }
     const getTimeForm = (str) => {
         let hour = str.substring(8, 10);
@@ -174,7 +208,10 @@ function EgovWeeklyList(props) {
                             <ul>
                                 <li>
                                     <label className="f_select" htmlFor="sel1">
-                                        <select name="" id="sel1" title="조건">
+                                        <select name="" id="sel1" title="조건"
+                                            onChange={e => {
+                                                setSearchCondition({ ...searchCondition, schdulSe: e.target.value });
+                                            }}>
                                             <option value="">전체</option>
                                             <option value="1">회의</option>
                                             <option value="2">세미나</option>
@@ -311,8 +348,6 @@ function EgovWeeklyList(props) {
                                     </div>
                                     <div>관리자</div>
                                 </div>
-                                
-                                
                                 */}
                                 {listTag}
                             </div>

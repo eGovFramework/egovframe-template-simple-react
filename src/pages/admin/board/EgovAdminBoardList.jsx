@@ -17,8 +17,6 @@ function EgovAdminBoardList(props) {
     const history = useHistory();
     console.log("EgovAdminBoardList [history] : ", history);
 
-    let searchCnd = '0';
-    let searchWrd = '';
     const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});

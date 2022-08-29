@@ -49,7 +49,7 @@ function EgovNoticeList(props) {
                 setUser(resp.result.user);
 
                 let mutListTag = [];
-                listTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
+                mutListTag.push(<p className="no_data">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
                 
                 const resultCnt = parseInt(resp.result.resultCnt);
                 const currentPageNo = resp.result.paginationInfo.currentPageNo;
