@@ -122,6 +122,18 @@ function EgovGalleryEdit(props) {
         );
     }
 
+    const Location = React.memo(function Location(masterBoard) {
+        return (
+            <div className="location">
+                <ul>
+                    <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                    <li><Link to={URL.ADMIN}>사이트관리</Link></li>
+                    <li>{masterBoard && masterBoard.bbsNm}</li>
+                </ul>
+            </div>
+        )
+    });
+
     useEffect(function () {
         intMode();
         return function () {
@@ -140,13 +152,7 @@ function EgovGalleryEdit(props) {
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
-                <div className="location">
-                    <ul>
-                    <li><Link to={URL.MAIN} className="home">Home</Link></li>
-                        <li><Link to={URL.INFORM}>알림마당</Link></li>
-                        <li>{masterBoard && masterBoard.bbsNm}</li>
-                    </ul>
-                </div>
+                <Location />
                 {/* <!--// Location --> */}
 
                 <div className="layout">

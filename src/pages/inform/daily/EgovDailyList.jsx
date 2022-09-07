@@ -96,6 +96,19 @@ function EgovDailyList(props) {
         });
         setListTag(mutListTag);
     }
+
+    const Location = React.memo(function Location() {
+        return (
+            <div className="location">
+                 <ul>
+                    <li><Link to={URL.MAIN} className="home">Home</Link></li>
+                    <li><Link to={URL.INFORM}>알림마당</Link></li>
+                    <li>오늘의 행사</li>
+                </ul>
+            </div>
+        )
+    });
+
     const getTimeForm = (str) => {
         let hour = str.substring(8, 10);
         let starminute = str.substring(10, 12);
@@ -121,18 +134,12 @@ function EgovDailyList(props) {
         <div className="container">
             <div className="c_wrap">
                 {/* <!-- Location --> */}
-                <div className="location">
-                    <ul>
-                        <li><Link to={URL.MAIN} className="home">Home</Link></li>
-                        <li><Link to={URL.INFORM}>알림마당</Link></li>
-                        <li>오늘의 행사</li>
-                    </ul>
-                </div>
+                <Location />
                 {/* <!--// Location --> */}
 
                 <div className="layout">
                     {/* <!-- Navigation --> */}
-                    <EgovLeftNav></EgovLeftNav>
+                    <EgovLeftNav />
                     {/* <!--// Navigation --> */}
 
                     <div className="contents TODAY_SCHEDULE" id="contents">

@@ -21,4 +21,4 @@ function EgovLeftNavAdmin() {
     );
 }
 
-export default EgovLeftNavAdmin;
+export default React.memo(EgovLeftNavAdmin);

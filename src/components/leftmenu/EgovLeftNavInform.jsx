@@ -23,4 +23,4 @@ function EgovLeftNavInform() {
     );
 }
 
-export default EgovLeftNavInform;
+export default React.memo(EgovLeftNavInform);
