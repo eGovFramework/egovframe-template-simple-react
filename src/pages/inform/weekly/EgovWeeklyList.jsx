@@ -102,8 +102,8 @@ function EgovWeeklyList(props) {
                 // 하루짜리 일정일 경우 시작일과 날짜가 일치하면
                 if((currentElement.schdulBgnde.substring(0,8) === currentElement.schdulEndde.substring(0,8))  &&  (currentElement.schdulBgnde.substring(0,8) === scheduleBgDate)) {
                     slicedScheduleList.push(scheduleList[index]);
-                // 이틀 이상 일정일 경우 시작일이 날짜보다 작거나 같으면
-                } else if((currentElement.schdulBgnde.substring(0,8) !== currentElement.schdulEndde.substring(0,8))  &&  (currentElement.schdulBgnde.substring(0,8) <= scheduleBgDate)) {
+                // 이틀 이상 일정일 경우 시작일이 날짜보다 작거나 같으면 (그리고 종료일이 날짜보다 크거나 같으면)
+                } else if((currentElement.schdulBgnde.substring(0,8) !== currentElement.schdulEndde.substring(0,8))  &&  (currentElement.schdulBgnde.substring(0,8) <= scheduleBgDate) && (currentElement.schdulEndde.substring(0,8) >= scheduleBgDate)) {
                     slicedScheduleList.push(scheduleList[index]);
                 }
             })
