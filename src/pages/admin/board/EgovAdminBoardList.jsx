@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -14,10 +14,10 @@ function EgovAdminBoardList(props) {
     console.log("[Start] EgovAdminBoardList ------------------------------");
     console.log("EgovAdminBoardList [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminBoardList [history] : ", history);
+    const location = useLocation();
+    console.log("EgovAdminBoardList [location] : ", location);
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});
 
@@ -57,12 +57,10 @@ function EgovAdminBoardList(props) {
 
                     mutListTag.push(
                         <Link
-                            to={{
-                                pathname: URL.ADMIN_BOARD_MODIFY,
-                                state: {
-                                    bbsId: item.bbsId,
-                                    searchCondition: searchCondition
-                                }
+                            to={{pathname: URL.ADMIN_BOARD_MODIFY}}
+                            state={{
+                                bbsId: item.bbsId,
+                                searchCondition: searchCondition
                             }}
                             key={listIdx}
                             className="list_item">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 
 import * as EgovNet from 'api/egovFetch';
@@ -17,8 +17,9 @@ function EgovAdminScheduleEdit(props) {
     console.log("[Start] EgovAdminScheduleEdit ------------------------------");
     console.log("EgovAdminScheduleEdit [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminScheduleEdit [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovAdminScheduleEdit [location] : ", location);
 
     const reptitSeCodeRadioGroup = [{ value: "1", label: "당일" }, { value: "2", label: "반복" }, { value: "3", label: "연속" }];
 
@@ -79,7 +80,7 @@ function EgovAdminScheduleEdit(props) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                schdulId: history.location.state?.schdulId
+                schdulId: location.state?.schdulId
             })
         }
         EgovNet.requestFetch(retrieveDetailURL,
@@ -120,7 +121,7 @@ function EgovAdminScheduleEdit(props) {
                 requestOptions,
                 (resp) => {
                     if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                        history.push({ pathname: URL.ADMIN_SCHEDULE });
+                        navigate({ pathname: URL.ADMIN_SCHEDULE });
                     } else {
                         alert("ERR : " + resp.resultMessage);
                     }
@@ -328,7 +329,7 @@ function EgovAdminScheduleEdit(props) {
                                     <button className="btn btn_skyblue_h46 w_100"
                                         onClick={() => updateSchedule()}
                                     > 저장</button>
-                                    <a href="" className="btn btn_skyblue_h46 w_100">삭제</a>
+                                    <a href="#!" className="btn btn_skyblue_h46 w_100">삭제</a>
                                 </div>
 
                                 <div className="right_col btn1">

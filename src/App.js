@@ -1,4 +1,5 @@
-import Routes from 'routes';
+import RootRoutes from './routes';
+import React from 'react';
 
 import './css/base.css';
 import './css/layout.css';
@@ -10,7 +11,9 @@ function App() {
 
   return (
     <div className="wrap">
-      <Routes />
+      <React.StrictMode>
+        <RootRoutes />
+      </React.StrictMode>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -12,13 +12,13 @@ function EgovDailyList(props) {
     console.log("[Start] EgovDailyDetail ------------------------------");
     console.log("EgovDailyDetail [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovDailyDetail [history] : ", history);
+    const location = useLocation();
+    console.log("EgovDailyDetail [location] : ", location);
 
     const DATE = new Date();
     const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { schdulSe: '', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
 
     const [scheduleList, setScheduleList] = useState([]);
     const [listTag, setListTag] = useState([]);
@@ -79,12 +79,10 @@ function EgovDailyList(props) {
             listCnt++;
             mutListTag.push(
                 <Link
-                    to={{
-                        pathname: URL.INFORM_DAILY_DETAIL,
-                        state: {
-                            schdulId : item.schdulId,
-                            prevPath: URL.INFORM_DAILY
-                        }
+                    to={{pathname: URL.INFORM_DAILY_DETAIL}}
+                    state={{
+                        schdulId : item.schdulId,
+                        prevPath: URL.INFORM_DAILY
                     }}
                     key={listCnt}
                     className="list_item" >
@@ -171,14 +169,14 @@ function EgovDailyList(props) {
                                     </label>
                                 </li>
                                 <li>
-                                    {/* <a href="" className="prev">이전연도로이동</a> */}
+                                    {/* <a href="#!" className="prev">이전연도로이동</a> */}
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, -1);
                                         }}
                                     ></button>
                                     <span>{searchCondition.year}년</span>
-                                    {/* <a href="" className="next">다음연도로이동</a> */}
+                                    {/* <a href="#!" className="next">다음연도로이동</a> */}
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, 1);

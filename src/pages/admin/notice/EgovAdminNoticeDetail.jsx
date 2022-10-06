@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -15,12 +15,13 @@ function EgovAdminNoticeDetail(props) {
     console.log("------------------------------");
     console.log("EgovAdminNoticeDetail [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminNoticeDetail [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovAdminNoticeDetail [location] : ", location);
 
-    const bbsId = history.location.state.bbsId || NOTICE_BBS_ID;
-    const nttId = history.location.state.nttId;
-    const searchCondition = history.location.state.searchCondition;
+    const bbsId = location.state.bbsId || NOTICE_BBS_ID;
+    const nttId = location.state.nttId;
+    const searchCondition = location.state.searchCondition;
 
     const [masterBoard, setMasterBoard] = useState({});
     const [user, setUser] = useState({});
@@ -51,17 +52,16 @@ function EgovAdminNoticeDetail(props) {
     }
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
-        const deleteBoardURL = "/cop/bbs/deleteBoardArticleAPI.do";
+        const deleteBoardURL = `/cop/bbs/deleteBoardArticleAPI/${nttId}.do`;
         const jToken = localStorage.getItem('jToken');
         const requestOptions = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': jToken
             },
             body: JSON.stringify({
-                bbsId: bbsId,
-                nttId: nttId
+                bbsId: bbsId
             })
         }
 
@@ -70,9 +70,8 @@ function EgovAdminNoticeDetail(props) {
             (resp) => {
                 console.log("====>>> board delete= ", resp);
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    //window.location.href = URL.ADMIN_NOTICE + qs.stringify(query, { addQueryPrefix: true });
                     alert("게시글이 삭제되었습니다.")
-                    history.push(URL.ADMIN_NOTICE);
+                    navigate(URL.ADMIN_NOTICE ,{ replace: true });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -146,35 +145,32 @@ function EgovAdminNoticeDetail(props) {
 
                             <div className="board_btn_area">
                                 <div className="left_col btn3">
-                                    <Link to={{
-                                        pathname: URL.ADMIN_NOTICE_MODIFY,
-                                        state: {
+                                    <Link to={{pathname: URL.ADMIN_NOTICE_MODIFY}} 
+                                        state={{
                                             nttId: nttId,
                                             bbsId: bbsId
-                                        }
-                                    }} className="btn btn_skyblue_h46 w_100">수정</Link>
-                                    <a href="" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
+                                        }}
+                                        className="btn btn_skyblue_h46 w_100">수정</Link>
+                                    <a href="#!" className="btn btn_skyblue_h46 w_100" onClick={(e) => {
                                         e.preventDefault();
                                         onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                     }}>삭제</a>
-                                    <Link to={{
-                                        pathname: URL.ADMIN_NOTICE_REPLY,
-                                        state: {
+                                    <Link to={{pathname: URL.ADMIN_NOTICE_REPLY}} 
+                                        state={{
                                             nttId: nttId,
                                             bbsId: bbsId
-                                        }
-                                    }} className="btn btn_skyblue_h46 w_100">답글작성</Link>
+                                        }}
+                                        className="btn btn_skyblue_h46 w_100">답글작성</Link>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <Link to={{
-                                        pathname: URL.ADMIN_NOTICE,
-                                        state: {
+                                    <Link to={{pathname: URL.ADMIN_NOTICE}}
+                                        state={{
                                             nttId: nttId,
                                             bbsId: bbsId,
                                             searchCondition: searchCondition
-                                        }
-                                    }} className="btn btn_blue_h46 w_100">목록</Link>
+                                        }}
+                                        className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                         </div>

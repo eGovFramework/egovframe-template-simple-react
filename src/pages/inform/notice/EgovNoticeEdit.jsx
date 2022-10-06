@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -15,11 +15,12 @@ function EgovNoticeEdit(props) {
     console.log("------------------------------");
     console.log("EgovNoticeEdit [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovNoticeEdit [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovNoticeEdit [location] : ", location);
 
-    const bbsId = history.location.state?.bbsId || NOTICE_BBS_ID;
-    const nttId = history.location.state?.nttId || "";
+    const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+    const nttId = location.state?.nttId || "";
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [masterBoard, setMasterBoard] = useState({});
@@ -113,7 +114,7 @@ function EgovNoticeEdit(props) {
             requestOptions,
             (resp) => {
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    history.push({ pathname: URL.INFORM_NOTICE });
+                    navigate({ pathname: URL.INFORM_NOTICE });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }

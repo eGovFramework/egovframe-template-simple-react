@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import CODE from 'constants/code';
@@ -12,10 +12,10 @@ function EgovAdminTemplateEdit(props) {
     console.log("[Start] EgovAdminTemplateEdit ------------------------------");
     console.log("EgovAdminTemplateEdit [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminTemplateEdit [history] : ", history);
+    const location = useLocation();
+    console.log("EgovAdminTemplateEdit [location] : ", location);
 
-    const tmplatId = history.location.state?.tmplatId || "";
+    const tmplatId = location.state?.tmplatId || "";
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [useAt, setUseAt] = useState("Y");
@@ -114,8 +114,8 @@ function EgovAdminTemplateEdit(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><a className="home" href="#!">Home</a></li>
+                        <li><a href="#!">사이트관리</a></li>
                         <li>게시판템플릿 관리</li>
                     </ul>
                 </div>
@@ -210,12 +210,12 @@ function EgovAdminTemplateEdit(props) {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
-                                    <a href="" className="btn btn_skyblue_h46 w_100">미리보기</a>
-                                    <a href="" className="btn btn_skyblue_h46 w_100">저장</a>
+                                    <a href="#!" className="btn btn_skyblue_h46 w_100">미리보기</a>
+                                    <a href="#!" className="btn btn_skyblue_h46 w_100">저장</a>
                                 </div>
 
                                 <div className="right_col btn1">
-                                    <a href="" className="btn btn_blue_h46 w_100">목록</a>
+                                    <a href="#!" className="btn btn_blue_h46 w_100">목록</a>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -13,11 +13,12 @@ function EgovAdminUsageEdit(props) {
     console.log("[Start] EgovAdminUsageEdit ------------------------------");
     console.log("EgovAdminUsageEdit [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminUsageEdit [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovAdminUsageEdit [location] : ", location);
 
-    const bbsId = history.location.state?.bbsId || "";
-    const trgetId = history.location.state?.trgetId || "SYSTEM_DEFAULT_BOARD";
+    const bbsId = location.state?.bbsId || "";
+    const trgetId = location.state?.trgetId || "SYSTEM_DEFAULT_BOARD";
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [boardDetail, setBoardDetail] = useState({});
@@ -39,7 +40,7 @@ function EgovAdminUsageEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "수정",
-                    editURL: '/cop/com/updateBBSUseInfAPI.do'
+                    editURL: `/cop/com/updateBBSUseInfAPI/${bbsId}.do`
                 });
                 break;
         }
@@ -102,33 +103,64 @@ function EgovAdminUsageEdit(props) {
     }
 
     const updateBoard = () => {
-        const formData = new FormData();
-        const jToken = localStorage.getItem('jToken');
-        for (let key in boardDetail) {
-            formData.append(key, boardDetail[key]);
-            console.log("boardDetail [%s] ", key, boardDetail[key]);
-        }
 
-        if (formValidator(formData)) {
-            const requestOptions = {
-                method: "POST",
+        let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
+
+        const jToken = localStorage.getItem('jToken');
+
+        let requestOptions ={};
+
+        const formData = new FormData();
+
+        if(modeStr === "POST") {
+
+            for (let key in boardDetail) {
+                formData.append(key, boardDetail[key]);
+                //console.log("boardDetail [%s] ", key, boardDetail[key]);
+            }
+
+            requestOptions = {
+                method: modeStr,
                 headers: {
                     'Authorization': jToken
                 },
                 body: formData
             }
 
+        } else {
+
+            requestOptions = {
+                method: modeStr,
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': jToken
+                },
+                body: JSON.stringify({...boardDetail})
+            }
+
+        }
+
+        const usageEdit = () => {
             EgovNet.requestFetch(modeInfo.editURL,
                 requestOptions,
                 (resp) => {
                     if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                        history.push({ pathname: URL.ADMIN_USAGE });
+                            navigate({ pathname: URL.ADMIN_USAGE });
                     } else {
-                        alert("ERR : " + resp.resultMessage);
+                            alert("ERR : " + resp.resultMessage);
                     }
                 }
             );
+        };
+
+        if (modeInfo.mode === CODE.MODE_MODIFY) {
+            usageEdit();
+        } else {
+            if(formValidator(formData)) {
+                usageEdit();
+            }
         }
+        
     }
 
     const formValidator = (formData) => {
@@ -159,8 +191,8 @@ function EgovAdminUsageEdit(props) {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">사이트관리</a></li>
+                        <li><a className="home" href="#!">Home</a></li>
+                        <li><a href="#!">사이트관리</a></li>
                         <li>게시판사용관리</li>
                     </ul>
                 </div>
@@ -254,11 +286,9 @@ function EgovAdminUsageEdit(props) {
                                     <dt>제공 URL</dt>
                                     <dd>
                                         <Link
-                                            to={{
-                                                pathname: URL.INFORM_NOTICE,
-                                                state: {
-                                                    bbsId: boardDetail.bbsId,
-                                                }
+                                            to={{pathname: URL.INFORM_NOTICE }}
+                                            state={{
+                                                bbsId: boardDetail.bbsId
                                             }}
                                         >
                                             {`${URL.INFORM_NOTICE}`}

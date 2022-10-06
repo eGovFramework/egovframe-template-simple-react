@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -13,8 +13,9 @@ function EgovAdminScheduleDetail(props) {
     console.log("[Start] EgovAdminScheduleDetail ------------------------------");
     console.log("EgovAdminScheduleDetail [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovAdminScheduleDetail [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovAdminScheduleDetail [location] : ", location);
 
     const [scheduleDetail, setScheduleDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -29,7 +30,7 @@ function EgovAdminScheduleDetail(props) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                schdulId: history.location.state?.schdulId
+                schdulId: location.state?.schdulId
             })
         }
         EgovNet.requestFetch(retrieveDetailURL,
@@ -66,7 +67,7 @@ function EgovAdminScheduleDetail(props) {
     const getCodeName = (codeArr, code) => {
         return (
             codeArr.map((codeObj) => {
-                if (codeObj.code == code.trim()) return codeObj.codeNm;
+                if (codeObj.code === code.trim()) return codeObj.codeNm;
             })
         );
     }
@@ -91,7 +92,7 @@ function EgovAdminScheduleDetail(props) {
                 console.log("====>>> Schdule delete= ", resp);
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     alert("게시글이 삭제되었습니다.")
-                    history.push(URL.ADMIN_SCHEDULE);
+                    navigate(URL.ADMIN_SCHEDULE ,{ replace: true });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -173,7 +174,7 @@ function EgovAdminScheduleDetail(props) {
                                 <dt>파일첨부</dt>
                                 <dd>
                                     <span className="file_attach">
-                                        <a href="">file_name.hwp</a> <span>[3626] byte</span>
+                                        <a href="#!">file_name.hwp</a> <span>[3626] byte</span>
                                     </span>
                                 </dd>
                             </dl> */}
@@ -184,15 +185,14 @@ function EgovAdminScheduleDetail(props) {
                             <div className="board_btn_area">
                                 {user.id &&
                                     <div className="left_col btn1">
-                                        <Link to={{
-                                            pathname: URL.ADMIN_SCHEDULE_MODIFY,
-                                            state: {
-                                                schdulId: history.location.state?.schdulId
-                                            }
-                                        }} className="btn btn_skyblue_h46 w_100">수정</Link>
+                                        <Link to={{pathname: URL.ADMIN_SCHEDULE_MODIFY}}
+                                            state={{
+                                                schdulId: location.state?.schdulId
+                                            }}
+                                            className="btn btn_skyblue_h46 w_100">수정</Link>
                                         <button className="btn btn_skyblue_h46 w_100"
                                             onClick={(e) => {
-                                                onClickDeleteSchedule(history.location.state?.schdulId);
+                                                onClickDeleteSchedule(location.state?.schdulId);
                                             }}>삭제</button>
                                         
                                     </div>

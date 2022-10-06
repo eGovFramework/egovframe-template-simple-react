@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -12,8 +12,8 @@ function EgovWeeklyList(props) {
     console.log("[Start] EgovWeeklyList ------------------------------");
     console.log("EgovWeeklyList [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovWeeklyList [history] : ", history);
+    const location = useLocation();
+    console.log("EgovWeeklyList [location] : ", location);
 
     const DATE = new Date();
     const FIRST_DAY_OF_THIS_WEEK = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate() - DATE.getDay());
@@ -27,7 +27,7 @@ function EgovWeeklyList(props) {
         return (returnVal);
     }
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '', year: FIRST_DAY_OF_THIS_WEEK.getFullYear(), month: FIRST_DAY_OF_THIS_WEEK.getMonth(), date: FIRST_DAY_OF_THIS_WEEK.getDate(), weekDay: FIRST_DAY_OF_THIS_WEEK.getDay(), weekOfMonth: getWeekOfMonth(FIRST_DAY_OF_THIS_WEEK) });
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { schdulSe: '', year: FIRST_DAY_OF_THIS_WEEK.getFullYear(), month: FIRST_DAY_OF_THIS_WEEK.getMonth(), date: FIRST_DAY_OF_THIS_WEEK.getDate(), weekDay: FIRST_DAY_OF_THIS_WEEK.getDay(), weekOfMonth: getWeekOfMonth(FIRST_DAY_OF_THIS_WEEK) });
 
     const [scheduleList, setScheduleList] = useState([]);
     const [listTag, setListTag] = useState([]);
@@ -137,13 +137,12 @@ function EgovWeeklyList(props) {
                                 return (
                                     <Link
                                         key={subKeyPropertyCnt}
-                                        to={{
-                                            pathname: URL.INFORM_WEEKLY_DETAIL,
-                                            state: {
-                                                schdulId: item.schdulId,
-                                                prevPath: URL.INFORM_WEEKLY
-                                            }
-                                            }} >
+                                        to={{pathname: URL.INFORM_WEEKLY_DETAIL}} 
+                                        state={{
+                                            schdulId: item.schdulId,
+                                            prevPath: URL.INFORM_WEEKLY
+                                        }}
+                                        >
                                         <span>{getTimeForm(item.schdulBgnde)} ~ {getTimeForm(item.schdulEndde)}</span>
                                         <span>{item.schdulNm}</span>
                                         <span>{item.userNm}</span>
@@ -229,14 +228,14 @@ function EgovWeeklyList(props) {
                                     </label>
                                 </li>
                                 <li>
-                                    {/* <a href="" className="prev">이전연도로이동</a> */}
+                                    {/* <a href="#!" className="prev">이전연도로이동</a> */}
                                     <button className="prev"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, -1);
                                         }}
                                     ></button>
                                     <span>{searchCondition.year}년</span>
-                                    {/* <a href="" className="next">다음연도로이동</a> */}
+                                    {/* <a href="#!" className="next">다음연도로이동</a> */}
                                     <button className="next"
                                         onClick={() => {
                                             changeDate(CODE.DATE_YEAR, 1);
@@ -283,31 +282,31 @@ function EgovWeeklyList(props) {
                             </div>
                             <div className="result">
                                 {/* <!-- case : 데이터 있을때 --> */}
-                                {/* <a href="" className="list_item">
+                                {/* <a href="#!" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
                                 </a>
-                                <a href="" className="list_item">
+                                <a href="#!" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
                                 </a>
-                                <a href="" className="list_item">
+                                <a href="#!" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
                                 </a>
-                                <a href="" className="list_item">
+                                <a href="#!" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
                                     <div>관리자</div>
                                 </a>
-                                <a href="" className="list_item">
+                                <a href="#!" className="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>11:00~12:30</div>
                                     <div className="al">전자정부표준프레임워크 금주의 행사안내입니다.</div>
@@ -316,25 +315,11 @@ function EgovWeeklyList(props) {
                                                                 <div class="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>
-                                        <a href="">
+                                        <a href="#!">
                                             <span>11:00~12:30</span>
                                             <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
                                         </a>
-                                        <a href="">
-                                            <span>11:00~12:30</span>
-                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
-                                        </a>
-                                    </div>
-                                    <div>관리자</div>
-                                </div>
-                                <div class="list_item">
-                                    <div>2021년07월11일 일요일</div>
-                                    <div>
-                                        <a href="">
-                                            <span>11:00~12:30</span>
-                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
-                                        </a>
-                                        <a href="">
+                                        <a href="#!">
                                             <span>11:00~12:30</span>
                                             <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
                                         </a>
@@ -344,11 +329,25 @@ function EgovWeeklyList(props) {
                                 <div class="list_item">
                                     <div>2021년07월11일 일요일</div>
                                     <div>
-                                        <a href="">
+                                        <a href="#!">
                                             <span>11:00~12:30</span>
                                             <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
                                         </a>
-                                        <a href="">
+                                        <a href="#!">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                    </div>
+                                    <div>관리자</div>
+                                </div>
+                                <div class="list_item">
+                                    <div>2021년07월11일 일요일</div>
+                                    <div>
+                                        <a href="#!">
+                                            <span>11:00~12:30</span>
+                                            <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
+                                        </a>
+                                        <a href="#!">
                                             <span>11:00~12:30</span>
                                             <span>전자정부표준프레임워크 금주의 행사안내입니다.</span>
                                         </a>

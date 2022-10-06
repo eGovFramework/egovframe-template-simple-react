@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -13,12 +13,12 @@ function EgovAdminTemplateList(props) {
     console.group("EgovAdminTemplateList");
     console.log("[Start] EgovAdminTemplateList ------------------------------");
 
-    const history = useHistory();
-    console.log("EgovAdminTemplateList [history] : ", history);
+    const location = useLocation();
+    console.log("EgovAdminTemplateList [location] : ", location);
     let searchCnd = '0';
     let searchWrd = '';
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});
 
@@ -55,13 +55,12 @@ function EgovAdminTemplateList(props) {
                     const listIdx = itemIdxByPage(resultCnt , currentPageNo, pageSize, index);
 
                     mutListTag.push(
-                        <Link to={{
-                            pathname: URL.ADMIN_TEMPLATE_MODIFY,
-                            state: {
+                        <Link to={{pathname: URL.ADMIN_TEMPLATE_MODIFY}}
+                            state={{
                                 tmplatId: item.tmplatId,
                                 searchCondition: searchCondition
-                            }
-                        }} key={listIdx} className="list_item" >
+                            }}
+                            key={listIdx} className="list_item" >
                             <div>{listIdx}</div>
                             <div>{item.tmplatNm}</div>
                             <div>{item.tmplatSeCodeNm}</div>

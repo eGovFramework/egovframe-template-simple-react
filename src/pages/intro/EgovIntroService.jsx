@@ -9,8 +9,8 @@ function EgovIntroService() {
             {/* <!-- Location --> */}
             <div className="location">
                 <ul>
-                    <li><a className="home" href="">Home</a></li>
-                    <li><a href="">정보마당</a></li>
+                    <li><a className="home" href="#!">Home</a></li>
+                    <li><a href="#!">정보마당</a></li>
                     <li>대표서비스 소개</li>
                 </ul>
             </div>

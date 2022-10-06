@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -9,8 +9,8 @@ function EgovMain(props) {
     console.log("[Start] EgovMain ------------------------------");
     console.log("EgovMain [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovMain [history] : ", history);
+    const location = useLocation();
+    console.log("EgovMain [location] : ", location);
 
     const [noticeBoard, setNoticeBoard] = useState();
     const [gallaryBoard, setGallaryBoard] = useState();
@@ -45,12 +45,10 @@ function EgovMain(props) {
                     mutNotiListTag.push(
                         <li key={index}>
                             <Link
-                                to={{
-                                    pathname: URL.INFORM_NOTICE_DETAIL,
-                                    state: {
-                                        nttId: item.nttId,
-                                        bbsId: item.bbsId
-                                    }
+                                to={{pathname: URL.INFORM_NOTICE_DETAIL}}
+                                state={{
+                                    nttId: item.nttId,
+                                    bbsId: item.bbsId
                                 }}
                             >
                                 {item.nttSj}
@@ -70,12 +68,10 @@ function EgovMain(props) {
                     mutGallaryListTag.push(
                         <li key={index}>
                             <Link
-                                to={{
-                                    pathname: URL.INFORM_GALLERY_DETAIL,
-                                    state: {
-                                        nttId: item.nttId,
-                                        bbsId: item.bbsId
-                                    }
+                                to={{pathname: URL.INFORM_GALLERY_DETAIL}}
+                                state={{
+                                    nttId: item.nttId,
+                                    bbsId: item.bbsId
                                 }}
                             >
                                 {item.nttSj}

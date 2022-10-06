@@ -134,7 +134,7 @@ function EgovQnaDetail() {
                                 </div>
                             </div>
                             <div className="right_col">
-                                <a href="" className="btn ">등록</a>
+                                <a href="#!" className="btn ">등록</a>
                             </div>
                         </div>
                         {/* <!--// 답변달기 --> */}

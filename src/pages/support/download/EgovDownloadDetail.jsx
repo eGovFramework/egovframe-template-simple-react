@@ -50,7 +50,7 @@ function EgovDownloadDetail() {
                             <div className="info2">
                                 <div className="left_col">
                                     <img src="/assets/images/sample_pds_list.png" alt=""/>
-                                    <a href="" className="btn btn_down"><span>다운로드</span></a>
+                                    <a href="#!" className="btn btn_down"><span>다운로드</span></a>
                                 </div>
                                 <div className="right_col">
                                     <dl>

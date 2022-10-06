@@ -9,8 +9,8 @@ function EgovSupportApply() {
                 {/* <!-- Location --> */}
                 <div className="location">
                     <ul>
-                        <li><a className="home" href="">Home</a></li>
-                        <li><a href="">고객지원</a></li>
+                        <li><a className="home" href="#!">Home</a></li>
+                        <li><a href="#!">고객지원</a></li>
                         <li>서비스신청</li>
                     </ul>
                 </div>

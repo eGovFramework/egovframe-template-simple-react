@@ -15,18 +15,17 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile }) {
     function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
         console.log("onClickDeleteFile Params : ", atchFileId, fileSn, fileIndex);
         
-        const formData = new FormData();
-        formData.set("atchFileId", atchFileId);
-        formData.set("fileSn", fileSn);
-        
         const requestOptions = {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 //'Content-type': 'multipart/form-data'
             },
-            body: formData
+            body: {
+                "atchFileId" : atchFileId,
+                "fileSn" : fileSn
+            }
         }
-        EgovNet.requestFetch("/cmm/fms/deleteFileInfsAPI.do",
+        EgovNet.requestFetch(`/cmm/fms/deleteFileInfsAPI/${atchFileId}/${fileSn}.do`,
             requestOptions,
             function (resp) {
                 console.log("===>>> board file delete= " , resp);

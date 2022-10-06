@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -13,8 +13,9 @@ function EgovDailyDetail(props) {
     console.log("[Start] EgovDailyDetail ------------------------------");
     console.log("EgovDailyDetail [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovDailyDetail [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovDailyDetail [location] : ", location);
 
     const [scheduleDetail, setScheduleDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -29,7 +30,7 @@ function EgovDailyDetail(props) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                schdulId: history.location.state?.schdulId
+                schdulId: location.state?.schdulId
             })
         }
         EgovNet.requestFetch(retrieveDetailURL,
@@ -66,7 +67,7 @@ function EgovDailyDetail(props) {
     const getCodeName = (codeArr, code) => {
         return (
             codeArr.map((codeObj) => {
-                if (codeObj.code == code.trim()) return codeObj.codeNm;
+                if (codeObj.code === code.trim()) return codeObj.codeNm;
             })
         );
     }
@@ -89,8 +90,7 @@ function EgovDailyDetail(props) {
                 console.log("====>>> Schdule delete= ", resp);
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     alert("게시글이 삭제되었습니다.")
-                    // history.go(1);
-                    history.goBack();
+                    navigate(-1, { replace: true });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -172,7 +172,7 @@ function EgovDailyDetail(props) {
                                 <dt>파일첨부</dt>
                                 <dd>
                                     <span className="file_attach">
-                                        <a href="">file_name.hwp</a> <span>[3626] byte</span>
+                                        <a href="#!">file_name.hwp</a> <span>[3626] byte</span>
                                     </span>
                                 </dd>
                             </dl> */}
@@ -182,7 +182,7 @@ function EgovDailyDetail(props) {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="right_col btn1">
-                                    <Link to={history.location.state?.prevPath} className="btn btn_blue_h46 w_100">목록</Link>
+                                    <Link to={location.state?.prevPath} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>
                             </div>
                             {/* <!--// 버튼영역 --> */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -15,14 +15,14 @@ function EgovGalleryList(props) {
     console.log("[Start] EgovGalleryList ------------------------------");
     console.log("EgovGalleryList [props] : ", props);
 
-    let history = useHistory();
-    console.log("EgovGalleryList [history] : ", history);
+    const location = useLocation();
+    console.log("EgovGalleryList [location] : ", location);
 
     const bbsId = GALLERY_BBS_ID;
     let searchCnd = '0';
     let searchWrd = '';
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { bbsId: bbsId, pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [masterBoard, setMasterBoard] = useState({});
     const [user, setUser] = useState({});
     const [paginationInfo, setPaginationInfo] = useState({});
@@ -61,14 +61,13 @@ function EgovGalleryList(props) {
                     const listIdx = itemIdxByPage(resultCnt , currentPageNo, pageSize, index);
 
                     mutListTag.push(
-                        <Link to={{
-                            pathname: URL.INFORM_GALLERY_DETAIL,
-                            state: {
+                        <Link to={{pathname: URL.INFORM_GALLERY_DETAIL}}
+                            state={{
                                 nttId: item.nttId,
                                 bbsId: item.bbsId,
                                 searchCondition: searchCondition
-                            }
-                        }} key={listIdx} className="list_item" >
+                            }}
+                            key={listIdx} className="list_item" >
                             <div>{listIdx}</div>
                             {(item.replyLc * 1 ? true : false) &&
                                 <><div className="al reply">

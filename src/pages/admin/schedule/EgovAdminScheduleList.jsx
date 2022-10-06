@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -12,13 +12,13 @@ function EgovAdminScheduleList(props) {
     console.log("[Start] EgovAdminScheduleList ------------------------------");
     console.log("EgovAdminScheduleList [props] : ", props);
     
-    const history = useHistory();
-    console.log("EgovAdminScheduleList [history] : ", history);
+    const location = useLocation();
+    console.log("EgovAdminScheduleList [location] : ", location);
 
     const DATE = new Date();
     const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
 
-    const [searchCondition, setSearchCondition] = useState(history.location.state?.searchCondition || { schdulSe: '', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
+    const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { schdulSe: '', year: TODAY.getFullYear(), month: TODAY.getMonth(), date: TODAY.getDate() });
     const [calendarTag, setCalendarTag] = useState([]);
 
     const [scheduleList, setScheduleList] = useState([]);
@@ -163,12 +163,9 @@ function EgovAdminScheduleList(props) {
                                                 if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                                                     return (
                                                         <>
-                                                            <Link to={{
-                                                                pathname: URL.ADMIN_SCHEDULE_DETAIL,
-                                                                state: {
-                                                                    schdulId : schedule.schdulId
-                                                                }
-                                                            }} key={keyIdx++}>{schedule.schdulNm}
+                                                            <Link to={{pathname: URL.ADMIN_SCHEDULE_DETAIL}} 
+                                                            state={{schdulId : schedule.schdulId}}
+                                                            key={keyIdx++}>{schedule.schdulNm}
                                                             </Link>
                                                             <br />
                                                         </>
@@ -268,7 +265,7 @@ function EgovAdminScheduleList(props) {
                                             changeDate(CODE.DATE_YEAR, -1);
                                         }}
                                     ></button>
-                                    {/* <a href="" className="prev">이전연도로이동</a> */}
+                                    {/* <a href="#!" className="prev">이전연도로이동</a> */}
                                     <span>{searchCondition.year}</span>
                                     <button className="next"
                                         onClick={() => {
@@ -282,7 +279,7 @@ function EgovAdminScheduleList(props) {
                                             changeDate(CODE.DATE_MONTH, -1);
                                         }}
                                     ></button>
-                                    {/* <a href="" className="prev">이전월로이동</a> */}
+                                    {/* <a href="#!" className="prev">이전월로이동</a> */}
                                     <span>{(searchCondition.month + 1)}</span>
                                     <button className="next"
                                         onClick={() => {

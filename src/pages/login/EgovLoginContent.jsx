@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as EgovNet from 'api/egovFetch';
 
 import URL from 'constants/url';
@@ -11,8 +10,9 @@ function EgovLoginContent(props) {
     console.log("[Start] EgovLoginContent ------------------------------");
     console.log("EgovLoginContent [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovLoginContent [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovLoginContent [location] : ", location);
 
     const [userInfo, setUserInfo] = useState({ id: '', password: 'default', userSe: 'USR' });
     const [loginVO, setLoginVO] = useState({});
@@ -80,7 +80,7 @@ function EgovLoginContent(props) {
                     setLoginVO(resultVO);
                     props.onChangeLogin(resultVO);
                     if (saveIDFlag) localStorage.setItem(KEY_ID, resultVO?.id);
-                    history.push(URL.MAIN);
+                    navigate(URL.MAIN);
                 } else {
                     alert(resp.resultMessage)
                 }
@@ -128,4 +128,4 @@ function EgovLoginContent(props) {
     );
 }
 
-export default withRouter(EgovLoginContent);
+export default EgovLoginContent;

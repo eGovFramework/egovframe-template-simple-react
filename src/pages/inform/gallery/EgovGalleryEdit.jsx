@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -15,11 +15,12 @@ function EgovGalleryEdit(props) {
     console.log("------------------------------");
     console.log("EgovGalleryEdit [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovGalleryEdit [history] : ", history);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("EgovGalleryEdit [location] : ", location);
 
-    const bbsId = history.location.state?.bbsId || GALLERY_BBS_ID;
-    const nttId = history.location.state?.nttId || "";
+    const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
+    const nttId = location.state?.nttId || "";
 
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [masterBoard, setMasterBoard] = useState({});
@@ -113,7 +114,7 @@ function EgovGalleryEdit(props) {
             requestOptions,
             (resp) => {
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    history.push({ pathname: URL.INFORM_GALLERY });
+                    navigate({ pathname: URL.INFORM_GALLERY });
                 } else {
                     alert("ERR : " + resp.resultMessage);
                 }
@@ -205,7 +206,7 @@ function EgovGalleryEdit(props) {
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
                                 <div className="left_col btn1">
-                                    <a href="" className="btn btn_skyblue_h46 w_100"
+                                    <a href="#!" className="btn btn_skyblue_h46 w_100"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             updateBoard();
