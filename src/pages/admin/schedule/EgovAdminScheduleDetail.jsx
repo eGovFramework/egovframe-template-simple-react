@@ -73,10 +73,10 @@ function EgovAdminScheduleDetail(props) {
     }
 
     const onClickDeleteSchedule = (schdulId) => {
-        const deleteBoardURL = "/cop/smt/sim/egovIndvdlSchdulManageDeleteAPI.do";
+        const deleteBoardURL = `/cop/smt/sim/egovIndvdlSchdulManageDeleteAPI/${schdulId}.do`;
         const jToken = localStorage.getItem('jToken');
         const requestOptions = {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': jToken

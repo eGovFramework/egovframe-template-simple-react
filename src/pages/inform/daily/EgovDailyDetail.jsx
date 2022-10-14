@@ -72,33 +72,6 @@ function EgovDailyDetail(props) {
         );
     }
 
-    const onClickDeleteSchedule = (schdulId) => {
-        const deleteBoardURL = "/cop/smt/sim/egovIndvdlSchdulManageDeleteAPI.do";
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                schdulId: schdulId
-            })
-        }
-
-        EgovNet.requestFetch(deleteBoardURL,
-            requestOptions,
-            (resp) => {
-                console.log("====>>> Schdule delete= ", resp);
-                if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    alert("게시글이 삭제되었습니다.")
-                    navigate(-1, { replace: true });
-                } else {
-                    alert("ERR : " + resp.resultMessage);
-                }
-
-            }
-        );
-    }
-
     useEffect(function () {
         retrieveDetail();
         return function () {
