@@ -186,7 +186,7 @@ input[type=password],
 input[type=email],
 input[type=search],
 input[type=image],
-input[type=tel] {-webkit-border-radius: 0; -webkit-appearance: none;}
+input[type=tel] {-webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; -webkit-appearance: none;}
 
 /* for IE10 */
 input::placeholder {color: #aaa; opacity: 1; /* 파이어폭스에서 뿌옇게 나오는 현상을 방지하기 위한 css */}
@@ -201,12 +201,14 @@ select {font-family: 'NotoSans', sans-serif; font-weight: 400;
     -moz-appearance:none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */
     -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
     appearance:none;}
 select::-ms-expand {display:none;}
 
 .f_chk {display: inline-block; position: relative; min-width: 30px; height: 30px; border: 0; line-height: 30px; background: url(css/images/bg_form_chk.png) no-repeat; vertical-align: top;}
 .f_chk.on {background: url(css/images/bg_form_chk_on.png) no-repeat;}
-.f_chk input {position: absolute; top: -9999px;}
+.f_chk input {position: absolute; opacity: 0;}
 
 .f_rdo {display: inline-block; position: relative; min-width: 22px; height: 22px; border: 0; line-height: 30px; background: url(css/images/bg_form_rdo.png) no-repeat; vertical-align: top;}
 .f_rdo + .f_rdo {margin-left: 30px;}

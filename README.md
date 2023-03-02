@@ -8,8 +8,8 @@
 
 | 프로그램 명 | 버전 명 |
 | :------ | :------ |
-| Node.js |  v14.16 |
-| NPM     | v7.20.0 |
+| Node.js |  v18.12.0 |
+| NPM     | v8.19.2 |
 
 
 
@@ -29,8 +29,6 @@
 
 Git에서 복제하여 설치 시 1-1. 을 참고한다.
 
-표준프레임워크 개발환경에서 설치 시 1-2. 를 참고한다. (2022년 2월 현재)
-
 
 #### 1-1. Git에서 프로젝트 복제 및 모듈 설치
 
@@ -38,7 +36,7 @@ Git에서 clone 한다.
 
 ```bash
 # 프로젝트 저장소를 로컬로 복제
-git clone https://github.com/eGovFramework/egovframe-template-simple-react.git
+git clone https://github.com/hmmhmmhm/egovframe-template-simple-react.git
 
 # 복제된 프로젝트 디렉토리로 이동
 cd egovframe-template-simple-react
@@ -46,20 +44,6 @@ cd egovframe-template-simple-react
 # node modules를 설치해 준다.
 npm install 
 ```
-
-#### 1-2. 표준프레임워크 개발환경에서 설치
-
-egovframe-template-simple-backend 설치 이후
-egovframe-template-simple-react 디렉터리를 egovframe-template-simple-backend 디렉터리 밖으로 이동한다.
-
-```bash
-# 이동한 프로젝트 디렉토리로 이동
-cd egovframe-template-simple-react
-
-# node modules를 설치해 준다.
-npm install 
-```
-
 
 
 ### 2. 백엔드 프로젝트 설정
