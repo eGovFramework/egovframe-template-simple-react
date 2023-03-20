@@ -1,0 +1,35 @@
+name: 개발가이드 수정 요청
+description: 개발가이드 수정 요청하는 템플릿입니다.
+title: "[Guide]: "
+labels: ["guide"]
+assignees:
+  - yongfire38
+body:
+  - type: markdown
+    attributes:
+      value: |
+        시간을 내어 개발가이드 수정 요청을 작성해 주셔서 감사합니다. (공유하고 싶은 기술문서나 노하우는 github wiki에 남겨 주세요.)
+  - type: input
+    id: url
+    attributes:
+      label: 개발가이드 URL
+      description: 수정해야할 개발가이드 URL을 적어 주세요.
+      placeholder: 예) https://www.egovframe.go.kr/wiki/doku.php?id=egovframework:rte4.1:fdl:aop:aspectj
+    validations:
+      required: true
+  - type: textarea
+    id: where-to-amend
+    attributes:
+      label: 수정 대상 내용
+      description: 수정해야할 대상 내용을 기입해 주세요.
+      placeholder: 수정해야할 대상은 다음과 같습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: amendment
+    attributes:
+      label: 수정 문구
+      description: 어떻게 수정되어야 하는지 적어주세요.
+      placeholder: 다음과 같이 수정되어야 합니다.
+    validations:
+      required: true

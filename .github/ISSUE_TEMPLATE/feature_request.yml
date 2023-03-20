@@ -1,0 +1,51 @@
+name: 기능 요구 및 의견
+description: 기능 요구나 기타 의견을 이슈로 등록하는 템플릿입니다.
+title: "[기능요구]: "
+labels: ["feature"]
+assignees:
+  - yongfire38
+body:
+  - type: markdown
+    attributes:
+      value: |
+        시간을 내어 의견을 작성해 주셔서 감사합니다.
+  - type: input
+    id: contact
+    attributes:
+      label: 연락처
+      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. (옵션)
+      placeholder: 예) email@example.com
+    validations:
+      required: false
+  - type: input
+    id: feature-title
+    attributes:
+      label: 추가 요청 기능명
+      description: 추가를 원하는 기능명칭을 간략히 적어주세요.
+      placeholder: 예) 게시판 첨부기능 추가
+    validations:
+      required: true
+  - type: textarea
+    id: feature-request-details
+    attributes:
+      label: 기능 상세 설명
+      description: 추가를 원하는 기능에 대해 상세히 기술해 주세요.
+      placeholder: 추가를 원하는 기능은 다음과 같습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: 솔루션 상세
+      description: 위 기능을 구현하는데 도움이 되는 기술내용이 있으면 적어 주세요.
+      placeholder: 위 기능을 구현하는데 도움이 되는 기술내용은 다음과 같습니다.
+    validations:
+      required: false
+  - type: input
+    id: solution-url
+    attributes:
+      label: 솔루션 관련 URL
+      description: 위 기능을 구현하는데 도움이 되는 웹사이트 주소가 있으면 적어 주세요.
+      placeholder: 예) egovframe.go.kr
+    validations:
+      required: false

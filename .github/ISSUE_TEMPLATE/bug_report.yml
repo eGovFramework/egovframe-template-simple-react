@@ -1,0 +1,74 @@
+name: 버그 리포트
+description: 오류 내용을 이슈로 등록하는 템플릿입니다.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - yongfire38
+body:
+  - type: markdown
+    attributes:
+      value: |
+        시간을 내어 버그 리포트를 작성해 주셔서 감사합니다.
+  - type: input
+    id: contact
+    attributes:
+      label: 연락처
+      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. (옵션)
+      placeholder: 예) email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 오류 내용
+      description: 오류 내용을 기입해 주세요.
+      placeholder: Tell us what you see!
+      value: "오류를 발견했어요."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 오류 재현 방법
+      description: 오류 발생을 재현하려면, 어떻게 해야하나요?
+      placeholder: 오류 재현 방법
+      value: "(다음은 예시이며, 내용을 덮어 써 주세요.)\n\n
+1. 다음 메뉴를 선택한다. '...'\n
+2. 다음 버튼을 클릭한다. '....'\n
+3. 다음 문구까지 스크롤 다운한다. '....'\n
+4. 오류를 확인한다."
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: 환경정보
+      description: 오류가 발생한 환경정보를 작성해 주세요.
+      placeholder: 오류 환경정보
+      value: " - OS정보: \n
+- 표준프레임워크 버전: \n
+- JDK(JRE) 정보: \n
+- WAS 정보: \n
+- DB 정보: \n
+- 기타 환경 정보:"
+    validations:
+      required: false
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: 어느 브라우저를 사용했나요?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Microsoft Edge
+        - Opera
+        - Safari
+        - Internet Explorer
+        - 기타
+  - type: textarea
+    id: logs
+    attributes:
+      label: 에러 로그
+      description: 관련 에러 로그를 복사하여 붙여넣어 주세요.
+      render: shell
