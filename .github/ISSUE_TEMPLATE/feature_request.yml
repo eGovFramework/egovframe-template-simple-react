@@ -1,6 +1,6 @@
-name: 기능 요구 및 의견
-description: 기능 요구나 기타 의견을 이슈로 등록하는 템플릿입니다.
-title: "[기능요구]: "
+name: 기능 요구 및 의견 Feature Request
+description: 기능 요구나 기타 의견을 이슈로 등록하는 템플릿입니다. Suggest an idea for improving eGovFrame.
+title: "[기능요구(Feature)]: "
 labels: ["feature"]
 assignees:
   - yongfire38
@@ -8,44 +8,44 @@ body:
   - type: markdown
     attributes:
       value: |
-        시간을 내어 의견을 작성해 주셔서 감사합니다.
+        시간을 내어 의견을 작성해 주셔서 감사합니다. Thank you for taking the time to fill out a request.
   - type: input
     id: contact
     attributes:
-      label: 연락처
-      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. (옵션)
+      label: 연락처 Contact
+      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. Please include an email where we can reach you if we need more information. (Optional)
       placeholder: 예) email@example.com
     validations:
       required: false
   - type: input
     id: feature-title
     attributes:
-      label: 추가 요청 기능명
-      description: 추가를 원하는 기능명칭을 간략히 적어주세요.
-      placeholder: 예) 게시판 첨부기능 추가
+      label: 추가 요청 기능명 Feature Name
+      description: 추가를 원하는 기능명칭을 간략히 적어주세요. Write the title of the feature you'd like to add.
+      placeholder: 예) 게시판 첨부기능 추가 Example) Adding a bulletin board attachment
     validations:
       required: true
   - type: textarea
     id: feature-request-details
     attributes:
-      label: 기능 상세 설명
-      description: 추가를 원하는 기능에 대해 상세히 기술해 주세요.
-      placeholder: 추가를 원하는 기능은 다음과 같습니다.
+      label: 기능 상세 설명 Feature Description
+      description: 추가를 원하는 기능에 대해 상세히 기술해 주세요. Please describe in detail the features you would like to see added.
+      placeholder: 추가를 원하는 기능은 다음과 같습니다. Here are the features I'd like to see added
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: 솔루션 상세
-      description: 위 기능을 구현하는데 도움이 되는 기술내용이 있으면 적어 주세요.
-      placeholder: 위 기능을 구현하는데 도움이 되는 기술내용은 다음과 같습니다.
+      label: 솔루션 상세 Solution Details
+      description: 위 기능을 구현하는데 도움이 되는 기술내용이 있으면 적어 주세요. If you have any technical details to help us implement the above features, please let us know.
+      placeholder: 위 기능을 구현하는데 도움이 되는 기술내용은 다음과 같습니다. Here are some technical details to help you implement the above features.
     validations:
       required: false
   - type: input
     id: solution-url
     attributes:
-      label: 솔루션 관련 URL
-      description: 위 기능을 구현하는데 도움이 되는 웹사이트 주소가 있으면 적어 주세요.
-      placeholder: 예) egovframe.go.kr
+      label: 솔루션 관련 URL Solution-related URLs
+      description: 위 기능을 구현하는데 도움이 되는 웹사이트 주소가 있으면 적어 주세요. If you have a website address that can help us implement the above features, please write it down.
+      placeholder: Example) egovframe.go.kr
     validations:
       required: false

@@ -1,5 +1,5 @@
-name: 버그 리포트
-description: 오류 내용을 이슈로 등록하는 템플릿입니다.
+name: 버그 리포트 Bug report
+description: 오류 내용을 이슈로 등록하는 템플릿입니다. Template to register an error as an issue.
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
@@ -8,55 +8,55 @@ body:
   - type: markdown
     attributes:
       value: |
-        시간을 내어 버그 리포트를 작성해 주셔서 감사합니다.
+        시간을 내어 버그 리포트를 작성해 주셔서 감사합니다. Thank you for taking the time to fill out a bug report.
   - type: input
     id: contact
     attributes:
-      label: 연락처
-      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. (옵션)
+      label: 연락처 Contact
+      description: 추가 정보 필요 시, 연락할 수 있는 이메일을 적어 주세요. Please include an email where we can reach you if we need more information. (Optional)
       placeholder: 예) email@example.com
     validations:
       required: false
   - type: textarea
     id: what-happened
     attributes:
-      label: 오류 내용
-      description: 오류 내용을 기입해 주세요.
+      label: 오류 내용 Error Description
+      description: 오류 내용을 기입해 주세요. Please provide a description of the error.
       placeholder: Tell us what you see!
-      value: "오류를 발견했어요."
+      value: "오류를 발견했어요. I found an error."
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
-      label: 오류 재현 방법
-      description: 오류 발생을 재현하려면, 어떻게 해야하나요?
-      placeholder: 오류 재현 방법
-      value: "(다음은 예시이며, 내용을 덮어 써 주세요.)\n\n
-1. 다음 메뉴를 선택한다. '...'\n
-2. 다음 버튼을 클릭한다. '....'\n
-3. 다음 문구까지 스크롤 다운한다. '....'\n
-4. 오류를 확인한다."
+      label: 오류 재현 방법 How to reproduce the error
+      description: 오류 발생을 재현하려면, 어떻게 해야하나요? How can we reproduce the error you reported?
+      placeholder: 오류 재현 방법 How to reproduce the error
+      value: "(다음은 예시이며, 내용을 덮어 써 주세요. The following is an example, please overwrite the content.)\n\n
+1. 다음 메뉴를 선택한다. Select the following menu '...'\n
+2. 다음 버튼을 클릭한다. Click the Next button. '....'\n
+3. 다음 문구까지 스크롤 다운한다. Scroll down to the following phrase '....'\n
+4. 오류를 확인한다. Check for errors."
     validations:
       required: false
   - type: textarea
     id: environment
     attributes:
-      label: 환경정보
-      description: 오류가 발생한 환경정보를 작성해 주세요.
-      placeholder: 오류 환경정보
-      value: " - OS정보: \n
-- 표준프레임워크 버전: \n
+      label: 환경정보 Environmental Information
+      description: 오류가 발생한 환경정보를 작성해 주세요. Please describe the environment in which the error occurred.
+      placeholder: 오류 환경정보 Error Environment Information
+      value: " - OS정보 Operating System: \n
+- 표준프레임워크 버전 eGovFrame Version: \n
 - JDK(JRE) 정보: \n
 - WAS 정보: \n
 - DB 정보: \n
-- 기타 환경 정보:"
+- 기타 환경 정보 Other environmental information:"
     validations:
       required: false
   - type: dropdown
     id: browsers
     attributes:
-      label: 어느 브라우저를 사용했나요?
+      label: 어느 브라우저를 사용했나요? Which browser did you use?
       multiple: true
       options:
         - Chrome
@@ -65,10 +65,10 @@ body:
         - Opera
         - Safari
         - Internet Explorer
-        - 기타
+        - Others
   - type: textarea
     id: logs
     attributes:
-      label: 에러 로그
-      description: 관련 에러 로그를 복사하여 붙여넣어 주세요.
+      label: 에러 로그 Error Logs
+      description: 관련 에러 로그를 복사하여 붙여넣어 주세요. Please copy and paste the relevant error logs.
       render: shell
