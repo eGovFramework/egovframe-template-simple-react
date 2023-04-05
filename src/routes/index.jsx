@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route } from 'react-router-dom';
 
 import URL from 'constants/url';
 import CODE from 'constants/code';
@@ -68,12 +68,10 @@ import initPage from 'js/ui';
 const RootRoutes = () => {
 
   return (
-    <Router>
       <Routes>
         <Route path={URL.ERROR} element={<EgovError />} />
         <Route path="*" element={<SecondRoutes/>} />
       </Routes>
-    </Router>
   )
 }
 
