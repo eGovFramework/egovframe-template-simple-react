@@ -18,6 +18,11 @@ function EgovHeader({ loginUser, onChangeLogin }) {
 
     const logInHandler = () => { // 로그인 정보 없을 시
         navigate(URL.LOGIN);
+		// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가
+		document.querySelector('.all_menu.WEB').classList.add('closed');
+        document.querySelector('.btnAllMenu').classList.remove('active');
+        document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+		document.querySelector('.all_menu.Mobile').classList.add('closed');
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/uat/uia/actionLogoutAPI.do';
@@ -32,6 +37,11 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                     sessionStorage.setItem('loginUser', JSON.stringify({"id":""}));
                     window.alert("로그아웃되었습니다!");
                     navigate(URL.MAIN);
+					// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가
+					document.querySelector('.all_menu.WEB').classList.add('closed');
+	                document.querySelector('.btnAllMenu').classList.remove('active');
+	                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+					document.querySelector('.all_menu.Mobile').classList.add('closed');
                 }
             }
         );

@@ -42,7 +42,11 @@ export default function initPage() {
                 document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
             }
         });
-
+		// Mobile 서브메뉴 항목 클릭시 메뉴 닫기: 2023.04.13(목) 김일국 추가
+        document.querySelectorAll('.all_menu.Mobile .submenu a')
+			.forEach(el => el.addEventListener('click', (e) =>  {
+            	document.querySelector('.all_menu.Mobile').classList.add('closed');
+        }));
         // 모바일 하위 메뉴 열고 닫기
         document.querySelectorAll('.all_menu.Mobile h3 a')
             .forEach(el => el.addEventListener('click', (e) =>  {

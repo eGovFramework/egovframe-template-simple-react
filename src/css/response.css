@@ -26,7 +26,8 @@
     .user_info_m .person {color: #169bd5; font-weight: 700; letter-spacing: -1px;}
     .user_info_m .person::before {content: ""; display: inline-block; width: 22px; height: 22px; margin-right: 9px; background: url(css/images/ico_person.png) no-repeat; background-size: contain; vertical-align: -6px;}
     .user_info_m .login {width: 85px; height: 30px; margin-top: 20px; border-radius: 15px; color: #fff; font-size: 12px; line-height: 30px; text-align: center; background: #169bd5;}
-    .user_info_m .logout {margin-left: 5px; color: #222; font-weight: 700; text-decoration: underline;}
+    /* Mobile 로그아웃 버튼 디자인 이쁘게 적용: 2023.04.13(목) 김일국 추가 */
+    .user_info_m .logout {color: #222; font-weight: 700; padding: 0 20px; border-radius: 15px; color: #fff; font-size: 14px; line-height: 30px; background: #169bd5; vertical-align: middle;}
     .user_info_m .close {display: block; position: absolute; right: 20px; top: 24px; width: 21px; height: 21px; background: url(css/images/ico_close_black44.png) no-repeat; background-size: contain;}
 
     .all_menu.Mobile .menu {border-top: 10px solid #f5f6f7;}
