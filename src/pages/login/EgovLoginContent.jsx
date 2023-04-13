@@ -84,6 +84,11 @@ function EgovLoginContent(props) {
                     props.onChangeLogin(resultVO);
                     if (saveIDFlag) localStorage.setItem(KEY_ID, resultVO?.id);
                     navigate(URL.MAIN);
+                    // PC와 Mobile 열린메뉴 닫기
+                    document.querySelector('.all_menu.WEB').classList.add('closed');
+                    document.querySelector('.btnAllMenu').classList.remove('active');
+                    document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+		            document.querySelector('.all_menu.Mobile').classList.add('closed');
                 } else {
                     alert(resp.resultMessage)
                 }
