@@ -1,7 +1,32 @@
 let init;
 
 export default function initPage() {
-
+	//모바일에서 관리자 메뉴가 동적으로 추가되었을 때 서브메뉴가 정상 작동되도록 코드 추가 : 2023.04.14(금) 김일국 추가
+	const sessionUser = sessionStorage.getItem('loginUser');
+    const sessionUserId = JSON.parse(sessionUser)?.id;
+	if(sessionUserId=='admin'){
+	    // Mobile 서브메뉴 항목 클릭시 메뉴 닫기
+        document.querySelectorAll('.all_menu.Mobile .submenu a')
+			.forEach(el => el.addEventListener('click', () =>  {
+            	document.querySelector('.all_menu.Mobile').classList.add('closed');
+        }));
+        // 모바일 관리자 하위 메뉴 열고 닫기
+		const nodes = document.querySelectorAll('.all_menu.Mobile h3 a');
+		const last_submenu = nodes[nodes.length- 1];
+		last_submenu.addEventListener('click', (e) => {
+			e.preventDefault();
+			const el = e.target;
+			el.classList.toggle('active');
+			const submenu = el.parentElement.nextElementSibling;
+            if (submenu.matches('.closed')) {
+                submenu.style.height = submenu.scrollHeight + 'px';
+                submenu.classList.remove('closed');
+            } else {
+                submenu.classList.add('closed');
+                submenu.style.height = '';
+            }
+		});
+	}
     if (init) return;
     init = true;
 
