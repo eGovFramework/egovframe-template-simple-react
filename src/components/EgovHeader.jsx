@@ -13,6 +13,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
     const sessionUser = sessionStorage.getItem('loginUser');
     const sessionUserId = JSON.parse(sessionUser)?.id;
     const sessionUserName = JSON.parse(sessionUser)?.name;
+    const sessionUserSe = JSON.parse(sessionUser)?.userSe;
 
     const navigate = useNavigate();
 
@@ -68,7 +69,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                         <li><NavLink to={URL.INTRO} className={({ isActive }) => (isActive ? "cur" : "")}>정보마당</NavLink></li>
                         <li><NavLink to={URL.SUPPORT} className={({ isActive }) => (isActive ? "cur" : "")}>고객지원</NavLink></li>
                         <li><NavLink to={URL.INFORM} className={({ isActive }) => (isActive ? "cur" : "")}>알림마당</NavLink></li>
-                        {sessionUserId &&
+                        {sessionUserSe ==='USR' &&
                             <li><NavLink to={URL.ADMIN} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리</NavLink></li>
                         }
                     </ul>
@@ -134,7 +135,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                             <li><NavLink to={URL.INFORM_GALLERY} className={({ isActive }) => (isActive ? "cur" : "")}>사이트 갤러리</NavLink></li>
                         </ul>
                     </div>
-                    {sessionUserId &&
+                    {sessionUserSe ==='USR' &&
                         <div className="col">
                             <h3>사이트관리</h3>
                             <ul>
@@ -199,7 +200,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                             <li><NavLink to={URL.INFORM_GALLERY} className={({ isActive }) => (isActive ? "cur" : "")}>사이트 갤러리</NavLink></li>
                         </ul>
                     </div>
-                    {sessionUserId &&
+                    {sessionUserSe ==='USR' &&
                         <>
                             <h3><Link to={URL.ADMIN}>사이트관리</Link></h3>
                             <div className="submenu closed">
