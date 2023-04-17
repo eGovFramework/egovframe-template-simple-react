@@ -22,6 +22,10 @@ function EgovAdminPasswordUpdate(props) {
             alert("신규 암호는 필수 값입니다.");
             return false;
         }
+        if (formData.get('new_password') === formData.get('old_password')) {
+            alert("신규 암호는 기존 암호와 동일하게 사용할 수 없습니다.");
+            return false;
+        }
         return true;
     };
 
@@ -49,7 +53,7 @@ function EgovAdminPasswordUpdate(props) {
                 (resp) => {
                     if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
 						alert("OK 다음 로그인 시 신규 암호를 사용하세요.");
-                        navigate({ pathname: URL.MAIN });
+                        navigate({ pathname: URL.MAIN }, { replace: true });
                     } else {
 						alert("Fail 변경되지 않았습니다. 다시 시도해 주세요.");
 						//navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
