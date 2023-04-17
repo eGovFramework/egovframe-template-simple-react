@@ -139,7 +139,7 @@ function EgovGalleryEdit(props) {
                         navigate(URL.INFORM_GALLERY, {state:{bbsId : bbsId}});
                     } else {
                         // alert("ERR : " + resp.message);
-                        navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                        navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                     }
                 }
             );

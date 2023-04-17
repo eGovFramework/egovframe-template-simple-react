@@ -139,7 +139,7 @@ function EgovNoticeEdit(props) {
                         navigate(URL.INFORM_NOTICE, {state:{bbsId : bbsId}});
                     } else {
                         // alert("ERR : " + resp.message);
-                        navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                        navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                     }
                 }
             );

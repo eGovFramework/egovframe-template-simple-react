@@ -73,7 +73,7 @@ function EgovNoticeDetail(props) {
                     alert("게시글이 삭제되었습니다.")
                     navigate(URL.INFORM_NOTICE ,{ replace: true });
                 } else {
-                    navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                    navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                 }
 
             }

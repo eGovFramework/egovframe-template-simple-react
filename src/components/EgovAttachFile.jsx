@@ -50,7 +50,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
                     alert("첨부파일이 삭제되었습니다.");
                     fnChangeFile({});
                 } else {
-                    navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                    navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                 }
             }
         );

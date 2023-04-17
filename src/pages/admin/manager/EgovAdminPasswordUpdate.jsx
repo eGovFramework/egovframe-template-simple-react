@@ -56,7 +56,7 @@ function EgovAdminPasswordUpdate(props) {
                         navigate({ pathname: URL.MAIN }, { replace: true });
                     } else {
 						alert("Fail 변경되지 않았습니다. 다시 시도해 주세요.");
-						//navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+						navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}}); //에러메세지 변수명 변경
                     }
                 }
             );

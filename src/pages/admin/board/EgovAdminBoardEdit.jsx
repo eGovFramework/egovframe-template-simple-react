@@ -160,7 +160,7 @@ function EgovAdminBoardEdit(props) {
                             if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                                 navigate({ pathname: URL.ADMIN_BOARD });
                             } else {
-                                navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                                navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                             }
                         }
                     );
@@ -184,7 +184,7 @@ function EgovAdminBoardEdit(props) {
                         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                             navigate({ pathname: URL.ADMIN_BOARD });
                         } else {
-                            navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                            navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                         }
                     }
                 );
