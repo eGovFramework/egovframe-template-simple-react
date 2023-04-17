@@ -62,6 +62,8 @@ import EgovAdminNoticeEdit from 'pages/admin/notice/EgovAdminNoticeEdit';
 import EgovAdminGalleryList from 'pages/admin/gallery/EgovAdminGalleryList';
 import EgovAdminGalleryDetail from 'pages/admin/gallery/EgovAdminGalleryDetail';
 import EgovAdminGalleryEdit from 'pages/admin/gallery/EgovAdminGalleryEdit';
+//사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 추가
+import EgovAdminPasswordUpdate from 'pages/admin/manager/EgovAdminPasswordUpdate';
 
 import initPage from 'js/ui';
 
@@ -168,7 +170,8 @@ const SecondRoutes = () => {
         <Route path={URL.ADMIN_GALLERY_CREATE} element={<EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
         <Route path={URL.ADMIN_GALLERY_MODIFY} element={<EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
         <Route path={URL.ADMIN_GALLERY_REPLY} element={<EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
-
+		{/* 사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 */}
+		<Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
       </Routes>
       <EgovFooter />
       <EgovInfoPopup />
