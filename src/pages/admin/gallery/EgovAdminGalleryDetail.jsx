@@ -73,7 +73,7 @@ function EgovAdminGalleryDetail(props) {
                     navigate(URL.ADMIN_GALLERY ,{ replace: true });
                 } else {
                     // alert("ERR : " + resp.message);
-                    navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                    navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                 }
 
             }

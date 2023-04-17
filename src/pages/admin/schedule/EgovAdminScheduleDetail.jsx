@@ -96,7 +96,7 @@ function EgovAdminScheduleDetail(props) {
                     navigate(URL.ADMIN_SCHEDULE ,{ replace: true });
                 } else {
                     // alert("ERR : " + resp.message);
-                    navigate({pathname: URL.ERROR}, {state: {msg : resp.message}});
+                    navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}});
                 }
 
             }
