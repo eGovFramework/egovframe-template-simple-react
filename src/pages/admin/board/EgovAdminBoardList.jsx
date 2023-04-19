@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
@@ -19,6 +19,9 @@ function EgovAdminBoardList(props) {
 
     const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [paginationInfo, setPaginationInfo] = useState({});
+
+    const cndRef = useRef();
+    const wrdRef = useRef();
 
     const [listTag, setListTag] = useState([]);
 
@@ -121,8 +124,10 @@ function EgovAdminBoardList(props) {
                                 <li className="third_1 L">
                                     <span className="lb">검색유형선택</span>
                                     <label className="f_select" htmlFor="searchCnd">
-                                        <select id="searchCnd" name="searchCnd" title="검색유형선력"
-                                            onChange={(e) => setSearchCondition({ ...searchCondition, searchCnd: e.target.value })}
+                                        <select id="searchCnd" name="searchCnd" title="검색유형선택" ref={cndRef}
+                                            oonChange={e => {
+                                                cndRef.current.value = e.target.value; 
+                                            }}
                                         >
                                             <option value="0">게시판명</option>
                                             <option value="1">게시판유형</option>
@@ -132,11 +137,15 @@ function EgovAdminBoardList(props) {
                                 <li className="third_2 R">
                                     <span className="lb">검색어</span>
                                     <span className="f_search w_400">
-                                        <input type="text" name="" defaultValue={searchCondition && searchCondition.searchWrd} placeholder=""
-                                            onChange={(e) => setSearchCondition({ ...searchCondition, searchWrd: e.target.value })}
+                                        <input type="text" name="" defaultValue={searchCondition && searchCondition.searchWrd} placeholder="" ref={wrdRef}
+                                            onChange={e => {
+                                                wrdRef.current.value = e.target.value;
+                                            }}
                                         />
                                         <button type="button"
-                                            onClick={() => retrieveList(searchCondition)}>조회</button>
+                                            onClick={() => {
+                                                retrieveList({ ...searchCondition, pageIndex: 1, searchCnd: cndRef.current.value, searchWrd: wrdRef.current.value });
+                                            }}>조회</button>
                                     </span>
                                 </li>
                                 <li>
@@ -165,7 +174,7 @@ function EgovAdminBoardList(props) {
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
                             <EgovPaging pagination={paginationInfo} moveToPage={passedPage => {
-                                retrieveList({ ...searchCondition, pageIndex: passedPage })
+                                retrieveList({ ...searchCondition, pageIndex: passedPage, searchCnd: cndRef.current.value, searchWrd: wrdRef.current.value })
                             }} />
                             {/* <!--/ Paging --> */}
                         </div>

@@ -182,7 +182,7 @@ function EgovAdminNoticeList(props) {
                         <div className="board_bot">
                             {/* <!-- Paging --> */}
                             <EgovPaging pagination={paginationInfo} moveToPage={passedPage => {
-                                retrieveList({ ...searchCondition, pageIndex: passedPage })
+                                retrieveList({ ...searchCondition, pageIndex: passedPage, searchCnd: cndRef.current.value, searchWrd: wrdRef.current.value })
                             }} />
                             {/* <!--/ Paging --> */}
                         </div>
