@@ -17,6 +17,7 @@ function EgovAdminBoardList(props) {
     const location = useLocation();
     console.log("EgovAdminBoardList [location] : ", location);
 
+    // eslint-disable-next-line no-unused-vars
     const [searchCondition, setSearchCondition] = useState(location.state?.searchCondition || { pageIndex: 1, searchCnd: '0', searchWrd: '' });// 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
     const [paginationInfo, setPaginationInfo] = useState({});
 
