@@ -64,7 +64,7 @@ import EgovAdminGalleryDetail from 'pages/admin/gallery/EgovAdminGalleryDetail';
 import EgovAdminGalleryEdit from 'pages/admin/gallery/EgovAdminGalleryEdit';
 //사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 추가
 import EgovAdminPasswordUpdate from 'pages/admin/manager/EgovAdminPasswordUpdate';
-
+import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 추가
 import initPage from 'js/ui';
 
 // 에러 페이지와 같은 상단(EgovHeader) 소스가 제외된 페이지에서 ui.js의 햄버거버튼 작동오류가 발생한다. 
@@ -82,21 +82,38 @@ const RootRoutes = () => {
   const location = useLocation();
   const prevLocation = usePrevLocation(location);
 
+  //리액트에서 사이트관리자에 접근하는 토큰값 위변조 방지용으로 서버에서 비교하는 함수 추가
+  const jwtAuthentication = () => {
+		const jwtAuthURL = "/uat/esm/jwtAuthAPI.do";
+        const jToken = localStorage.getItem('jToken');
+        let requestOptions ={
+            method: "POST",
+            headers: {
+				'Authorization': jToken
+            }
+        }
+        EgovNet.requestFetch(jwtAuthURL,
+                requestOptions,
+                (resp) => {
+                    if (resp === false) {
+						setMounted(false);
+                    }else{
+						setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
+					}
+                }
+            );
+    };
   //시스템관리 메뉴인 /admin/으로 시작하는 URL은 모두 로그인이 필요하도록 코드추가(아래)
   const isMounted = useRef(false); // 아래 로그인 이동 부분이 2번 실행되지 않도록 즉, 마운트 될 때만 실행되도록 변수 생성
   const [mounted, setMounted] = useState(false);// 컴포넌트 최초 마운트 후 리렌더링 전 로그인 페이지로 이동하는 조건으로 사용
   useEffect(() => {
 	if (!isMounted.current) { // 컴포넌트 최초 마운트 시 페이지 진입 전(렌더링 전) 실행
-		isMounted.current = true; // 컴포넌트가 2번 실행되는 것을 방지 하는 변수 사용.
+		isMounted.current = true; // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
 		setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
-		const sessionUser = sessionStorage.getItem('loginUser');
-  		const sessionUserSe = JSON.parse(sessionUser)?.userSe;
-  		const regex = /^(\/admin\/)+(.)*$/; //정규표현식 사용: /admin/~ 으로 시작하는 경로 모두 포함
-		if(sessionUserSe !=='USR' && regex.test(location.pathname)) {
-			setMounted(false); // 이 값으로 사이트관리 페이지를 렌더링 하지 않고 아래 로그인 페이지로 이동한다.
-			alert("Login Alert");
-		    sessionStorage.setItem('loginUser', JSON.stringify({"id":""}));
-		    window.location.href = URL.LOGIN;
+		const regex = /^(\/admin\/)+(.)*$/; //정규표현식 사용: /admin/~ 으로 시작하는 경로 모두 포함
+		if(regex.test(location.pathname)) {
+			setMounted(false); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용. 기본은 숨기기
+			jwtAuthentication(); // 이 함수에서 관리자단 인증여부 확인 후 렌더링 처리
 		}
 	}
   },[location, mounted]); // location 경로와 페이지 마운트상태가 변경 될 때 업데이트 후 리렌더링
