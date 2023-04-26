@@ -211,7 +211,11 @@ function EgovAdminGalleryEdit(props) {
                                 <EgovAttachFile
                                     fnChangeFile={(attachfile) => {
                                         console.log("====>>> Changed attachfile file = ", attachfile);
-                                        setBoardDetail({ ...boardDetail, file_1: attachfile });
+                                        const arrayConcat = { ...boardDetail}; // 기존 단일 파일 업로드에서 다중파일 객체 추가로 변환(아래 for문으로)
+										for ( let i = 0; i < attachfile.length; i++) {
+											arrayConcat[`file_${i}`] = attachfile[i];
+										}
+                                        setBoardDetail(arrayConcat);
                                     }}
                                     fnDeleteFile={(deletedFile) => {
                                         console.log("====>>> Delete deletedFile = ", deletedFile);
