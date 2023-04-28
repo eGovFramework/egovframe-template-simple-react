@@ -12,9 +12,7 @@ function EgovError(prop) { // index.jsx 라우터에서 보내온 이전 페이�
     }
 
     const goBack = () => {
-      //에러페이지로 이동하면 헤더가 없어지기 때문에 에러 이전페이지로 돌아갈 때 로딩한 ui.js가 제대로 작동하지 않는다. 그래서, 이전 URL을 재 로딩하는 코드를 추가한다. 
-	  navigate(prop.prevUrl.pathname); // porp 속성 값을 이전 URL로 사용한다.
-      navigate(0, { replace: true });// 이전 URL을 현재 페이지 인식하고 재 로딩하는 코드.
+      navigate(-1, { replace: true });// 이전 URL을 현재 페이지 인식하고 재 로딩하는 코드.
     }
 
     return (
