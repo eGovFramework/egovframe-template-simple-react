@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function EgovError(prop) { // index.jsx 라우터에서 보내온 이전 페이지 location 객체를 사용한다.
+function EgovError() {
     const navigate = useNavigate();
 	const location = useLocation();    
 
