@@ -231,7 +231,6 @@ function EgovGalleryEdit(props) {
                                 <div className="left_col btn1">
                                     <a href="#!" className="btn btn_skyblue_h46 w_100"
                                         onClick={(e) => {
-                                            e.preventDefault();
                                             updateBoard();
                                         }}>저장</a>
                                 </div>
