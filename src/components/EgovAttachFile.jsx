@@ -27,16 +27,17 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
 		const jToken = localStorage.getItem('jToken');
         
         const requestOptions = {
-            method: "DELETE",
+            method: "POST",
             headers: {
-				'Authorization': jToken
+				'Authorization': jToken,
+                'Content-type': 'application/json'
             },
-            body: {
-                "atchFileId" : atchFileId,
-                "fileSn" : fileSn
-            }
+            body: JSON.stringify({
+                atchFileId : atchFileId,
+                fileSn : fileSn
+            })
         }
-        EgovNet.requestFetch(`/cmm/fms/deleteFileInfsAPI/${atchFileId}/${fileSn}.do`,
+        EgovNet.requestFetch(`/cmm/fms/deleteFileInfsAPI.do`,
             requestOptions,
             function (resp) {
                 console.log("===>>> board file delete= " , resp);
