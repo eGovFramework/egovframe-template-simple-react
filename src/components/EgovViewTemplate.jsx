@@ -5,9 +5,6 @@ function EgovViewTemplate(props) {
     console.log("[Start] EgovViewTemplate ------------------------------");
     console.log("EgovViewTemplate [props] : ", props);
 
-    const history = useHistory();
-    console.log("EgovViewTemplate [history] : ", history);
-
     useEffect(() => {
         return () => {
         }

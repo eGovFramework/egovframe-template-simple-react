@@ -126,7 +126,7 @@ function EgovAdminBoardList(props) {
                                     <span className="lb">검색유형선택</span>
                                     <label className="f_select" htmlFor="searchCnd">
                                         <select id="searchCnd" name="searchCnd" title="검색유형선택" ref={cndRef}
-                                            oonChange={e => {
+                                            onChange={e => {
                                                 cndRef.current.value = e.target.value; 
                                             }}
                                         >
