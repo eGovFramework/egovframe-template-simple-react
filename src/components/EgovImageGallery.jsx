@@ -1,7 +1,7 @@
 import React from 'react';
 import { SERVER_URL } from 'config';
 
-function EgovImageGallery({ boardFiles, mode }) {
+function EgovImageGallery({ boardFiles }) {
 
     let filesTag = [];
 

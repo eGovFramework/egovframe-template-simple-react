@@ -171,10 +171,10 @@ const SecondRoutes = () => {
         <Route path={URL.SUPPORT_DOWNLOAD_DETAIL} element={<EgovSupportDownloadDetail />} />
         <Route path={URL.SUPPORT_DOWNLOAD_CREATE} element={<EgovSupportDownloadCreate />} />
 
-        <Route exact path={URL.SUPPORT_QNA} element={<EgovSupportQnaList />} />
-        <Route exact path={URL.SUPPORT_QNA_DETAIL} element={<EgovSupportQnaDetail />} />
+        <Route path={URL.SUPPORT_QNA} element={<EgovSupportQnaList />} />
+        <Route path={URL.SUPPORT_QNA_DETAIL} element={<EgovSupportQnaDetail />} />
 
-        <Route exact path={URL.SUPPORT_APPLY} element={<EgovSupportApply />} />
+        <Route path={URL.SUPPORT_APPLY} element={<EgovSupportApply />} />
 
         {/* INFORM */}
         <Route path={URL.INFORM} element={<Navigate to={URL.INFORM_DAILY} />} />

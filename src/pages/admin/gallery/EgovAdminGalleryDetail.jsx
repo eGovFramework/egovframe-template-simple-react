@@ -12,7 +12,7 @@ import EgovAttachFile from 'components/EgovAttachFile';
 import EgovImageGallery from 'components/EgovImageGallery';
 
 function EgovAdminGalleryDetail(props) {
-    console.groupEnd("EgovAdminGalleryDetail");
+    console.group("EgovAdminGalleryDetail");
     console.log("------------------------------");
     console.log("EgovAdminGalleryDetail [props] : ", props);
 
