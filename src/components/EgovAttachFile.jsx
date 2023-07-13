@@ -24,12 +24,10 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
     function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
         console.log("onClickDeleteFile Params : ", atchFileId, fileSn, fileIndex);
 
-		const jToken = localStorage.getItem('jToken');
-        
         const requestOptions = {
             method: "POST",
             headers: {
-				'Authorization': jToken,
+				'Authorization': sessionStorage.getItem('jToken'),
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({

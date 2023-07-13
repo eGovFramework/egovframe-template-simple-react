@@ -76,7 +76,7 @@ function EgovLoginContent(props) {
                 let resultVO = resp.resultVO;
                 let jToken = resp?.jToken
 
-                localStorage.setItem('jToken', jToken);
+                sessionStorage.setItem('jToken', jToken);
 
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     setLoginVO(resultVO);

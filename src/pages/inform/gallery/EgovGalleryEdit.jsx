@@ -121,7 +121,7 @@ function EgovGalleryEdit(props) {
             //console.log("boardDetail [%s] ", key, boardDetail[key]);
         }
 
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
 
         if (bbsFormVaildator(formData)) {
             const requestOptions = {

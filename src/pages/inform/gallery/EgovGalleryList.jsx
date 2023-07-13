@@ -38,7 +38,8 @@ function EgovGalleryList(props) {
         const requestOptions = {
             method: "POST",
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': sessionStorage.getItem('jToken')
             },
             body: JSON.stringify(searchCondition)
         }

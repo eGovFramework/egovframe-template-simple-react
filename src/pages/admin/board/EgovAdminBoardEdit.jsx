@@ -63,7 +63,7 @@ function EgovAdminBoardEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
 
         const requestOptions = {
             method: "POST",
@@ -131,7 +131,7 @@ function EgovAdminBoardEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
 
         let requestOptions ={};
 
@@ -194,7 +194,7 @@ function EgovAdminBoardEdit(props) {
 
     const deleteBoardArticle = (bbsId) => {
         const deleteBoardURL = `/cop/bbs/deleteBBSMasterInfAPI/${bbsId}.do`;
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
         const requestOptions = {
             method: "PUT",
             headers: {

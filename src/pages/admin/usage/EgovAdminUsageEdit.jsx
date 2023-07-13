@@ -64,7 +64,8 @@ function EgovAdminUsageEdit(props) {
             const requestOptions = {
                 method: "POST",
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'Authorization':  sessionStorage.getItem('jToken')
                 },
                 body: JSON.stringify({
                 })
@@ -80,7 +81,7 @@ function EgovAdminUsageEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/com/selectBBSUseInfAPI.do';
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
 
         const requestOptions = {
             method: "POST",
@@ -109,7 +110,7 @@ function EgovAdminUsageEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
 
         let requestOptions ={};
 

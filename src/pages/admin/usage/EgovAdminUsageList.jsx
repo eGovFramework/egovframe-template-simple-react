@@ -30,7 +30,7 @@ function EgovAdminUsageList(props) {
         console.groupCollapsed("EgovAdminUsageList.retrieveList()");
 
         const retrieveListURL = '/cop/com/selectBBSUseInfsAPI.do';
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
         const requestOptions = {
             method: "POST",
             headers: {

@@ -52,7 +52,7 @@ function EgovAdminScheduleList(props) {
         console.groupCollapsed("EgovAdminScheduleList.retrieveList()");
 
         const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageMonthListAPI.do';
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
         const requestOptions = {
             method: "POST",
             headers: {

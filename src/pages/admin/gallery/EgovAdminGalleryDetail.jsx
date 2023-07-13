@@ -33,6 +33,7 @@ function EgovAdminGalleryDetail(props) {
         const requestOptions = {
             method: "POST",
             headers: {
+                'Authorization': sessionStorage.getItem('jToken'),
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
@@ -52,7 +53,7 @@ function EgovAdminGalleryDetail(props) {
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
         const deleteBoardURL = `/cop/bbs/deleteBoardArticleAPI/${nttId}.do`;
-        const jToken = localStorage.getItem('jToken');
+        const jToken = sessionStorage.getItem('jToken');
         const requestOptions = {
             method: "PUT",
             headers: {
