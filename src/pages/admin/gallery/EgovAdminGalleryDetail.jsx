@@ -27,13 +27,13 @@ function EgovAdminGalleryDetail(props) {
     const [masterBoard, setMasterBoard] = useState({});
     const [boardDetail, setBoardDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
-
+    const jToken = sessionStorage.getItem('jToken');
     const retrieveDetail = () => {
         const retrieveDetailURL = '/cop/bbs/selectBoardArticleAPI.do';
         const requestOptions = {
             method: "POST",
             headers: {
-                'Authorization': sessionStorage.getItem('jToken'),
+                'Authorization': jToken,
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
@@ -53,7 +53,7 @@ function EgovAdminGalleryDetail(props) {
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
         const deleteBoardURL = `/cop/bbs/deleteBoardArticleAPI/${nttId}.do`;
-        const jToken = sessionStorage.getItem('jToken');
+        
         const requestOptions = {
             method: "PUT",
             headers: {

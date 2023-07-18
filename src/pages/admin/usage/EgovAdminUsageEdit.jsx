@@ -8,6 +8,7 @@ import CODE from 'constants/code';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
 
+const jToken = sessionStorage.getItem('jToken');
 function EgovAdminUsageEdit(props) {
     console.group("EgovAdminUsageEdit");
     console.log("[Start] EgovAdminUsageEdit ------------------------------");
@@ -61,11 +62,12 @@ function EgovAdminUsageEdit(props) {
             //새로 생성된 MstrBoard 리스트 조회
             const retrieveMasterBdURL = '/cop/com/selectNotUsedBdMstrList.do';
 
+            
             const requestOptions = {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization':  sessionStorage.getItem('jToken')
+                    'Authorization':  jToken
                 },
                 body: JSON.stringify({
                 })
@@ -81,7 +83,7 @@ function EgovAdminUsageEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/com/selectBBSUseInfAPI.do';
-        const jToken = sessionStorage.getItem('jToken');
+        
 
         const requestOptions = {
             method: "POST",
@@ -110,7 +112,7 @@ function EgovAdminUsageEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = sessionStorage.getItem('jToken');
+        
 
         let requestOptions ={};
 

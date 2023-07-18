@@ -8,6 +8,8 @@ import CODE from 'constants/code';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
 
+const jToken = sessionStorage.getItem('jToken');
+
 function EgovAdminBoardEdit(props) {
     console.group("EgovAdminBoardEdit");
     console.log("[Start] EgovAdminBoardEdit ------------------------------");
@@ -63,8 +65,7 @@ function EgovAdminBoardEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
-        const jToken = sessionStorage.getItem('jToken');
-
+        
         const requestOptions = {
             method: "POST",
             headers: {
@@ -131,8 +132,6 @@ function EgovAdminBoardEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = sessionStorage.getItem('jToken');
-
         let requestOptions ={};
 
         if (modeStr === "POST") {
@@ -194,7 +193,7 @@ function EgovAdminBoardEdit(props) {
 
     const deleteBoardArticle = (bbsId) => {
         const deleteBoardURL = `/cop/bbs/deleteBBSMasterInfAPI/${bbsId}.do`;
-        const jToken = sessionStorage.getItem('jToken');
+        
         const requestOptions = {
             method: "PUT",
             headers: {

@@ -27,7 +27,12 @@ function EgovHeader({ loginUser, onChangeLogin }) {
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/uat/uia/actionLogoutAPI.do';
+        const jToken = sessionStorage.getItem('jToken');
         const requestOptions = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': jToken
+            },
             credentials: 'include',
         }
         EgovNet.requestFetch(logOutUrl, requestOptions,
