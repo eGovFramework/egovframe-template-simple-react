@@ -27,7 +27,6 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
         const requestOptions = {
             method: "POST",
             headers: {
-				'Authorization': sessionStorage.getItem('jToken'),
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({

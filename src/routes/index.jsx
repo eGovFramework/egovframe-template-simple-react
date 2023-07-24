@@ -77,12 +77,8 @@ const RootRoutes = () => {
     console.log("[Start] jwtAuthentication ------------------------------");
 
     const jwtAuthURL = "/uat/esm/jwtAuthAPI.do";
-    const jToken = sessionStorage.getItem("jToken");
     let requestOptions = {
       method: "POST",
-      headers: {
-        Authorization: jToken,
-      },
     };
 
     EgovNet.requestFetch(jwtAuthURL, requestOptions, (resp) => {

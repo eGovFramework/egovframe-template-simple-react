@@ -30,12 +30,12 @@ function EgovAdminBoardList(props) {
         console.groupCollapsed("EgovAdminBoardList.retrieveList()");
 
         const retrieveListURL = '/cop/bbs/selectBBSMasterInfsAPI.do';
-        const jToken = sessionStorage.getItem('jToken');
+        
         const requestOptions = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify(srchCnd)
         }

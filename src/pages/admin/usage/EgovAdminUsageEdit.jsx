@@ -8,7 +8,7 @@ import CODE from 'constants/code';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
 
-const jToken = sessionStorage.getItem('jToken');
+
 function EgovAdminUsageEdit(props) {
     console.group("EgovAdminUsageEdit");
     console.log("[Start] EgovAdminUsageEdit ------------------------------");
@@ -67,7 +67,6 @@ function EgovAdminUsageEdit(props) {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization':  jToken
                 },
                 body: JSON.stringify({
                 })
@@ -89,7 +88,7 @@ function EgovAdminUsageEdit(props) {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 bbsId: bbsId,
@@ -128,7 +127,7 @@ function EgovAdminUsageEdit(props) {
             requestOptions = {
                 method: modeStr,
                 headers: {
-                    'Authorization': jToken
+                    
                 },
                 body: formData
             }
@@ -139,7 +138,7 @@ function EgovAdminUsageEdit(props) {
                 method: modeStr,
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': jToken
+                    
                 },
                 body: JSON.stringify({...boardDetail})
             }

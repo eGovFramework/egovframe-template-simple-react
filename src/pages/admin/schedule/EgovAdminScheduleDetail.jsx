@@ -20,7 +20,7 @@ function EgovAdminScheduleDetail(props) {
     const [scheduleDetail, setScheduleDetail] = useState({});
     const [boardAttachFiles, setBoardAttachFiles] = useState();
     const [user, setUser] = useState({});
-    const jToken = sessionStorage.getItem('jToken');
+    
     const retrieveDetail = () => {
 
         const retrieveDetailURL = '/cop/smt/sim/egovIndvdlSchdulManageDetailAPI.do';
@@ -29,7 +29,7 @@ function EgovAdminScheduleDetail(props) {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 schdulId: location.state?.schdulId
@@ -82,7 +82,7 @@ function EgovAdminScheduleDetail(props) {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 schdulId: schdulId

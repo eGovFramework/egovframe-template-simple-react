@@ -38,7 +38,6 @@ function EgovAdminGalleryList(props) {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': sessionStorage.getItem('jToken')
             },
             body: JSON.stringify(searchCondition)
         }

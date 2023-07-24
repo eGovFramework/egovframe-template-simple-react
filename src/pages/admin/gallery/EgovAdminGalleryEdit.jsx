@@ -121,13 +121,13 @@ function EgovAdminGalleryEdit(props) {
             //console.log("boardDetail [%s] ", key, boardDetail[key]);
         }
 
-        const jToken = sessionStorage.getItem('jToken');
+        
 
         if (bbsFormVaildator(formData)) {
             const requestOptions = {
                 method: "POST",
                 headers: {
-                    'Authorization': jToken
+                    
                 },
                 body: formData
             }
