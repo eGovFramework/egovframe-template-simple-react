@@ -33,7 +33,9 @@ function EgovAboutLocation() {
                         <h2 className="tit_4">찾아오시는길</h2>
 
                         <div className="map">
-                            <img src="/assets/images/map.png" alt="" />
+                            <a href="https://naver.me/FHYuP0ok" target="_blank" rel="noreferrer">
+                                <img src="/assets/images/map.png" alt="" />
+                            </a>
                         </div>
 
                         <div className="addr">
