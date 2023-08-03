@@ -8,6 +8,17 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     console.log("requestFetch [URL] : ", SERVER_URL + url);
     console.log("requestFetch [requestOption] : ", requestOptions);
 
+    // Login 했을경우 JWT 설정
+    const sessionUser = sessionStorage.getItem('loginUser');
+    const sessionUserId = JSON.parse(sessionUser)?.id || null;
+    const jToken = sessionStorage.getItem('jToken') || null;
+    if(sessionUserId != null && sessionUserId !== undefined){
+        if( !requestOptions['headers'] ) requestOptions['headers']={}
+        if( !requestOptions['headers']['Authorization'] ) requestOptions['headers']['Authorization']=null;
+        requestOptions['headers']['Authorization'] = jToken;
+    }
+    
+
     //CORS ISSUE 로 인한 조치 - origin 및 credentials 추가 
     // origin 추가
     if (!requestOptions['origin']) {

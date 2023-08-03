@@ -28,6 +28,9 @@ function EgovHeader({ loginUser, onChangeLogin }) {
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/uat/uia/actionLogoutAPI.do';
         const requestOptions = {
+            headers: {
+                'Content-type': 'application/json',
+            },
             credentials: 'include',
         }
         EgovNet.requestFetch(logOutUrl, requestOptions,
@@ -36,6 +39,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                 if (parseInt(resp.resultCode) === parseInt(CODE.RCV_SUCCESS)) {
                     onChangeLogin({ loginVO: {} });
                     sessionStorage.setItem('loginUser', JSON.stringify({"id":""}));
+                    sessionStorage.setItem('jToken', null);
                     window.alert("로그아웃되었습니다!");
                     navigate(URL.MAIN);
 					// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가

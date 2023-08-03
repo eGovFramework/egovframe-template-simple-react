@@ -8,6 +8,7 @@ import CODE from 'constants/code';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
 
+
 function EgovAdminBoardEdit(props) {
     console.group("EgovAdminBoardEdit");
     console.log("[Start] EgovAdminBoardEdit ------------------------------");
@@ -63,13 +64,12 @@ function EgovAdminBoardEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
-        const jToken = localStorage.getItem('jToken');
-
+        
         const requestOptions = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 bbsId: bbsId
@@ -131,8 +131,6 @@ function EgovAdminBoardEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = localStorage.getItem('jToken');
-
         let requestOptions ={};
 
         if (modeStr === "POST") {
@@ -149,7 +147,7 @@ function EgovAdminBoardEdit(props) {
                     requestOptions = {
                         method: modeStr,
                         headers: {
-                            'Authorization': jToken
+                            
                         },
                         body: formData
                     }
@@ -173,7 +171,7 @@ function EgovAdminBoardEdit(props) {
                     method: modeStr,
                     headers: {
                         'Content-type': 'application/json',
-                        'Authorization': jToken
+                        
                     },
                     body: JSON.stringify({...boardDetail})
                 }
@@ -194,12 +192,12 @@ function EgovAdminBoardEdit(props) {
 
     const deleteBoardArticle = (bbsId) => {
         const deleteBoardURL = `/cop/bbs/deleteBBSMasterInfAPI/${bbsId}.do`;
-        const jToken = localStorage.getItem('jToken');
+        
         const requestOptions = {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 bbsId: bbsId

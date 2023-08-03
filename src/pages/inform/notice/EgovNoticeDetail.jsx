@@ -53,12 +53,12 @@ function EgovNoticeDetail(props) {
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
         const deleteBoardURL = `/cop/bbs/deleteBoardArticleAPI/${nttId}.do`;
-        const jToken = localStorage.getItem('jToken');
+        
         const requestOptions = {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 bbsId: bbsId

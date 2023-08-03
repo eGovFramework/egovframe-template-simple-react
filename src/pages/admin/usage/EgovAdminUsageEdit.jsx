@@ -8,6 +8,7 @@ import CODE from 'constants/code';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavAdmin';
 import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
 
+
 function EgovAdminUsageEdit(props) {
     console.group("EgovAdminUsageEdit");
     console.log("[Start] EgovAdminUsageEdit ------------------------------");
@@ -61,10 +62,11 @@ function EgovAdminUsageEdit(props) {
             //새로 생성된 MstrBoard 리스트 조회
             const retrieveMasterBdURL = '/cop/com/selectNotUsedBdMstrList.do';
 
+            
             const requestOptions = {
                 method: "POST",
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
                 },
                 body: JSON.stringify({
                 })
@@ -80,13 +82,13 @@ function EgovAdminUsageEdit(props) {
         }
 
         const retrieveDetailURL = '/cop/com/selectBBSUseInfAPI.do';
-        const jToken = localStorage.getItem('jToken');
+        
 
         const requestOptions = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': jToken
+                
             },
             body: JSON.stringify({
                 bbsId: bbsId,
@@ -109,7 +111,7 @@ function EgovAdminUsageEdit(props) {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-        const jToken = localStorage.getItem('jToken');
+        
 
         let requestOptions ={};
 
@@ -125,7 +127,7 @@ function EgovAdminUsageEdit(props) {
             requestOptions = {
                 method: modeStr,
                 headers: {
-                    'Authorization': jToken
+                    
                 },
                 body: formData
             }
@@ -136,7 +138,7 @@ function EgovAdminUsageEdit(props) {
                 method: modeStr,
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': jToken
+                    
                 },
                 body: JSON.stringify({...boardDetail})
             }

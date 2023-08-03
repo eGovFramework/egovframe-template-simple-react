@@ -31,7 +31,7 @@ function EgovAdminPasswordUpdate(props) {
 
     const updateAdminPassword = () => {
 		const editURL = "/uat/esm/updateAdminPasswordAPI.do";
-        const jToken = localStorage.getItem('jToken');
+        
         let requestOptions ={};
         const formData = new FormData();
 		formData.append("old_password", oldPassword);
@@ -41,7 +41,7 @@ function EgovAdminPasswordUpdate(props) {
                 method: "POST",
                 headers: {
 					'Content-type': 'application/json',
-					'Authorization': jToken
+					
                 },
                 body: JSON.stringify({
 	                "old_password": oldPassword,

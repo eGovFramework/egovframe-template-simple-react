@@ -137,7 +137,6 @@ function EgovDailyDetail(props) {
                                 <dt>담당자</dt>
                                 <dd>{scheduleDetail.schdulChargerName}</dd>
                             </dl>
-
                             <EgovAttachFile boardFiles={boardAttachFiles} />
 
                             {/* <!-- 버튼영역 --> */}
