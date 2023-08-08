@@ -51,15 +51,13 @@ function EgovAdminScheduleList(props) {
     const retrieveList = useCallback((srchcnd) => {
         console.groupCollapsed("EgovAdminScheduleList.retrieveList()");
 
-        const retrieveListURL = '/cop/smt/sim/egovIndvdlSchdulManageMonthListAPI.do';
+        const retrieveListURL = '/schedule/month'+EgovNet.getQueryString(srchcnd);
         
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
-                
-            },
-            body: JSON.stringify(srchcnd)
+            }
         }
 
         EgovNet.requestFetch(retrieveListURL,

@@ -39,14 +39,16 @@ function EgovAdminScheduleEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "등록",
-                    editURL: '/cop/smt/sim/egovIndvdlSchdulManageRegistActorAPI.do'
+                    method : "POST",
+                    editURL: '/schedule'
                 });
                 break;
             case CODE.MODE_MODIFY:
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "수정",
-                    editURL: '/cop/smt/sim/egovIndvdlSchdulManageModifyActorAPI.do'
+                    method : "PUT",
+                    editURL: '/schedule'
                 });
                 break;
 			default:
@@ -75,16 +77,13 @@ function EgovAdminScheduleEdit(props) {
             });
             return;
         }
-
-        const retrieveDetailURL = '/cop/smt/sim/egovIndvdlSchdulManageDetailAPI.do';
+        
+        const retrieveDetailURL = `/schedule/${location.state?.schdulId}`;
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                schdulId: location.state?.schdulId
-            })
+            }
         }
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
@@ -113,13 +112,13 @@ function EgovAdminScheduleEdit(props) {
 
         if (formValidator(formData)) {
             const requestOptions = {
-                method: "POST",
-                headers: {
-                    
-                },
+                method: modeInfo.method,
                 body: formData
             }
 
+            if (modeInfo.mode === CODE.MODE_MODIFY) {
+                modeInfo.editURL = `${modeInfo.editURL}/${location.state?.schdulId}`;
+            }
             EgovNet.requestFetch(modeInfo.editURL,
                 requestOptions,
                 (resp) => {
