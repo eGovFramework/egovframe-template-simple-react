@@ -26,7 +26,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
 		document.querySelector('.all_menu.Mobile').classList.add('closed');
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
-        const logOutUrl = '/uat/uia/actionLogoutAPI.do';
+        const logOutUrl = '/auth/logout';
         const requestOptions = {
             headers: {
                 'Content-type': 'application/json',
