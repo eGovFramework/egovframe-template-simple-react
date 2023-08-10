@@ -45,7 +45,7 @@ function EgovMain(props) {
                 resp.result.notiList.forEach(function (item, index) {
                     if (index === 0) mutNotiListTag = []; // 목록 초기화
                     mutNotiListTag.push(
-                        <li key={index}>
+                        <li key={item.nttId}>
                             <Link
                                 to={{pathname: URL.INFORM_NOTICE_DETAIL}}
                                 state={{
