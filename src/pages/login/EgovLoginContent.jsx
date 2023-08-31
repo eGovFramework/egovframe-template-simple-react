@@ -60,8 +60,7 @@ function EgovLoginContent(props) {
     const submitFormHandler = (e) => {
         console.log("EgovLoginContent submitFormHandler()");
         
-        //const loginUrl = "/uat/uia/actionLoginAPI.do"
-        const loginUrl = "/uat/uia/actionLoginJWT.do"
+        const loginUrl = "/auth/login-jwt"
         const requestOptions = {
             method: "POST",
             headers: {

@@ -20,15 +20,12 @@ function EgovDailyDetail(props) {
 
     const retrieveDetail = () => {
 
-        const retrieveDetailURL = '/cop/smt/sim/egovIndvdlSchdulManageDetailAPI.do';
+        const retrieveDetailURL = `/schedule/${location.state?.schdulId}`;
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                schdulId: location.state?.schdulId
-            })
+            }
         }
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
