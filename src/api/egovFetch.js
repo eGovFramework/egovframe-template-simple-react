@@ -2,6 +2,7 @@ import { SERVER_URL } from '../config';
 
 import URL from 'constants/url';
 import CODE from 'constants/code';
+import { getSessionItem, setSessionItem } from 'utils/storage';
 
 export function getQueryString(params){
     return `?${Object.entries(params).map(e => e.join('=')).join('&') }`
@@ -13,9 +14,9 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     console.log("requestFetch [requestOption] : ", requestOptions);
 
     // Login 했을경우 JWT 설정
-    const sessionUser = sessionStorage.getItem('loginUser');
-    const sessionUserId = JSON.parse(sessionUser)?.id || null;
-    const jToken = sessionStorage.getItem('jToken') || null;
+    const sessionUser = getSessionItem('loginUser');
+    const sessionUserId = sessionUser?.id || null;
+    const jToken = getSessionItem('jToken');
     if(sessionUserId != null && sessionUserId !== undefined){
         if( !requestOptions['headers'] ) requestOptions['headers']={}
         if( !requestOptions['headers']['Authorization'] ) requestOptions['headers']['Authorization']=null;
@@ -41,7 +42,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
         .then((resp) => {
             if (Number(resp.resultCode) === Number(CODE.RCV_ERROR_AUTH)) {
                 alert("Login Alert"); //index.jsx라우터파일에 jwtAuthentication 함수로 공통 인증을 사용하는 코드 추가로 alert 원상복구
-                sessionStorage.setItem('loginUser', JSON.stringify({"id":""}));
+                setSessionItem('loginUser', {"id":""});
                 window.location.href = URL.LOGIN;
                 return false;
             } else {

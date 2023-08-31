@@ -5,15 +5,16 @@ import * as EgovNet from 'api/egovFetch';
 
 import URL from 'constants/url';
 import CODE from 'constants/code';
+import { getSessionItem, setSessionItem } from 'utils/storage';
 
 function EgovHeader({ loginUser, onChangeLogin }) {
     console.group("EgovHeader");
     console.log("[Start] EgovHeader ------------------------------");
 
-    const sessionUser = sessionStorage.getItem('loginUser');
-    const sessionUserId = JSON.parse(sessionUser)?.id;
-    const sessionUserName = JSON.parse(sessionUser)?.name;
-    const sessionUserSe = JSON.parse(sessionUser)?.userSe;
+    const sessionUser = getSessionItem('loginUser');
+    const sessionUserId = sessionUser?.id;
+    const sessionUserName = sessionUser?.name;
+    const sessionUserSe = sessionUser?.userSe;
 
     const navigate = useNavigate();
 
@@ -38,8 +39,8 @@ function EgovHeader({ loginUser, onChangeLogin }) {
                 console.log("===>>> logout resp= ", resp);
                 if (parseInt(resp.resultCode) === parseInt(CODE.RCV_SUCCESS)) {
                     onChangeLogin({ loginVO: {} });
-                    sessionStorage.setItem('loginUser', JSON.stringify({"id":""}));
-                    sessionStorage.setItem('jToken', null);
+                    setSessionItem('loginUser', {"id":""});
+                    setSessionItem('jToken', null);
                     window.alert("로그아웃되었습니다!");
                     navigate(URL.MAIN);
 					// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가

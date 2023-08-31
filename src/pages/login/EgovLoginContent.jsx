@@ -4,6 +4,7 @@ import * as EgovNet from 'api/egovFetch';
 
 import URL from 'constants/url';
 import CODE from 'constants/code';
+import { getLocalItem, setLocalItem, setSessionItem } from 'utils/storage';
 
 function EgovLoginContent(props) {
     console.group("EgovLoginContent");
@@ -24,38 +25,36 @@ function EgovLoginContent(props) {
 
     const KEY_ID = "KEY_ID";
     const KEY_SAVE_ID_FLAG = "KEY_SAVE_ID_FLAG";
-
+    
     const handleSaveIDFlag = () => {
-        localStorage.setItem(KEY_SAVE_ID_FLAG, !saveIDFlag);
+        setLocalItem(KEY_SAVE_ID_FLAG, !saveIDFlag)
         setSaveIDFlag(!saveIDFlag);
     };
-
-    let idFlag;
-        try {
-            idFlag = JSON.parse(localStorage.getItem(KEY_SAVE_ID_FLAG));
-        }
-        catch(err) {
-            idFlag = null;
-        } 
-
+    
     useEffect(() => {
-
+        let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
         if (idFlag === null) {
             setSaveIDFlag(false);
 			// eslint-disable-next-line react-hooks/exhaustive-deps
             idFlag = false;
+        } else {
+            setSaveIDFlag(idFlag);
         }
-        if (idFlag !== null) setSaveIDFlag(idFlag);
+
         if (idFlag === false) {
-            localStorage.setItem(KEY_ID, "");
+            setLocalItem(KEY_ID, "");
             checkRef.current.className = "f_chk"
         } else {
             checkRef.current.className = "f_chk on"
         };
-      
-        let data = localStorage.getItem(KEY_ID);
-        if (data !== null) setUserInfo({ ...userInfo, id: data });
-      }, [idFlag]);
+    }, []);
+
+    useEffect(() => {
+        let data = getLocalItem(KEY_ID);
+        if (data !== null) {
+            setUserInfo({ id: data, password: 'default', userSe: 'USR' });
+        }
+    }, []);
 
     const submitFormHandler = (e) => {
         console.log("EgovLoginContent submitFormHandler()");
@@ -73,15 +72,15 @@ function EgovLoginContent(props) {
             requestOptions,
             (resp) => {
                 let resultVO = resp.resultVO;
-                let jToken = resp?.jToken
+                let jToken = resp?.jToken || null;
 
-                sessionStorage.setItem('jToken', jToken);
+                setSessionItem('jToken', jToken);
 
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
                     setLoginVO(resultVO);
-                    sessionStorage.setItem('loginUser', JSON.stringify(resultVO));
+                    setSessionItem('loginUser', resultVO);
                     props.onChangeLogin(resultVO);
-                    if (saveIDFlag) localStorage.setItem(KEY_ID, resultVO?.id);
+                    if (saveIDFlag) setLocalItem(KEY_ID, resultVO?.id);
                     navigate(URL.MAIN);
                     // PC와 Mobile 열린메뉴 닫기
                     document.querySelector('.all_menu.WEB').classList.add('closed');
