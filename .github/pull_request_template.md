@@ -30,6 +30,6 @@
 - [ ] Internet Explorer
 - [ ] 기타 Others
 
-## 테스트 스크린샷 또는 캡쳐 영상 Test screenshots or captured video
+## 테스트 스크린샷 또는 캡처 영상 Test screenshots or captured video
 
-테스트 전과 후의 스크린샷 또는 캡쳐 영상을 이곳에 첨부해 주세요. Please attach screenshots or video captures of your before and after tests here.
+테스트 전과 후의 스크린샷 또는 캡처 영상을 이곳에 첨부해 주세요. Please attach screenshots or video captures of your before and after tests here.
