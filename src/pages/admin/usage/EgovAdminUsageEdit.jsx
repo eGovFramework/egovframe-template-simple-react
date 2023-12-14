@@ -34,7 +34,7 @@ function EgovAdminUsageEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "등록",
-                    editURL: '/cop/com/insertBBSUseInfAPI.do'
+                    editURL: '/bbsUseInf'
                 });
                 break;
 
@@ -42,7 +42,7 @@ function EgovAdminUsageEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "수정",
-                    editURL: `/cop/com/updateBBSUseInfAPI/${bbsId}.do`
+                    editURL: `/bbsUseInf/${bbsId}`
                 });
                 break;
 			default:
@@ -60,16 +60,13 @@ function EgovAdminUsageEdit(props) {
             });
 
             //새로 생성된 MstrBoard 리스트 조회
-            const retrieveMasterBdURL = '/cop/com/selectNotUsedBdMstrList.do';
+            const retrieveMasterBdURL = '/notUsedBbsMaster';
 
-            
             const requestOptions = {
-                method: "POST",
+                method: "GET",
                 headers: {
                     'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                })
+                }
             }
             EgovNet.requestFetch(retrieveMasterBdURL,
                 requestOptions,
@@ -81,19 +78,13 @@ function EgovAdminUsageEdit(props) {
             return;
         }
 
-        const retrieveDetailURL = '/cop/com/selectBBSUseInfAPI.do';
-        
+        const retrieveDetailURL = `/bbsUseInf/${trgetId}/${bbsId}`;
 
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
-                
-            },
-            body: JSON.stringify({
-                bbsId: bbsId,
-                trgetId: trgetId
-            })
+            }
         }
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
@@ -110,8 +101,6 @@ function EgovAdminUsageEdit(props) {
     const updateBoard = () => {
 
         let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
-
-        
 
         let requestOptions ={};
 
@@ -138,7 +127,6 @@ function EgovAdminUsageEdit(props) {
                 method: modeStr,
                 headers: {
                     'Content-type': 'application/json',
-                    
                 },
                 body: JSON.stringify({...boardDetail})
             }
@@ -265,19 +253,19 @@ function EgovAdminUsageEdit(props) {
                             {/* 수정/조회 일때 */}
                             {modeInfo.mode === CODE.MODE_MODIFY && <>
                                 <dl>
-                                    <dt><label htmlFor="">게시판명</label></dt>
+                                    <dt>게시판명</dt>
                                     <dd>
                                         {boardDetail && boardDetail.bbsNm}
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt><label htmlFor="">커뮤니티/동호회명</label></dt>
+                                    <dt>커뮤니티/동호회명</dt>
                                     <dd>
                                         {boardDetail && boardDetail.cmmntyNm}
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt><label htmlFor="">사용여부</label><span className="req">필수</span></dt>
+                                    <dt>사용여부<span className="req">필수</span></dt>
                                     <dd>
                                         <EgovRadioButtonGroup
                                             name="useAt"

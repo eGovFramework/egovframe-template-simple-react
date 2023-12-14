@@ -36,7 +36,7 @@ function EgovDownloadList() {
                         <div className="condition">
                             <ul>
                                 <li className="third_1 L">
-                                    <label className="f_select" htmlFor="sel1">
+                                    <label className="f_select" htmlFor="search_select">
                                         <select defaultValue={"0"} name="search_select" id="search_select">
                                             <option value="0">전체</option>
                                             <option value="1">제목</option>

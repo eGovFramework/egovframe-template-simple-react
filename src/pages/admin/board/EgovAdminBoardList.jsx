@@ -29,15 +29,14 @@ function EgovAdminBoardList(props) {
     const retrieveList = useCallback((srchCnd) => {
         console.groupCollapsed("EgovAdminBoardList.retrieveList()");
 
-        const retrieveListURL = '/cop/bbs/selectBBSMasterInfsAPI.do';
+        const retrieveListURL = '/bbsMaster'+EgovNet.getQueryString(srchCnd);
         
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
                 
-            },
-            body: JSON.stringify(srchCnd)
+            }
         }
 
         EgovNet.requestFetch(retrieveListURL,

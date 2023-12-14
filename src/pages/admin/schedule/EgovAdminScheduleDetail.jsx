@@ -22,8 +22,9 @@ function EgovAdminScheduleDetail(props) {
     const [user, setUser] = useState({});
     
     const retrieveDetail = () => {
-        
+
         const retrieveDetailURL = `/schedule/${location.state?.schdulId}`;
+        
         const requestOptions = {
             method: "GET",
             headers: {
