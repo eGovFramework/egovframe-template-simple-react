@@ -8,7 +8,6 @@
 ![workflow](https://github.com/eGovFramework/egovframe-template-simple-react/actions/workflows/node.js.yml/badge.svg)
 
 ※ 본 프로젝트는 기존 JSP 뷰 방식에서 벗어나 BackEnd와 FrontEnd를 분리하기 위한 예시 파일로 참고만 하시길 바랍니다.  
-※ 4.2.x branch는 정식 버전 출시 전의 beta 버전이므로 참고 바랍니다.
 
 ## 프로젝트 소개
 
