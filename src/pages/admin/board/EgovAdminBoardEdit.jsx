@@ -36,7 +36,7 @@ function EgovAdminBoardEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "등록",
-                    editURL: '/cop/bbs/insertBBSMasterInfAPI.do'
+                    editURL: '/bbsMaster'
                 });
                 break;
 
@@ -44,7 +44,7 @@ function EgovAdminBoardEdit(props) {
                 setModeInfo({
                     ...modeInfo,
                     modeTitle: "수정",
-                    editURL: `/cop/bbs/updateBBSMasterInfAPI/${bbsId}.do`
+                    editURL: `/bbsMaster/${bbsId}`
                 });
                 break;
 			default:
@@ -63,17 +63,14 @@ function EgovAdminBoardEdit(props) {
             return;
         }
 
-        const retrieveDetailURL = '/cop/bbs/selectBBSMasterInfAPI.do';
+        const retrieveDetailURL = `/bbsMaster/${bbsId}`;
         
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
                 
-            },
-            body: JSON.stringify({
-                bbsId: bbsId
-            })
+            }
         }
 
         EgovNet.requestFetch(retrieveDetailURL,
@@ -191,17 +188,13 @@ function EgovAdminBoardEdit(props) {
     };
 
     const deleteBoardArticle = (bbsId) => {
-        const deleteBoardURL = `/cop/bbs/deleteBBSMasterInfAPI/${bbsId}.do`;
+        const deleteBoardURL = `/bbsMaster/${bbsId}`;
         
         const requestOptions = {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 'Content-type': 'application/json',
-                
-            },
-            body: JSON.stringify({
-                bbsId: bbsId
-            })
+            }
         }
 
         EgovNet.requestFetch(deleteBoardURL,
@@ -377,7 +370,7 @@ function EgovAdminBoardEdit(props) {
                                 </dd>
                             </dl>
                             <dl>
-                                <dt><label htmlFor="schdulDeptName">첨부파일가능파일 숫자</label><span className="req">필수</span></dt>
+                                <dt><label htmlFor="posblAtchFileNumber">첨부파일가능파일 숫자</label><span className="req">필수</span></dt>
                                 <dd>
                                     <label className="f_select " htmlFor="posblAtchFileNumber">
                                         <select

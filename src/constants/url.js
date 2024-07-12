@@ -73,7 +73,7 @@ const URL = {
     ADMIN_GALLERY_MODIFY        : "/admin/gallery/modify", // 사이트관리/사이트갤러리관리 수정
     ADMIN_GALLERY_REPLY         : "/admin/gallery/reply", // 사이트관리/사이트갤러리관리 답글 등록
     
-	ADMIN_MANAGER               : "/admin/manager/", // 사이트관리/사이트관리자 암호변경 기능 추가 2023.04.15(토) 김일국
+	ADMIN_MANAGER               : "/admin/manager/", // 사이트관리/사이트관리자 암호변경 기능
 }
 
 export default URL;

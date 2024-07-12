@@ -34,13 +34,12 @@ function EgovGalleryList(props) {
     const retrieveList = useCallback((searchCondition) => {
         console.groupCollapsed("EgovGalleryList.retrieveList()");
 
-        const retrieveListURL = '/cop/bbs/selectBoardListAPI.do';
+        const retrieveListURL = '/board'+EgovNet.getQueryString(searchCondition);
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
-            },
-            body: JSON.stringify(searchCondition)
+            }
         }
 
         EgovNet.requestFetch(retrieveListURL,

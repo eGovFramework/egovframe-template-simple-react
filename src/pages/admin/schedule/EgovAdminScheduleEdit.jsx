@@ -77,7 +77,7 @@ function EgovAdminScheduleEdit(props) {
             });
             return;
         }
-        
+
         const retrieveDetailURL = `/schedule/${location.state?.schdulId}`;
         const requestOptions = {
             method: "GET",
@@ -119,6 +119,7 @@ function EgovAdminScheduleEdit(props) {
             if (modeInfo.mode === CODE.MODE_MODIFY) {
                 modeInfo.editURL = `${modeInfo.editURL}/${location.state?.schdulId}`;
             }
+
             EgovNet.requestFetch(modeInfo.editURL,
                 requestOptions,
                 (resp) => {

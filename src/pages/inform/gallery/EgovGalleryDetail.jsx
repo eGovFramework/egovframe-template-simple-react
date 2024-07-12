@@ -30,16 +30,12 @@ function EgovGalleryDetail(props) {
     const [boardAttachFiles, setBoardAttachFiles] = useState();
 
     const retrieveDetail = () => {
-        const retrieveDetailURL = '/cop/bbs/selectBoardArticleAPI.do';
+        const retrieveDetailURL = `/board/${bbsId}/${nttId}`;
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                bbsId: bbsId,
-                nttId: nttId
-            })
+            }
         }
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
@@ -53,17 +49,13 @@ function EgovGalleryDetail(props) {
     }
 
     const onClickDeleteBoardArticle = (bbsId, nttId) => {
-        const deleteBoardURL = `/cop/bbs/deleteBoardArticleAPI/${nttId}.do`;
+        const deleteBoardURL = `/board/${bbsId}/${nttId}`;
         
         const requestOptions = {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 'Content-type': 'application/json',
-                
-            },
-            body: JSON.stringify({
-                bbsId: bbsId
-            })
+            }
         }
 
         EgovNet.requestFetch(deleteBoardURL,

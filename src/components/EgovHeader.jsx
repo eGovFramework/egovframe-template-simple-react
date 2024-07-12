@@ -7,7 +7,7 @@ import URL from 'constants/url';
 import CODE from 'constants/code';
 import { getSessionItem, setSessionItem } from 'utils/storage';
 
-function EgovHeader({ loginUser, onChangeLogin }) {
+function EgovHeader() {
     console.group("EgovHeader");
     console.log("[Start] EgovHeader ------------------------------");
 
@@ -20,7 +20,7 @@ function EgovHeader({ loginUser, onChangeLogin }) {
 
     const logInHandler = () => { // 로그인 정보 없을 시
         navigate(URL.LOGIN);
-		// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가
+		// PC와 Mobile 열린메뉴 닫기
 		document.querySelector('.all_menu.WEB').classList.add('closed');
         document.querySelector('.btnAllMenu').classList.remove('active');
         document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
@@ -38,12 +38,12 @@ function EgovHeader({ loginUser, onChangeLogin }) {
             function (resp) {
                 console.log("===>>> logout resp= ", resp);
                 if (parseInt(resp.resultCode) === parseInt(CODE.RCV_SUCCESS)) {
-                    onChangeLogin({ loginVO: {} });
+                    //onChangeLogin({ loginVO: {} });
                     setSessionItem('loginUser', {"id":""});
                     setSessionItem('jToken', null);
                     window.alert("로그아웃되었습니다!");
                     navigate(URL.MAIN);
-					// PC와 Mobile 열린메뉴 닫기: 2023.04.13(목) 김일국 추가
+					// PC와 Mobile 열린메뉴 닫기
 					document.querySelector('.all_menu.WEB').classList.add('closed');
 	                document.querySelector('.btnAllMenu').classList.remove('active');
 	                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';

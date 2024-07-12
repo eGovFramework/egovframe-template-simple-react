@@ -70,6 +70,7 @@ function EgovDailyList(props) {
 
     const retrieveList = useCallback((srchcnd) => {
         console.groupCollapsed("EgovDailyDetail.retrieveList()");
+
         const retrieveListURL = '/schedule/daily'+EgovNet.getQueryString(srchcnd);
         const requestOptions = {
             method: "GET",

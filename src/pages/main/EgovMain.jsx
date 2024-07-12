@@ -22,13 +22,12 @@ function EgovMain(props) {
     const retrieveList = useCallback(() => {
         console.groupCollapsed("EgovMain.retrieveList()");
 
-        const retrieveListURL = '/cmm/main/mainPageAPI.do';
+        const retrieveListURL = '/mainPage';
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json'
-            },
-            body: JSON.stringify()
+            }
         }
 
         EgovNet.requestFetch(retrieveListURL,
@@ -68,7 +67,7 @@ function EgovMain(props) {
                 resp.result.galList.forEach(function (item, index) {
                     if (index === 0) mutGallaryListTag = []; // 목록 초기화
                     mutGallaryListTag.push(
-                        <li key={index}>
+                        <li key={item.nttId}>
                             <Link
                                 to={{pathname: URL.INFORM_GALLERY_DETAIL}}
                                 state={{

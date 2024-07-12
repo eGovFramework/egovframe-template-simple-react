@@ -5,9 +5,9 @@
 ![nodejs](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)
 ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 ![cra](https://img.shields.io/badge/createreactapp-09D3AC?style=for-the-badge&logo=createreactapp&logoColor=black)  
-[![workflow](https://github.com/eGovFramework/egovframe-template-simple-react/actions/workflows/node.js.yml/badge.svg)](https://github.com/eGovFramework/egovframe-template-simple-react/actions)
+![workflow](https://github.com/eGovFramework/egovframe-template-simple-react/actions/workflows/node.js.yml/badge.svg)
 
-※ 본 프로젝트는 기존 JSP 뷰 방식에서 벗어나 BackEnd와 FrontEnd를 분리하기 위한 예시 파일로 참고만 하시길 바랍니다.
+※ 본 프로젝트는 기존 JSP 뷰 방식에서 벗어나 BackEnd와 FrontEnd를 분리하기 위한 예시 파일로 참고만 하시길 바랍니다.  
 
 ## 프로젝트 소개
 
@@ -18,7 +18,7 @@
 
 ### 메뉴 구성
 
-![menu_sht_v4](https://user-images.githubusercontent.com/3771788/229040036-b38b6c87-64ca-461a-ac9e-78fdcae7ddad.jpg)
+![menu_sht_v4_2](https://github.com/eGovFramework/egovframe-template-simple-react/assets/3771788/59d067c6-ce3f-4bb8-ad46-e06a8dc93a0b)
 
 ## 참고 화면 및 메뉴 설명
 
@@ -70,9 +70,9 @@
 
 ### 사이트관리 화면
 
-![sh6](https://user-images.githubusercontent.com/3771788/229040230-e1b78980-9db7-4a36-b07a-d353f56c3c3d.jpg)
+![sh6_4_2](https://github.com/eGovFramework/egovframe-template-simple-react/assets/3771788/d2c9a5d9-394f-49ee-98fb-de9048de636d)
 
-1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리
+1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리, 사이트관리자 암호변경
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)과 게시판 기능을 커스터마이징하여 사용한다.
 3. 활용방법 : 관리자로 로그인 한 후 일정정보를 등록하거나 게시물을 등록할 수 있다. (게시판 설정 가능)
 

@@ -76,7 +76,7 @@ const RootRoutes = () => {
     console.group("jwtAuthentication");
     console.log("[Start] jwtAuthentication ------------------------------");
 
-    const jwtAuthURL = "/uat/esm/jwtAuthAPI.do";
+    const jwtAuthURL = "/jwtAuthAPI";
     let requestOptions = {
       method: "POST",
     };
@@ -120,7 +120,7 @@ const RootRoutes = () => {
 }
 
 const SecondRoutes = () => {
-
+  // eslint-disable-next-line no-unused-vars
   const [loginVO, setLoginVO] = useState({});
 
   //useRef객체를 사용하여 페이지 마운트 된 후 ui.js를 로딩 하도록 변경 코드 추가(아래)
@@ -135,7 +135,7 @@ const SecondRoutes = () => {
   
   return (
     <>
-      <EgovHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />
+      <EgovHeader />
       <Routes>
         {/* MAIN */}
         <Route path={URL.MAIN} element={<EgovMain />} />
@@ -218,7 +218,7 @@ const SecondRoutes = () => {
         <Route path={URL.ADMIN_GALLERY_CREATE} element={<EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
         <Route path={URL.ADMIN_GALLERY_MODIFY} element={<EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
         <Route path={URL.ADMIN_GALLERY_REPLY} element={<EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
-		{/* 사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 */}
+		{/* 사이트관리자 암호 바꾸기 기능 */}
 		<Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
       </Routes>
       <EgovFooter />

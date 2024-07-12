@@ -25,12 +25,12 @@ function EgovLoginContent(props) {
 
     const KEY_ID = "KEY_ID";
     const KEY_SAVE_ID_FLAG = "KEY_SAVE_ID_FLAG";
-    
+
     const handleSaveIDFlag = () => {
         setLocalItem(KEY_SAVE_ID_FLAG, !saveIDFlag)
         setSaveIDFlag(!saveIDFlag);
     };
-    
+
     useEffect(() => {
         let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
         if (idFlag === null) {
@@ -40,14 +40,13 @@ function EgovLoginContent(props) {
         } else {
             setSaveIDFlag(idFlag);
         }
-
         if (idFlag === false) {
             setLocalItem(KEY_ID, "");
             checkRef.current.className = "f_chk"
         } else {
             checkRef.current.className = "f_chk on"
         };
-    }, []);
+      }, []);
 
     useEffect(() => {
         let data = getLocalItem(KEY_ID);
@@ -60,6 +59,7 @@ function EgovLoginContent(props) {
         console.log("EgovLoginContent submitFormHandler()");
         
         const loginUrl = "/auth/login-jwt"
+
         const requestOptions = {
             method: "POST",
             headers: {
@@ -77,7 +77,7 @@ function EgovLoginContent(props) {
                 setSessionItem('jToken', jToken);
 
                 if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-                    setLoginVO(resultVO);
+                    //setLoginVO(resultVO);
                     setSessionItem('loginUser', resultVO);
                     props.onChangeLogin(resultVO);
                     if (saveIDFlag) setLocalItem(KEY_ID, resultVO?.id);

@@ -29,15 +29,13 @@ function EgovAdminUsageList(props) {
     const retrieveList = useCallback((srchCnd) => {
         console.groupCollapsed("EgovAdminUsageList.retrieveList()");
 
-        const retrieveListURL = '/cop/com/selectBBSUseInfsAPI.do';
+        const retrieveListURL = '/bbsUseInf'+EgovNet.getQueryString(srchCnd);
         
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: {
                 'Content-type': 'application/json',
-                
-            },
-            body: JSON.stringify(srchCnd)
+            }
         }
 
         EgovNet.requestFetch(retrieveListURL,
@@ -131,7 +129,6 @@ function EgovAdminUsageList(props) {
                                             }}
                                         >
                                             <option value="0">게시판명</option>
-                                            <option value="1">게시판유형</option>
                                         </select>
                                     </label>
                                 </li>

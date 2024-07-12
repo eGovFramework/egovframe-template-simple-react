@@ -30,7 +30,7 @@ function EgovAdminPasswordUpdate(props) {
     };
 
     const updateAdminPassword = () => {
-		const editURL = "/uat/esm/updateAdminPasswordAPI.do";
+		const editURL = "/adminPassword";
         
         let requestOptions ={};
         const formData = new FormData();

@@ -18,7 +18,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
 	const navigate = useNavigate();
 
     function onClickDownFile(atchFileId, fileSn) {
-        window.open(SERVER_URL + "/cmm/fms/FileDown.do?atchFileId=" + atchFileId + "&fileSn=" + fileSn + "");
+        window.open(SERVER_URL + "/file?atchFileId=" + atchFileId + "&fileSn=" + fileSn + "");
     }
 
     function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
@@ -34,7 +34,7 @@ function EgovAttachFile({ boardFiles, mode, fnChangeFile, fnDeleteFile, posblAtc
                 fileSn : fileSn
             })
         }
-        EgovNet.requestFetch(`/cmm/fms/deleteFileInfsAPI.do`,
+        EgovNet.requestFetch(`/file`,
             requestOptions,
             function (resp) {
                 console.log("===>>> board file delete= " , resp);

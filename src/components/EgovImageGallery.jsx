@@ -9,7 +9,7 @@ function EgovImageGallery({ boardFiles }) {
         boardFiles.forEach(function (item, index) {
             filesTag.push(
                 <React.Fragment key={index}>
-                    <img src={`${SERVER_URL}/cmm/fms/getImage.do?atchFileId=${item.atchFileId}&fileSn=${item.fileSn}`} alt=""  /><br />
+                    <img src={`${SERVER_URL}/image?atchFileId=${item.atchFileId}&fileSn=${item.fileSn}`} alt=""  /><br />
                 </React.Fragment>
             );
         });

@@ -130,6 +130,7 @@ function EgovWeeklyList(props) {
 
     const retrieveList = useCallback((srchcnd) => {
         console.groupCollapsed("EgovWeeklyList.retrieveList()");
+
         const retrieveListURL = '/schedule/week'+EgovNet.getQueryString(srchcnd);
         const requestOptions = {
             method: "GET",
