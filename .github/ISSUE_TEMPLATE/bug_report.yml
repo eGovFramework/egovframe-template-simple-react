@@ -3,7 +3,7 @@ description: 오류 내용을 이슈로 등록하는 템플릿입니다. Templat
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
-  - yongfire38
+  - rukegithub
 body:
   - type: markdown
     attributes:
