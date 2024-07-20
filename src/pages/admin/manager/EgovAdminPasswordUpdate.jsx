@@ -39,14 +39,7 @@ function EgovAdminPasswordUpdate(props) {
         if (formValidator(formData)) {
             requestOptions = {
                 method: "POST",
-                headers: {
-					'Content-type': 'application/json',
-					
-                },
-                body: JSON.stringify({
-	                "old_password": oldPassword,
-	                "new_password": newPassword
-	            })
+                body: formData
             }
             EgovNet.requestFetch(editURL,
                 requestOptions,
