@@ -54,7 +54,11 @@ function EgovLoginContent(props) {
             setUserInfo({ id: data, password: 'default', userSe: 'USR' });
         }
     }, []);
-
+    
+    const activeEnter=(e)=>{
+        if(e.key==="Enter")
+            submitFormHandler(e);
+    } 
     const submitFormHandler = (e) => {
         console.log("EgovLoginContent submitFormHandler()");
         
@@ -109,16 +113,18 @@ function EgovLoginContent(props) {
                             <legend>로그인</legend>
                             <span className="group">
                                 <input type="text" name="" title="아이디" placeholder="아이디" value={userInfo?.id}
-                                    onChange={e => setUserInfo({ ...userInfo, id: e.target.value })} />
+                                    onChange={e => setUserInfo({ ...userInfo, id: e.target.value })}
+                                    onKeyDown={activeEnter} />
                                 <input type="password" name="" title="비밀번호" placeholder="비밀번호"
-                                    onChange={e => setUserInfo({ ...userInfo, password: e.target.value })} />
+                                    onChange={e => setUserInfo({ ...userInfo, password: e.target.value })}
+                                    onKeyDown={activeEnter} />
                             </span>
                             <div className="chk">
                                 <label className="f_chk" htmlFor="saveid" ref={checkRef}>
                                     <input type="checkbox" name="" id="saveid" onChange={handleSaveIDFlag} checked={saveIDFlag}/> <em>ID저장</em>
                                 </label>
                             </div>
-                            <button type="button" onClick={submitFormHandler}><span>LOGIN</span></button>
+                            <button type="button" onClick={submitFormHandler} ><span>LOGIN</span></button>
                         </fieldset>
                     </form>
                 </div>
