@@ -10,6 +10,7 @@ import { NOTICE_BBS_ID } from 'config';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'components/EgovAttachFile';
 import bbsFormVaildator from 'utils/bbsFormVaildator';
+import { getSessionItem, setSessionItem } from 'utils/storage';
 
 function EgovNoticeEdit(props) {
     console.group("EgovNoticeEdit");
@@ -19,7 +20,10 @@ function EgovNoticeEdit(props) {
     const navigate = useNavigate();
     const location = useLocation();
     console.log("EgovNoticeEdit [location] : ", location);
-
+	//관리자 권한 체크때문에 추가(아래)
+	const sessionUser = getSessionItem('loginUser');
+	const sessionUserSe = sessionUser?.userSe;
+	
     const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
     const nttId = location.state?.nttId || "";
 
@@ -219,11 +223,12 @@ function EgovNoticeEdit(props) {
                             }
                             {/* <!-- 버튼영역 --> */}
                             <div className="board_btn_area">
+                            {sessionUserSe ==='ADM' &&
                                 <div className="left_col btn1">
                                     <button className="btn btn_skyblue_h46 w_100"
                                         onClick={() => updateBoard()}>저장</button>
                                 </div>
-
+							}
                                 <div className="right_col btn1">
                                     <Link to={URL.INFORM_NOTICE} className="btn btn_blue_h46 w_100">목록</Link>
                                 </div>

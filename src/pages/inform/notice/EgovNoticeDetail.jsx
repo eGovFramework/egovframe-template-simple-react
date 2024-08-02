@@ -9,6 +9,7 @@ import { NOTICE_BBS_ID } from 'config';
 
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'components/EgovAttachFile';
+import { getSessionItem, setSessionItem } from 'utils/storage';
 
 function EgovNoticeDetail(props) {
     console.group("EgovNoticeDetail");
@@ -18,7 +19,10 @@ function EgovNoticeDetail(props) {
     const navigate = useNavigate();
     const location = useLocation();
     console.log("EgovNoticeDetail [location] : ", location);
-
+	//관리자 권한 체크때문에 추가(아래)
+	const sessionUser = getSessionItem('loginUser');
+	const sessionUserSe = sessionUser?.userSe;
+	
     const bbsId = location.state.bbsId || NOTICE_BBS_ID;
     const nttId = location.state.nttId;
     const searchCondition = location.state.searchCondition;
@@ -136,7 +140,7 @@ function EgovNoticeDetail(props) {
 
 
                             <div className="board_btn_area">
-                                {user.id && masterBoard.bbsUseFlag === 'Y' &&
+                                {sessionUserSe ==='ADM' && masterBoard.bbsUseFlag === 'Y' &&
                                     <div className="left_col btn3">
                                         <Link to={{pathname: URL.INFORM_NOTICE_MODIFY}}
                                             state={{
