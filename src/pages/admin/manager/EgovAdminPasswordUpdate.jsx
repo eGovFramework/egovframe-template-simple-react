@@ -30,7 +30,7 @@ function EgovAdminPasswordUpdate(props) {
     };
 
     const updateAdminPassword = () => {
-		const editURL = "/adminPassword";
+		const editURL = "/admin/password";
         
         let requestOptions ={};
         const formData = new FormData();
@@ -38,7 +38,7 @@ function EgovAdminPasswordUpdate(props) {
 		formData.append("new_password", newPassword);
         if (formValidator(formData)) {
             requestOptions = {
-                method: "POST",
+                method: "PATCH",
                 headers: {
 					'Content-type': 'application/json',
 					
