@@ -10,7 +10,7 @@ import { GALLERY_BBS_ID } from 'config';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'components/EgovAttachFile';
 import EgovImageGallery from 'components/EgovImageGallery';
-import { getSessionItem, setSessionItem } from 'utils/storage';
+import { getSessionItem } from 'utils/storage';
 
 function EgovGalleryDetail(props) {
     console.groupEnd("EgovGalleryDetail");
@@ -23,7 +23,6 @@ function EgovGalleryDetail(props) {
 	//관리자 권한 체크때문에 추가(아래)
 	const sessionUser = getSessionItem('loginUser');
 	const sessionUniqId = sessionUser?.uniqId;
-	const sessionUserSe = sessionUser?.userSe;
 	
     const bbsId = location.state.bbsId || GALLERY_BBS_ID;
     const nttId = location.state.nttId;
@@ -145,7 +144,7 @@ function EgovGalleryDetail(props) {
 
 
                             <div className="board_btn_area">
-                                {sessionUniqId === boardDetail.frstRegisterId && user.id && masterBoard.bbsUseFlag === 'Y' &&
+                                {sessionUniqId === boardDetail.frstRegisterId && user && user.id && masterBoard.bbsUseFlag === 'Y' &&
                                     <div className="left_col btn3">
                                         <Link to={{pathname: URL.INFORM_GALLERY_MODIFY}}
                                             state={{

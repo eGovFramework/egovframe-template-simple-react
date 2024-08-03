@@ -9,7 +9,7 @@ import { NOTICE_BBS_ID } from 'config';
 
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'components/EgovAttachFile';
-import { getSessionItem, setSessionItem } from 'utils/storage';
+import { getSessionItem } from 'utils/storage';
 
 function EgovNoticeDetail(props) {
     console.group("EgovNoticeDetail");

@@ -9,7 +9,7 @@ import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovPaging from 'components/EgovPaging';
 
 import { itemIdxByPage } from 'utils/calc';
-import { getSessionItem, setSessionItem } from 'utils/storage';
+import { getSessionItem } from 'utils/storage';
 
 function EgovNoticeList(props) {
     console.group("EgovNoticeList");

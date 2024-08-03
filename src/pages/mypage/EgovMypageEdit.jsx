@@ -5,9 +5,7 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 import CODE from 'constants/code';
 
-//import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavSupport';
-import EgovRadioButtonGroup from 'components/EgovRadioButtonGroup';
-import { getSessionItem, setSessionItem } from 'utils/storage';
+import { setSessionItem } from 'utils/storage';
 
 function EgovMypageEdit(props) {
     console.group("EgovMypageEdit");
