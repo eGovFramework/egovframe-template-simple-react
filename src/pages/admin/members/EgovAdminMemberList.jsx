@@ -46,7 +46,6 @@ function EgovAdminMemberList(props) {
 
                 let mutListTag = [];
                 listTag.push(<p className="no_data" key="0">검색된 결과가 없습니다.</p>); // 목록 초기값
-				console.log("김일국 : ",resp);
                 const resultCnt = parseInt(resp.result.paginationInfo.totalRecordCount);
                 const currentPageNo = resp.result.paginationInfo.currentPageNo;
                 const pageSize = resp.result.paginationInfo.pageSize;
@@ -76,7 +75,7 @@ function EgovAdminMemberList(props) {
                         </Link>
                     );
                 });
-                
+                if(!mutListTag.length) mutListTag.push(<p className="no_data" key="0">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
                 setListTag(mutListTag);
             },
             function (resp) {
@@ -186,14 +185,6 @@ function EgovAdminMemberList(props) {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
     );
 }
 

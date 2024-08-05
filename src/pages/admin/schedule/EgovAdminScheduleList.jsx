@@ -140,11 +140,11 @@ function EgovAdminScheduleList(props) {
         let keyIdx = 0;
         
         //draw Calendar
-        monthArr.forEach((week, weekIdx) => {
+        monthArr.forEach((week) => {
             console.log();
             mutCalendarTagList.push(
                 <tr key={keyIdx++}>{
-                    week.map((day, dayIdx) => {
+                    week.map((day) => {
                         if (day !== 0) {//당월 일별 구현
                             let sDate = day.toString().length === 1 ? "0" + day.toString() : day.toString();
                             let iUseDate = Number(mutsUseYearMonth + sDate);
