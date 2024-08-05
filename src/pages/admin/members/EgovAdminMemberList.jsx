@@ -75,7 +75,7 @@ function EgovAdminMemberList(props) {
                         </Link>
                     );
                 });
-                if(!mutListTag.length) mutListTag.push(<p className="no_data" key="0">검색된 결과가 없습니다.</p>); // 게시판 목록 초기값
+                if(!mutListTag.length) mutListTag.push(<p className="no_data" key="0">검색된 결과가 없습니다.</p>); // 회원 목록 초기값
                 setListTag(mutListTag);
             },
             function (resp) {
