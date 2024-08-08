@@ -22,8 +22,8 @@ function EgovLoginContent(props) {
     const [saveIDFlag, setSaveIDFlag] = useState(false);
 
     const checkRef = useRef();
-    const idR=useRef(null);//id입력 부분에서 엔터키 이벤트 발생 확인
-    const PasswordR=useRef(null);//비밀번호 입력 부분
+    const idRef=useRef(null);//id입력 부분에서 엔터키 이벤트 발생 확인
+    const passwordRef=useRef(null);//비밀번호 입력 부분
 
     const KEY_ID = "KEY_ID";
     const KEY_SAVE_ID_FLAG = "KEY_SAVE_ID_FLAG";
@@ -60,8 +60,8 @@ function EgovLoginContent(props) {
     const activeEnter=(e)=>{
         if(e.key==="Enter"){
             e.preventDefault();
-            if(e.target===idR.current){//엔터 키 이벤트 발생한 입력 필드가 아이디인지 확인하기
-                PasswordR.current.focus();
+            if(e.target===idRef.current){//엔터 키 이벤트 발생한 입력 필드가 아이디인지 확인하기
+                passwordRef.current.focus();
             }
             else{
                 submitFormHandler(e);
@@ -123,12 +123,12 @@ function EgovLoginContent(props) {
                             <span className="group">
                                 <input type="text" name="" title="아이디" placeholder="아이디" value={userInfo?.id}
                                     onChange={e => setUserInfo({ ...userInfo, id: e.target.value })}
-                                    ref={idR}
+                                    ref={idRef}
                                     onKeyDown={activeEnter}
                                      />
                                 <input type="password" name="" title="비밀번호" placeholder="비밀번호"
                                     onChange={e => setUserInfo({ ...userInfo, password: e.target.value })}
-                                    ref={PasswordR}
+                                    ref={passwordRef}
                                     onKeyDown={activeEnter} />
                             </span>
                             <div className="chk">
