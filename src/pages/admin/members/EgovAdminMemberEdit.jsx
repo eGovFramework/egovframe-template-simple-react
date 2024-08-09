@@ -358,7 +358,7 @@ function EgovAdminMemberEdit(props) {
                             <dl>
                                 <dt>회원 권한<span className="req">필수</span></dt>
                                 <dd>
-                                    <label className="f_select w_130" htmlFor="groupId">
+                                    <label className="f_select w_200" htmlFor="groupId">
                                         <select
                                             id="groupId"
                                             name="groupId"
