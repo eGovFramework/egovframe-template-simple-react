@@ -140,7 +140,7 @@ function EgovNoticeDetail(props) {
 
 
                             <div className="board_btn_area">
-                                {sessionUserSe ==='ADM' && masterBoard.bbsUseFlag === 'Y' &&
+                                {user && sessionUserSe ==='ADM' && masterBoard.bbsUseFlag === 'Y' &&
                                     <div className="left_col btn3">
                                         <Link to={{pathname: URL.INFORM_NOTICE_MODIFY}}
                                             state={{

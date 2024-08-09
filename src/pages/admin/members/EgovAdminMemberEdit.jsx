@@ -21,7 +21,9 @@ function EgovAdminMemberEdit(props) {
     console.log("EgovAdminMemberEdit [location] : ", location);
 	const uniqId = location.state?.uniqId || "";
     const mberSttusRadioGroup = [{ value: "P", label: "가능" }, { value: "A", label: "대기" }, { value: "D", label: "탈퇴" }];
-    const groupCodeOptions = [{ value: "GROUP_00000000000000", label: "ROLE_ADMIN" }, { value: "GROUP_00000000000001", label: "ROLE_USER" }];
+    //const groupCodeOptions = [{ value: "GROUP_00000000000000", label: "ROLE_ADMIN" }, { value: "GROUP_00000000000001", label: "ROLE_USER" }];
+    //백엔드에서 보내온 값으로 변경(위 1줄 대신 아래 1줄 추가)
+    let [groupCodeOptions, setGroupCodeOptions] = useState([]);
     const [modeInfo, setModeInfo] = useState({ mode: props.mode });
     const [memberDetail, setMemberDetail] = useState({});
 
@@ -45,22 +47,23 @@ function EgovAdminMemberEdit(props) {
 			default:
                 navigate({pathname: URL.ERROR}, {state: {msg : ""}});
         }
-        retrieveDetail();
+		retrieveDetail();
     }
 
     const retrieveDetail = () => {
-        if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 조회 안함
+		let retrieveDetailURL ='';
+        if (modeInfo.mode === CODE.MODE_CREATE) {// 조회/등록이면 초기값 지정
             setMemberDetail({
                 tmplatId: "TMPLAT_MEMBER_DEFAULT",  //Template 고정
                 groupId: "GROUP_00000000000001",    //그룹ID 초기값
                 mberSttus: "P",                        //로그인가능여부 초기값
                 checkIdResult: "중복ID를 체크해 주세요."
             });
-            return;
+            retrieveDetailURL =`/members/insert`;
         }
-
-        const retrieveDetailURL =`/members/update/${uniqId}`;
-        
+        if (modeInfo.mode === CODE.MODE_MODIFY) {// 수정이면 초기값 지정 안함
+            retrieveDetailURL =`/members/update/${uniqId}`;
+        }
         const requestOptions = {
             method: "GET",
             headers: {
@@ -68,7 +71,6 @@ function EgovAdminMemberEdit(props) {
                 
             }
         }
-
         EgovNet.requestFetch(retrieveDetailURL,
             requestOptions,
             function (resp) {
@@ -76,6 +78,12 @@ function EgovAdminMemberEdit(props) {
                 if (modeInfo.mode === CODE.MODE_MODIFY) {
                     setMemberDetail(resp.result.mberManageVO);
                 }
+                groupCodeOptions = [];//중복 option 값 제거
+                //백엔드에서 받은 권한 그룹 options 값 바인딩(아래)
+                resp.result.groupId_result.forEach((item) => {
+					groupCodeOptions.push({value:item.code, label:item.codeNm});
+                })
+				setGroupCodeOptions(groupCodeOptions);//html 렌더링
             }
         );
     }
