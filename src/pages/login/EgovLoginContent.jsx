@@ -60,14 +60,15 @@ function EgovLoginContent(props) {
     const activeEnter=(e)=>{
         if(e.key==="Enter"){
             e.preventDefault();
-            if(e.target===idRef.current){//엔터 키 이벤트 발생한 입력 필드가 아이디인지 확인하기
+            if(e.target===idRef.current && passwordRef.current.value===""){//엔터 키 이벤트 발생한 입력 필드가 아이디인지 확인하기
+            	alert("비밀번호 입력 여부를 확인하여 주세요");
                 passwordRef.current.focus();
             }
             else{
                 submitFormHandler(e);
             }
         }
-    } 
+    }
     const submitFormHandler = (e) => {
         console.log("EgovLoginContent submitFormHandler()");
         
