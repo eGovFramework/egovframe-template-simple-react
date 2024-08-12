@@ -10,16 +10,20 @@ import { GALLERY_BBS_ID } from 'config';
 import { default as EgovLeftNav } from 'components/leftmenu/EgovLeftNavInform';
 import EgovAttachFile from 'components/EgovAttachFile';
 import EgovImageGallery from 'components/EgovImageGallery';
+import { getSessionItem } from 'utils/storage';
 
 function EgovGalleryDetail(props) {
     console.groupEnd("EgovGalleryDetail");
     console.log("------------------------------");
     console.log("EgovGalleryDetail [props] : ", props);
-
+	
     const navigate = useNavigate();
     const location = useLocation();
     console.log("EgovGalleryDetail [location] : ", location);
-
+	//관리자 권한 체크때문에 추가(아래)
+	const sessionUser = getSessionItem('loginUser');
+	const sessionUniqId = sessionUser?.uniqId;
+	
     const bbsId = location.state.bbsId || GALLERY_BBS_ID;
     const nttId = location.state.nttId;
     const searchCondition = location.state.searchCondition;
@@ -140,7 +144,7 @@ function EgovGalleryDetail(props) {
 
 
                             <div className="board_btn_area">
-                                {user.id && masterBoard.bbsUseFlag === 'Y' &&
+                                {sessionUniqId === boardDetail.frstRegisterId && user && user.id && masterBoard.bbsUseFlag === 'Y' &&
                                     <div className="left_col btn3">
                                         <Link to={{pathname: URL.INFORM_GALLERY_MODIFY}}
                                             state={{
@@ -152,17 +156,17 @@ function EgovGalleryDetail(props) {
                                             e.preventDefault();
                                             onClickDeleteBoardArticle(boardDetail.bbsId, boardDetail.nttId);
                                         }}>삭제</a>
-										{masterBoard.replyPosblAt === 'Y' &&
-                                        <Link to={{pathname: URL.INFORM_GALLERY_REPLY}}
-                                            state={{
-                                                nttId: nttId,
-                                                bbsId: bbsId
-                                            }}
-                                            className="btn btn_skyblue_h46 w_100">답글작성</Link>
-										}
                                     </div>
                                 }
                                 <div className="right_col btn1">
+                                	{user.id && masterBoard.bbsUseFlag === 'Y' && masterBoard.replyPosblAt === 'Y' &&
+                                    <Link to={{pathname: URL.INFORM_GALLERY_REPLY}}
+                                        state={{
+                                            nttId: nttId,
+                                            bbsId: bbsId
+                                        }}
+                                        className="btn btn_skyblue_h46 w_100">답글작성</Link>
+                                	}
                                     <Link to={{pathname: URL.INFORM_GALLERY}}
                                         state={{
                                             nttId: nttId,
