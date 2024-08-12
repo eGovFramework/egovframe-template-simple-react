@@ -38,6 +38,18 @@ export default function initPage() {
                 document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
             }
         });
+        // 회원가입, 마이페이지 항목 클릭시 메뉴 닫기
+        document.querySelector('.user_info').addEventListener('click', (e) => {
+            if (e.target.matches('a')) {
+                document.querySelector('.all_menu.WEB').classList.add('closed');
+                document.querySelector('.btnAllMenu').classList.remove('active');
+                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+            }
+        });
+        // 회원가입, 마이페이지 항목 클릭시 모바일 전체메뉴 열기
+        document.querySelector('.user_info_m').addEventListener('click', (e) => {
+            document.querySelector('.all_menu.Mobile').classList.add('closed');
+        });
 		// Mobile 서브메뉴 항목 클릭시 메뉴 닫기: 2023.04.13(목) 김일국 추가
         document.querySelectorAll('.all_menu.Mobile .submenu a')
 			.forEach(el => el.addEventListener('click', (e) =>  {
