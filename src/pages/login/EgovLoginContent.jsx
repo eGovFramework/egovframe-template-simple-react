@@ -85,6 +85,11 @@ function EgovLoginContent(props) {
         EgovNet.requestFetch(loginUrl,
             requestOptions,
             (resp) => {
+                if (resp.status == 500) {
+                    alert(resp.error);
+                    return;
+                }
+
                 let resultVO = resp.resultVO;
                 let jToken = resp?.jToken || null;
 
