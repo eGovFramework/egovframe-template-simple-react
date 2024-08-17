@@ -7,6 +7,7 @@ import URL from 'constants/url';
 import CODE from 'constants/code';
 import { getSessionItem, setSessionItem } from 'utils/storage';
 import SnsNaverBt from './sns/SnsNaverBt';
+import SnsKakaoBt from './sns/SnsKakaoBt';
 
 function EgovHeader() {
     console.group("EgovHeader");
@@ -97,6 +98,7 @@ function EgovHeader() {
                     {!sessionUserId &&
                         <>
                         <SnsNaverBt />
+                        <SnsKakaoBt />
                         <button onClick={logInHandler} className="btn login">로그인</button>
                         <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
                         </>
@@ -179,6 +181,7 @@ function EgovHeader() {
                     {!sessionUserId &&
                         <>
                         <SnsNaverBt />
+                        <SnsKakaoBt />
                         <button onClick={logInHandler} className="btn login">회원 로그인</button>
                         <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
                         </>
