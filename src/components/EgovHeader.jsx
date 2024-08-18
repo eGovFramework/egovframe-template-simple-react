@@ -187,9 +187,16 @@ function EgovHeader() {
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
                         <>
-                        <SnsNaverBt />
-                        <SnsKakaoBt />
-                        <button onClick={logInHandler} className="btn login">회원 로그인</button>
+                        <div onClick={() => {setView(!view)}} className="btn" style={{cursor:"pointer", textAlign:"center", width:"180px"}}>
+							Sns 간편로그인 <span>{view ? '▲' : '▼'}</span>
+							{view && 
+							<ul>
+							<li><SnsNaverBt /></li>
+                        	<li><SnsKakaoBt /></li>
+                        	</ul>
+							}
+						</div>
+                        <button onClick={logInHandler} className="btn login">로그인</button>
                         <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
                         </>
                     }
