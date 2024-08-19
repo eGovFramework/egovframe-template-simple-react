@@ -5,6 +5,8 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 import CODE from 'constants/code';
 import { getLocalItem, setLocalItem, setSessionItem } from 'utils/storage';
+import SnsNaverBt from 'components/sns/SnsNaverBt';
+import SnsKakaoBt from 'components/sns/SnsKakaoBt';
 
 function EgovLoginContent(props) {
     console.group("EgovLoginContent");
@@ -147,6 +149,10 @@ function EgovLoginContent(props) {
                     <li>쉬운 비밀번호나 자주 쓰는 사이트의 비밀번호가 같을 경우, 도용되기 쉬우므로 주기적으로
                         변경하셔서 사용하는 것이 좋습니다.</li>
                 </ul>
+                <div className="btn_social">
+                	<SnsNaverBt />
+                	<SnsKakaoBt />
+                </div>
             </div>
             {/* <!--// 본문 --> */}
         </div>

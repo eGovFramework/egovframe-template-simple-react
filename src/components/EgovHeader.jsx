@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
@@ -6,13 +6,11 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 import CODE from 'constants/code';
 import { getSessionItem, setSessionItem } from 'utils/storage';
-import SnsNaverBt from './sns/SnsNaverBt';
-import SnsKakaoBt from './sns/SnsKakaoBt';
 
 function EgovHeader() {
     console.group("EgovHeader");
     console.log("[Start] EgovHeader ------------------------------");
-	const [view, setView] = useState(false); 
+ 
     const sessionUser = getSessionItem('loginUser');
     const sessionUserId = sessionUser?.id;
     const sessionUserName = sessionUser?.name;
@@ -97,15 +95,6 @@ function EgovHeader() {
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
                         <>
-                        <div onClick={() => {setView(!view)}} className="btn" style={{cursor:"pointer", textAlign:"center", width:"180px"}}>
-							Sns 간편로그인 <span>{view ? '▲' : '▼'}</span>
-							{view && 
-							<ul>
-							<li><SnsNaverBt /></li>
-                        	<li><SnsKakaoBt /></li>
-                        	</ul>
-							}
-						</div>
                         <button onClick={logInHandler} className="btn login">로그인</button>
                         <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
                         </>
@@ -187,15 +176,6 @@ function EgovHeader() {
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
                         <>
-                        <div onClick={() => {setView(!view)}} className="btn" style={{cursor:"pointer", textAlign:"center", width:"180px"}}>
-							Sns 간편로그인 <span>{view ? '▲' : '▼'}</span>
-							{view && 
-							<ul>
-							<li><SnsNaverBt /></li>
-                        	<li><SnsKakaoBt /></li>
-                        	</ul>
-							}
-						</div>
                         <button onClick={logInHandler} className="btn login">로그인</button>
                         <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
                         </>

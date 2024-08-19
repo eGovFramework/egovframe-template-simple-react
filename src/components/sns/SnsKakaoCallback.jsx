@@ -43,17 +43,11 @@ const SnsKakaoCallback = () => {
       }
   }
   useEffect(callBackEnd,[]);
-const style = {
-  position: 'relative',
-  margin: '0',
-  fontSize: '64px',
-  fontWeight: '400',
-  textAlign: 'center',
-}
+
   return (
 	<>
       {/* 로그인중이라는 것을 표시할 수 있는 로딩중 화면 */}
-      <h1 style={style}>로그인 중...</h1>
+      <h1 className="btn_social">로그인 중...</h1>
     </>
   );
 };

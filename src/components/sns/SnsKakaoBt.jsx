@@ -9,7 +9,11 @@ const SnsKakaoBt = (props) => {
     window.location.href = KAKAO_AUTH_URL;
   };
   
-  return <button onClick={KakaoLogin} className="btn login">카카오 로그인</button>;
+  return (
+	  <a href="#!" onClick={KakaoLogin} className="btn_center social kakao">
+  		<button>카카오 로그인</button>
+  	  </a>
+  	  );
 };
 
 export default SnsKakaoBt;
