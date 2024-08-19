@@ -29,14 +29,14 @@ const SnsKakaoCallback = () => {
                     //setLoginVO(resultVO);
                     setSessionItem('loginUser', resultVO);
                     //props.onChangeLogin(resultVO);
-                    window.location.replace("/");
                     // PC와 Mobile 열린메뉴 닫기
                     document.querySelector('.all_menu.WEB').classList.add('closed');
                     document.querySelector('.btnAllMenu').classList.remove('active');
                     document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
 		            document.querySelector('.all_menu.Mobile').classList.add('closed');
-		            alert("로그인 중...");//공통 alert 사용대신해서
+		            alert("Sns 간편 로그인 중...");//공통 alert 사용대신해서
                 } else {
+					//React.StrictMode 에서 fetch가 자동으로 2번 실행할 때 아래 메인화면으로 이동된다.
 					window.location.replace("/");
                 }
             })
