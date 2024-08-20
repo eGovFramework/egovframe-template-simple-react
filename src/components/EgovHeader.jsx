@@ -10,7 +10,7 @@ import { getSessionItem, setSessionItem } from 'utils/storage';
 function EgovHeader() {
     console.group("EgovHeader");
     console.log("[Start] EgovHeader ------------------------------");
-
+ 
     const sessionUser = getSessionItem('loginUser');
     const sessionUserId = sessionUser?.id;
     const sessionUserName = sessionUser?.name;
@@ -168,14 +168,17 @@ function EgovHeader() {
                     {/* 로그아웃 : 로그인 정보 있을때 */}
                     {sessionUserId &&
                         <>
-                            <span className="person">{sessionUserName} </span>이 로그인하셨습니다.
+                            <span className="person">{sessionUserName} </span> 님이, {sessionUserSe}로 로그인하셨습니다.
                             <button onClick={logOutHandler} className="btn logout">로그아웃</button>
                         </>
                     }
 
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
+                        <>
                         <button onClick={logInHandler} className="btn login">로그인</button>
+                        <NavLink to={URL.MYPAGE_CREATE} className={({ isActive }) => (isActive ? "btn login cur" : "btn login")}>회원가입</NavLink>
+                        </>
                     }
                     <button className="btn noscript close" type="button">전체메뉴 닫기</button>
                 </div>

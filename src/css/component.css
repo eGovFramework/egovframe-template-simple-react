@@ -7,6 +7,50 @@
 /* Go template link */
 .lnk_go_template {position: absolute; left: 50px; top: 20px; width: 26px; height: 26px; background: url(css/images/ico_question.png) no-repeat;}
 
+/* SNS Login */
+.btn_social {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+.btn_social > a,
+.btn_center > button {
+  text-align: center;
+}
+a.social {
+  position: relative;
+  width: 90px;
+  padding-top: 96px;
+  color: #666;
+  font-size: 18px;
+}
+a.social:nth-child(n + 1) {
+  margin: 0 30px;
+}
+a.social:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translateX(-50%);
+  border: 1px solid #e1e1e1;
+  border-radius: 45px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+a.kakao:before {
+  background-image: url(css/images/icon_kakao.png);
+}
+a.naver:before {
+  background-image: url(css/images/icon_naver.png);
+}
+a.google:before {
+  background-image: url(css/images/icon_google.png);
+}
 
 /* Button */
 .btn {display: inline-block; vertical-align: top;}
