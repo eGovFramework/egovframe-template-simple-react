@@ -24,7 +24,7 @@ function EgovSupportApply() {
                     <div className="contents SITE_INTRO" id="contents">
                         {/* <!-- 본문 --> */}
 
-                        <h1 className="tit_3">고객지원</h1>
+                        <h1 className="tit_6">고객지원</h1>
 
                         <p className="txt_1">프레임워크 경량환경의 원하시는 서비스를 신청하실 수 있습니다.</p>
                         

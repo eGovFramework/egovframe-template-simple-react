@@ -100,6 +100,7 @@ body {min-width: 1400px;}
 
 /* Space */
 .contents .tit_3:first-child {margin-top: -2px;}
+.contents .tit_6:first-child {margin-top: 2px;}
 
 .condition + .board_list {margin-top: 50px;}
 .condition + .calendar_list {margin-top: 50px;}
@@ -117,6 +118,8 @@ body {min-width: 1400px;}
 
 .tit_5 + .msg_1 {margin-top: 24px;}
 .tit_5 + .pds_des {margin-top: 14px;}
+
+.tit_6 + .txt_1 {margin-top: 33px;}
 
 .txt_1 + .tit_4 {margin-top: 64px;}
 
