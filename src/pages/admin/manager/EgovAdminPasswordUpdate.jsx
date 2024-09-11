@@ -13,6 +13,8 @@ function EgovAdminPasswordUpdate(props) {
     const navigate = useNavigate();
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
 	const formValidator = (formData) => {
         if (formData.get('old_password') === null || formData.get('old_password') === "") {
             alert("기존 암호는 필수 값입니다.");
@@ -30,8 +32,12 @@ function EgovAdminPasswordUpdate(props) {
     };
 
     const updateAdminPassword = () => {
+        if (newPassword !== confirmPassword) {
+            return alert("신규 암호와 입력 확인값이 일치하지 않습니다");
+        }
+
 		const editURL = "/admin/password";
-        
+
         let requestOptions ={};
         const formData = new FormData();
 		formData.append("old_password", oldPassword);
@@ -41,7 +47,6 @@ function EgovAdminPasswordUpdate(props) {
                 method: "PATCH",
                 headers: {
 					'Content-type': 'application/json',
-					
                 },
                 body: JSON.stringify({
 	                "old_password": oldPassword,
@@ -99,19 +104,31 @@ function EgovAdminPasswordUpdate(props) {
                             <dl>
                                 <dt><label htmlFor="oldPassword">기존 암호</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="password" name="oldPassword" title="" id="oldPassword" placeholder="" 
-									defaultValue={oldPassword}
-									onChange={e => setOldPassword(e.target.value )}
-									/>
+                                    <input className="f_input2 w_full" type="password" name="oldPassword" title=""
+                                           id="oldPassword" placeholder=""
+                                           defaultValue={oldPassword}
+                                           onChange={e => setOldPassword(e.target.value)}
+                                    />
                                 </dd>
                             </dl>
                             <dl>
                                 <dt><label htmlFor="newPassword">신규 암호</label><span className="req">필수</span></dt>
                                 <dd>
-                                    <input className="f_input2 w_full" type="password" name="newPassword" title="" id="newPassword" placeholder=""
-									defaultValue={newPassword} 
-									onChange={e => setNewPassword(e.target.value )}
-									/>
+                                    <input className="f_input2 w_full" type="password" name="newPassword" title=""
+                                           id="newPassword" placeholder=""
+                                           defaultValue={newPassword}
+                                           onChange={e => setNewPassword(e.target.value)}
+                                    />
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><label htmlFor="confirmPassword">입력 확인</label><span className="req">필수</span></dt>
+                                <dd>
+                                    <input className="f_input2 w_full" type="password" name="confirmPassword" title=""
+                                           id="confirmPassword" placeholder=""
+                                           defaultValue={confirmPassword}
+                                           onChange={e => setConfirmPassword(e.target.value)}
+                                    />
                                 </dd>
                             </dl>
                             {/* <!-- 버튼영역 --> */}
