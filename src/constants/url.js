@@ -63,7 +63,7 @@ const URL = {
     ADMIN_USAGE_CREATE          : "/admin/usage/create", // 사이트관리/게시판사용관리 등록
     ADMIN_USAGE_MODIFY          : "/admin/usage/modify", // 사이트관리/게시판사용관리 상세/수정
 
-    ADMIN_NOTICE                : "/admin/notice/", // 사이트관리/공지사항관리 목록
+    ADMIN_NOTICE                : "/admin/notice", // 사이트관리/공지사항관리 목록
     ADMIN_NOTICE_DETAIL         : "/admin/notice/detail", // 사이트관리/공지사항관리 상세
     ADMIN_NOTICE_CREATE         : "/admin/notice/create", // 사이트관리/공지사항관리 등록
     ADMIN_NOTICE_MODIFY         : "/admin/notice/modify", // 사이트관리/공지사항관리 수정
@@ -74,13 +74,13 @@ const URL = {
     ADMIN_GALLERY_CREATE        : "/admin/gallery/create", // 사이트관리/사이트갤러리관리 등록
     ADMIN_GALLERY_MODIFY        : "/admin/gallery/modify", // 사이트관리/사이트갤러리관리 수정
     ADMIN_GALLERY_REPLY         : "/admin/gallery/reply", // 사이트관리/사이트갤러리관리 답글 등록
-    
-	ADMIN_MANAGER               : "/admin/manager/", // 사이트관리/사이트관리자 암호변경 기능
-	ADMIN_MEMBERS               : "/admin/members/", // 사이트관리/회원관리 목록기능
-	ADMIN_MEMBERS_DETAIL          : "/admin/members/detail", // 사이트관리/회원관리 상세
-    ADMIN_MEMBERS_CREATE          : "/admin/members/create", // 사이트관리/회원관리 등록
-    ADMIN_MEMBERS_MODIFY          : "/admin/members/modify", // 사이트관리/회원관리 상세/수정
-    
+
+    ADMIN_MANAGER               : "/admin/manager", // 사이트관리/사이트관리자 암호변경 기능
+    ADMIN_MEMBERS               : "/admin/members", // 사이트관리/회원관리 목록기능
+    ADMIN_MEMBERS_DETAIL        : "/admin/members/detail", // 사이트관리/회원관리 상세
+    ADMIN_MEMBERS_CREATE        : "/admin/members/create", // 사이트관리/회원관리 등록
+    ADMIN_MEMBERS_MODIFY        : "/admin/members/modify", // 사이트관리/회원관리 상세/수정
+
     //MYPAGE
     MYPAGE_MODIFY      			: "/mypage/modify", // 고객지원/마이페이지/회원 수정
     MYPAGE_CREATE       		: "/mypage/create", // 고객지원/마이페이지/회원 등록
