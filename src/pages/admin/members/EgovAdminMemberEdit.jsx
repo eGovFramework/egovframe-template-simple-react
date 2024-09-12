@@ -230,10 +230,10 @@ function EgovAdminMemberEdit(props) {
     };
 
     const deleteMember = (uniqId) => {
-        const deleteMemberURL = `/members/delete/${uniqId}`;
+        const deleteMemberURL = `/members/${uniqId}`;
         
         const requestOptions = {
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 'Content-type': 'application/json',
             }
