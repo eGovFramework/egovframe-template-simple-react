@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
@@ -15,6 +15,8 @@ function EgovAdminPasswordUpdate(props) {
 	const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    
+	const oldRef = useRef(null);
 	const formValidator = (formData) => {
         if (formData.get('old_password') === null || formData.get('old_password') === "") {
             alert("기존 암호는 필수 값입니다.");
@@ -61,7 +63,7 @@ function EgovAdminPasswordUpdate(props) {
                         navigate({ pathname: URL.MAIN }, { replace: true });
                     } else {
 						alert("Fail 변경되지 않았습니다. 다시 시도해 주세요.");
-						navigate({pathname: URL.ERROR}, {state: {msg : resp.resultMessage}}); //에러메세지 변수명 변경
+                        oldRef.current.focus();
                     }
                 }
             );
@@ -107,6 +109,7 @@ function EgovAdminPasswordUpdate(props) {
                                     <input className="f_input2 w_full" type="password" name="oldPassword" title=""
                                            id="oldPassword" placeholder=""
                                            defaultValue={oldPassword}
+                                           
                                            onChange={e => setOldPassword(e.target.value)}
                                     />
                                 </dd>
@@ -117,6 +120,7 @@ function EgovAdminPasswordUpdate(props) {
                                     <input className="f_input2 w_full" type="password" name="newPassword" title=""
                                            id="newPassword" placeholder=""
                                            defaultValue={newPassword}
+                                           ref={oldRef}
                                            onChange={e => setNewPassword(e.target.value)}
                                     />
                                 </dd>
