@@ -294,6 +294,7 @@ select::-ms-expand {display:none;}
 
 .tit_5 {color: #222; font-size: 26px; font-weight: 700;}
 
+.tit_6 {color: #222; font-size: 48px; font-weight: 500; line-height: 44px; letter-spacing: -2px;}
 
 /* Text */
 .txt_1 {color: #666; font-size: 20px; line-height: 30px;}
