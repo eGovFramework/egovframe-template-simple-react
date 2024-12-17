@@ -18,13 +18,13 @@
 
 ### 메뉴 구성
 
-![menu_sht_v4](https://github.com/user-attachments/assets/4888a564-b3e9-4a3d-a72d-77bc26a6b410)
+![menu_sht_v4](https://github.com/user-attachments/assets/4aad1e74-873a-4ed9-8df9-97958bcccbc8)
 
 ## 참고 화면 및 메뉴 설명
 
 ### 메인 화면
 
-![sh1](https://github.com/user-attachments/assets/d1953753-c99e-4e77-aa20-3951d9b9665f)
+![sh1](https://github.com/user-attachments/assets/41757fa0-b976-435a-81ac-e163e2846998)
 
 1. 최초 관리자 계정 설정은 **[ 로그인계정 : admin , 로그인암호 : 1 ]** 로 설정되어 있다.
 2. 메인 화면 우측 상단의 **회원가입** 버튼을 통해 사용자 계정을 생성 가능하다.
@@ -32,7 +32,7 @@
 
 ### 로그인 화면
 
-![login](https://github.com/user-attachments/assets/b9f394b2-da3c-49ce-beea-1645b3f1243a)
+![login](https://github.com/user-attachments/assets/383f7e62-1b31-4726-8c65-785b00c9ec45)
 
 1. 최초 관리자 계정을 통한 로그인이 가능하다.
 2. **회원가입** 버튼을 통해 생성한 사용자 계정을 통한 로그인이 가능하다. (사용자 계정은 일부 메뉴 접근이 제한된다)
@@ -45,7 +45,7 @@
 
 ### 사이트 소개 화면
 
-![sh2](https://github.com/user-attachments/assets/0e5317b6-088b-47ba-8cd7-096c2a5ce66d)
+![sh2](https://github.com/user-attachments/assets/f7b8a9c7-e6a5-48e2-9cbc-4f590e19365b)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -55,7 +55,7 @@
 
 ### 정보마당 화면
 
-![sh3](https://github.com/user-attachments/assets/49dda27f-e9e8-4314-980d-019cbda328f4)
+![sh3](https://github.com/user-attachments/assets/ce639fea-4b3f-4dcb-b00d-39175a9fff91)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -65,7 +65,7 @@
 
 ### 고객지원 화면
 
-![sh4](https://github.com/user-attachments/assets/2a34530e-078e-4423-9ff7-d0dd0137b30e)
+![sh4](https://github.com/user-attachments/assets/177a38d3-d94f-41f3-ac99-0fe0a7a3f806)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -75,7 +75,7 @@
 
 ### 알림마당 화면
 
-![sh5](https://github.com/user-attachments/assets/3555b34d-87e0-447e-858b-afd92516c3dd)
+![sh5](https://github.com/user-attachments/assets/d45ebbf2-3d0a-4450-a9ea-247495520bc7)
 
 1. 세부메뉴 : 오늘의행사, 금주의행사, 공지사항, 사이트갤러리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)와 게시판 기능을 커스터마이징하여 사용한다.
@@ -83,7 +83,7 @@
 
 ### 사이트관리 화면
 
-![sh6](https://github.com/user-attachments/assets/206a9bf3-6c69-48c2-a3a4-d487dec1bd42)
+![sh6](https://github.com/user-attachments/assets/29c8e651-5d1b-4ad3-bc27-c16a511c5008)
 
 1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리, 사이트관리자 암호변경, 회원관리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)과 게시판 기능을 커스터마이징하여 사용한다.
