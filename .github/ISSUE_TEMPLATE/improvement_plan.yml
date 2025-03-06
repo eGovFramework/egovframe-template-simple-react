@@ -1,0 +1,55 @@
+name: 발전 방안 제안 Improvement Plan
+description: 발전 방안을 이슈로 등록하는 템플릿입니다. Suggest a new plan for improving eGovFrame.
+title: "[발전 방안 제안(Improvement Plan)]: "
+labels: ["Improvement"]
+assignees:
+  - yongfire38
+body:
+  - type: markdown
+    attributes:
+      value: |
+        시간을 내어 의견을 작성해 주셔서 감사합니다. Thank you for taking the time to fill out a request.
+  - type: input
+    id: idea-name
+    attributes:
+      label: 아이디어명 Idea Name
+    validations:
+      required: true
+  - type: textarea
+    id: idea-summary
+    attributes:
+      label: 아이디어 요약 Idea Summary
+      description: 과제 내용을 300자 이내로 간결하게 요약 및 정의해 주세요 Please summarize and define your content in 300 characters or less
+      placeholder: 예) 게시판 첨부기능 추가 Example) Adding a bulletin board attachment
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion-background
+    attributes:
+      label: 제안배경 Suggestion Background
+      description: 아이디어를 제안하게 된 배경 및 필요성을 기술해 주세요. Please describe the background and need for the idea.
+      placeholder: 아이디어를 제안하게 된 배경은 다음과 같습니다. The background to suggesting the idea is as follows.
+    validations:
+      required: true
+  - type: textarea
+    id: expectations
+    attributes:
+      label: 기대효과 Expectations
+      description: 아이디어의 실현 가능성과 예상되는 기대효과를 제시하여 주세요. Please describe the expected impact and outcome of the idea.
+      placeholder: 해당 아이디어의 기대효과는 다음과 같습니다. Here are the expected effects of this idea.
+    validations:
+      required: false
+  - type: textarea
+    id: free-writing
+    attributes:
+      label: 자유기술 Free Writing
+      description: 추가 기재하고 싶은 항목 및 내용을 자유롭게 기재하여 주세요. Please feel free to add anything else you'd like to include.
+    validations:
+      required: false
+  - type: textarea
+    id: reference
+    attributes:
+      label: 참고문헌 Reference
+      description: 참고문헌이 있는 경우 작성하여 주세요. If you have references, please include them.
+    validations:
+      required: false
