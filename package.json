@@ -34,8 +34,8 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run"
+    "test": "vitest --environment jsdom",
+    "test:run": "vitest run --environment jsdom"
   },
   "proxy": "http://localhost:8080"
 }

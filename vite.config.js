@@ -11,11 +11,31 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: "/src" }],
   },
+  esbuild: {
+    loader: 'jsx',
+    include: /\.jsx?$/,
+    exclude: [],
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+        '.jsx': 'jsx',
+      },
+    },
+  },
   test: {
     globals: true,
-    include: ["src/**/*.test.js", "src/**/*.test.jsx"],
     environment: "jsdom",
     setupFiles: "./vitest.setup.js",
+    include: ["src/**/*.test.{js,jsx}", "src/**/*.spec.{js,jsx}"],
+    exclude: ["node_modules", "src/App.test.jsx", "src/App.test.js"],
+    transformMode: {
+      web: [/\.[jt]sx$/]
+    },
+    deps: {
+      inline: ['react', 'react-dom', 'react-router-dom']
+    }
   },
   build: {
     chunkSizeWarningLimit: 100000000,
