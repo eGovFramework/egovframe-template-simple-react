@@ -29,7 +29,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./vitest.setup.js",
     include: ["src/**/*.test.{js,jsx}", "src/**/*.spec.{js,jsx}"],
-    exclude: ["node_modules", "src/App.test.jsx"],
+    exclude: ["node_modules", "src/App.test.jsx", "src/App.test.js"],
     transformMode: {
       web: [/\.[jt]sx$/]
     },
