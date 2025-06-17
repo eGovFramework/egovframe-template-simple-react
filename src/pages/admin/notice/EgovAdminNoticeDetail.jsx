@@ -42,8 +42,8 @@ function EgovAdminNoticeDetail(props) {
     });
   };
 
-  const onClickDeleteBoardArticle = (bbsId, nttId) => {
-    const deleteBoardURL = `/board/${bbsId}/${nttId}`;
+  const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
+    const deleteBoardURL = `/board/${bbsId}/${nttId}/${atchFileId}`;
 
     const requestOptions = {
       method: "PATCH",
@@ -163,7 +163,8 @@ function EgovAdminNoticeDetail(props) {
                         e.preventDefault();
                         onClickDeleteBoardArticle(
                           boardDetail.bbsId,
-                          boardDetail.nttId
+                          boardDetail.nttId,
+                          boardDetail.atchFileId
                         );
                       }}
                     >
