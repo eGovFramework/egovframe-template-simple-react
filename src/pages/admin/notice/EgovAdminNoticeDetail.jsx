@@ -43,13 +43,14 @@ function EgovAdminNoticeDetail(props) {
   };
 
   const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
-    const deleteBoardURL = `/board/${bbsId}/${nttId}/${atchFileId}`;
+    const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },
+      body: JSON.stringify({ atchFileId: atchFileId })
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
