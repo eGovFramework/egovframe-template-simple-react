@@ -50,7 +50,7 @@ function EgovGalleryDetail(props) {
     });
   };
 
-  const onClickDeleteBoardArticle = (bbsId, nttId) => {
+  const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
@@ -58,6 +58,7 @@ function EgovGalleryDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
+      body: JSON.stringify({ atchFileId: atchFileId })
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -177,7 +178,8 @@ function EgovGalleryDetail(props) {
                           e.preventDefault();
                           onClickDeleteBoardArticle(
                             boardDetail.bbsId,
-                            boardDetail.nttId
+                            boardDetail.nttId,
+                            boardDetail.atchFileId
                           );
                         }}
                       >
