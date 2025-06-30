@@ -94,7 +94,7 @@ function EgovAdminBoardEdit(props) {
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
       // 수정모드일 경우 조회값 세팅
       if (modeInfo.mode === CODE.MODE_MODIFY) {
-        setBoardDetail(resp.result.boardMasterVO);
+        setBoardDetail(resp.result);
       }
     });
   };
