@@ -72,7 +72,7 @@ function EgovAdminGalleryEdit(props) {
       };
 
       EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-        setMasterBoard(resp.result.brdMstrVO);
+        setMasterBoard(resp.result);
       });
 
       setBoardDetail({ bbsId: bbsId, nttSj: "", nttCn: "" });

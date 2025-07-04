@@ -72,7 +72,7 @@ function EgovAdminNoticeEdit(props) {
       };
 
       EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-        setMasterBoard(resp.result.brdMstrVO);
+        setMasterBoard(resp.result );
       });
 
       setBoardDetail({ bbsId: bbsId, nttSj: "", nttCn: "" });
@@ -87,7 +87,7 @@ function EgovAdminNoticeEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      setMasterBoard(resp.result.brdMstrVO);
+      setMasterBoard(resp.result);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
       if (modeInfo.mode === CODE.MODE_REPLY) {
