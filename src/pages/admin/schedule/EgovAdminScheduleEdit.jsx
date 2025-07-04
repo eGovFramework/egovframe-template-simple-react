@@ -343,7 +343,7 @@ function EgovAdminScheduleEdit(props) {
                     rows="10"
                     placeholder="일정내용"
                     defaultValue={scheduleDetail.schdulCn}
-                    onChange={(e) =>
+                    onBlur={(e) =>
                       setScheduleDetail({
                         ...scheduleDetail,
                         schdulCn: e.target.value,

@@ -200,7 +200,7 @@ function EgovAdminNoticeEdit(props) {
                     name="nttSj"
                     type="text"
                     defaultValue={boardDetail.nttSj}
-                    onChange={(e) =>
+                    onBlur={(e) =>
                       setBoardDetail({ ...boardDetail, nttSj: e.target.value })
                     }
                     maxLength="60"
@@ -222,7 +222,7 @@ function EgovAdminNoticeEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) =>
+                    onBlur={(e) =>
                       setBoardDetail({ ...boardDetail, nttCn: e.target.value })
                     }
                   ></textarea>

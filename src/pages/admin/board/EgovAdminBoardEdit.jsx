@@ -294,7 +294,7 @@ function EgovAdminBoardEdit(props) {
                     id="bbsNm"
                     placeholder=""
                     defaultValue={boardDetail.bbsNm}
-                    onChange={(e) =>
+                    onBlur={(e) =>
                       setBoardDetail({ ...boardDetail, bbsNm: e.target.value })
                     }
                     ref={(el) => (checkRef.current[0] = el)}
@@ -315,7 +315,7 @@ function EgovAdminBoardEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
-                    onChange={(e) =>
+                    onBlur={(e) =>
                       setBoardDetail({
                         ...boardDetail,
                         bbsIntrcn: e.target.value,
