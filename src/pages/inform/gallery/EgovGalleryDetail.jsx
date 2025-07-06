@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -75,10 +75,14 @@ function EgovGalleryDetail(props) {
     });
   };
 
-  useEffect(function () {
-    retrieveDetail();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const didFetchRef = useRef(false);
+
+  useEffect(() => {
+    if (!didFetchRef.current) {
+      didFetchRef.current = true;
+      retrieveDetail();
+    }
+  });
 
   console.groupEnd("EgovGalleryDetail");
 
