@@ -40,7 +40,7 @@ function EgovAdminGalleryList(props) {
   const retrieveList = useCallback((searchCondition) => {
     console.groupCollapsed("EgovAdminGalleryList.retrieveList()");
 
-    const retrieveListURL = "/board" + EgovNet.getQueryString(searchCondition);
+    const retrieveListURL = "/admin/board" + EgovNet.getQueryString(searchCondition);
     const requestOptions = {
       method: "GET",
       headers: {

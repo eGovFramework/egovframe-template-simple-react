@@ -35,7 +35,7 @@ function EgovAdminGalleryEdit(props) {
           ...modeInfo,
           modeTitle: "등록",
           method: "POST",
-          editURL: "/board",
+          editURL: "/admin/board",
         });
         break;
       case CODE.MODE_MODIFY:
@@ -43,7 +43,7 @@ function EgovAdminGalleryEdit(props) {
           ...modeInfo,
           modeTitle: "수정",
           method: "PUT",
-          editURL: `/board/${nttId}`,
+          editURL: `/admin/board/${nttId}`,
         });
         break;
       case CODE.MODE_REPLY:
@@ -51,7 +51,7 @@ function EgovAdminGalleryEdit(props) {
           ...modeInfo,
           modeTitle: "답글쓰기",
           method: "POST",
-          editURL: "/boardReply",
+          editURL: "/admin/boardReply",
         });
         break;
       default:
@@ -63,7 +63,7 @@ function EgovAdminGalleryEdit(props) {
   const retrieveDetail = () => {
     if (modeInfo.mode === CODE.MODE_CREATE) {
       // 등록이면 마스터 정보에서 파일 첨부 가능 여부 조회함
-      const retrieveDetailURL = `/boardFileAtch/${bbsId}`;
+      const retrieveDetailURL = `/admin/boardFileAtch/${bbsId}`;
       const requestOptions = {
         method: "GET",
         headers: {
@@ -79,7 +79,7 @@ function EgovAdminGalleryEdit(props) {
       return;
     }
 
-    const retrieveDetailURL = `/board/${bbsId}/${nttId}`;
+    const retrieveDetailURL = `/admin/board/${bbsId}/${nttId}`;
     const requestOptions = {
       method: "GET",
       headers: {

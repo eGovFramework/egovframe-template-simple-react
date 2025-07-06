@@ -29,7 +29,7 @@ function EgovAdminGalleryDetail(props) {
   const [boardAttachFiles, setBoardAttachFiles] = useState();
 
   const retrieveDetail = () => {
-    const retrieveDetailURL = `/board/${bbsId}/${nttId}`;
+    const retrieveDetailURL = `/admin/board/${bbsId}/${nttId}`;
     const requestOptions = {
       method: "GET",
       headers: {
@@ -44,7 +44,7 @@ function EgovAdminGalleryDetail(props) {
   };
 
   const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
-    const deleteBoardURL = `/board/${bbsId}/${nttId}`;
+    const deleteBoardURL = `/admin/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
       method: "PATCH",
