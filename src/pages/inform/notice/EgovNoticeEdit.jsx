@@ -11,6 +11,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform"
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 import { getSessionItem } from "@/utils/storage";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovNoticeEdit(props) {
   console.group("EgovNoticeEdit");
@@ -31,6 +32,8 @@ function EgovNoticeEdit(props) {
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({ nttSj: "", nttCn: "" });
   const [boardAttachFiles, setBoardAttachFiles] = useState();
+
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const initMode = () => {
     switch (props.mode) {
@@ -226,9 +229,7 @@ function EgovNoticeEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onBlur={(e) =>
-                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange("nttCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>

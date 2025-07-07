@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
@@ -47,6 +48,7 @@ function EgovAdminBoardEdit(props) {
 
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [boardDetail, setBoardDetail] = useState({});
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const initMode = () => {
     switch (props.mode) {
@@ -294,7 +296,7 @@ function EgovAdminBoardEdit(props) {
                     id="bbsNm"
                     placeholder=""
                     defaultValue={boardDetail.bbsNm}
-                    onBlur={(e) =>
+                    onChange={(e) =>
                       setBoardDetail({ ...boardDetail, bbsNm: e.target.value })
                     }
                     ref={(el) => (checkRef.current[0] = el)}
@@ -315,12 +317,7 @@ function EgovAdminBoardEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
-                    onBlur={(e) =>
-                      setBoardDetail({
-                        ...boardDetail,
-                        bbsIntrcn: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handleInputChange("bbsIntrcn", e.target.value)}
                     ref={(el) => (checkRef.current[1] = el)}
                   ></textarea>
                 </dd>
