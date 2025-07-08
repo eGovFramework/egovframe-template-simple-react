@@ -73,36 +73,116 @@ import EgovAdminMemberList from "@/pages/admin/members/EgovAdminMemberList";
 import EgovAdminMemberEdit from "@/pages/admin/members/EgovAdminMemberEdit";
 //마이페이지 기능 추가
 import EgovMypageEdit from "@/pages/mypage/EgovMypageEdit";
-import * as EgovNet from "@/api/egovFetch"; // jwt토큰 위조 검사 때문에 추가
 import initPage from "@/js/ui";
 
 const RootRoutes = () => {
   //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
   const location = useLocation();
 
-  //리액트에서 사이트관리자에 접근하는 토큰값 위변조 방지용으로 서버에서 비교하는 함수 추가
-  const jwtAuthentication = useCallback(() => {
-    console.group("jwtAuthentication");
-    console.log("[Start] jwtAuthentication ------------------------------");
+  // JWT 토큰 정보 가져오기 함수 추가
+  // eslint-disable-next-line no-unused-vars
+  const [userRole, setUserRole] = useState(""); // 사용자 권한 저장
 
-    const jwtAuthURL = "/jwtAuthAPI";
-    let requestOptions = {
-      method: "POST",
-    };
+  // JWT 토큰에서 사용자 권한 정보 확인
+  const getUserRoleFromToken = useCallback(() => {
+    console.group("getUserRoleFromToken");
+    console.log("[Start] getUserRoleFromToken ------------------------------");
 
-    EgovNet.requestFetch(jwtAuthURL, requestOptions, (resp) => {
-      if (resp === false) {
-        setMounted(false);
-        // 인증 실패 시 로그인 페이지로 리다이렉트
-        window.location.href = URL.LOGIN;
-      } else {
-        setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
+    // 세션에서 JWT 토큰 가져오기
+    const token = sessionStorage.getItem("jToken");
+
+    if (token) {
+      try {
+        // JWT 토큰 파싱 (간단한 방식으로 처리)
+        const tokenParts = token.split(".");
+        if (tokenParts.length === 3) {
+          const payload = JSON.parse(atob(tokenParts[1]));
+          const role = payload.groupNm || "";
+          console.log("User role from token:", role);
+          setUserRole(role);
+          return role;
+        }
+      } catch (error) {
+        console.error("JWT 토큰 파싱 중 오류:", error);
       }
-    });
+    }
 
-    console.log("------------------------------jwtAuthentication [End]");
-    console.groupEnd("jwtAuthentication");
+    console.log("JWT 토큰에서 권한 정보를 찾을 수 없음");
+    setUserRole("");
+    return "";
   }, []);
+
+  // 경로에 따른 인증 처리를 위한 함수 추가
+  const checkPathAccess = useCallback(() => {
+    console.group("checkPathAccess");
+    console.log("[Start] checkPathAccess ------------------------------");
+    console.log("Current path:", location.pathname);
+
+    // 현재 경로 가져오기
+    const currentPath = location.pathname;
+    const adminRegex = /^\/admin(\/.*)?$/;
+    const mypageRegex = /^\/mypage(\/.*)?$/;
+
+    // JWT 토큰에서 사용자 로그인 정보 확인
+    const token = sessionStorage.getItem("jToken");
+
+    if (!token) {
+      console.log("로그인 정보가 없습니다.");
+
+      // 로그인이 필요한 경로인 경우 처리
+      if (adminRegex.test(currentPath) || mypageRegex.test(currentPath)) {
+        console.log("로그인이 필요한 경로입니다.");
+        setMounted(false);
+        alert("로그인이 필요한 경로입니다.");
+        window.location.href = URL.LOGIN;
+        return false;
+      }
+
+      // 로그인이 필요하지 않은 경로인 경우
+      setMounted(true);
+      return true;
+    }
+
+    // 사용자 권한 확인
+    const role = getUserRoleFromToken();
+    console.log("User role:", role);
+
+    // 관리자 페이지 접근 처리
+    if (adminRegex.test(currentPath)) {
+      if (role !== "ROLE_ADMIN") {
+        console.log("관리자 권한이 없어 접근이 불가합니다.");
+        setMounted(false);
+        alert("관리자 권한이 필요한 페이지입니다.");
+        window.location.href = URL.MAIN;
+        return false;
+      } else {
+        console.log("관리자 권한 확인 성공.");
+        setMounted(true);
+        return true;
+      }
+    }
+
+    // 마이페이지 접근 처리 - 로그인한 유저라면 접근 가능
+    if (mypageRegex.test(currentPath)) {
+      if (!token) {
+        console.log("로그인이 필요한 경로입니다.");
+        setMounted(false);
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = URL.LOGIN;
+        return false;
+      } else {
+        console.log("로그인 사용자 확인 성공.");
+        setMounted(true);
+        return true;
+      }
+    }
+
+    // 기본적으로 모든 다른 경로는 접근 가능
+    setMounted(true);
+    console.log("------------------------------checkPathAccess [End]");
+    console.groupEnd("checkPathAccess");
+    return true;
+  }, [getUserRoleFromToken, location.pathname]);
 
   //시스템관리 메뉴인 /admin/으로 시작하는 URL은 모두 로그인이 필요하도록 코드추가(아래)
   const isMounted = useRef(false); // 아래 로그인 이동 부분이 2번 실행되지 않도록 즉, 마운트 될 때만 실행되도록 변수 생성
@@ -112,21 +192,12 @@ const RootRoutes = () => {
     if (!isMounted.current) {
       // 컴포넌트 최초 마운트 시 페이지 진입 전(렌더링 전) 실행
       isMounted.current = true; // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
-      setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
-      const regex = /^\/admin(\/.*)?$/; //정규표현식 수정: /admin 또는 /admin/로 시작하는 경로 모두 포함
-      if (regex.test(location.pathname)) {
-        setMounted(false); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용. 기본은 숨기기
-        jwtAuthentication(); // 이 함수에서 관리자단 인증여부 확인 후 렌더링 처리
-      }
+      checkPathAccess(); // 경로에 따른 접근 권한 처리
     } else {
-      // 라우트 변경 시에도 인증 체크
-      const regex = /^\/admin(\/.*)?$/;
-      if (regex.test(location.pathname) && mounted) {
-        setMounted(false);
-        jwtAuthentication();
-      }
+      // 라우트 변경 시 접근 권한 처리
+      checkPathAccess();
     }
-  }, [jwtAuthentication, location]); // location 경로가 변경 될 때만 업데이트 후 리렌더링
+  }, [checkPathAccess]); // location 경로가 변경 될 때만 업데이트 후 리렌더링
 
   if (mounted) {
     // 인증 없이 시스템관리 URL로 접근할 때 렌더링 되는 것을 방지하는 조건추가.
