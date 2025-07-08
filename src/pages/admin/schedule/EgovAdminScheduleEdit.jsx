@@ -9,6 +9,7 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -42,6 +43,8 @@ function EgovAdminScheduleEdit(props) {
   const [schdulBgndeMM, setSchdulBgndeMM] = useState();
   const [schdulEnddeHH, setSchdulEnddeHH] = useState();
   const [schdulEnddeMM, setSchdulEnddeMM] = useState();
+
+  const handleInputChange = useDebouncedInput(setScheduleDetail, 300);
 
   const initMode = () => {
     switch (props.mode) {
@@ -343,12 +346,7 @@ function EgovAdminScheduleEdit(props) {
                     rows="10"
                     placeholder="일정내용"
                     defaultValue={scheduleDetail.schdulCn}
-                    onChange={(e) =>
-                      setScheduleDetail({
-                        ...scheduleDetail,
-                        schdulCn: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handleInputChange("schdulCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>

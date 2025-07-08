@@ -56,7 +56,7 @@ function EgovMypageEdit(props) {
       return;
     }
 
-    const retrieveDetailURL = `/mypage/update`;
+    const retrieveDetailURL = `/mypage`;
 
     const requestOptions = {
       method: "GET",
@@ -66,9 +66,42 @@ function EgovMypageEdit(props) {
     };
 
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+      console.log("mypage retrieveDetail response:", resp);
+      console.log("resp.result:", resp?.result);
+      console.log("resp.result.mberManageVO:", resp?.result?.mberManageVO);
+
       // 수정모드일 경우 조회값 세팅
       if (modeInfo.mode === CODE.MODE_MODIFY) {
-        setMemberDetail(resp.result.mberManageVO);
+        if (resp && resp.result && resp.result.mberManageVO) {
+          console.log("Setting member detail:", resp.result.mberManageVO);
+          setMemberDetail(resp.result.mberManageVO);
+        } else if (resp && resp.resultCode === "403") {
+          console.error("Permission denied for mypage:", resp);
+          // 백엔드에서 반환한 에러 메시지가 있으면 사용
+          const errorMessage =
+            resp && resp.resultMessage
+              ? resp.resultMessage
+              : "로그인이 필요합니다.";
+          alert(errorMessage);
+          window.location.href = URL.LOGIN;
+        } else if (resp && resp.resultCode === "401") {
+          console.error("Authentication required for mypage:", resp);
+          alert("로그인이 필요합니다.");
+          window.location.href = URL.LOGIN;
+        } else if (resp && resp.resultCode === "900") {
+          console.error("Data error for mypage:", resp);
+          alert(resp.resultMessage || "회원 정보를 불러올 수 없습니다.");
+          window.location.href = URL.LOGIN;
+        } else {
+          console.error("mberManageVO not found in response:", resp);
+          // 백엔드에서 반환한 에러 메시지가 있으면 사용
+          const errorMessage =
+            resp && resp.resultMessage
+              ? resp.resultMessage
+              : "회원 정보를 불러올 수 없습니다. 다시 로그인해주세요.";
+          alert(errorMessage);
+          window.location.href = URL.LOGIN;
+        }
       }
     });
   };
@@ -196,7 +229,7 @@ function EgovMypageEdit(props) {
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
             alert("회원 정보가 수정되었습니다.");
-            navigate({ pathname: URL.MYPAGE_MODIFY });
+            navigate({ pathname: URL.MAIN });
           } else {
             navigate(
               { pathname: URL.ERROR },

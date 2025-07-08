@@ -11,6 +11,8 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 
+import { useDebouncedInput } from "@/hooks/useDebounce";
+
 function EgovAdminNoticeEdit(props) {
   console.group("EgovAdminNoticeEdit");
   console.log("------------------------------");
@@ -27,6 +29,8 @@ function EgovAdminNoticeEdit(props) {
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({ nttSj: "", nttCn: "" });
   const [boardAttachFiles, setBoardAttachFiles] = useState();
+
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const intMode = () => {
     switch (props.mode) {
@@ -222,9 +226,7 @@ function EgovAdminNoticeEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) =>
-                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange("nttCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>
