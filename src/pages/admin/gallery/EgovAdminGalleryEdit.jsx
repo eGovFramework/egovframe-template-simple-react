@@ -10,6 +10,7 @@ import { GALLERY_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovAdminGalleryEdit(props) {
   console.group("EgovAdminGalleryEdit");
@@ -27,6 +28,8 @@ function EgovAdminGalleryEdit(props) {
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({ nttSj: "", nttCn: "" });
   const [boardAttachFiles, setBoardAttachFiles] = useState();
+
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const intMode = () => {
     switch (props.mode) {
@@ -222,9 +225,7 @@ function EgovAdminGalleryEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) =>
-                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange("nttCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>
