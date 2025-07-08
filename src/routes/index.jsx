@@ -93,6 +93,8 @@ const RootRoutes = () => {
     EgovNet.requestFetch(jwtAuthURL, requestOptions, (resp) => {
       if (resp === false) {
         setMounted(false);
+        // 인증 실패 시 로그인 페이지로 리다이렉트
+        window.location.href = URL.LOGIN;
       } else {
         setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
       }
@@ -111,13 +113,20 @@ const RootRoutes = () => {
       // 컴포넌트 최초 마운트 시 페이지 진입 전(렌더링 전) 실행
       isMounted.current = true; // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
       setMounted(true); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용.
-      const regex = /^(\/admin\/)+(.)*$/; //정규표현식 사용: /admin/~ 으로 시작하는 경로 모두 포함
+      const regex = /^\/admin(\/.*)?$/; //정규표현식 수정: /admin 또는 /admin/로 시작하는 경로 모두 포함
       if (regex.test(location.pathname)) {
         setMounted(false); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용. 기본은 숨기기
         jwtAuthentication(); // 이 함수에서 관리자단 인증여부 확인 후 렌더링 처리
       }
+    } else {
+      // 라우트 변경 시에도 인증 체크
+      const regex = /^\/admin(\/.*)?$/;
+      if (regex.test(location.pathname) && mounted) {
+        setMounted(false);
+        jwtAuthentication();
+      }
     }
-  }, [jwtAuthentication, location, mounted]); // location 경로와 페이지 마운트상태가 변경 될 때 업데이트 후 리렌더링
+  }, [jwtAuthentication, location]); // location 경로가 변경 될 때만 업데이트 후 리렌더링
 
   if (mounted) {
     // 인증 없이 시스템관리 URL로 접근할 때 렌더링 되는 것을 방지하는 조건추가.
