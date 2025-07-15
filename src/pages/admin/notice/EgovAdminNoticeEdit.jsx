@@ -91,7 +91,7 @@ function EgovAdminNoticeEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      setMasterBoard(resp.result);
+      setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
       if (modeInfo.mode === CODE.MODE_REPLY) {
@@ -103,13 +103,8 @@ function EgovAdminNoticeEdit(props) {
           inqireCo: 0,
           atchFileId: "",
         });
-      }
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
+      } else if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardDetail(resp.result.boardVO);
-      }
-
-      // 초기 setBoardAttachFiles 설정 => (수정) 모드 일때...
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardAttachFiles(resp.result.resultFiles);
       }
     });
