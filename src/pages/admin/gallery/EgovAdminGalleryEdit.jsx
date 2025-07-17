@@ -75,7 +75,7 @@ function EgovAdminGalleryEdit(props) {
       };
 
       EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-        setMasterBoard(resp.result.brdMstrVO);
+        setMasterBoard(resp.result);
       });
 
       setBoardDetail({ bbsId: bbsId, nttSj: "", nttCn: "" });
@@ -102,13 +102,8 @@ function EgovAdminGalleryEdit(props) {
           inqireCo: 0,
           atchFileId: "",
         });
-      }
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
+      } else if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardDetail(resp.result.boardVO);
-      }
-
-      // 초기 setBoardAttachFiles 설정 => (수정) 모드 일때...
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardAttachFiles(resp.result.resultFiles);
       }
     });
