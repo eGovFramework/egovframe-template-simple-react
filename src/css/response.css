@@ -83,6 +83,7 @@
   .user_info_m .login {
     width: 85px;
     height: 30px;
+    margin-right: 14px;
     margin-top: 20px;
     border-radius: 15px;
     color: #fff;
@@ -95,6 +96,7 @@
   .user_info_m .logout {
     width: 80px;
     height: 25px;
+    margin-left: 14px;
     color: #222;
     font-weight: 700;
     border-radius: 15px;

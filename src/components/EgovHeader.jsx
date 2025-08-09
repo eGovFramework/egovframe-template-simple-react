@@ -383,7 +383,7 @@ function EgovHeader() {
           {/* 로그아웃 : 로그인 정보 있을때 */}
           {sessionUserId && (
             <>
-              <span className="person">{sessionUserName} </span>이
+              <span className="person">{sessionUserName} </span>님이
               로그인하셨습니다.
               <button onClick={logOutHandler} className="btn logout">
                 로그아웃
