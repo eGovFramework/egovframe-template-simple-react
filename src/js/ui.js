@@ -96,23 +96,6 @@ function handleSubmenuClick() {
   document.querySelector(".all_menu.Mobile").classList.add("closed");
 }
 
-function handleLastSubmenuClick(e) {
-  e.preventDefault();
-  const el = e.currentTarget;
-  el.classList.toggle("active");
-
-  const submenu = el.parentElement.nextElementSibling;
-  if (submenu && submenu.matches(".submenu")) {
-    if (submenu.classList.contains("closed")) {
-      submenu.style.height = submenu.scrollHeight + "px";
-      submenu.classList.remove("closed");
-    } else {
-      submenu.classList.add("closed");
-      submenu.style.height = "";
-    }
-  }
-}
-
 function handleWebMenuToggle(e) {
   const el = e.target;
 
