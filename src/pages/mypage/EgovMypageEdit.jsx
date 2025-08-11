@@ -5,7 +5,7 @@ import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
 
-import { setSessionItem } from "@/utils/storage";
+import { getSessionItem, setSessionItem } from "@/utils/storage";
 
 function EgovMypageEdit(props) {
   console.group("EgovMypageEdit");
@@ -229,6 +229,11 @@ function EgovMypageEdit(props) {
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
             alert("회원 정보가 수정되었습니다.");
+            const loginUser = getSessionItem("loginUser") || {};
+            setSessionItem("loginUser", {
+              ...loginUser,
+              name: memberDetail.mberNm,
+            });
             navigate({ pathname: URL.MAIN });
           } else {
             navigate(
