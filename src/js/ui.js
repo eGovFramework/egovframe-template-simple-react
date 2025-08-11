@@ -4,20 +4,6 @@ export default function initPage() {
   const sessionUser = sessionStorage.getItem("loginUser");
   const sessionUserId = JSON.parse(sessionUser)?.id;
 
-  if (sessionUserId === "admin") {
-    // Mobile 서브메뉴 항목 클릭시 메뉴 닫기
-    document.querySelectorAll(".all_menu.Mobile .submenu a").forEach((el) => {
-      el.removeEventListener("click", handleSubmenuClick);
-      el.addEventListener("click", handleSubmenuClick);
-    });
-
-    // 모바일 관리자 하위 메뉴 열고 닫기
-    const nodes = document.querySelectorAll(".all_menu.Mobile h3 a");
-    const last_submenu = nodes[nodes.length - 1];
-    last_submenu.removeEventListener("click", handleLastSubmenuClick);
-    last_submenu.addEventListener("click", handleLastSubmenuClick);
-  }
-
   if (init) return;
   init = true;
 
@@ -65,7 +51,13 @@ export default function initPage() {
   });
 
   // 모바일 하위 메뉴 열고 닫기
-  document.querySelectorAll(".all_menu.Mobile h3 a").forEach((el) => {
+  document.querySelectorAll(".all_menu.Mobile h3 a").forEach((el, i, arr) => {
+    if (i === arr.length - 1 && sessionUserId === "admin") {
+      el.removeEventListener("click", handleMobileSubmenuToggle);
+      el.addEventListener("click", handleMobileSubmenuToggle);
+      return;
+    }
+
     el.removeEventListener("click", handleMobileSubmenuToggle);
     el.addEventListener("click", handleMobileSubmenuToggle);
   });
@@ -102,23 +94,6 @@ export default function initPage() {
 // Event Handlers
 function handleSubmenuClick() {
   document.querySelector(".all_menu.Mobile").classList.add("closed");
-}
-
-function handleLastSubmenuClick(e) {
-  e.preventDefault();
-  const el = e.currentTarget;
-  el.classList.toggle("active");
-
-  const submenu = el.parentElement.nextElementSibling;
-  if (submenu && submenu.matches(".submenu")) {
-    if (submenu.classList.contains("closed")) {
-      submenu.style.height = submenu.scrollHeight + "px";
-      submenu.classList.remove("closed");
-    } else {
-      submenu.classList.add("closed");
-      submenu.style.height = "";
-    }
-  }
 }
 
 function handleWebMenuToggle(e) {
