@@ -161,6 +161,11 @@ npm run test
 npm run test:run
 ```
 
+```bash
+# 컴포넌트를 독립적으로 확인하고 테스트하려면 아래 명령어를 사용한다. (storybook)
+npm run storybook
+```
+
 ---
 
 ### 참조
@@ -169,3 +174,4 @@ npm run test:run
 
 1. [vite 공식 가이드 문서(한글)](https://vitejs-kr.github.io/guide/)
 2. [개발환경 초기 설정](./Docs/development-env-setting.md)
+3. [storybook 공식 가이드 문서](https://storybook.js.org/)

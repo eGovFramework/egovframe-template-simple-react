@@ -25,3 +25,5 @@ yarn-error.log*
 
 # code
 .history
+*storybook.log
+storybook-static
