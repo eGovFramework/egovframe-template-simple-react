@@ -1,6 +1,6 @@
 const URL = {
   //COMMON
-  MAIN: "/egovframe-template-simple-react", //메인페이지
+  MAIN: "/egovframe-template-simple-react/", //메인페이지
 
   LOGIN: "/egovframe-template-simple-react/login", //로그인
   ERROR: "/egovframe-template-simple-react/error", //로그인
@@ -82,15 +82,14 @@ const URL = {
 
   ADMIN_MANAGER: "/egovframe-template-simple-react/admin/manager/", // 사이트관리/사이트관리자 암호변경 기능
 
-  ADMIN_MEMBERS: "/admin/members/", // 사이트관리/회원관리 목록기능
-  ADMIN_MEMBERS_DETAIL: "/admin/members/detail", // 사이트관리/회원관리 상세
-  ADMIN_MEMBERS_CREATE: "/admin/members/create", // 사이트관리/회원관리 등록
-  ADMIN_MEMBERS_MODIFY: "/admin/members/modify", // 사이트관리/회원관리 상세/수정
+  ADMIN_MEMBERS: "/egovframe-template-simple-react/admin/members/", // 사이트관리/회원관리 목록기능
+  ADMIN_MEMBERS_DETAIL: "/egovframe-template-simple-react/admin/members/detail", // 사이트관리/회원관리 상세
+  ADMIN_MEMBERS_CREATE: "/egovframe-template-simple-react/admin/members/create", // 사이트관리/회원관리 등록
+  ADMIN_MEMBERS_MODIFY: "/egovframe-template-simple-react/admin/members/modify", // 사이트관리/회원관리 상세/수정
 
   //MYPAGE
-  MYPAGE_MODIFY: "/mypage/modify", // 고객지원/마이페이지/회원 수정
-  MYPAGE_CREATE: "/mypage/create", // 고객지원/마이페이지/회원 등록
+  MYPAGE_MODIFY: "/egovframe-template-simple-react/mypage/modify", // 고객지원/마이페이지/회원 수정
+  MYPAGE_CREATE: "/egovframe-template-simple-react/mypage/create", // 고객지원/마이페이지/회원 등록
 };
 
- 
 export default URL;

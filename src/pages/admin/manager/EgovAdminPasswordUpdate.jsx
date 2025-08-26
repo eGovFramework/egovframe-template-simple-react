@@ -74,7 +74,6 @@ function EgovAdminPasswordUpdate(props) {
   };
 
   useEffect(() => {
-     
   }, []);
 
   console.log("------------------------------EgovAdminPasswordUpdate [End]");

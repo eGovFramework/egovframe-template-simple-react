@@ -43,9 +43,6 @@ function EgovLoginContent(props) {
     let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
     if (idFlag === null) {
       setSaveIDFlag(false);
-       
-      idFlag = false;
-    } else {
       setSaveIDFlag(idFlag);
     }
     if (idFlag === false) {

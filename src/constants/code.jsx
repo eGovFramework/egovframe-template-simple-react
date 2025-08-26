@@ -18,5 +18,4 @@ const CODE = {
     DATE_DAY            : "day",
 }
 
- 
 export default CODE;
