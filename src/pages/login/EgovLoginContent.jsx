@@ -43,7 +43,6 @@ function EgovLoginContent(props) {
     let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
     if (idFlag === null) {
       setSaveIDFlag(false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       idFlag = false;
     } else {
       setSaveIDFlag(idFlag);
