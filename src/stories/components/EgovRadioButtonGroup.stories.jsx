@@ -22,7 +22,7 @@ export default {
 };
 
 export const Default = (args) => {
-  const [{ setValue }, updateArgs] = useArgs();
+  const [, updateArgs] = useArgs();
 
   const handleChange = (newValue) => {
     updateArgs({ setValue: newValue });
