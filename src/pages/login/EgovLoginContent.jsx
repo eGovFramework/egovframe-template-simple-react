@@ -19,7 +19,7 @@ function EgovLoginContent(props) {
 
   const [userInfo, setUserInfo] = useState({
     id: "",
-    password: "default",
+    password: "",
     userSe: "USR",
   });
   // eslint-disable-next-line no-unused-vars
@@ -56,7 +56,7 @@ function EgovLoginContent(props) {
   useEffect(() => {
     let data = getLocalItem(KEY_ID);
     if (data !== null) {
-      setUserInfo({ id: data, password: "default", userSe: "USR" });
+      setUserInfo({ id: data, password: "", userSe: "USR" });
     }
   }, []);
 
@@ -141,9 +141,11 @@ function EgovLoginContent(props) {
                 />
                 <input
                   type="password"
-                  name=""
+                  name="password"
                   title="비밀번호"
                   placeholder="비밀번호"
+                  value={userInfo.password}
+                  autoComplete="off"
                   onChange={(e) =>
                     setUserInfo({ ...userInfo, password: e.target.value })
                   }

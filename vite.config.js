@@ -8,7 +8,7 @@ export default defineConfig({
     include: "**/*.{jsx,js}",
   })],
   
-  base: "/",
+  base: "/egovframe-template-simple-react/",
   server: {
     port: 3000,
   },

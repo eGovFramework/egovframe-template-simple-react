@@ -1,0 +1,6 @@
+coverage/
+node_modules/
+dist/
+build/
+playwright-report/
+.vite/

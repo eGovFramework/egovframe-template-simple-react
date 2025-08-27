@@ -121,7 +121,7 @@ const RootRoutes = () => {
     // 현재 경로 가져오기
     const currentPath = location.pathname;
     const adminRegex = /^\/admin(\/.*)?$/;
-    const mypageRegex = /^\/mypage(\/.*)?$/;
+    const mypageRegex = /^\/mypage(?!\/create)(\/.*)?$/; // /mypage/create 는 매치 제외
 
     // JWT 토큰에서 사용자 로그인 정보 확인
     const token = sessionStorage.getItem("jToken");
@@ -230,6 +230,9 @@ const SecondRoutes = () => {
     <>
       <EgovHeader />
       <Routes>
+        {/* ROOT - Redirect to MAIN */}
+        <Route path="/" element={<Navigate to={URL.MAIN} />} />
+        
         {/* MAIN */}
         <Route path={URL.MAIN} element={<EgovMain />} />
 
@@ -434,6 +437,9 @@ const SecondRoutes = () => {
           path={URL.MYPAGE_MODIFY}
           element={<EgovMypageEdit mode={CODE.MODE_MODIFY} />}
         />
+        
+        {/* 404 방지 - 알 수 없는 경로는 메인으로 리다이렉트 */}
+        <Route path="*" element={<Navigate to={URL.MAIN} replace />} />
       </Routes>
 
       <EgovFooter />
