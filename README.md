@@ -2,6 +2,7 @@
 
 ![react](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![typescript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![nodejs](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)
 ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 ![vite](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)  
@@ -97,6 +98,7 @@
 | :---------- | :------- |
 | Node.js     | v18.12.0 |
 | NPM         | v8.19.2  |
+| TypeScript  | v5.0.0+  |
 
 ## BackEnd 구동
 
@@ -163,6 +165,26 @@ npm run test:run
 
 ---
 
+## TypeScript 지원 안내
+- **TypeScript 지원**: JavaScript와 TypeScript 혼용 개발 가능
+
+**상세한 사용법은 [`docs/TYPESCRIPT.md`](./docs/TYPESCRIPT.md)를 참고하세요.**
+
+
+### TypeScript 타입 체크
+
+```bash
+# TypeScript 컴파일 체크 (에러 확인용)
+npm run type-check
+
+# ESLint 검사 (JavaScript + TypeScript)
+npm run lint
+
+# ESLint 자동 수정
+npm run lint:fix
+```
+
+---
 ### 참조
 
 보다 상세한 설명은 아래의 문서를 확인한다.
