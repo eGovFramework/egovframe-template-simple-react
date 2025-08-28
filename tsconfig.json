@@ -1,0 +1,69 @@
+{
+  "compilerOptions": {
+    // === 기본 컴파일 옵션 ===
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    
+    // === 번들러 모드 ===
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    
+    // === 린팅 옵션  ===
+    "strict": true,
+    "noUnusedLocals": false, // ESLint가 처리
+    "noUnusedParameters": false, // ESLint가 처리  
+    "noFallthroughCasesInSwitch": true,
+    
+    "noUncheckedIndexedAccess": false, // 기존 코드 호환성을 위해 비활성화
+    "exactOptionalPropertyTypes": false, // 기존 코드 호환성을 위해 비활성화
+    
+    // === 경로 매핑 ===
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/types": ["src/types"],
+      "@/components": ["src/components"],
+      "@/pages": ["src/pages"],
+      "@/utils": ["src/utils"],
+      "@/api": ["src/api"],
+      "@/hooks": ["src/hooks"],
+      "@/constants": ["src/constants"]
+    },
+    
+    // === 추가 옵션 ===
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": false, // import type 최적화 허용
+    
+    // === 성능 및 품질 ===
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*",
+    "vite.config.js",
+    "vitest.setup.js",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.js.bak",
+    "**/*.test.js",
+    "**/*.test.jsx"
+  ],
+  // === React 및 Vite 전용 옵션 ===
+  "ts-node": {
+    "esm": true
+  }
+}
