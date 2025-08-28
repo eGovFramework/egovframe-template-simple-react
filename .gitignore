@@ -25,3 +25,9 @@ yarn-error.log*
 
 # code
 .history
+
+# TypeScript
+*.tsbuildinfo
+.tsbuildinfo
+
+.vscode
