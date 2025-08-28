@@ -1,8 +1,36 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src/"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/types": ["src/types"],
+      "@/components": ["src/components"],
+      "@/pages": ["src/pages"],
+      "@/utils": ["src/utils"],
+      "@/api": ["src/api"],
+      "@/hooks": ["src/hooks"],
+      "@/constants": ["src/constants"]
     },
-    "include": [
-        "src"
-    ]
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*",
+    "vite.config.js",
+    "vitest.setup.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
