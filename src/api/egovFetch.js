@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../config";
+import { SERVER_URL } from "@/config";
 
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
