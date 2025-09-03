@@ -115,10 +115,17 @@ function EgovGalleryEdit(props) {
 
   const updateBoard = () => {
     const formData = new FormData();
+
     for (let key in boardDetail) {
-      formData.append(key, boardDetail[key]);
-      //console.log("boardDetail [%s] ", key, boardDetail[key]);
+      if (key === "files") continue; 
+      const val = boardDetail[key];
+      if (val !== null && val !== undefined) {
+        formData.append(key, String(val));
+      }
     }
+
+    const files = Array.isArray(boardDetail.files) ? boardDetail.files : [];
+    files.forEach(f => formData.append("files", f)); 
 
     if (bbsFormVaildator(formData)) {
       const requestOptions = {
@@ -130,11 +137,7 @@ function EgovGalleryEdit(props) {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           navigate(URL.INFORM_GALLERY, { state: { bbsId: bbsId } });
         } else {
-          // alert("ERR : " + resp.message);
-          navigate(
-            { pathname: URL.ERROR },
-            { state: { msg: resp.resultMessage } }
-          );
+          navigate({ pathname: URL.ERROR }, { state: { msg: resp.resultMessage } });
         }
       });
     }
@@ -237,11 +240,10 @@ function EgovGalleryEdit(props) {
                         "====>>> Changed attachfile file = ",
                         attachfile
                       );
-                      const arrayConcat = { ...boardDetail }; // 기존 단일 파일 업로드에서 다중파일 객체 추가로 변환(아래 for문으로)
-                      for (let i = 0; i < attachfile.length; i++) {
-                        arrayConcat[`file_${i}`] = attachfile[i];
-                      }
-                      setBoardDetail(arrayConcat);
+                      const files = Array.from(attachfile)
+                          .map(f => f && f.originFileObj ? f.originFileObj : f)
+                          .filter(Boolean);
+                      setBoardDetail(prev => ({ ...prev, files }));
                     }}
                     fnDeleteFile={(deletedFile) => {
                       console.log("====>>> Delete deletedFile = ", deletedFile);
