@@ -130,6 +130,10 @@ npm install
 구동된 BackEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의 VITE_EGOV_CONTEXT_URL에 설정해 준다.
 (단, 개발환경에서는 사용하는 환경변수 정보는 .env.development, build 시 사용하는 환경변수는 .env.production 에 기입해 준다.)
 
+> BackEnd 서버를 실행하지 않고 Mock server를 이용하려면
+> .env.development 파일에서 아래 설정의 주석(#)을 제거한다
+> #VITE_APP_MOCK_API_ENABLE=true
+
 ```bash
 # .env.development 예시
 VITE_APP_EGOV_CONTEXT_URL=localhost:8080
