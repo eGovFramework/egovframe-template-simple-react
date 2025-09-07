@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import URL from "@/constants/url";
@@ -18,27 +18,22 @@ function EgovMain(props) {
   const [noticeBoardList, setNoticeBoardList] = useState([]);
   const [gallaryBoardList, setGallaryBoardList] = useState([]);
 
+  const retrieveList = async () => {
+    console.groupCollapsed("EgovMain.retrieveList()");
+    try {
+      const resp = await fetchMainPage();
+      setNoticeBoardList(resp.result.notiList);
+      setGallaryBoardList(resp.result.galList);
+    } catch (err) {
+      console.error("err response : ", err);
+    }
+    console.groupEnd("EgovMain.retrieveList()");
+  };
+
   useEffect(() => {
     initPage();
-  });
-
-  const retrieveList = useCallback(() => {
-    console.groupCollapsed("EgovMain.retrieveList()");
-    fetchMainPage().then(
-      (resp) => {
-        setNoticeBoardList(resp.result.notiList);
-        setGallaryBoardList(resp.result.galList);
-      },
-      (err) => {
-        console.error("err response : ", err);
-      }
-    );
-    console.groupEnd("EgovMain.retrieveList()");
-  }, []);
-
-  useEffect(() => {
     retrieveList();
-  }, [retrieveList]);
+  }, []);
 
   console.log("------------------------------EgovMain [End]");
   console.groupEnd("EgovMain");
