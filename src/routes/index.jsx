@@ -258,7 +258,7 @@ const SecondRoutes = () => {
         <Route path={URL.ERROR} element={<EgovError />} />
 
         {/* ABOUT */}
-        <Route path={URL.ABOUT} element={<Navigate to={URL.ABOUT_SITE} />} />
+        <Route path={URL.ABOUT} element={<Navigate to={URL.ABOUT_SITE} replace />} />
         <Route path={URL.ABOUT_SITE} element={<EgovAboutSite />} />
         <Route path={URL.ABOUT_HISTORY} element={<EgovAboutHistory />} />
         <Route
@@ -268,14 +268,14 @@ const SecondRoutes = () => {
         <Route path={URL.ABOUT_LOCATION} element={<EgovAboutLocation />} />
 
         {/* INTRO */}
-        <Route path={URL.INTRO} element={<Navigate to={URL.INTRO_WORKS} />} />
+        <Route path={URL.INTRO} element={<Navigate to={URL.INTRO_WORKS} replace />} />
         <Route path={URL.INTRO_WORKS} element={<EgovIntroWork />} />
         <Route path={URL.INTRO_SERVICE} element={<EgovIntroService />} />
 
         {/* SUPPORT */}
         <Route
           path={URL.SUPPORT}
-          element={<Navigate to={URL.SUPPORT_DOWNLOAD} />}
+          element={<Navigate to={URL.SUPPORT_DOWNLOAD} replace />}
         />
 
         <Route
@@ -300,7 +300,7 @@ const SecondRoutes = () => {
         <Route path={URL.SUPPORT_APPLY} element={<EgovSupportApply />} />
 
         {/* INFORM */}
-        <Route path={URL.INFORM} element={<Navigate to={URL.INFORM_DAILY} />} />
+        <Route path={URL.INFORM} element={<Navigate to={URL.INFORM_DAILY} replace />} />
 
         <Route path={URL.INFORM_DAILY} element={<EgovDailyList />} />
         <Route path={URL.INFORM_DAILY_DETAIL} element={<EgovDailyDetail />} />
@@ -343,7 +343,7 @@ const SecondRoutes = () => {
         {/* ADMIN */}
         <Route
           path={URL.ADMIN}
-          element={<Navigate to={URL.ADMIN_SCHEDULE} />}
+          element={<Navigate to={URL.ADMIN_SCHEDULE} replace />}
         />
         <Route path={URL.ADMIN_SCHEDULE} element={<EgovAdminScheduleList />} />
         <Route
