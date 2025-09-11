@@ -5,10 +5,9 @@ import URL from "@/constants/url";
 import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
-import EgovPaging from "@/components/EgovPaging";
 
-import { itemIdxByPage } from "@/utils/calc";
 import { getGalleryList } from "@/api/services/gallery";
+import GalleryListWithPaging from "./fragments/GalleryListWithPaging";
 
 function EgovGalleryList(props) {
   console.group("EgovGalleryList");
@@ -35,8 +34,7 @@ function EgovGalleryList(props) {
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
-
-  const [listTag, setListTag] = useState([]);
+  const [items, setItems] = useState([]);
 
   const retrieveList = async (searchCondition) => {
     console.groupCollapsed("EgovGalleryList.retrieveList()");
@@ -47,52 +45,7 @@ function EgovGalleryList(props) {
     setMasterBoard(resp.result.brdMstrVO);
     setPaginationInfo(resp.result.paginationInfo);
     setUser(resp.result.user);
-
-    let mutListTag = [];
-    mutListTag.push(
-      <p className="no_data" key="0">
-        검색된 결과가 없습니다.
-      </p>
-    ); // 게시판 목록 초기값
-
-    const resultCnt = parseInt(resp.result.resultCnt);
-    const currentPageNo = resp.result.paginationInfo.currentPageNo;
-    const pageSize = resp.result.paginationInfo.pageSize;
-
-    // 리스트 항목 구성
-    resp.result.resultList.forEach(function (item, index) {
-      if (index === 0) mutListTag = []; // 목록 초기화
-      const listIdx = itemIdxByPage(resultCnt, currentPageNo, pageSize, index);
-
-      mutListTag.push(
-        <Link
-          to={{ pathname: URL.INFORM_GALLERY_DETAIL }}
-          state={{
-            nttId: item.nttId,
-            bbsId: item.bbsId,
-            searchCondition: searchCondition,
-          }}
-          key={listIdx}
-          className="list_item"
-        >
-          <div>{listIdx}</div>
-          {(item.replyLc * 1 ? true : false) && (
-            <>
-              <div className="al reply">{item.nttSj}</div>
-            </>
-          )}
-          {(item.replyLc * 1 ? false : true) && (
-            <>
-              <div className="al">{item.nttSj}</div>
-            </>
-          )}
-          <div>{item.frstRegisterNm}</div>
-          <div>{item.frstRegisterPnttm}</div>
-          <div>{item.inqireCo}</div>
-        </Link>
-      );
-    });
-    setListTag(mutListTag);
+    setItems(resp.result);
 
     console.groupEnd("EgovGalleryList.retrieveList()");
   };
@@ -199,35 +152,14 @@ function EgovGalleryList(props) {
             </div>
             {/* <!--// 검색조건 --> */}
 
-            {/* <!-- 게시판목록 --> */}
-            <div className="board_list BRD002">
-              <div className="head">
-                <span>번호</span>
-                <span>제목</span>
-                <span>작성자</span>
-                <span>작성일</span>
-                <span>조회수</span>
-              </div>
-              <div className="result">{listTag}</div>
-            </div>
-            {/* <!--// 게시판목록 --> */}
-
-            <div className="board_bot">
-              {/* <!-- Paging --> */}
-              <EgovPaging
-                pagination={paginationInfo}
-                moveToPage={(passedPage) => {
-                  retrieveList({
-                    ...searchCondition,
-                    pageIndex: passedPage,
-                    searchCnd: cndRef.current.value,
-                    searchWrd: wrdRef.current.value,
-                  });
-                }}
-              />
-              {/* <!--/ Paging --> */}
-            </div>
-
+            <GalleryListWithPaging
+              items={items}
+              paginationInfo={paginationInfo}
+              searchCondition={searchCondition}
+              onMoveToPage={retrieveList}
+              cndRef={cndRef}
+              wrdRef={wrdRef}
+            />
             {/* <!--// 본문 --> */}
           </div>
         </div>
