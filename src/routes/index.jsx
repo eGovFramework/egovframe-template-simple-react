@@ -119,9 +119,14 @@ const RootRoutes = () => {
     console.log("Current path:", location.pathname);
 
     // 현재 경로 가져오기
-    const currentPath = location.pathname;
-    const adminRegex = /^\/admin(\/.*)?$/;
-    const mypageRegex = /^\/mypage(?!\/create)(\/.*)?$/; // /mypage/create 는 매치 제외
+const currentPath = location.pathname;
+
+// 관리자 페이지 정규식: base path 포함
+const adminRegex = /^\/egovframe-template-simple-react\/admin(\/.*)?$/;
+
+// 마이페이지 정규식: /create는 예외, base path 포함
+const mypageRegex = /^\/egovframe-template-simple-react\/mypage(?!\/create)(\/.*)?$/;
+
 
     // JWT 토큰에서 사용자 로그인 정보 확인
     const token = sessionStorage.getItem("jToken");

@@ -169,3 +169,41 @@ npm run test:run
 
 1. [vite 공식 가이드 문서(한글)](https://vitejs-kr.github.io/guide/)
 2. [개발환경 초기 설정](./Docs/development-env-setting.md)
+
+## 테스트 전략
+
+이 프로젝트는 **Vitest**, **React Testing Library**, **Playwright**를 활용한 포괄적인 테스트 환경을 구축하고 있습니다.
+
+### 테스트 프레임워크
+
+- **단위 테스트**: Vitest + React Testing Library
+- **E2E 테스트**: Playwright  
+- **커버리지**: @vitest/coverage-v8
+- **테스트 환경**: jsdom (단위), Chromium (E2E)
+
+### 테스트 실행 명령어
+
+```bash
+# 단위 테스트
+npm test              # 변경 감시 모드
+npm run test:run      # 일회성 실행
+npm run test:coverage # 커버리지 리포트 생성
+npm run test:ui       # 브라우저 UI로 테스트 실행
+
+# E2E 테스트  
+npm run test:e2e         # Playwright E2E 테스트
+npm run test:e2e:ui      # Playwright UI 모드
+npm run test:e2e:headed  # 브라우저를 화면에 표시하며 실행
+
+# 전체 테스트
+npm run test:all      # 단위 + E2E 테스트 모두 실행
+```
+
+### 커버리지 목표
+
+| 구분 | 목표 |
+|------|------|
+| Statements | ≥ 80% |
+| Branches | ≥ 75% |
+| Functions | ≥ 80% |
+| Lines | ≥ 80% |
