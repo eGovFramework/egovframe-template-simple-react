@@ -82,10 +82,18 @@ export default function initPage() {
     handleOpenPopup: function (e) {
       e.preventDefault();
       this.$tg.style.display = "block";
+      this.$tg.setAttribute("tabindex", "-1");
+      this.$tg.focus({ preventScroll: true });
+      this.$tg.addEventListener("keydown", this.handleEsc.bind(this));
     },
     handleClosePopup: function (e) {
       e.preventDefault();
       this.$tg.style.display = "none";
+      this.$tg.removeEventListener("keydown", this.handleEsc.bind(this));
+    },
+    handleEsc: function (e) {
+      if (e.key === "Escape")
+        this.handleClosePopup(e);
     },
   };
   document.querySelector(".lnk_go_template") && template.init();
