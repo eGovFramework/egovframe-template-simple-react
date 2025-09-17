@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
+import { useTranslation } from "@/hooks/useTranslation";
 
 import simpleMainIng from "/assets/images/img_simple_main.png";
 import initPage from "@/js/ui";
@@ -13,6 +14,7 @@ function EgovMain(props) {
   console.log("EgovMain [props] : ", props);
 
   const location = useLocation();
+  const { t } = useTranslation("common");
   console.log("EgovMain [location] : ", location);
 
   // eslint-disable-next-line no-unused-vars
@@ -120,11 +122,11 @@ function EgovMain(props) {
               <ul className="tab">
                 <li>
                   <a href="#공지사항" className="on">
-                    공지사항
+                    {t("navigation.notice")}
                   </a>
                 </li>
                 <li>
-                  <a href="#갤러리">갤러리</a>
+                  <a href="#갤러리">{t("navigation.gallery")}</a>
                 </li>
               </ul>
               <div className="list">
@@ -132,7 +134,7 @@ function EgovMain(props) {
                   <h2 className="blind">공지사항</h2>
                   <ul>{noticeListTag}</ul>
                   <Link to={URL.INFORM_NOTICE} className="more">
-                    더보기
+                    {t("buttons.more")}
                   </Link>
                 </div>
 
@@ -140,7 +142,7 @@ function EgovMain(props) {
                   <h2 className="blind">갤러리</h2>
                   <ul>{gallaryListTag}</ul>
                   <Link to={URL.INFORM_GALLERY} className="more">
-                    더보기
+                    {t("buttons.more")}
                   </Link>
                 </div>
               </div>

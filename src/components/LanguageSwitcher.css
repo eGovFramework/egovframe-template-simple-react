@@ -1,0 +1,67 @@
+.language-switch-container {
+  display: flex;
+  align-items: center;
+  height: 40px; /* 로그인 버튼과 같은 높이 */
+}
+
+.language-switch {
+  position: relative;
+  width: 60px;
+  height: 32px;
+  background: #e0e0e0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+.language-switch:hover {
+  background: #d0d0d0;
+  border-color: #007bff;
+}
+
+.switch-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch-slider.active {
+  transform: translateX(30px);
+  background: #007bff;
+}
+
+.switch-slider .flag {
+  font-size: 12px;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.switch-slider .flag:first-child {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.switch-slider .flag:last-child {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.switch-slider.active .flag:first-child {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.switch-slider.active .flag:last-child {
+  opacity: 1;
+  transform: scale(1);
+}

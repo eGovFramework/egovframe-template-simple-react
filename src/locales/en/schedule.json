@@ -1,0 +1,44 @@
+{
+  "schedule": {
+    "detail": "Schedule Management Detail",
+    "list": "Schedule Management List",
+    "create": "Create Schedule",
+    "edit": "Edit Schedule",
+    "delete": "Delete Schedule"
+  },
+  "fields": {
+    "scheduleType": "Schedule Type",
+    "importance": "Importance",
+    "department": "Department",
+    "scheduleName": "Schedule Name",
+    "scheduleContent": "Schedule Content",
+    "repeatType": "Repeat Type",
+    "dateTime": "Date/Time",
+    "manager": "Manager"
+  },
+  "scheduleTypes": {
+    "meeting": "Meeting",
+    "seminar": "Seminar",
+    "lecture": "Lecture",
+    "education": "Education",
+    "etc": "Etc"
+  },
+  "importance": {
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low"
+  },
+  "repeatTypes": {
+    "daily": "Daily",
+    "repeat": "Repeat",
+    "continuous": "Continuous"
+  },
+  "validation": {
+    "scheduleNameRequired": "Schedule name is required.",
+    "scheduleContentRequired": "Schedule content is required.",
+    "scheduleTypeRequired": "Schedule type is required.",
+    "importanceRequired": "Importance is required.",
+    "repeatTypeRequired": "Repeat type is required.",
+    "endDateBeforeStart": "End date cannot be before start date."
+  }
+}

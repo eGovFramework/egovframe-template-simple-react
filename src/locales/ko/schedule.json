@@ -1,0 +1,44 @@
+{
+  "schedule": {
+    "detail": "일정관리 상세보기",
+    "list": "일정관리 목록",
+    "create": "일정 등록",
+    "edit": "일정 수정",
+    "delete": "일정 삭제"
+  },
+  "fields": {
+    "scheduleType": "일정구분",
+    "importance": "중요도",
+    "department": "부서",
+    "scheduleName": "일정명",
+    "scheduleContent": "일정내용",
+    "repeatType": "반복구분",
+    "dateTime": "날짜/시간",
+    "manager": "담당자"
+  },
+  "scheduleTypes": {
+    "meeting": "회의",
+    "seminar": "세미나",
+    "lecture": "강의",
+    "education": "교육",
+    "etc": "기타"
+  },
+  "importance": {
+    "high": "높음",
+    "medium": "보통",
+    "low": "낮음"
+  },
+  "repeatTypes": {
+    "daily": "당일",
+    "repeat": "반복",
+    "continuous": "연속"
+  },
+  "validation": {
+    "scheduleNameRequired": "일정명은 필수 값입니다.",
+    "scheduleContentRequired": "일정내용은 필수 값입니다.",
+    "scheduleTypeRequired": "일정구분은 필수 값입니다.",
+    "importanceRequired": "중요도는 필수 값입니다.",
+    "repeatTypeRequired": "반복구분은 필수 값입니다.",
+    "endDateBeforeStart": "종료일시는 시작일시보다 앞 설 수 없습니다."
+  }
+}

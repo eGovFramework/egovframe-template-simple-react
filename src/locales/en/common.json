@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "intro": "Information",
+    "admin": "Site Management",
+    "schedule": "Schedule Management",
+    "notice": "Notice",
+    "gallery": "Gallery",
+    "support": "Customer Support",
+    "inform": "Announcements",
+    "mypage": "My Page"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "list": "List",
+    "close": "Close",
+    "more": "More"
+  },
+  "labels": {
+    "title": "Title",
+    "content": "Content",
+    "author": "Author",
+    "date": "Date",
+    "required": "Required",
+    "optional": "Optional",
+    "id": "ID",
+    "password": "Password",
+    "name": "Name",
+    "email": "Email"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "success": "Successfully processed.",
+    "error": "An error occurred.",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  }
+}

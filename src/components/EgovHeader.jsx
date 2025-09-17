@@ -8,6 +8,8 @@ import CODE from "@/constants/code";
 import logoImg from "/assets/images/logo_w.png";
 import logoImgMobile from "/assets/images/logo_m.png";
 import { getSessionItem, setSessionItem } from "@/utils/storage";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function EgovHeader() {
   console.group("EgovHeader");
@@ -17,6 +19,7 @@ function EgovHeader() {
   const sessionUserId = sessionUser?.id;
   const sessionUserName = sessionUser?.name;
   const sessionUserSe = sessionUser?.userSe;
+  const { t } = useTranslation("common");
 
   const navigate = useNavigate();
 
@@ -89,7 +92,7 @@ function EgovHeader() {
                 to={URL.ABOUT}
                 className={({ isActive }) => (isActive ? "cur" : "")}
               >
-                사이트소개
+                {t("navigation.about")}
               </NavLink>
             </li>
             <li>
@@ -97,7 +100,7 @@ function EgovHeader() {
                 to={URL.INTRO}
                 className={({ isActive }) => (isActive ? "cur" : "")}
               >
-                정보마당
+                {t("navigation.intro")}
               </NavLink>
             </li>
             <li>
@@ -105,7 +108,7 @@ function EgovHeader() {
                 to={URL.SUPPORT}
                 className={({ isActive }) => (isActive ? "cur" : "")}
               >
-                고객지원
+                {t("navigation.support")}
               </NavLink>
             </li>
             <li>
@@ -113,7 +116,7 @@ function EgovHeader() {
                 to={URL.INFORM}
                 className={({ isActive }) => (isActive ? "cur" : "")}
               >
-                알림마당
+                {t("navigation.inform")}
               </NavLink>
             </li>
             {sessionUserSe === "ADM" && (
@@ -149,6 +152,8 @@ function EgovHeader() {
               <button onClick={logOutHandler} className="btn">
                 로그아웃
               </button>
+              {/* 언어 전환 스위치 */}
+              <LanguageSwitcher />
             </>
           )}
           {/* 로그인 : 로그인 정보 없을 때 */}
@@ -165,6 +170,8 @@ function EgovHeader() {
               >
                 회원가입
               </NavLink>
+              {/* 언어 전환 스위치 */}
+              <LanguageSwitcher />
             </>
           )}
         </div>

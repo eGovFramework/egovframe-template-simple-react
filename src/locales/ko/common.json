@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "home": "홈",
+    "about": "사이트소개",
+    "intro": "정보마당",
+    "admin": "사이트관리",
+    "schedule": "일정관리",
+    "notice": "공지사항",
+    "gallery": "갤러리",
+    "support": "고객지원",
+    "inform": "알림마당",
+    "mypage": "마이페이지"
+  },
+  "buttons": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "수정",
+    "search": "조회",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "register": "회원가입",
+    "list": "목록",
+    "close": "닫기",
+    "more": "더보기"
+  },
+  "labels": {
+    "title": "제목",
+    "content": "내용",
+    "author": "작성자",
+    "date": "등록일",
+    "required": "필수",
+    "optional": "선택",
+    "id": "아이디",
+    "password": "비밀번호",
+    "name": "이름",
+    "email": "이메일"
+  },
+  "messages": {
+    "loading": "로딩 중...",
+    "success": "성공적으로 처리되었습니다.",
+    "error": "오류가 발생했습니다.",
+    "confirm": "확인",
+    "cancel": "취소"
+  }
+}

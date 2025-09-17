@@ -10,6 +10,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
 import { useDebouncedInput } from "@/hooks/useDebounce";
+import { useTranslation } from "@/hooks/useTranslation";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -20,12 +21,13 @@ function EgovAdminScheduleEdit(props) {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation("schedule");
   console.log("EgovAdminScheduleEdit [location] : ", location);
 
   const reptitSeCodeRadioGroup = [
-    { value: "1", label: "당일" },
-    { value: "2", label: "반복" },
-    { value: "3", label: "연속" },
+    { value: "1", label: t("repeatTypes.daily") },
+    { value: "2", label: t("repeatTypes.repeat") },
+    { value: "3", label: t("repeatTypes.continuous") },
   ];
 
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
@@ -234,13 +236,14 @@ function EgovAdminScheduleEdit(props) {
               <h1 className="tit_1">사이트관리</h1>
             </div>
 
-            <h2 className="tit_2">일정관리 상세보기</h2>
+            <h2 className="tit_2">{t("schedule.detail")}</h2>
 
             {/* <!-- 게시판 상세보기 --> */}
             <div className="board_view2">
               <dl>
                 <dt>
-                  일정구분<span className="req">필수</span>
+                  {t("fields.scheduleType")}
+                  <span className="req">{t("labels.required")}</span>
                 </dt>
                 <dd>
                   <label className="f_select w_130" htmlFor="schdulSe">
@@ -256,12 +259,12 @@ function EgovAdminScheduleEdit(props) {
                         })
                       }
                     >
-                      <option value="">선택</option>
-                      <option value="1">회의</option>
-                      <option value="2">세미나</option>
-                      <option value="3">강의</option>
-                      <option value="4">교육</option>
-                      <option value="5">기타</option>
+                      <option value="">{t("labels.optional")}</option>
+                      <option value="1">{t("scheduleTypes.meeting")}</option>
+                      <option value="2">{t("scheduleTypes.seminar")}</option>
+                      <option value="3">{t("scheduleTypes.lecture")}</option>
+                      <option value="4">{t("scheduleTypes.education")}</option>
+                      <option value="5">{t("scheduleTypes.etc")}</option>
                     </select>
                   </label>
                 </dd>
@@ -346,7 +349,9 @@ function EgovAdminScheduleEdit(props) {
                     rows="10"
                     placeholder="일정내용"
                     defaultValue={scheduleDetail.schdulCn}
-                    onChange={(e) => handleInputChange("schdulCn", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("schdulCn", e.target.value)
+                    }
                   ></textarea>
                 </dd>
               </dl>
@@ -482,8 +487,7 @@ function EgovAdminScheduleEdit(props) {
                     className="btn btn_skyblue_h46 w_100"
                     onClick={() => updateSchedule()}
                   >
-                    {" "}
-                    저장
+                    {t("buttons.save")}
                   </button>
                   <a href="#!" className="btn btn_skyblue_h46 w_100">
                     삭제

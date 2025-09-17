@@ -40,6 +40,9 @@ body {
   right: 50px;
   top: 20px;
   line-height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .header .user_info .person {
   display: inline-block;
