@@ -23,9 +23,10 @@ function EgovNoticeDetail(props) {
   const sessionUser = getSessionItem("loginUser");
   const sessionUserSe = sessionUser?.userSe;
 
-  const bbsId = location.state.bbsId || NOTICE_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 직접 URL 접근 시 location.state가 null일 수 있음
+  const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
 
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
@@ -74,6 +75,12 @@ function EgovNoticeDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 공지사항 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.INFORM_NOTICE, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

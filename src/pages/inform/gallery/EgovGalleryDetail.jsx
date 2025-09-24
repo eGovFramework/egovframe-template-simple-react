@@ -25,9 +25,9 @@ function EgovGalleryDetail(props) {
   const sessionUser = getSessionItem("loginUser");
   const sessionUniqId = sessionUser?.uniqId;
 
-  const bbsId = location.state.bbsId || GALLERY_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
 
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
@@ -58,7 +58,7 @@ function EgovGalleryDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ atchFileId: atchFileId })
+      body: JSON.stringify({ atchFileId: atchFileId }),
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -76,6 +76,12 @@ function EgovGalleryDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 갤러리 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.INFORM_GALLERY, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

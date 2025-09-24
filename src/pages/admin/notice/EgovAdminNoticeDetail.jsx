@@ -19,9 +19,10 @@ function EgovAdminNoticeDetail(props) {
   const location = useLocation();
   console.log("EgovAdminNoticeDetail [location] : ", location);
 
-  const bbsId = location.state.bbsId || NOTICE_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 직접 URL 접근 시 location.state가 null일 수 있음
+  const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
 
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({});
@@ -68,6 +69,12 @@ function EgovAdminNoticeDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 관리자 공지사항 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.ADMIN_NOTICE, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
