@@ -84,6 +84,12 @@ function EgovDailyDetail(props) {
   };
 
   useEffect(function () {
+    // schdulId가 없으면 일정 목록으로 리다이렉트
+    if (!location.state?.schdulId) {
+      alert("잘못된 접근입니다.");
+      window.location.href = URL.INFORM_DAILY;
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

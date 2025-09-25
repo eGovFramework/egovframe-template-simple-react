@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
@@ -23,9 +24,13 @@ function EgovNoticeDetail(props) {
   const sessionUser = getSessionItem("loginUser");
   const sessionUserSe = sessionUser?.userSe;
 
-  const bbsId = location.state.bbsId || NOTICE_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 직접 URL 접근 시 location.state가 null일 수 있음
+  const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
+
+  // 공통 네비게이션 훅 사용 (목록으로 돌아가기 URL 생성용)
+  const { getBackToListURL } = useListNavigation(bbsId);
 
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
@@ -74,6 +79,12 @@ function EgovNoticeDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 공지사항 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.INFORM_NOTICE, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -195,12 +206,7 @@ function EgovNoticeDetail(props) {
 
                 <div className="right_col btn1">
                   <Link
-                    to={{ pathname: URL.INFORM_NOTICE }}
-                    state={{
-                      nttId: nttId,
-                      bbsId: bbsId,
-                      searchCondition: searchCondition,
-                    }}
+                    to={getBackToListURL(URL.INFORM_NOTICE, searchCondition)}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

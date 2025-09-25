@@ -114,6 +114,12 @@ function EgovAdminScheduleDetail(props) {
   };
 
   useEffect(function () {
+    // schdulId가 없으면 관리자 일정 목록으로 리다이렉트
+    if (!location.state?.schdulId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.ADMIN_SCHEDULE, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import URL from "@/constants/url";
 import { GALLERY_BBS_ID } from "@/config";
@@ -14,23 +15,13 @@ function EgovGalleryList(props) {
   console.log("[Start] EgovGalleryList ------------------------------");
   console.log("EgovGalleryList [props] : ", props);
 
-  const location = useLocation();
-  console.log("EgovGalleryList [location] : ", location);
-
   const cndRef = useRef();
   const wrdRef = useRef();
 
   const bbsId = GALLERY_BBS_ID;
 
-  // eslint-disable-next-line no-unused-vars
-  const [searchCondition, setSearchCondition] = useState(
-    location.state?.searchCondition || {
-      bbsId: bbsId,
-      pageIndex: 1,
-      searchCnd: "0",
-      searchWrd: "",
-    }
-  ); // 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+  // 공통 네비게이션 훅 사용
+  const { searchCondition, handlePageMove, handleSearch } = useListNavigation(bbsId);
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
@@ -125,12 +116,7 @@ function EgovGalleryList(props) {
                     <button
                       type="button"
                       onClick={() => {
-                        retrieveList({
-                          ...searchCondition,
-                          pageIndex: 1,
-                          searchCnd: cndRef.current.value,
-                          searchWrd: wrdRef.current.value,
-                        });
+                        handleSearch(cndRef, wrdRef, retrieveList);
                       }}
                     >
                       조회
@@ -152,14 +138,30 @@ function EgovGalleryList(props) {
             </div>
             {/* <!--// 검색조건 --> */}
 
-            <GalleryListWithPaging
-              items={items}
-              paginationInfo={paginationInfo}
-              searchCondition={searchCondition}
-              onMoveToPage={retrieveList}
-              cndRef={cndRef}
-              wrdRef={wrdRef}
-            />
+            {/* <!-- 게시판목록 --> */}
+            <div className="board_list BRD002">
+              <div className="head">
+                <span>번호</span>
+                <span>제목</span>
+                <span>작성자</span>
+                <span>작성일</span>
+                <span>조회수</span>
+              </div>
+              <div className="result">{listTag}</div>
+            </div>
+            {/* <!--// 게시판목록 --> */}
+
+            <div className="board_bot">
+              {/* <!-- Paging --> */}
+              <EgovPaging
+                pagination={paginationInfo}
+                moveToPage={(passedPage) => {
+                  handlePageMove(passedPage, cndRef, wrdRef, retrieveList);
+                }}
+              />
+              {/* <!--/ Paging --> */}
+            </div>
+
             {/* <!--// 본문 --> */}
           </div>
         </div>
