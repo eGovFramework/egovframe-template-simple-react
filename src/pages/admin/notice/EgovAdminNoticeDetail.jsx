@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
@@ -23,6 +24,9 @@ function EgovAdminNoticeDetail(props) {
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
   const nttId = location.state?.nttId;
   const searchCondition = location.state?.searchCondition;
+
+  // 공통 네비게이션 훅 사용 (목록으로 돌아가기 URL 생성용)
+  const { getBackToListURL } = useListNavigation(bbsId);
 
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({});
@@ -194,12 +198,7 @@ function EgovAdminNoticeDetail(props) {
                 )}
                 <div className="right_col btn1">
                   <Link
-                    to={{ pathname: URL.ADMIN_NOTICE }}
-                    state={{
-                      nttId: nttId,
-                      bbsId: bbsId,
-                      searchCondition: searchCondition,
-                    }}
+                    to={getBackToListURL(URL.ADMIN_NOTICE, searchCondition)}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록
