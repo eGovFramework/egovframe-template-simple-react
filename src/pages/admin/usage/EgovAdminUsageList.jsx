@@ -138,9 +138,7 @@ function EgovAdminUsageList(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">게시판사용 관리</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="게시판사용 관리" />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

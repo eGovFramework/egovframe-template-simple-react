@@ -240,6 +240,15 @@ function EgovAdminBoardEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getSubTitle = () => {
+    if (modeInfo.mode === CODE.MODE_CREATE) {
+      return "게시판 생성";
+    } else if (modeInfo.mode === CODE.MODE_MODIFY) {
+      return "게시판 수정";
+    }
+    return "";
+  };
+
   console.log("------------------------------EgovAdminBoardEdit [End]");
   console.groupEnd("EgovAdminBoardEdit");
 
@@ -270,15 +279,7 @@ function EgovAdminBoardEdit(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            {modeInfo.mode === CODE.MODE_CREATE && (
-              <h2 className="tit_2">게시판 생성</h2>
-            )}
-
-            {modeInfo.mode === CODE.MODE_MODIFY && (
-              <h2 className="tit_2">게시판 수정</h2>
-            )}
+            <EgovMenuHeader title="사이트관리" subTitle={getSubTitle()} />
 
             <div className="board_view2">
               <dl>

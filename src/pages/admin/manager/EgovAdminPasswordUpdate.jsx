@@ -106,8 +106,10 @@ function EgovAdminPasswordUpdate(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-            <h2 className="tit_2">사이트관리자 암호변경</h2>
+            <EgovMenuHeader
+              title="사이트관리"
+              subTitle="사이트관리자 암호변경"
+            />
             <div className="board_view2">
               <dl>
                 <dt>

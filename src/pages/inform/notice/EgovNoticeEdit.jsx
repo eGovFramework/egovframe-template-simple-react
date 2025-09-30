@@ -181,11 +181,12 @@ function EgovNoticeEdit(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="알림마당" />
-
-            <h2 className="tit_2">
-              {masterBoard && masterBoard.bbsNm} {modeInfo.modeTitle}
-            </h2>
+            <EgovMenuHeader
+              title="알림마당"
+              subTitle={`${masterBoard?.bbsNm ?? ""} ${
+                modeInfo?.modeTitle ?? ""
+              }`.trim()}
+            />
 
             <div className="board_view2">
               <dl>

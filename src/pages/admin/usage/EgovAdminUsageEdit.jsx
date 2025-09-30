@@ -201,9 +201,7 @@ function EgovAdminUsageEdit(props) {
           <div className="contents BOARD_USE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">게시판사용 관리</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="게시판사용 관리" />
 
             <div className="board_view2">
               {/* 등록일때 일때 */}

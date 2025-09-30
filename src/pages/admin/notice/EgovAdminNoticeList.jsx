@@ -141,9 +141,7 @@ function EgovAdminNoticeList(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
+            <EgovMenuHeader title="사이트관리" subTitle={masterBoard?.bbsNm} />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

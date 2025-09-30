@@ -148,9 +148,7 @@ function EgovAdminMemberList(props) {
           <div className="contents BOARD_CREATE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">회원 관리</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="회원 관리" />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

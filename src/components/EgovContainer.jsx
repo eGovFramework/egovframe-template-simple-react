@@ -29,9 +29,7 @@ function EgovContainer() {
 
           {/* <!-- 본문 --> */}
           <div className="contents WEEK_SCHEDULE" id="contents">
-            <EgovMenuHeader title="알림마당" />
-
-            <h2 className="tit_2">금주의 행사</h2>
+            <EgovMenuHeader title="알림마당" subTitle="금주의 행사" />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

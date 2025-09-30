@@ -177,11 +177,12 @@ function EgovAdminGalleryEdit(props) {
           <div className="contents SITE_GALLARY_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">
-              {masterBoard && masterBoard.bbsNm} {modeInfo.modeTitle}
-            </h2>
+            <EgovMenuHeader
+              title="사이트관리"
+              subTitle={`${masterBoard?.bbsNm ?? ""} ${
+                modeInfo?.modeTitle ?? ""
+              }`.trim()}
+            />
 
             <div className="board_view2">
               <dl>

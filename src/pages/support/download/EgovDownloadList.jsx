@@ -34,9 +34,8 @@ function EgovDownloadList() {
           <div className="contents PDS_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="고객지원" />
+            <EgovMenuHeader title="고객지원" subTitle="자료실" />
 
-            <h2 className="tit_2">자료실</h2>
             <h2 className="tit_7">본 화면은 디자인 예시임</h2>
 
             {/* <!-- 검색조건 --> */}

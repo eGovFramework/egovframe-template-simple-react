@@ -285,6 +285,15 @@ function EgovMypageEdit(props) {
   console.log("------------------------------EgovMypageEdit [End]");
   console.groupEnd("EgovMypageEdit");
 
+  const getSubTitle = () => {
+    if (modeInfo.mode === CODE.MODE_CREATE) {
+      return "회원 생성";
+    } else if (modeInfo.mode === CODE.MODE_MODIFY) {
+      return "회원 수정";
+    }
+    return "";
+  };
+
   return (
     <div className="container">
       <div className="c_wrap">
@@ -309,15 +318,7 @@ function EgovMypageEdit(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="마이페이지" />
-
-            {modeInfo.mode === CODE.MODE_CREATE && (
-              <h2 className="tit_2">회원 생성</h2>
-            )}
-
-            {modeInfo.mode === CODE.MODE_MODIFY && (
-              <h2 className="tit_2">회원 수정</h2>
-            )}
+            <EgovMenuHeader title="마이페이지" subTitle={getSubTitle()} />
 
             <div className="board_view2">
               <dl>

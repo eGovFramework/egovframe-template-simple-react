@@ -181,9 +181,7 @@ function EgovDailyList(props) {
           <div className="contents TODAY_SCHEDULE" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="알림마당" />
-
-            <h2 className="tit_2">오늘의 행사</h2>
+            <EgovMenuHeader title="알림마당" subTitle="오늘의 행사" />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

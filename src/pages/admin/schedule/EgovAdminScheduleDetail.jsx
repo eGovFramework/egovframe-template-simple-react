@@ -154,9 +154,7 @@ function EgovAdminScheduleDetail(props) {
           <div className="contents SITE_GALLARY_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="사이트관리" />
-
-            <h2 className="tit_2">일정관리 상세보기</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="일정관리 상세보기" />
 
             {/* <!-- 게시판 상세보기 --> */}
             <div className="board_view2">
