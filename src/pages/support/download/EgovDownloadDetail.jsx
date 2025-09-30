@@ -4,6 +4,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavSupport
 import URL from "@/constants/url";
 
 import samplePdsList from "/assets/images/sample_pds_list.png";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovDownloadDetail() {
   return (
@@ -33,9 +34,7 @@ function EgovDownloadDetail() {
           <div className="contents PDS_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">고객지원</h1>
-            </div>
+            <EgovMenuHeader title="고객지원" />
 
             <h2 className="tit_2">자료실</h2>
             <h2 className="tit_7">본 화면은 디자인 예시임</h2>

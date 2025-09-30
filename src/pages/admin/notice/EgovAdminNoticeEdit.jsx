@@ -12,6 +12,7 @@ import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 
 import { useDebouncedInput } from "@/hooks/useDebounce";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminNoticeEdit(props) {
   console.group("EgovAdminNoticeEdit");
@@ -76,7 +77,7 @@ function EgovAdminNoticeEdit(props) {
       };
 
       EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-        setMasterBoard(resp.result );
+        setMasterBoard(resp.result);
       });
 
       setBoardDetail({ bbsId: bbsId, nttSj: "", nttCn: "" });
@@ -177,9 +178,7 @@ function EgovAdminNoticeEdit(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             <h2 className="tit_2">
               {masterBoard && masterBoard.bbsNm} {modeInfo.modeTitle}

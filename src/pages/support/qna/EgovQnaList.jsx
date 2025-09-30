@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavSupport";
 import URL from "@/constants/url";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovQnaList() {
   return (
@@ -31,9 +32,7 @@ function EgovQnaList() {
           <div className="contents QNA_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">고객지원</h1>
-            </div>
+            <EgovMenuHeader title="고객지원" />
 
             <h2 className="tit_2">묻고답하기(Q&amp;A)</h2>
             <h2 className="tit_7">본 화면은 디자인 예시임</h2>

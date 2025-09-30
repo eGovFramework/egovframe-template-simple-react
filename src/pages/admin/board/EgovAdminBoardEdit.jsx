@@ -8,6 +8,7 @@ import { useDebouncedInput } from "@/hooks/useDebounce";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminBoardEdit(props) {
   console.group("EgovAdminBoardEdit");
@@ -269,9 +270,7 @@ function EgovAdminBoardEdit(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             {modeInfo.mode === CODE.MODE_CREATE && (
               <h2 className="tit_2">게시판 생성</h2>
@@ -317,7 +316,9 @@ function EgovAdminBoardEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
-                    onChange={(e) => handleInputChange("bbsIntrcn", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("bbsIntrcn", e.target.value)
+                    }
                     ref={(el) => (checkRef.current[1] = el)}
                   ></textarea>
                 </dd>

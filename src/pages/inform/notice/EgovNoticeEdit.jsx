@@ -12,6 +12,7 @@ import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 import { getSessionItem } from "@/utils/storage";
 import { useDebouncedInput } from "@/hooks/useDebounce";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovNoticeEdit(props) {
   console.group("EgovNoticeEdit");
@@ -180,9 +181,7 @@ function EgovNoticeEdit(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">알림마당</h1>
-            </div>
+            <EgovMenuHeader title="알림마당" />
 
             <h2 className="tit_2">
               {masterBoard && masterBoard.bbsNm} {modeInfo.modeTitle}

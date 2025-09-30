@@ -11,6 +11,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 import { useDebouncedInput } from "@/hooks/useDebounce";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminGalleryEdit(props) {
   console.group("EgovAdminGalleryEdit");
@@ -176,9 +177,7 @@ function EgovAdminGalleryEdit(props) {
           <div className="contents SITE_GALLARY_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             <h2 className="tit_2">
               {masterBoard && masterBoard.bbsNm} {modeInfo.modeTitle}

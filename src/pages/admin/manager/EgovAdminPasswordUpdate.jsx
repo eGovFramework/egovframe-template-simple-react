@@ -4,6 +4,7 @@ import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminPasswordUpdate(props) {
   console.group("EgovAdminPasswordUpdate");
@@ -73,9 +74,7 @@ function EgovAdminPasswordUpdate(props) {
     }
   };
 
-  useEffect(() => {
-     
-  }, []);
+  useEffect(() => {}, []);
 
   console.log("------------------------------EgovAdminPasswordUpdate [End]");
   console.groupEnd("EgovAdminPasswordUpdate");
@@ -107,9 +106,7 @@ function EgovAdminPasswordUpdate(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
             <h2 className="tit_2">사이트관리자 암호변경</h2>
             <div className="board_view2">
               <dl>

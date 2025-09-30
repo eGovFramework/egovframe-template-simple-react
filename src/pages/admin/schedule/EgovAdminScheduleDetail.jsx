@@ -7,6 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminScheduleDetail(props) {
   console.group("EgovAdminScheduleDetail");
@@ -153,9 +154,7 @@ function EgovAdminScheduleDetail(props) {
           <div className="contents SITE_GALLARY_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             <h2 className="tit_2">일정관리 상세보기</h2>
 

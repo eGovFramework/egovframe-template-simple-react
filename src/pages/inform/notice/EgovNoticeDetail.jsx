@@ -11,6 +11,7 @@ import { NOTICE_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import { getSessionItem } from "@/utils/storage";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovNoticeDetail(props) {
   console.group("EgovNoticeDetail");
@@ -61,7 +62,7 @@ function EgovNoticeDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ atchFileId: atchFileId })
+      body: JSON.stringify({ atchFileId: atchFileId }),
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -118,9 +119,7 @@ function EgovNoticeDetail(props) {
           <div className="contents NOTICE_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">알림마당</h1>
-            </div>
+            <EgovMenuHeader title="알림마당" />
 
             <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
 

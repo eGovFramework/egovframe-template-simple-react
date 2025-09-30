@@ -10,7 +10,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
 import { useDebouncedInput } from "@/hooks/useDebounce";
-
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 import "react-datepicker/dist/react-datepicker.css";
 
 function EgovAdminScheduleEdit(props) {
@@ -230,9 +230,7 @@ function EgovAdminScheduleEdit(props) {
           <div className="contents SITE_SCHDULE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             <h2 className="tit_2">일정관리 상세보기</h2>
 
@@ -346,7 +344,9 @@ function EgovAdminScheduleEdit(props) {
                     rows="10"
                     placeholder="일정내용"
                     defaultValue={scheduleDetail.schdulCn}
-                    onChange={(e) => handleInputChange("schdulCn", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("schdulCn", e.target.value)
+                    }
                   ></textarea>
                 </dd>
               </dl>

@@ -6,6 +6,7 @@ import URL from "@/constants/url";
 import CODE from "@/constants/code";
 
 import { getSessionItem, setSessionItem } from "@/utils/storage";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovMypageEdit(props) {
   console.group("EgovMypageEdit");
@@ -308,9 +309,7 @@ function EgovMypageEdit(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">마이페이지</h1>
-            </div>
+            <EgovMenuHeader title="마이페이지" />
 
             {modeInfo.mode === CODE.MODE_CREATE && (
               <h2 className="tit_2">회원 생성</h2>

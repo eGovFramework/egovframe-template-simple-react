@@ -7,6 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminMemberEdit(props) {
   console.group("EgovAdminMemberEdit");
@@ -295,9 +296,7 @@ function EgovAdminMemberEdit(props) {
           <div className="contents BOARD_CREATE_REG" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
+            <EgovMenuHeader title="사이트관리" />
 
             {modeInfo.mode === CODE.MODE_CREATE && (
               <h2 className="tit_2">회원 생성</h2>
