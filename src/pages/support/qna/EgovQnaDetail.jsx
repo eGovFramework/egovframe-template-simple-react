@@ -31,9 +31,11 @@ function EgovQnaDetail() {
           <div className="contents QNA_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <EgovMenuHeader title="고객지원" subTitle="Q&amp;A 상세조회" />
-
-            <h2 className="tit_7">본 화면은 디자인 예시임</h2>
+            <EgovMenuHeader
+              title="고객지원"
+              subTitle="Q&amp;A 상세조회"
+              showExampleLabel
+            />
 
             <div className="board_view2">
               <dl>
