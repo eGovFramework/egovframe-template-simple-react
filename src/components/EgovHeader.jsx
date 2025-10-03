@@ -6,7 +6,7 @@ import CODE from "@/constants/code";
 import logoImg from "/assets/images/logo_w.png";
 import logoImgMobile from "/assets/images/logo_m.png";
 import { getSessionItem, setSessionItem } from "@/utils/storage";
-import { logOut } from "@/api/services/header";
+import { logOut } from "@/api/services/EgovHeader";
 
 function EgovHeader() {
   console.group("EgovHeader");

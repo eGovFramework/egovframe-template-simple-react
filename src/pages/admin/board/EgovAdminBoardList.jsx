@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { fetchAdminBoardList } from "@/api/services/egovAdminBoardList";
+import { fetchAdminBoardList } from "@/api/services/EgovAdminBoardList";
 import URL from "@/constants/url";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
