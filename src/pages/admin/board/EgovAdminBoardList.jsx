@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import * as EgovNet from "@/api/egovFetch";
+import { fetchAdminBoardList } from "@/api/services/egovAdminBoardList";
 import URL from "@/constants/url";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
@@ -33,71 +33,57 @@ function EgovAdminBoardList(props) {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = useCallback(
-    (srchCnd) => {
+    async (srchCnd) => {
       console.groupCollapsed("EgovAdminBoardList.retrieveList()");
 
-      const retrieveListURL = "/bbsMaster" + EgovNet.getQueryString(srchCnd);
+      try {
+        const resp = await fetchAdminBoardList(srchCnd);
+        setPaginationInfo(resp.result.paginationInfo);
 
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+        let mutListTag = [];
+        listTag.push(
+          <p className="no_data" key="0">
+            검색된 결과가 없습니다.
+          </p>
+        ); // 게시판 목록 초기값
 
-      EgovNet.requestFetch(
-        retrieveListURL,
-        requestOptions,
-        (resp) => {
-          setPaginationInfo(resp.result.paginationInfo);
+        const resultCnt = parseInt(resp.result.resultCnt);
+        const currentPageNo = resp.result.paginationInfo.currentPageNo;
+        const pageSize = resp.result.paginationInfo.pageSize;
 
-          let mutListTag = [];
-          listTag.push(
-            <p className="no_data" key="0">
-              검색된 결과가 없습니다.
-            </p>
-          ); // 게시판 목록 초기값
+        // 리스트 항목 구성
+        resp.result.resultList.forEach(function (item, index) {
+          if (index === 0) mutListTag = []; // 목록 초기화
+          const listIdx = itemIdxByPage(
+            resultCnt,
+            currentPageNo,
+            pageSize,
+            index
+          );
 
-          const resultCnt = parseInt(resp.result.resultCnt);
-          const currentPageNo = resp.result.paginationInfo.currentPageNo;
-          const pageSize = resp.result.paginationInfo.pageSize;
-
-          // 리스트 항목 구성
-          resp.result.resultList.forEach(function (item, index) {
-            if (index === 0) mutListTag = []; // 목록 초기화
-            const listIdx = itemIdxByPage(
-              resultCnt,
-              currentPageNo,
-              pageSize,
-              index
-            );
-
-            mutListTag.push(
-              <Link
-                to={{ pathname: URL.ADMIN_BOARD_MODIFY }}
-                state={{
-                  bbsId: item.bbsId,
-                  searchCondition: searchCondition,
-                }}
-                key={listIdx}
-                className="list_item"
-              >
-                <div>{listIdx}</div>
-                <div>{item.bbsNm}</div>
-                <div>{item.bbsTyCodeNm}</div>
-                <div>{item.bbsAttrbCodeNm}</div>
-                <div>{item.frstRegisterPnttm}</div>
-                <div>{item.useAt === "Y" ? "사용" : "사용안함"}</div>
-              </Link>
-            );
-          });
-
-          setListTag(mutListTag);
-        },
-        function (resp) {
-          console.log("err response : ", resp);
-        }
-      );
+          mutListTag.push(
+            <Link
+              to={{ pathname: URL.ADMIN_BOARD_MODIFY }}
+              state={{
+                bbsId: item.bbsId,
+                searchCondition: searchCondition,
+              }}
+              key={listIdx}
+              className="list_item"
+            >
+              <div>{listIdx}</div>
+              <div>{item.bbsNm}</div>
+              <div>{item.bbsTyCodeNm}</div>
+              <div>{item.bbsAttrbCodeNm}</div>
+              <div>{item.frstRegisterPnttm}</div>
+              <div>{item.useAt === "Y" ? "사용" : "사용안함"}</div>
+            </Link>
+          );
+        });
+        setListTag(mutListTag);
+      } catch (err) {
+        console.error("err response : ", err);
+      }
       console.groupEnd("EgovAdminBoardList.retrieveList()");
     },
     [listTag, searchCondition]
