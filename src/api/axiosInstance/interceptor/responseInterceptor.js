@@ -1,4 +1,4 @@
-import URL from "@/constants/URL";
+import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { setSessionItem } from "@/utils/storage";
 
