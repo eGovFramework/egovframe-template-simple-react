@@ -1,20 +1,5 @@
-import * as EgovNet from "@/api/egovFetch";
-
-export const fetchMainPage = async () => {
+import { getApi } from "../http";
+export const fetchMainPage = () => {
   const retrieveListURL = "/mainPage";
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  };
-
-  return new Promise((resolve, reject) => {
-    EgovNet.requestFetch(
-      retrieveListURL,
-      requestOptions,
-      (resp) => resolve(resp),
-      (err) => reject(err)
-    );
-  });
+  return getApi(retrieveListURL);
 };
