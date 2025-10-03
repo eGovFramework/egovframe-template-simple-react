@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import * as EgovNet from "@/api/egovFetch";
 
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { getLocalItem, setLocalItem, setSessionItem } from "@/utils/storage";
 import SnsNaverBt from "@/components/sns/SnsNaverBt";
 import SnsKakaoBt from "@/components/sns/SnsKakaoBt";
+import { login } from "@/api/services/EgovLoginContent";
 
 function EgovLoginContent(props) {
   console.group("EgovLoginContent");
@@ -43,7 +43,7 @@ function EgovLoginContent(props) {
     let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
     if (idFlag === null) {
       setSaveIDFlag(false);
-       
+
       idFlag = false;
     } else {
       setSaveIDFlag(idFlag);
@@ -75,20 +75,11 @@ function EgovLoginContent(props) {
       }
     }
   };
-  const submitFormHandler = () => {
+  const submitFormHandler = async () => {
     console.log("EgovLoginContent submitFormHandler()");
 
-    const loginUrl = "/auth/login-jwt";
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    };
-
-    EgovNet.requestFetch(loginUrl, requestOptions, (resp) => {
+    try {
+      const resp = await login(userInfo);
       let resultVO = resp.resultVO;
       let jToken = resp?.jToken || null;
 
@@ -108,7 +99,9 @@ function EgovLoginContent(props) {
       } else {
         alert(resp.resultMessage);
       }
-    });
+    } catch (err) {
+      console.error("err response : ", err);
+    }
   };
 
   console.log("------------------------------EgovLoginContent [End]");
