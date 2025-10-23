@@ -299,9 +299,10 @@ function EgovWeeklyList(props) {
                 <li>
                   <label className="f_select" htmlFor="sel1">
                     <select
-                      name=""
+                      name="schdulSe"
                       id="sel1"
                       title="조건"
+                      value={searchCondition.schdulSe}
                       onChange={(e) => {
                         setSearchCondition({
                           ...searchCondition,

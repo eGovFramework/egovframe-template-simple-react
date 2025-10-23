@@ -195,6 +195,7 @@ function EgovDailyList(props) {
                       name="schdulSe"
                       id="sel1"
                       title="조건"
+                      value={searchCondition.schdulSe}
                       onChange={(e) => {
                         setSearchCondition({
                           ...searchCondition,
