@@ -5,7 +5,7 @@ import URL from "@/constants/url";
 
 import simpleMainIng from "/assets/images/img_simple_main.png";
 import initPage from "@/js/ui";
-import { fetchMainPage } from "@/api/services/mainPage";
+import { fetchMainPage } from "@/api/services/EgovMain";
 import BoardList from "./fragments/BoardList";
 function EgovMain(props) {
   console.group("EgovMain");
