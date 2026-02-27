@@ -63,7 +63,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
       console.groupEnd("requestFetch.then()");
     })
     .catch((error) => {
-      console.error("There was an error!", error);
+      console.error("There was an error!");
       if (error === "TypeError: Failed to fetch") {
         alert("서버와의 연결이 원활하지 않습니다. 서버를 확인하세요.");
       }
@@ -72,7 +72,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
         errorHandler(error);
       } else {
         console.error("egov error handler not assigned!");
-        alert("ERR : " + error.message);
+        alert("요청 처리 중 오류가 발생했습니다.");
       }
     })
     .finally(() => {
