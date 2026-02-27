@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "dependencies": {
-    "qs": "^6.14.0",
+    "qs": "^6.14.2",
     "react": "^18.3.1",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.3.1",
