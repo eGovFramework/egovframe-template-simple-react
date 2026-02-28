@@ -6,6 +6,7 @@ import URL from "@/constants/url";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovDailyDetail(props) {
   console.group("EgovDailyDetail");
@@ -123,11 +124,7 @@ function EgovDailyDetail(props) {
           <div className="contents SITE_GALLARY_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">알림마당</h1>
-            </div>
-
-            <h2 className="tit_2">일정관리 상세보기</h2>
+            <EgovMenuHeader title="알림마당" subTitle="일정관리 상세보기" />
 
             {/* <!-- 게시판 상세보기 --> */}
             <div className="board_view2">

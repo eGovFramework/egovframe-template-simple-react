@@ -7,6 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminUsageEdit(props) {
   console.group("EgovAdminUsageEdit");
@@ -200,11 +201,7 @@ function EgovAdminUsageEdit(props) {
           <div className="contents BOARD_USE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
-
-            <h2 className="tit_2">게시판사용 관리</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="게시판사용 관리" />
 
             <div className="board_view2">
               {/* 등록일때 일때 */}

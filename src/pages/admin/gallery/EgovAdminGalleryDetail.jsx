@@ -11,6 +11,7 @@ import { GALLERY_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 function EgovAdminGalleryDetail(props) {
   console.group("EgovAdminGalleryDetail");
@@ -56,7 +57,7 @@ function EgovAdminGalleryDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ atchFileId: atchFileId })
+      body: JSON.stringify({ atchFileId: atchFileId }),
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -114,11 +115,7 @@ function EgovAdminGalleryDetail(props) {
           <div className="contents NOTICE_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
-
-            <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
+            <EgovMenuHeader title="사이트관리" subTitle={masterBoard?.bbsNm} />
 
             {/* <!-- 게시판 상세보기 --> */}
             <div className="board_view">
