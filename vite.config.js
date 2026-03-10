@@ -1,36 +1,49 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react({
-    // JSX Ã³¸®¸¦ À§ÇÑ Ãß°¡ ¼³Á¤
-    include: "**/*.{jsx,js}",
-  })],
-  
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react({
+      include: "**/*.{jsx,js}",
+    }),
+  ],
+
   base: "/",
   server: {
     port: 3000,
   },
   resolve: {
-    alias: [{ find: "@", replacement: "/src" }],
+    alias: [
+      { find: "@", replacement: "/src" },
+      // í…ŒìŠ¤íŠ¸ í™˜ê²½ì—ì„œ /assets/... ì ˆëŒ€ê²½ë¡œë¥¼ ì‹¤ì œ public ë””ë ‰í† ë¦¬ ê²½ë¡œë¡œ ë³€í™˜
+      // (Vitest 4ì˜ Module Runnerê°€ ë“œë¼ì´ë¸Œ ë ˆí„° ì—†ëŠ” file:/// URLì„ ê±°ë¶€í•˜ëŠ” ë¬¸ì œ í•´ê²°)
+      ...(mode === "test"
+        ? [
+            {
+              find: /^\/assets\/(.+)$/,
+              replacement: path.resolve(__dirname, "public/assets").replace(/\\/g, "/") + "/$1",
+            },
+          ]
+        : []),
+    ],
   },
   test: {
     globals: true,
     include: ["src/**/*.test.js", "src/**/*.test.jsx"],
     environment: "jsdom",
     setupFiles: "./vitest.setup.js",
-    transformMode: {
-      web: [/\.[jt]sx?$/],  // ¸ğµç JS/JSX/TS/TSX ÆÄÀÏÀ» web ¸ğµå·Î º¯È¯
-    },
   },
   build: {
     chunkSizeWarningLimit: 100000000,
   },
-  // .js ÆÄÀÏ¿¡¼­ JSX ±¸¹®À» Áö¿øÇÏµµ·Ï ¼³Á¤
   esbuild: {
     loader: "jsx",
-    include: /\.[jt]sx?$/,  // .js, .jsx, .ts, .tsx ¸ğµÎ Æ÷ÇÔ
+    include: /\.[jt]sx?$/,
     exclude: [],
   },
   optimizeDeps: {
@@ -41,4 +54,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
