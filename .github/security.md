@@ -15,8 +15,8 @@ The following versions are currently covered by this security policy.
 
 | 버전 / Version | 지원 여부 / Supported |
 | --- | --- |
-| `main` | ✅ |
-| 이전 브랜치 또는 레거시 릴리스 / Previous branches or legacy releases | ❌ |
+| `main` | 지원 / Supported |
+| 이전 브랜치 또는 레거시 릴리스 / Previous branches or legacy releases | 미지원 / Not supported |
 
 보안 수정은 현재 유지보수 중인 코드 라인을 기준으로 검토 및 반영됩니다.  
 Security fixes are reviewed and applied based on the currently maintained code line.
@@ -39,9 +39,6 @@ If available, please use this repository’s GitHub Private Vulnerability Report
 If private reporting is not available, please report the issue by email.
 
 - **egovframesupport@gmail.com**
-
-암호화된 통신이 필요한 경우, 최초 연락 시 해당 필요사항을 알려 주시면 적절한 방법을 협의하겠습니다.  
-If encrypted communication is required, please let us know in your initial contact and we will discuss an appropriate method.
 
 ---
 
