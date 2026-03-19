@@ -127,7 +127,7 @@ npm install
 
 ### 2. 백엔드 프로젝트 설정
 
-구동된 BackEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의 VITE_EGOV_CONTEXT_URL에 설정해 준다.
+구동된 BackEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의 VITE_APP_EGOV_CONTEXT_URL에 설정해 준다.
 (단, 개발환경에서는 사용하는 환경변수 정보는 .env.development, build 시 사용하는 환경변수는 .env.production 에 기입해 준다.)
 
 ```bash
