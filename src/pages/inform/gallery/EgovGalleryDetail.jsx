@@ -11,6 +11,7 @@ import { GALLERY_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 import { getSessionItem } from "@/utils/storage";
 
 function EgovGalleryDetail(props) {
@@ -119,11 +120,7 @@ function EgovGalleryDetail(props) {
           <div className="contents NOTICE_VIEW" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">알림마당</h1>
-            </div>
-
-            <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
+            <EgovMenuHeader title="알림마당" subTitle={masterBoard?.bbsNm} />
 
             {/* <!-- 게시판 상세보기 --> */}
             <div className="board_view">

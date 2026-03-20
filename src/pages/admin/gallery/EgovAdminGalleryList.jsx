@@ -8,6 +8,7 @@ import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovPaging from "@/components/EgovPaging";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 import { itemIdxByPage } from "@/utils/calc";
 
@@ -22,7 +23,8 @@ function EgovAdminGalleryList(props) {
   const bbsId = GALLERY_BBS_ID;
 
   // 공통 네비게이션 훅 사용
-  const { searchCondition, handlePageMove, handleSearch } = useListNavigation(bbsId);
+  const { searchCondition, handlePageMove, handleSearch } =
+    useListNavigation(bbsId);
   const [masterBoard, setMasterBoard] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
 
@@ -139,11 +141,7 @@ function EgovAdminGalleryList(props) {
           <div className="contents SITE_GALLARY_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
-
-            <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
+            <EgovMenuHeader title="사이트관리" subTitle={masterBoard?.bbsNm} />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

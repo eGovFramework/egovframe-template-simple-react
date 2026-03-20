@@ -6,6 +6,7 @@ import URL from "@/constants/url";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovPaging from "@/components/EgovPaging";
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 
 import { itemIdxByPage } from "@/utils/calc";
 
@@ -137,11 +138,7 @@ function EgovAdminBoardList(props) {
           <div className="contents BOARD_CREATE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">사이트관리</h1>
-            </div>
-
-            <h2 className="tit_2">게시판생성 관리</h2>
+            <EgovMenuHeader title="사이트관리" subTitle="게시판생성 관리" />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">

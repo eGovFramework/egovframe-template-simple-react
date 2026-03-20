@@ -8,7 +8,7 @@ import { NOTICE_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovPaging from "@/components/EgovPaging";
-
+import EgovMenuHeader from "@/components/EgovMenuHeader";
 import { itemIdxByPage } from "@/utils/calc";
 import { getSessionItem } from "@/utils/storage";
 
@@ -27,7 +27,8 @@ function EgovNoticeList(props) {
   const bbsId = NOTICE_BBS_ID;
 
   // 공통 네비게이션 훅 사용
-  const { searchCondition, handlePageMove, handleSearch } = useListNavigation(bbsId);
+  const { searchCondition, handlePageMove, handleSearch } =
+    useListNavigation(bbsId);
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
@@ -141,11 +142,7 @@ function EgovNoticeList(props) {
           <div className="contents NOTICE_LIST" id="contents">
             {/* <!-- 본문 --> */}
 
-            <div className="top_tit">
-              <h1 className="tit_1">알림마당</h1>
-            </div>
-
-            <h2 className="tit_2">{masterBoard && masterBoard.bbsNm}</h2>
+            <EgovMenuHeader title="알림마당" subTitle={masterBoard?.bbsNm} />
 
             {/* <!-- 검색조건 --> */}
             <div className="condition">
