@@ -10,12 +10,8 @@ import EgovPaging from "@/components/EgovPaging";
 import { itemIdxByPage } from "@/utils/calc";
 
 function EgovAdminBoardList(props) {
-  console.group("EgovAdminBoardList");
-  console.log("[Start] EgovAdminBoardList ------------------------------");
-  console.log("EgovAdminBoardList [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovAdminBoardList [location] : ", location);
 
   // eslint-disable-next-line no-unused-vars
   const [searchCondition, setSearchCondition] = useState(
@@ -34,7 +30,6 @@ function EgovAdminBoardList(props) {
 
   const retrieveList = useCallback(
     (srchCnd) => {
-      console.groupCollapsed("EgovAdminBoardList.retrieveList()");
 
       const retrieveListURL = "/bbsMaster" + EgovNet.getQueryString(srchCnd);
 
@@ -95,10 +90,8 @@ function EgovAdminBoardList(props) {
           setListTag(mutListTag);
         },
         function (resp) {
-          console.log("err response : ", resp);
         }
       );
-      console.groupEnd("EgovAdminBoardList.retrieveList()");
     },
     [listTag, searchCondition]
   );
@@ -108,8 +101,6 @@ function EgovAdminBoardList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovAdminBoardList [End]");
-  console.groupEnd("EgovAdminBoardList");
   return (
     <div className="container">
       <div className="c_wrap">

@@ -46,7 +46,7 @@ function EgovAboutLocation() {
               <a
                 href="https://naver.me/FHYuP0ok"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 <img src={mapImg} alt="" />
               </a>

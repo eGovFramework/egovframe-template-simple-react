@@ -1,15 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as EgovNet from "@/api/egovFetch";
 import CODE from "@/constants/code";
 import { setSessionItem } from "@/utils/storage";
+import { consumeState } from "@/utils/oauthState";
+import { useAuth } from "@/contexts/AuthContext";
 
 const SnsNaverCallback = () => {
-  //백엔드 호출
+  const { refresh } = useAuth();
+  // dev StrictMode 의 useEffect 이중 실행으로 consumeState 가 두 번째 호출에서 실패해
+  // false-positive 알럿이 뜨는 것을 막기 위한 1회 실행 가드
+  const didRunRef = useRef(false);
   const callBackEnd = () => {
-    // 백엔드로 코드값을 넘겨주는 로직
-    let code = new URL(window.location.href).searchParams.get("code");
-    let state = new URL(window.location.href).searchParams.get("state");
-    console.log("code, state=====>", code, state);
+    const params = new URLSearchParams(window.location.search);
+    let code = params.get("code");
+    let state = params.get("state");
+
+    if (!code || !state) {
+      window.location.replace("/");
+      return;
+    }
+
+    // state 1회용 검증 — CSRF 방어
+    if (!consumeState("naver", state)) {
+      alert("인증 요청이 유효하지 않습니다. 다시 시도해 주세요.");
+      window.location.replace("/");
+      return;
+    }
+
     // 요청이 성공하면
     if (code) {
       const naverLoginUrl = `/login/naver/callback?code=${code}&state=${state}`;
@@ -20,12 +37,10 @@ const SnsNaverCallback = () => {
         },
       };
       EgovNet.requestFetch(naverLoginUrl, requestOptions, (resp) => {
-        let resultVO = resp.resultVO;
-        let jToken = resp?.jToken || null;
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-          setSessionItem("jToken", jToken);
-          //setLoginVO(resultVO);
-          setSessionItem("loginUser", resultVO);
+          const { id, name, userSe, uniqId } = resp.resultVO || {};
+          setSessionItem("loginUser", { id, name, userSe, uniqId });
+          refresh(); // AuthContext 갱신
           //props.onChangeLogin(resultVO);
           // PC와 Mobile 열린메뉴 닫기
           document.querySelector(".all_menu.WEB").classList.add("closed");
@@ -33,14 +48,18 @@ const SnsNaverCallback = () => {
           document.querySelector(".btnAllMenu").title = "전체메뉴 닫힘";
           document.querySelector(".all_menu.Mobile").classList.add("closed");
           alert("Sns 간편 로그인 중..."); //공통 alert 사용대신해서
+          window.location.replace("/");
         } else {
-          //React.StrictMode 에서 fetch가 자동으로 2번 실행할 때 아래 메인화면으로 이동된다.
           window.location.replace("/");
         }
       });
     }
   };
-  useEffect(callBackEnd, []);
+  useEffect(() => {
+    if (didRunRef.current) return;
+    didRunRef.current = true;
+    callBackEnd();
+  }, []);
 
   return (
     <>

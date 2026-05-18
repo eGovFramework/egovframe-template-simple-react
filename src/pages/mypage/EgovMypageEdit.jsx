@@ -8,15 +8,11 @@ import CODE from "@/constants/code";
 import { setSessionItem } from "@/utils/storage";
 
 function EgovMypageEdit(props) {
-  console.group("EgovMypageEdit");
-  console.log("[Start] EgovMypageEdit ------------------------------");
-  console.log("EgovMypageEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
   const checkRef = useRef([]);
 
-  console.log("EgovMypageEdit [location] : ", location);
   //const uniqId = location.state?.uniqId || "";
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [memberDetail, setMemberDetail] = useState({});
@@ -220,10 +216,8 @@ function EgovMypageEdit(props) {
       };
 
       EgovNet.requestFetch(deleteMypageURL, requestOptions, (resp) => {
-        console.log("====>>> member delete= ", resp);
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           setSessionItem("loginUser", { id: "" });
-          setSessionItem("jToken", null);
           // PC와 Mobile 열린메뉴 닫기
           document.querySelector(".all_menu.WEB").classList.add("closed");
           document.querySelector(".btnAllMenu").classList.remove("active");
@@ -243,8 +237,6 @@ function EgovMypageEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovMypageEdit [End]");
-  console.groupEnd("EgovMypageEdit");
 
   return (
     <div className="container">

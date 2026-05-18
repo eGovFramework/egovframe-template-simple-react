@@ -13,13 +13,9 @@ import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
 import "react-datepicker/dist/react-datepicker.css";
 
 function EgovAdminScheduleEdit(props) {
-  console.group("EgovAdminScheduleEdit");
-  console.log("[Start] EgovAdminScheduleEdit ------------------------------");
-  console.log("EgovAdminScheduleEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminScheduleEdit [location] : ", location);
 
   const reptitSeCodeRadioGroup = [
     { value: "1", label: "당일" },
@@ -115,7 +111,6 @@ function EgovAdminScheduleEdit(props) {
 
     for (let key in scheduleDetail) {
       formData.append(key, scheduleDetail[key]);
-      console.log("scheduleDetail [%s] ", key, scheduleDetail[key]);
     }
 
     if (formValidator(formData)) {
@@ -198,8 +193,6 @@ function EgovAdminScheduleEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovAdminScheduleEdit [End]");
-  console.groupEnd("EgovAdminScheduleEdit");
   return (
     <div className="container">
       <div className="c_wrap">
@@ -380,7 +373,6 @@ function EgovAdminScheduleEdit(props) {
                       dateFormat="yyyy-MM-dd HH:mm"
                       showTimeInput
                       onChange={(date) => {
-                        console.log("setStartDate : ", date);
                         setScheduleDetail({
                           ...scheduleDetail,
                           schdulBgnde: getDateFourteenDigit(date),
@@ -416,7 +408,6 @@ function EgovAdminScheduleEdit(props) {
                       showTimeInput
                       minDate={scheduleDetail.startDate}
                       onChange={(date) => {
-                        console.log("setEndDate: ", date);
                         setScheduleDetail({
                           ...scheduleDetail,
                           schdulEndde: getDateFourteenDigit(date),
@@ -462,7 +453,6 @@ function EgovAdminScheduleEdit(props) {
               </dl>
               <EgovAttachFile
                 fnChangeFile={(attachfile) => {
-                  console.log("====>>> Changed attachfile file = ", attachfile);
                   const arrayConcat = { ...scheduleDetail }; // 기존 단일 파일 업로드에서 다중파일 객체 추가로 변환(아래 for문으로)
                   for (let i = 0; i < attachfile.length; i++) {
                     arrayConcat[`file_${i}`] = attachfile[i];
@@ -470,7 +460,6 @@ function EgovAdminScheduleEdit(props) {
                   setScheduleDetail(arrayConcat);
                 }}
                 fnDeleteFile={(deletedFile) => {
-                  console.log("====>>> Delete deletedFile = ", deletedFile);
                   setBoardAttachFiles(deletedFile);
                 }}
                 boardFiles={boardAttachFiles}

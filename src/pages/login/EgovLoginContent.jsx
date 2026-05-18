@@ -5,21 +5,19 @@ import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { getLocalItem, setLocalItem, setSessionItem } from "@/utils/storage";
+import { hashPassword } from "@/utils/passwordHash";
 import SnsNaverBt from "@/components/sns/SnsNaverBt";
 import SnsKakaoBt from "@/components/sns/SnsKakaoBt";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovLoginContent(props) {
-  console.group("EgovLoginContent");
-  console.log("[Start] EgovLoginContent ------------------------------");
-  console.log("EgovLoginContent [props] : ", props);
-
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovLoginContent [location] : ", location);
+  const { refresh } = useAuth();
 
   const [userInfo, setUserInfo] = useState({
     id: "",
-    password: "default",
+    password: "",
     userSe: "USR",
   });
   // eslint-disable-next-line no-unused-vars
@@ -43,7 +41,7 @@ function EgovLoginContent(props) {
     let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
     if (idFlag === null) {
       setSaveIDFlag(false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       idFlag = false;
     } else {
       setSaveIDFlag(idFlag);
@@ -57,9 +55,9 @@ function EgovLoginContent(props) {
   }, []);
 
   useEffect(() => {
-    let data = getLocalItem(KEY_ID);
-    if (data !== null) {
-      setUserInfo({ id: data, password: "default", userSe: "USR" });
+    const savedId = getLocalItem(KEY_ID);
+    if (savedId) {
+      setUserInfo((prev) => ({ ...prev, id: savedId }));
     }
   }, []);
 
@@ -75,8 +73,25 @@ function EgovLoginContent(props) {
       }
     }
   };
-  const submitFormHandler = () => {
-    console.log("EgovLoginContent submitFormHandler()");
+  const submitFormHandler = async () => {
+    if (!userInfo.id?.trim()) {
+      alert("아이디를 입력해 주세요.");
+      idRef.current.focus();
+      return;
+    }
+    if (!userInfo.password) {
+      alert("비밀번호를 입력해 주세요.");
+      passwordRef.current.focus();
+      return;
+    }
+    if (userInfo.password.length < 6) {
+      alert("비밀번호는 6자 이상이어야 합니다.");
+      passwordRef.current.focus();
+      return;
+    }
+
+    // 비밀번호를 1차 SHA-256 해시로 변환해 전송 — DevTools/네트워크에 평문 노출 차단.
+    const hashedPassword = await hashPassword(userInfo.id, userInfo.password);
 
     const loginUrl = "/auth/login-jwt";
 
@@ -85,19 +100,18 @@ function EgovLoginContent(props) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify({ ...userInfo, password: hashedPassword }),
     };
 
     EgovNet.requestFetch(loginUrl, requestOptions, (resp) => {
-      let resultVO = resp.resultVO;
-      let jToken = resp?.jToken || null;
-
-      setSessionItem("jToken", jToken);
-
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-        //setLoginVO(resultVO);
+        // JWT는 httpOnly 쿠키로 수신 — sessionStorage에 토큰 저장하지 않음
+        // uniqId는 게시물 작성자 본인 확인 UI에 필요 (비밀 정보 아님)
+        const { id, name, userSe, uniqId } = resp.resultVO || {};
+        const resultVO = { id, name, userSe, uniqId };
         setSessionItem("loginUser", resultVO);
         props.onChangeLogin(resultVO);
+        refresh(); // AuthContext 갱신 — /auth/me 재호출로 권한 정보 동기화
         if (saveIDFlag) setLocalItem(KEY_ID, resultVO?.id);
         navigate(URL.MAIN);
         // PC와 Mobile 열린메뉴 닫기
@@ -110,9 +124,6 @@ function EgovLoginContent(props) {
       }
     });
   };
-
-  console.log("------------------------------EgovLoginContent [End]");
-  console.groupEnd("EgovLoginContent");
 
   return (
     <div className="contents" id="contents">

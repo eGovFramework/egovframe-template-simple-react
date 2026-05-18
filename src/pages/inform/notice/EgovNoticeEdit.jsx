@@ -10,19 +10,15 @@ import { NOTICE_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
-import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovNoticeEdit(props) {
-  console.group("EgovNoticeEdit");
-  console.log("------------------------------");
-  console.log("EgovNoticeEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovNoticeEdit [location] : ", location);
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUserSe = sessionUser?.userSe;
+  // 관리자 권한 체크: 백엔드 /auth/me 결과(AuthContext) 사용
+  const { roles } = useAuth();
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
   const nttId = location.state?.nttId || "";
@@ -165,7 +161,6 @@ function EgovNoticeEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovNoticeEdit");
 
   return (
     <div className="container">
@@ -248,7 +243,6 @@ function EgovNoticeEdit(props) {
                       setBoardDetail(arrayConcat);
                     }}
                     fnDeleteFile={(deletedFile) => {
-                      console.log("====>>> Delete deletedFile = ", deletedFile);
                       setBoardAttachFiles(deletedFile);
                     }}
                     boardFiles={boardAttachFiles}
@@ -258,7 +252,7 @@ function EgovNoticeEdit(props) {
                 )}
               {/* <!-- 버튼영역 --> */}
               <div className="board_btn_area">
-                {sessionUserSe === "ADM" && (
+                {isAdmin && (
                   <div className="left_col btn1">
                     <button
                       className="btn btn_skyblue_h46 w_100"

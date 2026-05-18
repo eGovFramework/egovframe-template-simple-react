@@ -1,6 +1,7 @@
 import RootRoutes from "@/routes";
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import "@/css/base.css";
 import "@/css/layout.css";
@@ -13,7 +14,9 @@ function App() {
     <div className="wrap">
       <React.StrictMode>
         <Router>
-          <RootRoutes />
+          <AuthProvider>
+            <RootRoutes />
+          </AuthProvider>
         </Router>
       </React.StrictMode>
     </div>

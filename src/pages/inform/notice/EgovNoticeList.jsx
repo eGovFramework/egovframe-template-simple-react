@@ -9,22 +9,18 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform"
 import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
-import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovNoticeList(props) {
-  console.group("EgovNoticeList");
-  console.log("[Start] EgovNoticeList ------------------------------");
-  console.log("EgovNoticeList [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovNoticeList [location] : ", location);
 
   const cndRef = useRef();
   const wrdRef = useRef();
 
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUserSe = sessionUser?.userSe;
+  // 관리자 권한 체크: 백엔드 /auth/me 결과(AuthContext) 사용
+  const { roles } = useAuth();
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
 
@@ -44,7 +40,6 @@ function EgovNoticeList(props) {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = useCallback((searchCondition) => {
-    console.groupCollapsed("EgovNoticeList.retrieveList()");
 
     const retrieveListURL = "/board" + EgovNet.getQueryString(searchCondition);
     const requestOptions = {
@@ -110,10 +105,8 @@ function EgovNoticeList(props) {
         setListTag(mutListTag);
       },
       function (resp) {
-        console.log("err response : ", resp);
       }
     );
-    console.groupEnd("EgovNoticeList.retrieveList()");
   }, []);
 
   useEffect(() => {
@@ -121,8 +114,6 @@ function EgovNoticeList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovNoticeList [End]");
-  console.groupEnd("EgovNoticeList");
   return (
     <div className="container">
       <div className="c_wrap">
@@ -203,9 +194,9 @@ function EgovNoticeList(props) {
                     </button>
                   </span>
                 </li>
-                {/* user.id 대신 권한그룹 세션값 사용 */}
+                {/* 관리자 권한은 AuthContext 의 roles 사용 */}
                 {user &&
-                  sessionUserSe === "ADM" &&
+                  isAdmin &&
                   masterBoard.bbsUseFlag === "Y" && (
                     <li>
                       <Link

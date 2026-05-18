@@ -8,12 +8,8 @@ import simpleMainIng from "/assets/images/img_simple_main.png";
 import initPage from "@/js/ui";
 
 function EgovMain(props) {
-  console.group("EgovMain");
-  console.log("[Start] EgovMain ------------------------------");
-  console.log("EgovMain [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovMain [location] : ", location);
 
   // eslint-disable-next-line no-unused-vars
   const [noticeBoard, setNoticeBoard] = useState();
@@ -27,7 +23,6 @@ function EgovMain(props) {
   });
 
   const retrieveList = useCallback(() => {
-    console.groupCollapsed("EgovMain.retrieveList()");
 
     const retrieveListURL = "/mainPage";
     const requestOptions = {
@@ -91,18 +86,14 @@ function EgovMain(props) {
         setGallaryListTag(mutGallaryListTag);
       },
       function (resp) {
-        console.log("err response : ", resp);
       }
     );
-    console.groupEnd("EgovMain.retrieveList()");
   }, []);
 
   useEffect(() => {
     retrieveList();
   }, [retrieveList]);
 
-  console.log("------------------------------EgovMain [End]");
-  console.groupEnd("EgovMain");
 
   return (
     <div className="container P_MAIN">

@@ -9,13 +9,9 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
 
 function EgovAdminUsageEdit(props) {
-  console.group("EgovAdminUsageEdit");
-  console.log("[Start] EgovAdminUsageEdit ------------------------------");
-  console.log("EgovAdminUsageEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminUsageEdit [location] : ", location);
 
   const bbsId = location.state?.bbsId || "";
   const trgetId = location.state?.trgetId || "SYSTEM_DEFAULT_BOARD";
@@ -170,8 +166,6 @@ function EgovAdminUsageEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovAdminUsageEdit [End]");
-  console.groupEnd("EgovAdminUsageEdit");
 
   return (
     <div className="container">
@@ -223,7 +217,6 @@ function EgovAdminUsageEdit(props) {
                           onChange={(e) => {
                             let index = e.nativeEvent.target.selectedIndex;
                             let label = e.nativeEvent.target[index].text;
-                            console.log("bbsId onChange : ", e.nativeEvent);
                             setBoardDetail({
                               ...boardDetail,
                               bbsId: e.target.value,
@@ -234,7 +227,6 @@ function EgovAdminUsageEdit(props) {
                         >
                           <option value="">선택하세요</option>
                           {notUsedBdMstrList.map((option) => {
-                            console.log("notUsedBdMstrList option : ", option);
                             return (
                               <option value={option.bbsId} key={option.bbsId}>
                                 {option.bbsNm}

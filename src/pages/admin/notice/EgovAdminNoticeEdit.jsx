@@ -12,13 +12,9 @@ import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
 
 function EgovAdminNoticeEdit(props) {
-  console.group("EgovAdminNoticeEdit");
-  console.log("------------------------------");
-  console.log("EgovAdminNoticeEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminNoticeEdit [location] : ", location);
 
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
   const nttId = location.state?.nttId || "";
@@ -161,7 +157,6 @@ function EgovAdminNoticeEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovAdminNoticeEdit");
 
   return (
     <div className="container">
@@ -244,7 +239,6 @@ function EgovAdminNoticeEdit(props) {
                       setBoardDetail(arrayConcat);
                     }}
                     fnDeleteFile={(deletedFile) => {
-                      console.log("====>>> Delete deletedFile = ", deletedFile);
                       setBoardAttachFiles(deletedFile);
                     }}
                     boardFiles={boardAttachFiles}

@@ -13,16 +13,12 @@ import bbsFormVaildator from "@/utils/bbsFormVaildator";
 import { getSessionItem } from "@/utils/storage";
 
 function EgovGalleryEdit(props) {
-  console.group("EgovGalleryEdit");
-  console.log("------------------------------");
-  console.log("EgovGalleryEdit [props] : ", props);
   //관리자 권한 체크때문에 추가(아래)
   const sessionUser = getSessionItem("loginUser");
   const sessionUniqId = sessionUser?.uniqId;
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovGalleryEdit [location] : ", location);
 
   const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
   const nttId = location.state?.nttId || "";
@@ -165,7 +161,6 @@ function EgovGalleryEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovGalleryEdit");
 
   return (
     <div className="container">
@@ -248,7 +243,6 @@ function EgovGalleryEdit(props) {
                       setBoardDetail(arrayConcat);
                     }}
                     fnDeleteFile={(deletedFile) => {
-                      console.log("====>>> Delete deletedFile = ", deletedFile);
                       setBoardAttachFiles(deletedFile);
                     }}
                     boardFiles={boardAttachFiles}

@@ -17,8 +17,6 @@ function EgovImageGallery({ boardFiles }) {
       );
     });
   }
-  console.log("filesTag : ", filesTag);
-  console.groupEnd("EgovAttachFile");
 
   return <div className="board_attach_img">{filesTag}</div>;
 }

@@ -12,13 +12,9 @@ import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
 
 function EgovAdminGalleryDetail(props) {
-  console.group("EgovAdminGalleryDetail");
-  console.log("------------------------------");
-  console.log("EgovAdminGalleryDetail [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminGalleryDetail [location] : ", location);
 
   const bbsId = location.state.bbsId || GALLERY_BBS_ID;
   const nttId = location.state.nttId;
@@ -54,7 +50,6 @@ function EgovAdminGalleryDetail(props) {
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log("====>>> board delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert("게시글이 삭제되었습니다.");
         navigate(URL.ADMIN_GALLERY, { replace: true });
@@ -73,7 +68,6 @@ function EgovAdminGalleryDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovAdminGalleryDetail");
 
   return (
     <div className="container">
