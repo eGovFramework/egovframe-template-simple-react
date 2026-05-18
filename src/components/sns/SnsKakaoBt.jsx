@@ -1,10 +1,17 @@
+import { issueState } from "@/utils/oauthState";
+
 const SnsKakaoBt = () => {
-  const KAKAO_CLIENT_ID = import.meta.env.VITE_APP_KAKAO_CLIENTID; // 발급받은 클라이언트 아이디
-  const REDIRECT_URI = import.meta.env.VITE_APP_KAKAO_CALLBACKURL; // Callback URL
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+  const KAKAO_CLIENT_ID = import.meta.env.VITE_APP_KAKAO_CLIENTID;
+  const REDIRECT_URI = import.meta.env.VITE_APP_KAKAO_CALLBACKURL;
 
   const KakaoLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
+    const state = issueState("kakao");
+    const url =
+      "https://kauth.kakao.com/oauth/authorize?response_type=code" +
+      `&client_id=${encodeURIComponent(KAKAO_CLIENT_ID)}` +
+      `&state=${encodeURIComponent(state)}` +
+      `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
+    window.location.href = url;
   };
 
   return (

@@ -40,11 +40,14 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     chunkSizeWarningLimit: 100000000,
+    sourcemap: false,
   },
   esbuild: {
     loader: "jsx",
     include: /\.[jt]sx?$/,
     exclude: [],
+    drop: mode === "production" ? ["console", "debugger"] : [],
+    pure: mode === "production" ? ["console.log", "console.info", "console.debug", "console.trace"] : [],
   },
   optimizeDeps: {
     esbuildOptions: {

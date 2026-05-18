@@ -8,12 +8,8 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 
 function EgovDailyList(props) {
-  console.group("EgovDailyDetail");
-  console.log("[Start] EgovDailyDetail ------------------------------");
-  console.log("EgovDailyDetail [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovDailyDetail [location] : ", location);
 
   const DATE = new Date();
   const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
@@ -101,7 +97,6 @@ function EgovDailyList(props) {
 
   const retrieveList = useCallback(
     (srchcnd) => {
-      console.groupCollapsed("EgovDailyDetail.retrieveList()");
 
       const retrieveListURL =
         "/schedule/daily" + EgovNet.getQueryString(srchcnd);
@@ -120,11 +115,9 @@ function EgovDailyList(props) {
           drawList();
         },
         function (resp) {
-          console.log("err response : ", resp);
         }
       );
 
-      console.groupEnd("EgovDailyDetail.retrieveList()");
     },
     [drawList]
   );
@@ -163,8 +156,6 @@ function EgovDailyList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleList]);
 
-  console.log("------------------------------EgovDailyDetail [End]");
-  console.groupEnd("EgovDailyDetail");
   return (
     <div className="container">
       <div className="c_wrap">

@@ -8,12 +8,8 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
 function EgovAdminScheduleList(props) {
-  console.group("EgovAdminScheduleList");
-  console.log("[Start] EgovAdminScheduleList ------------------------------");
-  console.log("EgovAdminScheduleList [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovAdminScheduleList [location] : ", location);
 
   const DATE = new Date();
   const TODAY = new Date(DATE.getFullYear(), DATE.getMonth(), DATE.getDate());
@@ -31,7 +27,6 @@ function EgovAdminScheduleList(props) {
   const [scheduleList, setScheduleList] = useState([]);
 
   const innerConsole = (...args) => {
-    console.log(...args);
   };
 
   const getLastDateOfMonth = (year, month) => {
@@ -69,7 +64,6 @@ function EgovAdminScheduleList(props) {
   };
 
   const retrieveList = useCallback((srchcnd) => {
-    console.groupCollapsed("EgovAdminScheduleList.retrieveList()");
 
     const retrieveListURL = "/schedule/month" + EgovNet.getQueryString(srchcnd);
 
@@ -87,14 +81,11 @@ function EgovAdminScheduleList(props) {
         setScheduleList(resp.result.resultList);
       },
       function (resp) {
-        console.log("err response : ", resp);
       }
     );
-    console.groupEnd("EgovAdminScheduleList.retrieveList()");
   }, []);
 
   const drawCalendar = () => {
-    console.groupCollapsed("EgovAdminScheduleList.drawCalendar()");
     const PREV_MONTH_ADDITION = -1;
 
     let lastOfLastMonth = getLastDateOfMonth(
@@ -110,27 +101,8 @@ function EgovAdminScheduleList(props) {
       searchCondition.month
     );
 
-    console.log(
-      "lastOfLastMonth : ",
-      lastOfLastMonth,
-      lastOfLastMonth.getDay()
-    );
-    console.log(
-      "firstOfThisMonth :",
-      firstOfThisMonth,
-      firstOfThisMonth.getDay()
-    );
-    console.log("lastOfThisMonth :", lastOfThisMonth, lastOfThisMonth.getDay());
-    console.log("scheduleList : ", scheduleList);
-
     let firstDayOfThisMonth = firstOfThisMonth.getDay();
     let lastDateOfThisMonth = lastOfThisMonth.getDate();
-    console.log(
-      "firstDayOfThisMonth",
-      firstDayOfThisMonth,
-      "lastDateOfThisMonth",
-      lastDateOfThisMonth
-    );
 
     let monthArr = [];
     let weekArr = [];
@@ -147,7 +119,6 @@ function EgovAdminScheduleList(props) {
       }
     }
     monthArr.push(weekArr);
-    console.log("FirstWeek monthArr : ", monthArr);
     // firstWeek Date Set END
 
     // otherWeek Date Set START
@@ -175,21 +146,18 @@ function EgovAdminScheduleList(props) {
       monthArr.push(weekArr);
     }
     // lastWeek Date Set END
-    console.log("OtherWeek monthArr : ", monthArr);
 
     let mutsUseYearMonth =
       searchCondition.year.toString() +
       ((searchCondition.month + 1).toString().length === 1
         ? "0" + (searchCondition.month + 1).toString()
         : (searchCondition.month + 1).toString());
-    console.log("mutsUseYearMonth : ", mutsUseYearMonth);
 
     let mutCalendarTagList = [];
     let keyIdx = 0;
 
     //draw Calendar
     monthArr.forEach((week) => {
-      console.log();
       mutCalendarTagList.push(
         <tr key={keyIdx++}>
           {week.map((day) => {
@@ -271,9 +239,7 @@ function EgovAdminScheduleList(props) {
         </tr>
       );
     });
-    console.log("mutCalendarTagList : ", mutCalendarTagList);
     setCalendarTag(mutCalendarTagList);
-    console.groupEnd("EgovAdminScheduleList.drawCalendar()");
   };
 
   const Location = React.memo(function Location() {
@@ -304,8 +270,6 @@ function EgovAdminScheduleList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleList]);
 
-  console.log("------------------------------EgovAdminScheduleList [End]");
-  console.groupEnd("EgovAdminScheduleList");
   return (
     <div className="container">
       <div className="c_wrap">

@@ -1,5 +1,4 @@
 function EgovSelect({ id, name, title, options, setValue, setter }) {
-  console.log("egovSelect", id, name, title, options, setValue, setter);
   return (
     <select
       id={id}
@@ -7,7 +6,6 @@ function EgovSelect({ id, name, title, options, setValue, setter }) {
       title={title}
       defaultValue={setValue}
       onChange={() => {
-        console.log("select Change!! : ", setValue);
         setter(setValue);
       }}
     >

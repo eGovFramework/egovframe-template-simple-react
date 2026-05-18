@@ -8,15 +8,9 @@ import CODE from "@/constants/code";
 import { getSessionItem, setSessionItem } from "@/utils/storage";
 
 function EgovMypageEdit(props) {
-  console.group("EgovMypageEdit");
-  console.log("[Start] EgovMypageEdit ------------------------------");
-  console.log("EgovMypageEdit [props] : ", props);
-
   const navigate = useNavigate();
   const location = useLocation();
   const checkRef = useRef([]);
-
-  console.log("EgovMypageEdit [location] : ", location);
   //const uniqId = location.state?.uniqId || "";
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [memberDetail, setMemberDetail] = useState({});
@@ -66,17 +60,10 @@ function EgovMypageEdit(props) {
     };
 
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      console.log("mypage retrieveDetail response:", resp);
-      console.log("resp.result:", resp?.result);
-      console.log("resp.result.mberManageVO:", resp?.result?.mberManageVO);
-
-      // 수정모드일 경우 조회값 세팅
       if (modeInfo.mode === CODE.MODE_MODIFY) {
         if (resp && resp.result && resp.result.mberManageVO) {
-          console.log("Setting member detail:", resp.result.mberManageVO);
           setMemberDetail(resp.result.mberManageVO);
         } else if (resp && resp.resultCode === "403") {
-          console.error("Permission denied for mypage:", resp);
           // 백엔드에서 반환한 에러 메시지가 있으면 사용
           const errorMessage =
             resp && resp.resultMessage
@@ -85,15 +72,12 @@ function EgovMypageEdit(props) {
           alert(errorMessage);
           window.location.href = URL.LOGIN;
         } else if (resp && resp.resultCode === "401") {
-          console.error("Authentication required for mypage:", resp);
           alert("로그인이 필요합니다.");
           window.location.href = URL.LOGIN;
         } else if (resp && resp.resultCode === "900") {
-          console.error("Data error for mypage:", resp);
           alert(resp.resultMessage || "회원 정보를 불러올 수 없습니다.");
           window.location.href = URL.LOGIN;
         } else {
-          console.error("mberManageVO not found in response:", resp);
           // 백엔드에서 반환한 에러 메시지가 있으면 사용
           const errorMessage =
             resp && resp.resultMessage
@@ -258,10 +242,9 @@ function EgovMypageEdit(props) {
       };
 
       EgovNet.requestFetch(deleteMypageURL, requestOptions, (resp) => {
-        console.log("====>>> member delete= ", resp);
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           setSessionItem("loginUser", { id: "" });
-          setSessionItem("jToken", null);
+          // ACCESS_TOKEN 쿠키는 백엔드가 관리 — 별도 삭제 불필요
           // PC와 Mobile 열린메뉴 닫기
           document.querySelector(".all_menu.WEB").classList.add("closed");
           document.querySelector(".btnAllMenu").classList.remove("active");
@@ -280,9 +263,6 @@ function EgovMypageEdit(props) {
     initMode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("------------------------------EgovMypageEdit [End]");
-  console.groupEnd("EgovMypageEdit");
 
   return (
     <div className="container">

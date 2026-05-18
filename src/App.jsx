@@ -1,5 +1,6 @@
 import RootRoutes from "@/routes";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import "@/css/base.css";
 import "@/css/layout.css";
@@ -11,7 +12,9 @@ function App() {
   return (
     <div className="wrap">
       <Router>
-        <RootRoutes />
+        <AuthProvider>
+          <RootRoutes />
+        </AuthProvider>
       </Router>
     </div>
   );

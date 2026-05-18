@@ -9,13 +9,9 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
 function EgovAdminScheduleDetail(props) {
-  console.group("EgovAdminScheduleDetail");
-  console.log("[Start] EgovAdminScheduleDetail ------------------------------");
-  console.log("EgovAdminScheduleDetail [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminScheduleDetail [location] : ", location);
 
   const [scheduleDetail, setScheduleDetail] = useState({});
   const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -99,7 +95,6 @@ function EgovAdminScheduleDetail(props) {
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log("====>>> Schdule delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert("게시글이 삭제되었습니다.");
         navigate(URL.ADMIN_SCHEDULE, { replace: true });
@@ -124,8 +119,6 @@ function EgovAdminScheduleDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovAdminScheduleDetail [End]");
-  console.groupEnd("EgovAdminScheduleDetail");
   return (
     <div className="container">
       <div className="c_wrap">

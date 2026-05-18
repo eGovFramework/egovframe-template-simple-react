@@ -26,7 +26,7 @@
 
 ![sh1](https://github.com/user-attachments/assets/41757fa0-b976-435a-81ac-e163e2846998)
 
-1. 최초 관리자 계정 설정은 **[ 로그인계정 : admin , 로그인암호 : 1 ]** 로 설정되어 있다.
+1. 최초 관리자 계정 설정은 **[ 로그인계정 : admin , 로그인암호 : Admin@1234 ]** 로 설정되어 있다.
 2. 메인 화면 우측 상단의 **회원가입** 버튼을 통해 사용자 계정을 생성 가능하다.
 3. 기본 기능이나 예시 메뉴를 실무적으로 추가 커스터마이징하여 활용할 수 있다.
 
@@ -37,11 +37,14 @@
 1. 최초 관리자 계정을 통한 로그인이 가능하다.
 2. **회원가입** 버튼을 통해 생성한 사용자 계정을 통한 로그인이 가능하다. (사용자 계정은 일부 메뉴 접근이 제한된다)
 3. 로그인 창 하단의 소셜 로그인 버튼으로 네이버 및 카카오 계정으로 로그인이 가능하다. 이 경우의 권한은 사용자 계정과 동일하다.
-4. 소셜 로그인 기능의 사용을 위해서는 사전에 **[네이버 개발자 센터](https://developers.naver.com/main/)** 및 **[카카오 개발자 센터](https://developers.kakao.com/)** 에서 Client ID와 Client Secret을 발급 받은 후 Callback URL을 프론트엔드와 백엔드 환경 설정 파일에 등록해야 한다.
-5. 프론트엔드 환경 설정 파일은 본 애플리케이션의 `.env.development` (개발 환경) 및 `.env.production` (빌드 시 사용) 을 참고한다.
-6. 백엔드 환경 설정 파일은 [심플 홈페이지 Backend](https://github.com/eGovFramework/egovframe-template-simple-backend.git) 의 `application.properties` 를 참고한다.
-7. 네이버 소셜 로그인에 대한 상세 사항은 **[네이버 로그인 API 문서](https://developers.naver.com/docs/login/api/api.md)** 를 참조 가능하다.
-8. 카카오 소셜 로그인에 대한 상세 사항은 **[카카오 로그인 API 문서](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#kakaologin)** 를 참조 가능하다.
+4. 소셜 로그인 기능의 사용을 위해서는 사전에 **[네이버 개발자 센터](https://developers.naver.com/main/)** 및 **[카카오 개발자 센터](https://developers.kakao.com/)** 에서 Client ID·Client Secret 발급 및 Callback URL 등록을 진행한 뒤, 받은 값을 아래와 같이 입력한다.
+   - **네이버** — 백엔드 `application.properties` 의 `Sns.naver.clientId`, `Sns.naver.clientSecret`, `Sns.naver.callbackUrl` / 프론트엔드 `.env.development` 의 `VITE_APP_NAVER_CLIENTID`, `VITE_APP_NAVER_CALLBACKURL`
+   - **카카오** — 백엔드 `application.properties` 의 `Sns.kakao.clientId`, `Sns.kakao.callbackUrl` / 프론트엔드 `.env.development` 의 `VITE_APP_KAKAO_CLIENTID`, `VITE_APP_KAKAO_CALLBACKURL`
+   - ※ Client Secret 은 백엔드에만 등록 (프론트엔드 번들에 포함되면 안 됨). 카카오는 본 프로젝트에서 Secret 미사용.
+   - ※ OAuth CSRF 방어용 `state` 값은 로그인 시도 시 자동으로 무작위 생성되므로 별도 환경변수 설정 불필요.
+5. 프론트엔드 환경 설정 파일은 개발 환경은 `.env.development`, 빌드 산출물 환경은 `.env.production` 을 사용한다. 백엔드 환경 설정 파일은 [심플 홈페이지 Backend](https://github.com/eGovFramework/egovframe-template-simple-backend.git) 의 `application.properties` 를 참고한다.
+6. 네이버 소셜 로그인에 대한 상세 사항은 **[네이버 로그인 API 문서](https://developers.naver.com/docs/login/api/api.md)** 를 참조 가능하다.
+7. 카카오 소셜 로그인에 대한 상세 사항은 **[카카오 로그인 API 문서](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#kakaologin)** 를 참조 가능하다.
 
 ### 사이트 소개 화면
 
@@ -91,12 +94,12 @@
 
 ## 환경 설정
 
-프로젝트에서 사용된 환경 프로그램 정보는 다음과 같다.
+프로젝트 구동에 필요한 환경 프로그램 정보는 다음과 같다.
 
-| 프로그램 명 | 버전 명  |
+| 프로그램 명 | 버전 명 |
 | :---------- | :------- |
-| Node.js     | v18.12.0 |
-| NPM         | v8.19.2  |
+| Node.js     | v20.19 ~ v22 LTS |
+| NPM         | v10 이상 |
 
 ## BackEnd 구동
 
@@ -153,7 +156,7 @@ npm run preview
 ```
 
 ```bash
-# 테스트 대상 파일 경로는 vite.config.js에 명시되어 있으며 디폴트로 EgovMain.jsx의 테스트를 실행한다.
+# 테스트 대상은 vite.config.js 의 test.include 패턴에 따라 수집된다.
 # watch 모드로 테스트를 실행할 경우에는 아래 명령어를 사용한다.
 npm run test
 
