@@ -6,9 +6,6 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
 function EgovAdminPasswordUpdate(props) {
-  console.group("EgovAdminPasswordUpdate");
-  console.log("[Start] EgovAdminPasswordUpdate ------------------------------");
-  console.log("EgovAdminPasswordUpdate [props] : ", props);
 
   const navigate = useNavigate();
   const [oldPassword, setOldPassword] = useState("");
@@ -76,9 +73,6 @@ function EgovAdminPasswordUpdate(props) {
   useEffect(() => {
      
   }, []);
-
-  console.log("------------------------------EgovAdminPasswordUpdate [End]");
-  console.groupEnd("EgovAdminPasswordUpdate");
 
   return (
     <div className="container">

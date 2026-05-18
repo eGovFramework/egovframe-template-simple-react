@@ -10,20 +10,16 @@ import { NOTICE_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
-import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovNoticeEdit(props) {
-  console.group("EgovNoticeEdit");
-  console.log("------------------------------");
-  console.log("EgovNoticeEdit [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovNoticeEdit [location] : ", location);
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUserSe = sessionUser?.userSe;
+  // 관리자 권한 체크: 백엔드 /auth/me 결과 사용
+  const { roles } = useAuth();
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
   const nttId = location.state?.nttId || "";
@@ -117,7 +113,6 @@ function EgovNoticeEdit(props) {
     const formData = new FormData();
     for (let key in boardDetail) {
       formData.append(key, boardDetail[key]);
-      //console.log("boardDetail [%s] ", key, boardDetail[key]);
     }
 
     if (bbsFormVaildator(formData)) {
@@ -163,7 +158,6 @@ function EgovNoticeEdit(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovNoticeEdit");
 
   return (
     <div className="container">
@@ -233,10 +227,6 @@ function EgovNoticeEdit(props) {
                 masterBoard.fileAtchPosblAt === "Y" && (
                   <EgovAttachFile
                     fnChangeFile={(attachfile) => {
-                      console.log(
-                        "====>>> Changed attachfile file = ",
-                        attachfile
-                      );
                       const arrayConcat = { ...boardDetail }; // 기존 단일 파일 업로드에서 다중파일 객체 추가로 변환(아래 for문으로)
                       for (let i = 0; i < attachfile.length; i++) {
                         arrayConcat[`file_${i}`] = attachfile[i];
@@ -244,7 +234,6 @@ function EgovNoticeEdit(props) {
                       setBoardDetail(arrayConcat);
                     }}
                     fnDeleteFile={(deletedFile) => {
-                      console.log("====>>> Delete deletedFile = ", deletedFile);
                       setBoardAttachFiles(deletedFile);
                     }}
                     boardFiles={boardAttachFiles}
@@ -254,7 +243,7 @@ function EgovNoticeEdit(props) {
                 )}
               {/* <!-- 버튼영역 --> */}
               <div className="board_btn_area">
-                {sessionUserSe === "ADM" && (
+                {isAdmin && (
                   <div className="left_col btn1">
                     <button
                       className="btn btn_skyblue_h46 w_100"

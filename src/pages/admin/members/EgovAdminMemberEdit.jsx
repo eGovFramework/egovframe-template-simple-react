@@ -9,15 +9,9 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
 
 function EgovAdminMemberEdit(props) {
-  console.group("EgovAdminMemberEdit");
-  console.log("[Start] EgovAdminMemberEdit ------------------------------");
-  console.log("EgovAdminMemberEdit [props] : ", props);
-
   const navigate = useNavigate();
   const location = useLocation();
   const checkRef = useRef([]);
-
-  console.log("EgovAdminMemberEdit [location] : ", location);
   const uniqId = location.state?.uniqId || "";
   const mberSttusRadioGroup = [
     { value: "P", label: "가능" },
@@ -250,7 +244,6 @@ function EgovAdminMemberEdit(props) {
     };
 
     EgovNet.requestFetch(deleteMemberURL, requestOptions, (resp) => {
-      console.log("====>>> member delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert("회원이 삭제되었습니다.");
         navigate(URL.ADMIN_MEMBERS, { replace: true });
@@ -264,9 +257,6 @@ function EgovAdminMemberEdit(props) {
     initMode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("------------------------------EgovAdminMemberEdit [End]");
-  console.groupEnd("EgovAdminMemberEdit");
 
   return (
     <div className="container">

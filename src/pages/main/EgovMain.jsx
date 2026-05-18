@@ -8,35 +8,25 @@ import initPage from "@/js/ui";
 import { fetchMainPage } from "@/api/services/mainPage";
 import BoardList from "./fragments/BoardList";
 function EgovMain(props) {
-  console.group("EgovMain");
-  console.log("[Start] EgovMain ------------------------------");
-  console.log("EgovMain [props] : ", props);
-
   const location = useLocation();
-  console.log("EgovMain [location] : ", location);
 
   const [noticeBoardList, setNoticeBoardList] = useState([]);
   const [gallaryBoardList, setGallaryBoardList] = useState([]);
 
   const retrieveList = async () => {
-    console.groupCollapsed("EgovMain.retrieveList()");
     try {
       const resp = await fetchMainPage();
       setNoticeBoardList(resp.result.notiList);
       setGallaryBoardList(resp.result.galList);
     } catch (err) {
-      console.error("err response : ", err);
+      // 오류는 사용자 알림 없이 조용히 처리
     }
-    console.groupEnd("EgovMain.retrieveList()");
   };
 
   useEffect(() => {
     initPage();
     retrieveList();
   }, []);
-
-  console.log("------------------------------EgovMain [End]");
-  console.groupEnd("EgovMain");
 
   return (
     <div className="container P_MAIN">

@@ -8,12 +8,8 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform"
 import EgovAttachFile from "@/components/EgovAttachFile";
 
 function EgovDailyDetail(props) {
-  console.group("EgovDailyDetail");
-  console.log("[Start] EgovDailyDetail ------------------------------");
-  console.log("EgovDailyDetail [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovDailyDetail [location] : ", location);
 
   const [scheduleDetail, setScheduleDetail] = useState({});
   const [boardAttachFiles, setBoardAttachFiles] = useState();
@@ -94,8 +90,6 @@ function EgovDailyDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovDailyDetail [End]");
-  console.groupEnd("EgovDailyDetail");
   return (
     <div className="container">
       <div className="c_wrap">

@@ -12,9 +12,6 @@ import EgovPaging from "@/components/EgovPaging";
 import { itemIdxByPage } from "@/utils/calc";
 
 function EgovGalleryList(props) {
-  console.group("EgovGalleryList");
-  console.log("[Start] EgovGalleryList ------------------------------");
-  console.log("EgovGalleryList [props] : ", props);
 
   const cndRef = useRef();
   const wrdRef = useRef();
@@ -30,7 +27,6 @@ function EgovGalleryList(props) {
   const [listTag, setListTag] = useState([]);
 
   const retrieveList = useCallback((searchCondition) => {
-    console.groupCollapsed("EgovGalleryList.retrieveList()");
 
     const retrieveListURL = "/board" + EgovNet.getQueryString(searchCondition);
     const requestOptions = {
@@ -100,10 +96,8 @@ function EgovGalleryList(props) {
         setListTag(mutListTag);
       },
       function (resp) {
-        console.log("err response : ", resp);
       }
     );
-    console.groupEnd("EgovGalleryList.retrieveList()");
   }, []);
 
   //======================================================
@@ -112,8 +106,6 @@ function EgovGalleryList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("------------------------------EgovGalleryList [End]");
-  console.groupEnd("EgovGalleryList");
   return (
     <div className="container">
       <div className="c_wrap">

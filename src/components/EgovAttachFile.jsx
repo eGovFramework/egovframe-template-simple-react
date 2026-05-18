@@ -13,7 +13,6 @@ function EgovAttachFile({
   fnDeleteFile,
   posblAtchFileNumber,
 }) {
-  console.groupCollapsed("EgovAttachFile");
 
   // posblAtchFileNumber는 수정일 경우에만 값이 넘어오므로 방어 로직
   // 해당 컴포넌트는 스케줄 화면과 공유하며, 스케줄에서는 첨부파일을 1개 넣을 수 있으므로 디폴트 값을 1로 설정
@@ -27,14 +26,16 @@ function EgovAttachFile({
   const navigate = useNavigate();
 
   function onClickDownFile(atchFileId, fileSn) {
-    window.open(
-      SERVER_URL + "/file?atchFileId=" + atchFileId + "&fileSn=" + fileSn + ""
-    );
+    // 화이트리스트 검증 — atchFileId 는 Base64+URL-safe 문자만 허용, fileSn 은 숫자만
+    if (!/^[A-Za-z0-9+/=_-]+$/.test(String(atchFileId))) return;
+    if (!/^\d+$/.test(String(fileSn))) return;
+    const url =
+      `${SERVER_URL}/file?atchFileId=${encodeURIComponent(atchFileId)}` +
+      `&fileSn=${encodeURIComponent(fileSn)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
-    console.log("onClickDeleteFile Params : ", atchFileId, fileSn, fileIndex);
-
     const requestOptions = {
       method: "POST",
       headers: {
@@ -46,10 +47,7 @@ function EgovAttachFile({
       }),
     };
     EgovNet.requestFetch(`/file`, requestOptions, function (resp) {
-      console.log("===>>> board file delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-        // 성공
-        console.log("Deleted fileIndex = ", fileIndex);
         // eslint-disable-next-line no-unused-vars
         const _deleteFile = boardFiles.splice(fileIndex, 1);
         const _boardFiles = Object.assign([], boardFiles);
@@ -66,7 +64,6 @@ function EgovAttachFile({
   }
 
   function onChangeFileInput(e) {
-    console.log("===>>> e = " + e.target.files[0]);
     if (
       e.target.files.length + (boardFiles?.length || 0) >
       posblAtchFileNumber
@@ -116,9 +113,6 @@ function EgovAttachFile({
       filesTag.push(<br key={["br", `${index}`].join(" ")} />);
     });
   }
-  console.log("filesTag : ", filesTag);
-  console.groupEnd("EgovAttachFile");
-
   return (
     <dl>
       <dt>첨부파일</dt>

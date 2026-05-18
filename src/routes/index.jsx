@@ -3,6 +3,7 @@ import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { useAuth } from "@/contexts/AuthContext";
 
 //COMMON
 import EgovHeader from "@/components/EgovHeader";
@@ -76,113 +77,52 @@ import EgovMypageEdit from "@/pages/mypage/EgovMypageEdit";
 import initPage from "@/js/ui";
 
 const RootRoutes = () => {
-  //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
   const location = useLocation();
+  // 인증 상태는 백엔드 /auth/me 결과(AuthContext)를 진실 소스로 사용.
+  // sessionStorage 변조로 우회 불가.
+  const { user, roles, loading } = useAuth();
 
-  // JWT 토큰 정보 가져오기 함수 추가
-  // eslint-disable-next-line no-unused-vars
-  const [userRole, setUserRole] = useState(""); // 사용자 권한 저장
-
-  // JWT 토큰에서 사용자 권한 정보 확인
-  const getUserRoleFromToken = useCallback(() => {
-    console.group("getUserRoleFromToken");
-    console.log("[Start] getUserRoleFromToken ------------------------------");
-
-    // 세션에서 JWT 토큰 가져오기
-    const token = sessionStorage.getItem("jToken");
-
-    if (token) {
-      try {
-        // JWT 토큰 파싱 (간단한 방식으로 처리)
-        const tokenParts = token.split(".");
-        if (tokenParts.length === 3) {
-          const payload = JSON.parse(atob(tokenParts[1]));
-          const role = payload.groupNm || "";
-          console.log("User role from token:", role);
-          setUserRole(role);
-          return role;
-        }
-      } catch (error) {
-        console.error("JWT 토큰 파싱 중 오류:", error);
-      }
-    }
-
-    console.log("JWT 토큰에서 권한 정보를 찾을 수 없음");
-    setUserRole("");
-    return "";
-  }, []);
-
-  // 경로에 따른 인증 처리를 위한 함수 추가
   const checkPathAccess = useCallback(() => {
-    console.group("checkPathAccess");
-    console.log("[Start] checkPathAccess ------------------------------");
-    console.log("Current path:", location.pathname);
+    // 인증 상태 로딩 중에는 라우트 가드 보류
+    if (loading) return;
 
-    // 현재 경로 가져오기
     const currentPath = location.pathname;
     const adminRegex = /^\/admin(\/.*)?$/;
     const mypageRegex = /^\/mypage(\/.*)?$/;
 
-    // JWT 토큰에서 사용자 로그인 정보 확인
-    const token = sessionStorage.getItem("jToken");
+    const isLoggedIn = !!user?.id;
+    const isAdmin = roles.includes("ROLE_ADMIN");
 
-    if (!token) {
-      console.log("로그인 정보가 없습니다.");
-
-      // 로그인이 필요한 경로인 경우 처리
+    if (!isLoggedIn) {
       if (adminRegex.test(currentPath) || mypageRegex.test(currentPath)) {
-        console.log("로그인이 필요한 경로입니다.");
         setMounted(false);
         alert("로그인이 필요한 경로입니다.");
         window.location.href = URL.LOGIN;
         return false;
       }
-
-      // 로그인이 필요하지 않은 경로인 경우
       setMounted(true);
       return true;
     }
 
-    // 사용자 권한 확인
-    const role = getUserRoleFromToken();
-    console.log("User role:", role);
-
-    // 관리자 페이지 접근 처리
     if (adminRegex.test(currentPath)) {
-      if (role !== "ROLE_ADMIN") {
-        console.log("관리자 권한이 없어 접근이 불가합니다.");
+      if (!isAdmin) {
         setMounted(false);
         alert("관리자 권한이 필요한 페이지입니다.");
         window.location.href = URL.MAIN;
         return false;
-      } else {
-        console.log("관리자 권한 확인 성공.");
-        setMounted(true);
-        return true;
       }
+      setMounted(true);
+      return true;
     }
 
-    // 마이페이지 접근 처리 - 로그인한 유저라면 접근 가능
     if (mypageRegex.test(currentPath)) {
-      if (!token) {
-        console.log("로그인이 필요한 경로입니다.");
-        setMounted(false);
-        alert("로그인이 필요한 페이지입니다.");
-        window.location.href = URL.LOGIN;
-        return false;
-      } else {
-        console.log("로그인 사용자 확인 성공.");
-        setMounted(true);
-        return true;
-      }
+      setMounted(true);
+      return true;
     }
 
-    // 기본적으로 모든 다른 경로는 접근 가능
     setMounted(true);
-    console.log("------------------------------checkPathAccess [End]");
-    console.groupEnd("checkPathAccess");
     return true;
-  }, [getUserRoleFromToken, location.pathname]);
+  }, [loading, user, roles, location.pathname]);
 
   //시스템관리 메뉴인 /admin/으로 시작하는 URL은 모두 로그인이 필요하도록 코드추가(아래)
   const isMounted = useRef(false); // 아래 로그인 이동 부분이 2번 실행되지 않도록 즉, 마운트 될 때만 실행되도록 변수 생성

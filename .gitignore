@@ -25,3 +25,6 @@ yarn-error.log*
 
 # code
 .history
+
+# Secrets
+secrets/

@@ -10,19 +10,15 @@ import { NOTICE_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
-import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovNoticeDetail(props) {
-  console.group("EgovNoticeDetail");
-  console.log("------------------------------");
-  console.log("EgovNoticeDetail [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovNoticeDetail [location] : ", location);
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUserSe = sessionUser?.userSe;
+  // 관리자 권한 체크: 백엔드 /auth/me 결과 사용
+  const { roles } = useAuth();
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   // 직접 URL 접근 시 location.state가 null일 수 있음
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
@@ -65,7 +61,6 @@ function EgovNoticeDetail(props) {
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log("====>>> board delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert("게시글이 삭제되었습니다.");
         navigate(URL.INFORM_NOTICE, { replace: true });
@@ -89,7 +84,6 @@ function EgovNoticeDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovNoticeDetail");
 
   return (
     <div className="container">
@@ -163,7 +157,7 @@ function EgovNoticeDetail(props) {
 
               <div className="board_btn_area">
                 {user &&
-                  sessionUserSe === "ADM" &&
+                  isAdmin &&
                   masterBoard.bbsUseFlag === "Y" && (
                     <div className="left_col btn3">
                       <Link

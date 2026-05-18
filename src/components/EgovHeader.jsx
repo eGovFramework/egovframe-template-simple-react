@@ -7,16 +7,16 @@ import CODE from "@/constants/code";
 
 import logoImg from "/assets/images/logo_w.png";
 import logoImgMobile from "/assets/images/logo_m.png";
-import { getSessionItem, setSessionItem } from "@/utils/storage";
+import { setSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovHeader() {
-  console.group("EgovHeader");
-  console.log("[Start] EgovHeader ------------------------------");
-
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUserId = sessionUser?.id;
-  const sessionUserName = sessionUser?.name;
-  const sessionUserSe = sessionUser?.userSe;
+  // 메뉴·로그아웃 표시는 백엔드 /auth/me 결과(AuthContext)를 진실 소스로 사용
+  const { user, roles, clear } = useAuth();
+  const sessionUserId = user?.id;
+  const sessionUserName = user?.name;
+  const sessionUserSe = user?.userSe;
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   const navigate = useNavigate();
 
@@ -39,11 +39,10 @@ function EgovHeader() {
       credentials: "include",
     };
     EgovNet.requestFetch(logOutUrl, requestOptions, function (resp) {
-      console.log("===>>> logout resp= ", resp);
       if (parseInt(resp.resultCode) === parseInt(CODE.RCV_SUCCESS)) {
-        //onChangeLogin({ loginVO: {} });
         setSessionItem("loginUser", { id: "" });
-        setSessionItem("jToken", null);
+        clear(); // AuthContext 인증 상태 초기화
+        // ACCESS_TOKEN 쿠키는 백엔드 /auth/logout 에서 삭제됨
         window.alert("로그아웃되었습니다!");
         navigate(URL.MAIN);
         // PC와 Mobile 열린메뉴 닫기
@@ -55,14 +54,11 @@ function EgovHeader() {
     });
   };
 
-  console.log("------------------------------EgovHeader [End]");
-  console.groupEnd("EgovHeader");
-
   return (
     // <!-- header -->
     <div className="header">
       <div className="inner">
-        <Link to={URL.MAIN} className="ico lnk_go_template" target="_blank">
+        <Link to={URL.MAIN} className="ico lnk_go_template" target="_blank" rel="noopener noreferrer">
           홈페이지 템플릿 소개 페이지로 이동
         </Link>
 
@@ -116,7 +112,7 @@ function EgovHeader() {
                 알림마당
               </NavLink>
             </li>
-            {sessionUserSe === "ADM" && (
+            {isAdmin && (
               <li>
                 <NavLink
                   to={URL.ADMIN}
@@ -312,7 +308,7 @@ function EgovHeader() {
               </li>
             </ul>
           </div>
-          {sessionUserSe === "ADM" && (
+          {isAdmin && (
             <div className="col">
               <h3>사이트관리</h3>
               <ul>
@@ -539,7 +535,7 @@ function EgovHeader() {
               </li>
             </ul>
           </div>
-          {sessionUserSe === "ADM" && (
+          {isAdmin && (
             <>
               <h3>
                 <Link to={URL.ADMIN}>사이트관리</Link>

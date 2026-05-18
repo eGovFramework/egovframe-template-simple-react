@@ -8,12 +8,8 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 
 function EgovWeeklyList(props) {
-  console.group("EgovWeeklyList");
-  console.log("[Start] EgovWeeklyList ------------------------------");
-  console.log("EgovWeeklyList [props] : ", props);
 
   const location = useLocation();
-  console.log("EgovWeeklyList [location] : ", location);
 
   const DATE = new Date();
   const FIRST_DAY_OF_THIS_WEEK = new Date(
@@ -24,18 +20,8 @@ function EgovWeeklyList(props) {
 
   const getWeekOfMonth = (date) => {
     let adjustedDate = date.getDate() + date.getDay();
-    console.log(
-      "getWeekOfMonth : ",
-      date,
-      date.getDate(),
-      date.getDay(),
-      adjustedDate,
-      adjustedDate / 7,
-      0 | (adjustedDate / 7)
-    );
     let weeksOrder = [0, 1, 2, 3, 4, 5];
     let returnVal = parseInt(weeksOrder[0 | (adjustedDate / 7)]);
-    console.log("returnVal:", returnVal);
     return returnVal;
   };
 
@@ -81,7 +67,6 @@ function EgovWeeklyList(props) {
         searchCondition.date + addtionOfDays
       ); //다음주의 첫날
     }
-    console.log("changedDate : ", changedDate);
     setSearchCondition({
       ...searchCondition,
       year: changedDate.getFullYear(),
@@ -208,7 +193,6 @@ function EgovWeeklyList(props) {
 
   const retrieveList = useCallback(
     (srchcnd) => {
-      console.groupCollapsed("EgovWeeklyList.retrieveList()");
 
       const retrieveListURL =
         "/schedule/week" + EgovNet.getQueryString(srchcnd);
@@ -227,11 +211,9 @@ function EgovWeeklyList(props) {
           drawList();
         },
         function (resp) {
-          console.log("err response : ", resp);
         }
       );
 
-      console.groupEnd("EgovWeeklyList.retrieveList()");
     },
     [drawList]
   );
@@ -270,8 +252,6 @@ function EgovWeeklyList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduleList]);
 
-  console.log("------------------------------EgovWeeklyList [End]");
-  console.groupEnd("EgovWeeklyList");
   return (
     <div className="container">
       <div className="c_wrap">

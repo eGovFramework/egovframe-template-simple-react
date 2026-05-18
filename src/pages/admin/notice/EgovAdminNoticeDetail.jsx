@@ -12,13 +12,9 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
 function EgovAdminNoticeDetail(props) {
-  console.group("EgovAdminNoticeDetail");
-  console.log("------------------------------");
-  console.log("EgovAdminNoticeDetail [props] : ", props);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("EgovAdminNoticeDetail [location] : ", location);
 
   // 직접 URL 접근 시 location.state가 null일 수 있음
   const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
@@ -59,7 +55,6 @@ function EgovAdminNoticeDetail(props) {
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
-      console.log("====>>> board delete= ", resp);
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
         alert("게시글이 삭제되었습니다.");
         navigate(URL.ADMIN_NOTICE, { replace: true });
@@ -83,7 +78,6 @@ function EgovAdminNoticeDetail(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.groupEnd("EgovAdminNoticeDetail");
 
   return (
     <div className="container">
