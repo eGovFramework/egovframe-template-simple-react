@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: egovframe-template-simple-react:${APP_VERSION:-5.0.0}
+    container_name: egov-simple-react
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
