@@ -321,7 +321,7 @@ function EgovAdminMemberEdit(props) {
                             mberId: e.target.value,
                           })
                         }
-                        ref={(el) => (checkRef.current[0] = el)}
+                        ref={(el) => { checkRef.current[0] = el; }}
                         required
                       />
                       <button
@@ -344,7 +344,7 @@ function EgovAdminMemberEdit(props) {
                       id="mberId"
                       placeholder=""
                       defaultValue={memberDetail.mberId}
-                      ref={(el) => (checkRef.current[0] = el)}
+                      ref={(el) => { checkRef.current[0] = el; }}
                       readOnly
                       required
                     />
@@ -373,7 +373,7 @@ function EgovAdminMemberEdit(props) {
                           password: e.target.value,
                         })
                       }
-                      ref={(el) => (checkRef.current[1] = el)}
+                      ref={(el) => { checkRef.current[1] = el; }}
                       required
                     />
                   )}
@@ -393,7 +393,7 @@ function EgovAdminMemberEdit(props) {
                           password: e.target.value,
                         })
                       }
-                      ref={(el) => (checkRef.current[1] = el)}
+                      ref={(el) => { checkRef.current[1] = el; }}
                     />
                   )}
                 </dd>
@@ -418,7 +418,7 @@ function EgovAdminMemberEdit(props) {
                         mberNm: e.target.value,
                       })
                     }
-                    ref={(el) => (checkRef.current[2] = el)}
+                    ref={(el) => { checkRef.current[2] = el; }}
                     required
                   />
                 </dd>

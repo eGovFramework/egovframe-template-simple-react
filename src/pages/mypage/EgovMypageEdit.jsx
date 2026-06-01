@@ -324,7 +324,7 @@ function EgovMypageEdit(props) {
                             mberId: e.target.value,
                           })
                         }
-                        ref={(el) => (checkRef.current[0] = el)}
+                        ref={(el) => { checkRef.current[0] = el; }}
                         required
                       />
                       <button
@@ -347,7 +347,7 @@ function EgovMypageEdit(props) {
                       id="mberId"
                       placeholder=""
                       defaultValue={memberDetail.mberId}
-                      ref={(el) => (checkRef.current[0] = el)}
+                      ref={(el) => { checkRef.current[0] = el; }}
                       readOnly
                       required
                     />
@@ -376,7 +376,7 @@ function EgovMypageEdit(props) {
                           password: e.target.value,
                         })
                       }
-                      ref={(el) => (checkRef.current[1] = el)}
+                      ref={(el) => { checkRef.current[1] = el; }}
                       required
                     />
                   )}
@@ -396,7 +396,7 @@ function EgovMypageEdit(props) {
                           password: e.target.value,
                         })
                       }
-                      ref={(el) => (checkRef.current[1] = el)}
+                      ref={(el) => { checkRef.current[1] = el; }}
                     />
                   )}
                 </dd>
@@ -421,7 +421,7 @@ function EgovMypageEdit(props) {
                         mberNm: e.target.value,
                       })
                     }
-                    ref={(el) => (checkRef.current[2] = el)}
+                    ref={(el) => { checkRef.current[2] = el; }}
                     required
                   />
                 </dd>
