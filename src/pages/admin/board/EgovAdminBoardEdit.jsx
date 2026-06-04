@@ -291,7 +291,7 @@ function EgovAdminBoardEdit(props) {
                     onChange={(e) =>
                       setBoardDetail({ ...boardDetail, bbsNm: e.target.value })
                     }
-                    ref={(el) => (checkRef.current[0] = el)}
+                    ref={(el) => { checkRef.current[0] = el; }}
                   />
                 </dd>
               </dl>
@@ -310,7 +310,7 @@ function EgovAdminBoardEdit(props) {
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
                     onChange={(e) => handleInputChange("bbsIntrcn", e.target.value)}
-                    ref={(el) => (checkRef.current[1] = el)}
+                    ref={(el) => { checkRef.current[1] = el; }}
                   ></textarea>
                 </dd>
               </dl>
@@ -460,7 +460,7 @@ function EgovAdminBoardEdit(props) {
                         })
                       }
                       value={boardDetail.posblAtchFileNumber}
-                      ref={(el) => (checkRef.current[2] = el)}
+                      ref={(el) => { checkRef.current[2] = el; }}
                     >
                       {posblAtchFileNumberOptions.map((option) => {
                         return (
