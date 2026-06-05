@@ -8,7 +8,7 @@
     "react": "^19.2.6",
     "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^6.30.1",
+    "react-router-dom": "^6.30.4",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
