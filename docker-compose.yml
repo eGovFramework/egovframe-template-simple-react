@@ -1,8 +1,62 @@
 services:
+  # 프론트엔드(nginx 정적 호스팅 + /api 리버스 프록시)
   web:
     build: .
     image: egovframe-template-simple-react:${APP_VERSION:-5.0.0}
     container_name: egov-simple-react
     ports:
-      - "8080:8080"
+      - "${WEB_PORT:-3000}:8080"
+    environment:
+      # nginx 가 /api/* 요청을 전달할 백엔드 주소.
+      # 기본값은 아래 fullstack 프로파일의 backend 서비스를 가리킨다.
+      - BACKEND_URL=${BACKEND_URL:-http://egov-simple-backend:8080}
     restart: unless-stopped
+
+  # 백엔드(심플 홈페이지 Backend) — fullstack 프로파일에서만 기동되어 로그인/CRUD 까지 한 번에 동작한다.
+  # 전제: egovframe-template-simple-backend:${BACKEND_VERSION} 이미지가 미리 빌드되어 있어야 한다.
+  #   git clone https://github.com/eGovFramework/egovframe-template-simple-backend.git
+  #   cd egovframe-template-simple-backend && docker build -t egovframe-template-simple-backend:5.0.0 .
+  backend:
+    image: egovframe-template-simple-backend:${BACKEND_VERSION:-5.0.0}
+    container_name: egov-simple-backend
+    profiles: ["fullstack"]
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_TYPE=mysql
+      - DB_URL=jdbc:mysql://mysql-db:3306/${MYSQL_DATABASE:-egovdb}?useSSL=false&allowPublicKeyRetrieval=true
+      - DB_USERNAME=${MYSQL_USER:-egov}
+      - DB_PASSWORD=${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql-db:
+    image: mysql:${MYSQL_VERSION:-8.0.39}
+    container_name: mysql-db
+    profiles: ["fullstack"]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD must be set in .env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-egovdb}
+      MYSQL_USER: ${MYSQL_USER:-egov}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?MYSQL_PASSWORD must be set in .env}
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # 최초 기동 시 스키마(DDL)/데이터(DML)를 적재한다.
+      # 경로는 백엔드 저장소를 이 저장소와 같은 상위 디렉토리에 clone 했다고 가정한다.
+      # 위치가 다르면 BACKEND_DB_DIR 환경변수로 조정한다.
+      - ${BACKEND_DB_DIR:-../egovframe-template-simple-backend/DATABASE}/all_sht_ddl_mysql.sql:/docker-entrypoint-initdb.d/01-ddl.sql:ro
+      - ${BACKEND_DB_DIR:-../egovframe-template-simple-backend/DATABASE}/all_sht_data_mysql.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysql --protocol=TCP -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD -e 'SELECT 1' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  mysql-data: {}
