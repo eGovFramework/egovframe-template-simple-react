@@ -78,7 +78,7 @@ function EgovAttachFile({
 
   let filesTag = [];
 
-  if (boardFiles !== undefined) {
+  if (Array.isArray(boardFiles)) {
     boardFiles.forEach(function (item, index) {
       filesTag.push(
         <React.Fragment key={index}>
