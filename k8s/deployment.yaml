@@ -33,10 +33,10 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             # nginx 가 /api/* 요청을 전달할 백엔드 주소.
-            # 같은 네임스페이스에 백엔드 Service(egov-simple-backend:8080)가 있다고 가정한다.
-            # 클러스터 구성에 맞게 수정한다(예: http://egov-simple-backend.<ns>.svc.cluster.local:8080).
+            # 백엔드 템플릿(egovframe-template-simple-backend)의 k8s Service 이름과 일치시킨다.
+            # 클러스터 구성에 맞게 수정한다(예: http://egovframe-template-simple-backend.<ns>.svc.cluster.local:8080).
             - name: BACKEND_URL
-              value: "http://egov-simple-backend:8080"
+              value: "http://egovframe-template-simple-backend:8080"
           ports:
             - name: http
               containerPort: 8080

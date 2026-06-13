@@ -138,6 +138,10 @@ npm install
 VITE_APP_EGOV_CONTEXT_URL=localhost:8080
 ```
 
+> `VITE_APP_EGOV_CONTEXT_URL` 은 개발 서버(`npm run dev`) 흐름에서 백엔드를 별도 호스트로 직접 호출할 때 사용하는 변수다.
+> 컨테이너/Kubernetes 배포에서는 nginx 가 `/api` 로 리버스 프록시하므로 이 변수 대신 `BACKEND_URL`(런타임 주입)을 사용한다.
+> 자세한 내용은 아래 "컨테이너 배포" 절을 참고한다.
+
 ### 3. 프로젝트 실행 및 기타 명령어
 
 ```bash
@@ -229,9 +233,10 @@ kubectl port-forward svc/egov-simple-react 3000:8080
 # http://localhost:3000/ 접속
 ```
 
-백엔드 연동: `k8s/deployment.yaml` 의 `BACKEND_URL` 환경변수가 같은 네임스페이스의 백엔드 Service
-(`http://egov-simple-backend:8080`)를 가리키도록 기본 설정되어 있다. 백엔드를 함께 배포한 뒤
-클러스터 구성에 맞게 값을 조정한다(예: `http://egov-simple-backend.<namespace>.svc.cluster.local:8080`).
+백엔드 연동: `k8s/deployment.yaml` 의 `BACKEND_URL` 환경변수가 백엔드 템플릿
+(`egovframe-template-simple-backend`)의 k8s Service 이름과 일치하도록 `http://egovframe-template-simple-backend:8080`
+으로 기본 설정되어 있다. 백엔드를 함께 배포하면 두 매니페스트의 기본값만으로 연동된다. 다른 네임스페이스에
+배포하는 경우 FQDN 으로 조정한다(예: `http://egovframe-template-simple-backend.<namespace>.svc.cluster.local:8080`).
 nginx 컨테이너는 `readOnlyRootFilesystem` 이므로 기동 시 `BACKEND_URL` 치환 결과를
 `emptyDir`(`/etc/nginx/conf.d`)에 기록한다.
 
