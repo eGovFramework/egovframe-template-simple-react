@@ -16,6 +16,16 @@ export default defineConfig(({ mode }) => ({
   base: "/",
   server: {
     port: 3000,
+    // 개발 서버에서도 배포(nginx)와 동일하게 /api prefix 를 백엔드로 프록시한다.
+    // 대상 호스트는 VITE_APP_API_PROXY_TARGET 로 바꿀 수 있고, 미지정 시 로컬 백엔드를 사용한다.
+    // /api/board -> {target}/board 형태로 prefix 를 제거해 전달한다.
+    proxy: {
+      "/api": {
+        target: process.env.VITE_APP_API_PROXY_TARGET || "http://localhost:8080",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
   resolve: {
     alias: [

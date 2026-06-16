@@ -138,6 +138,10 @@ npm install
 VITE_APP_EGOV_CONTEXT_URL=localhost:8080
 ```
 
+> `VITE_APP_EGOV_CONTEXT_URL` 은 개발 서버(`npm run dev`) 흐름에서 백엔드를 별도 호스트로 직접 호출할 때 사용하는 변수다.
+> 컨테이너/Kubernetes 배포에서는 nginx 가 `/api` 로 리버스 프록시하므로 이 변수 대신 `BACKEND_URL`(런타임 주입)을 사용한다.
+> 자세한 내용은 아래 "컨테이너 배포" 절을 참고한다.
+
 ### 3. 프로젝트 실행 및 기타 명령어
 
 ```bash
@@ -163,6 +167,78 @@ npm run test
 # 일회성 테스트를 실행할 경우에는 아래 명령어를 사용한다.
 npm run test:run
 ```
+
+## 컨테이너 배포 (Docker / Kubernetes)
+
+정적 번들을 nginx 로 호스팅하는 컨테이너 이미지와 Kubernetes 매니페스트를 제공한다.
+nginx 가 `/api/*` 요청을 백엔드로 리버스 프록시하므로, 프론트엔드는 백엔드 주소를 빌드 시점에 고정하지 않고
+**동일 출처 상대경로(`/api`)** 로 호출한다. 백엔드 주소는 런타임에 `BACKEND_URL` 환경변수로 주입한다.
+
+> API base 는 `src/config.js` 의 `SERVER_URL` 로 결정되며 기본값은 `/api` 이다.
+> 별도 호스트로 직접 호출해야 하는 경우에만 빌드 시 `VITE_APP_API_BASE_URL` 로 절대 URL 을 지정한다.
+
+### 1. 이미지 빌드
+
+Dockerfile 은 heredoc(`COPY <<'NGINX' ...`) 구문을 사용하므로 **BuildKit 이 필요**하다.
+Docker 20.10+ 에서는 기본 활성화되어 있으며, 비활성 환경이라면 `DOCKER_BUILDKIT=1` 을 지정한다.
+
+```bash
+DOCKER_BUILDKIT=1 docker build -t egovframe-template-simple-react:5.0.0 .
+```
+
+### 2. 로컬 실행 (docker compose)
+
+#### 2-1. 프론트엔드만 실행 (백엔드는 외부에서 구동 중인 경우)
+
+```bash
+# 외부 백엔드 주소를 BACKEND_URL 로 지정 (기본값: http://egov-simple-backend:8080)
+BACKEND_URL=http://host.docker.internal:8080 docker compose up -d web
+
+# http://localhost:3000/ 접속 (WEB_PORT 로 변경 가능)
+```
+
+#### 2-2. 백엔드까지 함께 실행 — 로그인/CRUD 통합 (fullstack 프로파일)
+
+백엔드 이미지와 DB 초기화 스크립트가 필요하다. 다음을 전제로 한다.
+
+- [심플 홈페이지 Backend](https://github.com/eGovFramework/egovframe-template-simple-backend.git) 를 본 저장소와 **같은 상위 디렉토리**에 clone (DB 초기화 SQL 마운트 경로 기준, 다르면 `BACKEND_DB_DIR` 로 조정)
+- 백엔드 이미지 사전 빌드: `egovframe-template-simple-backend:5.0.0`
+
+```bash
+# 백엔드 이미지 빌드 (백엔드 저장소에서)
+git clone https://github.com/eGovFramework/egovframe-template-simple-backend.git
+(cd egovframe-template-simple-backend && DOCKER_BUILDKIT=1 docker build -t egovframe-template-simple-backend:5.0.0 .)
+
+# DB 비밀번호 등 .env 작성 (프론트엔드 저장소 루트)
+cat > .env <<'ENV'
+MYSQL_ROOT_PASSWORD=changeit_root
+MYSQL_PASSWORD=changeit_app
+ENV
+
+# 프론트(nginx) + 백엔드 + MySQL 동시 기동
+docker compose --profile fullstack up -d
+
+# http://localhost:3000/ 접속 후 admin / Admin@1234 로 로그인
+```
+
+이 구성에서 브라우저 → nginx(`/api/*`) → 백엔드(`:8080`) → MySQL 경로로 로그인과 게시판 CRUD 가 한 번에 동작한다.
+
+### 3. Kubernetes 배포
+
+```bash
+kubectl apply -f k8s/
+
+# Service 는 ClusterIP 이므로 port-forward 로 접속한다.
+kubectl port-forward svc/egov-simple-react 3000:8080
+# http://localhost:3000/ 접속
+```
+
+백엔드 연동: `k8s/deployment.yaml` 의 `BACKEND_URL` 환경변수가 백엔드 템플릿
+(`egovframe-template-simple-backend`)의 k8s Service 이름과 일치하도록 `http://egovframe-template-simple-backend:8080`
+으로 기본 설정되어 있다. 백엔드를 함께 배포하면 두 매니페스트의 기본값만으로 연동된다. 다른 네임스페이스에
+배포하는 경우 FQDN 으로 조정한다(예: `http://egovframe-template-simple-backend.<namespace>.svc.cluster.local:8080`).
+nginx 컨테이너는 `readOnlyRootFilesystem` 이므로 기동 시 `BACKEND_URL` 치환 결과를
+`emptyDir`(`/etc/nginx/conf.d`)에 기록한다.
 
 ---
 
