@@ -1,128 +1,173 @@
+let init = false;
 
 export default function initPage() {
+  const sessionUser = sessionStorage.getItem("loginUser");
+  const sessionUserId = JSON.parse(sessionUser)?.id;
 
-    /* 전체메뉴 */
-        // 웹
-        document.querySelector('.btnAllMenu').addEventListener('click', (e) => {
-            const el = e.target;
-    
-            el.classList.toggle('active');
-    
-            const menu = document.querySelector('.all_menu.WEB');
-            if (menu.matches('.closed')) {
-                menu.classList.remove('closed');
-                el.title = '전체메뉴 닫힘';
-            } else {
-                menu.classList.add('closed');
-                el.title = '전체메뉴 열림';
-            }
-        });
+  if (init) return;
+  init = true;
 
-        // 모바일 전체메뉴 열기
-        document.querySelector('.btnAllMenuM').addEventListener('click', (e) => {
-            document.querySelector('.all_menu.Mobile').classList.remove('closed');
-            e.target.title = '전체메뉴 열림';
-        });
+  /* 전체메뉴 */
+  // 웹
+  const webMenuButton = document.querySelector(".btnAllMenu");
+  if (webMenuButton) {
+    webMenuButton.addEventListener("click", handleWebMenuToggle);
+  }
 
-        // 닫기
-        document.querySelector('.user_info_m .close').addEventListener('click', () => {
-            document.querySelector('.all_menu.Mobile').classList.add('closed');
-            document.querySelector('.btnAllMenuM').title = '전체메뉴 닫힘';
-        });
+  // 모바일 전체메뉴 열기
+  const mobileMenuButton = document.querySelector(".btnAllMenuM");
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener("click", handleMobileMenuOpen);
+  }
 
-        // PC 메뉴 항목 클릭시 메뉴 닫기
-        document.querySelector('.all_menu.WEB').addEventListener('click', (e) => {
-            if (e.target.matches('a')) {
-                document.querySelector('.all_menu.WEB').classList.add('closed');
-                document.querySelector('.btnAllMenu').classList.remove('active');
-                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
-            }
-        });
-        // 회원가입, 마이페이지 항목 클릭시 메뉴 닫기
-        document.querySelector('.user_info').addEventListener('click', (e) => {
-            if (e.target.matches('a')) {
-                document.querySelector('.all_menu.WEB').classList.add('closed');
-                document.querySelector('.btnAllMenu').classList.remove('active');
-                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
-            }
-        });
-        // 회원가입, 마이페이지 항목 클릭시 모바일 전체메뉴 열기
-        document.querySelector('.user_info_m').addEventListener('click', (e) => {
-            document.querySelector('.all_menu.Mobile').classList.add('closed');
-        });
-		// Mobile 서브메뉴 항목 클릭시 메뉴 닫기: 2023.04.13(목) 김일국 추가
-        document.querySelectorAll('.all_menu.Mobile .submenu a')
-			.forEach(el => el.addEventListener('click', (e) =>  {
-            	document.querySelector('.all_menu.Mobile').classList.add('closed');
-        }));
-        // 모바일 하위 메뉴 열고 닫기
-        document.querySelectorAll('.all_menu.Mobile h3 a')
-            .forEach(el => el.addEventListener('click', (e) =>  {
-                e.preventDefault();
-                const el = e.target;
+  // 닫기
+  const mobileUserInfoClose = document.querySelector(".user_info_m .close");
+  if (mobileUserInfoClose) {
+    mobileUserInfoClose.addEventListener("click", handleMobileMenuClose);
+  }
 
-                el.classList.toggle('active');
+  // PC 메뉴 항목 클릭시 메뉴 닫기
+  const webAllMenu = document.querySelector(".all_menu.WEB");
+  if (webAllMenu) {
+    webAllMenu.addEventListener("click", handleWebMenuClose);
+  }
 
-                const submenu = el.parentElement.nextElementSibling;
-                if (submenu.matches('.closed')) {
-                    submenu.style.height = submenu.scrollHeight + 'px';
-                    submenu.classList.remove('closed');
-                } else {
-                    submenu.classList.add('closed');
-                    submenu.style.height = '';
-                }
-        }));
+  // 회원가입, 마이페이지 항목 클릭시 메뉴 닫기
+  const webUserInfo = document.querySelector(".user_info");
+  if (webUserInfo) {
+    webUserInfo.addEventListener("click", handleWebMenuClose);
+  }
 
-        // 현재 페이지에는 아직 존재하지 않은 요소에 대한 이벤트 처리
-        document.addEventListener('click', (e) => {
-            const el = e.target;
+  // 회원가입, 마이페이지 항목 클릭시 모바일 전체메뉴 열기
+  const mobileUserInfo = document.querySelector(".user_info_m");
+  if (mobileUserInfo) {
+    mobileUserInfo.addEventListener("click", handleMobileMenuClose);
+  }
 
-            // 메인화면 미니보드
-            if (el.matches('.mini_board .tab li a')) {
-                e.preventDefault();
-                const el = e.target;
-                const tabs = el.closest('.tab');
+  // Mobile 서브메뉴 항목 클릭시 메뉴 닫기
+  document.querySelectorAll(".all_menu.Mobile .submenu a").forEach((el) => {
+    el.removeEventListener("click", handleSubmenuClick);
+    el.addEventListener("click", handleSubmenuClick);
+  });
 
-                // 탭 선택 상태 변경
-                tabs.querySelectorAll('a').forEach(a => a.classList.remove('on'));
-                el.classList.add('on');
+  // 모바일 하위 메뉴 열고 닫기
+  document.querySelectorAll(".all_menu.Mobile h3 a").forEach((el, i, arr) => {
+    if (i === arr.length - 1 && sessionUserId === "admin") {
+      el.removeEventListener("click", handleMobileSubmenuToggle);
+      el.addEventListener("click", handleMobileSubmenuToggle);
+      return;
+    }
 
-                // 미니보드 표시 상태 변경
-                const divs = document.querySelectorAll('.mini_board .list > div');
-                divs.forEach(div => div.style.display = 'none');
+    el.removeEventListener("click", handleMobileSubmenuToggle);
+    el.addEventListener("click", handleMobileSubmenuToggle);
+  });
 
-                var idx = Array.prototype.indexOf.call(tabs.querySelectorAll('a'), el);
-                divs[idx].style.display = 'block';
-            }
+  document.addEventListener("click", handleGlobalClick);
 
-            /* Form */
-            // Checkbox
-            else if (el.matches('.f_chk input')) {
-             el.parentElement.classList[el.checked ? 'add' : 'remove']('on');
-            }
-        });
-        // 홈페이지 템플릿 소개팝업
-        const template = {
-            init: function() {
-                this.$tg = document.querySelector('.TEMPLATE_INTRO');
-                this.$btn = document.querySelector('.lnk_go_template');
-                this.$btnClose = this.$tg.querySelector('.pop_header .close');
-                this.addEvent();
-            },
-            addEvent: function() {
-                this.$btn.addEventListener('click', (e) =>  {
-                e.preventDefault();
-                this.$tg.style.display = 'block';
-                // this.$tg.tabIndex = 0;
-                // this.$tg.focus();
-                });
-            this.$btnClose.addEventListener('click', (e) =>  {
-                e.preventDefault();
-                this.$tg.style.display = 'none';
-                // this.$btnClose.focus();
-                });
-            }
-        }
-    document.querySelector('.lnk_go_template') && template.init();
+  // 홈페이지 템플릿 소개팝업
+  const template = {
+    init: function () {
+      this.$tg = document.querySelector(".TEMPLATE_INTRO");
+      this.$btn = document.querySelector(".lnk_go_template");
+      this.$btnClose = this.$tg.querySelector(".pop_header .close");
+      this.addEvent();
+    },
+    addEvent: function () {
+      this.$btn.addEventListener("click", this.handleOpenPopup.bind(this));
+      this.$btnClose.addEventListener(
+        "click",
+        this.handleClosePopup.bind(this)
+      );
+    },
+    handleOpenPopup: function (e) {
+      e.preventDefault();
+      this.$tg.style.display = "block";
+      this.$tg.setAttribute("tabindex", "-1");
+      this.$tg.focus({ preventScroll: true });
+      this.$tg.addEventListener("keydown", this.handleEsc.bind(this));
+    },
+    handleClosePopup: function (e) {
+      e.preventDefault();
+      this.$tg.style.display = "none";
+      this.$tg.removeEventListener("keydown", this.handleEsc.bind(this));
+    },
+    handleEsc: function (e) {
+      if (e.key === "Escape")
+        this.handleClosePopup(e);
+    },
+  };
+  document.querySelector(".lnk_go_template") && template.init();
+}
 
+// Event Handlers
+function handleSubmenuClick() {
+  document.querySelector(".all_menu.Mobile").classList.add("closed");
+}
+
+function handleWebMenuToggle(e) {
+  const el = e.target;
+
+  el.classList.toggle("active");
+
+  const menu = document.querySelector(".all_menu.WEB");
+  if (menu.matches(".closed")) {
+    menu.classList.remove("closed");
+    el.title = "전체메뉴 닫힘";
+  } else {
+    menu.classList.add("closed");
+    el.title = "전체메뉴 열림";
+  }
+}
+
+function handleMobileMenuOpen(e) {
+  document.querySelector(".all_menu.Mobile").classList.remove("closed");
+  e.target.title = "전체메뉴 열림";
+}
+
+function handleMobileMenuClose() {
+  document.querySelector(".all_menu.Mobile").classList.add("closed");
+  document.querySelector(".btnAllMenuM").title = "전체메뉴 닫힘";
+}
+
+function handleWebMenuClose(e) {
+  if (e.target.matches("a")) {
+    document.querySelector(".all_menu.WEB").classList.add("closed");
+    document.querySelector(".btnAllMenu").classList.remove("active");
+    document.querySelector(".btnAllMenu").title = "전체메뉴 닫힘";
+  }
+}
+
+function handleMobileSubmenuToggle(e) {
+  e.preventDefault();
+  const el = e.target;
+  el.classList.toggle("active");
+
+  const submenu = el.parentElement.nextElementSibling;
+  if (submenu.matches(".closed")) {
+    submenu.style.height = submenu.scrollHeight + "px";
+    submenu.classList.remove("closed");
+  } else {
+    submenu.classList.add("closed");
+    submenu.style.height = "";
+  }
+}
+
+function handleGlobalClick(e) {
+  const el = e.target;
+
+  if (el.matches(".mini_board .tab li a")) {
+    e.preventDefault();
+    const tabs = el.closest(".tab");
+
+    tabs.querySelectorAll("a").forEach((a) => a.classList.remove("on"));
+    el.classList.add("on");
+
+    const divs = document.querySelectorAll(".mini_board .list > div");
+    divs.forEach((div) => (div.style.display = "none"));
+
+    const idx = Array.prototype.indexOf.call(tabs.querySelectorAll("a"), el);
+    divs[idx].style.display = "block";
+  } else if (el.matches(".f_chk input")) {
+    el.parentElement.classList[el.checked ? "add" : "remove"]("on");
+  }
 }

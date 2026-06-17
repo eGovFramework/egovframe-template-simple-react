@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -24,3 +25,6 @@ yarn-error.log*
 
 # code
 .history
+
+# Secrets
+secrets/
