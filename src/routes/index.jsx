@@ -9,6 +9,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import EgovHeader from "@/components/EgovHeader";
 import EgovFooter from "@/components/EgovFooter";
 import EgovInfoPopup from "@/components/EgovInfoPopup";
+//AI-RAG 페이지 호출 버튼 추가 2026.06.18(목) 김일국 추가
+import EgovFloatingButton from "@/components/EgovFloatingButton";
 import EgovError from "@/components/EgovError";
 
 import EgovMain from "@/pages/main/EgovMain";
@@ -378,6 +380,7 @@ const SecondRoutes = () => {
 
       <EgovFooter />
       <EgovInfoPopup />
+      <EgovFloatingButton /> {/* AI-RAG 페이지 호출 버튼 추가 2026.06.18(목) 김일국 추가 */}
     </>
   );
 };
