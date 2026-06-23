@@ -944,7 +944,8 @@ select::-ms-expand {
 }
 .f_rdo input {
   position: absolute;
-  top: -9999px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .f_select {
