@@ -4,8 +4,8 @@ const SnsNaverBt = () => {
   const NAVER_CLIENT_ID = import.meta.env.VITE_APP_NAVER_CLIENTID;
   const REDIRECT_URI = import.meta.env.VITE_APP_NAVER_CALLBACKURL;
 
-  const NaverLogin = () => {
-    const state = issueState("naver");
+  const NaverLogin = async () => {
+    const state = await issueState("naver");
     const url =
       "https://nid.naver.com/oauth2.0/authorize?response_type=code" +
       `&client_id=${encodeURIComponent(NAVER_CLIENT_ID)}` +
