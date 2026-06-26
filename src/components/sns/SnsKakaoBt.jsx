@@ -4,8 +4,8 @@ const SnsKakaoBt = () => {
   const KAKAO_CLIENT_ID = import.meta.env.VITE_APP_KAKAO_CLIENTID;
   const REDIRECT_URI = import.meta.env.VITE_APP_KAKAO_CALLBACKURL;
 
-  const KakaoLogin = () => {
-    const state = issueState("kakao");
+  const KakaoLogin = async () => {
+    const state = await issueState("kakao");
     const url =
       "https://kauth.kakao.com/oauth/authorize?response_type=code" +
       `&client_id=${encodeURIComponent(KAKAO_CLIENT_ID)}` +
