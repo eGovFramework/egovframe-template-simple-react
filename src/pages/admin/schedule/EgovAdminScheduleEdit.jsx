@@ -464,6 +464,7 @@ function EgovAdminScheduleEdit(props) {
                 }}
                 boardFiles={boardAttachFiles}
                 mode={props.mode}
+                ownerRef={{ schdulId: location.state?.schdulId }}
               />
 
               {/* <!-- 버튼영역 --> */}

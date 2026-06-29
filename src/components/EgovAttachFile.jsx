@@ -12,6 +12,7 @@ function EgovAttachFile({
   fnChangeFile,
   fnDeleteFile,
   posblAtchFileNumber,
+  ownerRef = {},
 }) {
 
   // posblAtchFileNumber는 수정일 경우에만 값이 넘어오므로 방어 로직
@@ -45,6 +46,8 @@ function EgovAttachFile({
       body: JSON.stringify({
         atchFileId: atchFileId,
         fileSn: fileSn,
+        // 소유권 검증용 소유 엔티티 컨텍스트 (게시글 bbsId+nttId / 일정 schdulId)
+        ...ownerRef,
       }),
     };
     EgovNet.requestFetch(`/file`, requestOptions, function (resp) {
