@@ -30,7 +30,7 @@
     }
 </style>
 <div class="px-2 py-2">
-    <h4 class="font-bold text-center">Egov심플홈페이지 프런트엔드/서버엔드<br>무엇이든 물어보세요(RAG-검색증강생성AI)</h4>
+    <h4 class="font-bold text-center">Egov심플홈페이지 프런트엔드/백엔드<br>무엇이든 물어보세요(RAG-검색증강생성AI)</h4>
     <!-- 입력 폼 -->
     <form id="chat-form" class="d-flex">
         <input type="text" id="chat-input" class="flex-grow-1 border rounded p-2" placeholder="질문 입력..." required>
@@ -50,8 +50,14 @@
 	    </span>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
+	// URL query parameter에서 serverUrl 추출
+	function getQueryParameter(param) {
+	    const urlParams = new URLSearchParams(window.location.search);
+	    return urlParams.get(param);
+	}
+	const serverUrl = getQueryParameter('serverUrl') || 'http://localhost:8080';
+	
     const form = document.getElementById("chat-form");
     const input = document.getElementById("chat-input");
     const chatBox = document.getElementById("chat-box");
@@ -64,7 +70,7 @@
         const loading = document.querySelector("#loading-image");
         loading.classList.remove("d-none");
         try {
-            const res = await fetch("http://localhost:8080/api/gemini/rag_chat?prompt=" + encodeURIComponent(userMsg), {
+            const res = await fetch(serverUrl +"/api/gemini/rag_chat?prompt=" + encodeURIComponent(userMsg), {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -83,8 +89,23 @@
     });
     function appendMessage(sender, message) {
         const div = document.createElement("div");
-        div.innerHTML = `<strong>${sender}:</strong> <div class="whitespace-pre-line">${message}</div>`;
-        chatBox.prepend(div);//chatBox.appendChild(div);
+        const strong = document.createElement("strong");
+        strong.textContent = sender + ":";
+        
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "whitespace-pre-line";
+        
+        // sender가 사용자 입력인 경우 textContent 사용 (스크립트 실행 방지)
+        if (sender === "나") {
+            messageDiv.textContent = message;
+        } else {
+            // AI 응답인 경우만 HTML 파싱 허용 (마크다운 렌더링)
+            messageDiv.innerHTML = marked.parse(message);
+        }
+        
+        div.appendChild(strong);
+        div.appendChild(messageDiv);
+        chatBox.prepend(div);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 </script>

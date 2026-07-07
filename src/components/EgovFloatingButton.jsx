@@ -1,10 +1,11 @@
 import "../css/floatingButton.css";
+import { SERVER_URL } from "../config/index.js";
 
 function EgovFloatingButton() {
   let aiWindow;
   const openAiWindow = () => {
 	if (!aiWindow || aiWindow.closed) {
-		let url = "/ai_rag.html";
+		let url = "/ai_rag.html?serverUrl=" + SERVER_URL;
 		// 모니터 가로 해상도 - 팝업창 가로 크기 = 오른쪽에 붙는 X 좌표
 		var leftPos = window.screen.width - 600;
 		leftPos += window.screenLeft; // 듀얼 모니터일 때
