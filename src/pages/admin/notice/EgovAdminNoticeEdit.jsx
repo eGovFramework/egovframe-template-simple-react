@@ -236,6 +236,7 @@ function EgovAdminNoticeEdit(props) {
                     boardFiles={boardAttachFiles}
                     mode={props.mode}
                     posblAtchFileNumber={masterBoard.posblAtchFileNumber}
+                    ownerRef={{ bbsId: bbsId, nttId: nttId }}
                   />
                 )}
               {/* <!-- 버튼영역 --> */}
