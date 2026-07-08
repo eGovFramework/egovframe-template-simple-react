@@ -94,7 +94,12 @@ const RootRoutes = () => {
     const isAdmin = roles.includes("ROLE_ADMIN");
 
     if (!isLoggedIn) {
-      if (adminRegex.test(currentPath) || mypageRegex.test(currentPath)) {
+      // 회원가입(/mypage/create)은 비로그인 공개 경로 — 라우트 가드 예외 처리
+      const isPublicPath = currentPath === URL.MYPAGE_CREATE;
+      if (
+        (adminRegex.test(currentPath) || mypageRegex.test(currentPath)) &&
+        !isPublicPath
+      ) {
         setMounted(false);
         alert("로그인이 필요한 경로입니다.");
         window.location.href = URL.LOGIN;
