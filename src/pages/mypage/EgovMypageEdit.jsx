@@ -6,9 +6,11 @@ import URL from "@/constants/url";
 import CODE from "@/constants/code";
 
 import { setSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovMypageEdit(props) {
 
+  const { clear } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const checkRef = useRef([]);
@@ -218,6 +220,7 @@ function EgovMypageEdit(props) {
       EgovNet.requestFetch(deleteMypageURL, requestOptions, (resp) => {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           setSessionItem("loginUser", { id: "" });
+          clear(); // AuthContext 인증 상태 초기화 — 헤더 로그인 표시 즉시 해제
           // PC와 Mobile 열린메뉴 닫기
           document.querySelector(".all_menu.WEB").classList.add("closed");
           document.querySelector(".btnAllMenu").classList.remove("active");
