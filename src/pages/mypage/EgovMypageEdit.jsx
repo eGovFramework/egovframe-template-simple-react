@@ -6,8 +6,10 @@ import URL from "@/constants/url";
 import CODE from "@/constants/code";
 
 import { getSessionItem, setSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovMypageEdit(props) {
+  const { clear } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const checkRef = useRef([]);
@@ -244,7 +246,8 @@ function EgovMypageEdit(props) {
       EgovNet.requestFetch(deleteMypageURL, requestOptions, (resp) => {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           setSessionItem("loginUser", { id: "" });
-          // ACCESS_TOKEN 쿠키는 백엔드가 관리 — 별도 삭제 불필요
+          clear(); // AuthContext 인증 상태 초기화 — 헤더 로그인 표시 즉시 해제
+          // ACCESS_TOKEN 쿠키는 백엔드 /mypage/delete 에서 만료됨
           // PC와 Mobile 열린메뉴 닫기
           document.querySelector(".all_menu.WEB").classList.add("closed");
           document.querySelector(".btnAllMenu").classList.remove("active");
