@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; //Link, 제거
+import { useNavigate } from "react-router-dom"; //Link, 제거
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
@@ -11,7 +11,6 @@ import { useAuth } from "@/contexts/AuthContext";
 function EgovMypageEdit(props) {
   const { clear } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const checkRef = useRef([]);
   //const uniqId = location.state?.uniqId || "";
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
