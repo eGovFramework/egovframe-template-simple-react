@@ -203,6 +203,14 @@ function EgovAdminBoardEdit(props) {
     }
   };
 
+  const handleDelete = (bbsId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    deleteBoardArticle(bbsId);
+  };
+
   const deleteBoardArticle = (bbsId) => {
     const deleteBoardURL = `/bbsMaster/${bbsId}`;
 
@@ -487,7 +495,7 @@ function EgovAdminBoardEdit(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        deleteBoardArticle(boardDetail.bbsId);
+                        handleDelete(boardDetail.bbsId);
                       }}
                     >
                       삭제

@@ -233,6 +233,14 @@ function EgovAdminMemberEdit(props) {
     }
   };
 
+  const handleDelete = (uniqId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    deleteMember(uniqId);
+  }
+
   const deleteMember = (uniqId) => {
     const deleteMemberURL = `/members/delete/${uniqId}`;
 
@@ -481,7 +489,7 @@ function EgovAdminMemberEdit(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        deleteMember(memberDetail.uniqId);
+                        handleDelete(memberDetail.uniqId);
                       }}
                     >
                       삭제
