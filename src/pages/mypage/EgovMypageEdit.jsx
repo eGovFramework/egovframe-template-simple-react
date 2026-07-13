@@ -231,6 +231,14 @@ function EgovMypageEdit(props) {
     }
   };
 
+  const handleDelete = () => {
+    if (!window.confirm("정말 회원 탈퇴하시겠습니까?")) {
+      return;
+    }
+
+    deleteMember();
+  };
+
   const deleteMember = () => {
     if (formObjValidator(checkRef)) {
       const deleteMypageURL = `/mypage/delete`; // /${uniqId} 제거 서버단에서 토큰 값 사용.
@@ -442,7 +450,7 @@ function EgovMypageEdit(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        deleteMember();
+                        handleDelete();
                       }}
                     >
                       탈퇴
