@@ -137,6 +137,10 @@ function EgovAdminMemberEdit(props) {
           alert("암호는 필수 값입니다.");
           return false;
         }
+        if (formData.get("password").length < 6) {
+          alert("암호는 6자 이상이어야 합니다.");
+          return false;
+        }
         if (formData.get("mberNm") === null || formData.get("mberNm") === "") {
           alert("회원명은 필수 값입니다.");
           return false;
@@ -167,6 +171,10 @@ function EgovAdminMemberEdit(props) {
     }
     if (checkRef.current[1].value === "") {
       memberDetail.password = ""; //수정 시 암호값을 입력하지 않으면 공백으로처리
+    }
+    if (checkRef.current[1].value !== "" && checkRef.current[1].value.length < 6) {
+      alert("암호는 6자 이상이어야 합니다.");
+      return false;
     }
     if (checkRef.current[2].value === "") {
       alert("회원명은 필수 값입니다.");
