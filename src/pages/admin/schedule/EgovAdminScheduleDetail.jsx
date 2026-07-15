@@ -84,6 +84,14 @@ function EgovAdminScheduleDetail(props) {
     });
   };
 
+  const handleDelete = (schdulId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteSchedule(schdulId);
+  }
+
   const onClickDeleteSchedule = (schdulId) => {
     const deleteBoardURL = `/schedule/${schdulId}`;
 
@@ -209,7 +217,7 @@ function EgovAdminScheduleDetail(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        onClickDeleteSchedule(location.state?.schdulId);
+                        handleDelete(location.state?.schdulId);
                       }}
                     >
                       삭제

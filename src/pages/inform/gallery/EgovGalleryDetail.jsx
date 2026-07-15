@@ -50,6 +50,14 @@ function EgovGalleryDetail(props) {
     });
   };
 
+  const handleDelete = (bbsId, nttId, atchFileId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteBoardArticle(bbsId, nttId, atchFileId);
+  };
+
   const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
@@ -180,7 +188,7 @@ function EgovGalleryDetail(props) {
                         className="btn btn_skyblue_h46 w_100"
                         onClick={(e) => {
                           e.preventDefault();
-                          onClickDeleteBoardArticle(
+                          handleDelete(
                             boardDetail.bbsId,
                             boardDetail.nttId,
                             boardDetail.atchFileId
