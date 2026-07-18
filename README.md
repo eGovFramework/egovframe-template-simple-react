@@ -130,17 +130,22 @@ npm install
 
 ### 2. 백엔드 프로젝트 설정
 
-구동된 BackEnd 서버의 URL을 본 애플리케이션의 .env.development 파일의 VITE_APP_EGOV_CONTEXT_URL에 설정해 준다.
-(단, 개발환경에서는 사용하는 환경변수 정보는 .env.development, build 시 사용하는 환경변수는 .env.production 에 기입해 준다.)
+프론트엔드는 백엔드를 **동일 출처 상대경로 `/api`** 로 호출한다 (`src/config.js`의 `SERVER_URL`, 기본값 `/api`).
+개발 서버(`npm run dev`)는 `vite.config.js` 의 프록시 설정이 `/api/*` 요청을 백엔드로 전달하므로,
+백엔드가 `http://localhost:8080` 에서 구동 중이면 **추가 설정 없이 바로 동작한다**.
+
+백엔드가 다른 호스트/포트에서 뜰 때만 아래 변수를 사용한다.
 
 ```bash
-# .env.development 예시
-VITE_APP_EGOV_CONTEXT_URL=localhost:8080
+# 개발 서버의 프록시 대상 변경 (.env.development 또는 셸 환경변수)
+VITE_APP_API_PROXY_TARGET=http://192.168.0.10:8080
+
+# 빌드 산출물이 백엔드를 절대 URL로 직접 호출해야 할 때 (빌드 시점)
+VITE_APP_API_BASE_URL=http://api.example.com
 ```
 
-> `VITE_APP_EGOV_CONTEXT_URL` 은 개발 서버(`npm run dev`) 흐름에서 백엔드를 별도 호스트로 직접 호출할 때 사용하는 변수다.
-> 컨테이너/Kubernetes 배포에서는 nginx 가 `/api` 로 리버스 프록시하므로 이 변수 대신 `BACKEND_URL`(런타임 주입)을 사용한다.
-> 자세한 내용은 아래 "컨테이너 배포" 절을 참고한다.
+> 컨테이너/Kubernetes 배포에서는 nginx 가 `/api` 를 리버스 프록시하므로 위 변수 없이 기본값(`/api`)을 그대로 쓰고,
+> 백엔드 주소는 런타임에 `BACKEND_URL` 로 주입한다. 자세한 내용은 아래 "컨테이너 배포" 절을 참고한다.
 
 ### 3. 프로젝트 실행 및 기타 명령어
 
