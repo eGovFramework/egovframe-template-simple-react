@@ -10,11 +10,16 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform"
 import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
+import { useAuth } from "@/contexts/AuthContext";
 
 function EgovGalleryList(props) {
 
   const cndRef = useRef();
   const wrdRef = useRef();
+
+  // 관리자 권한 체크: 백엔드 /auth/me 결과 사용
+  const { roles } = useAuth();
+  const isAdmin = roles.includes("ROLE_ADMIN");
 
   const bbsId = GALLERY_BBS_ID;
 
@@ -181,7 +186,9 @@ function EgovGalleryList(props) {
                     </button>
                   </span>
                 </li>
-                {user.id && masterBoard.bbsUseFlag === "Y" && (
+                {user && 
+                  isAdmin &&
+                  masterBoard.bbsUseFlag === "Y" && (
                   <li>
                     <Link
                       to={URL.INFORM_GALLERY_CREATE}
