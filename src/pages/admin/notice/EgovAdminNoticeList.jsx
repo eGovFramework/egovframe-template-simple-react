@@ -46,7 +46,7 @@ function EgovAdminNoticeList(props) {
 
         const resultCnt = parseInt(resp.result.resultCnt);
         const currentPageNo = resp.result.paginationInfo.currentPageNo;
-        const pageSize = resp.result.paginationInfo.pageSize;
+        const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach(function (item, index) {
@@ -54,7 +54,7 @@ function EgovAdminNoticeList(props) {
           const listIdx = itemIdxByPage(
             resultCnt,
             currentPageNo,
-            pageSize,
+            recordCountPerPage,
             index
           );
 

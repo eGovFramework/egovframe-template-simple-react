@@ -55,7 +55,7 @@ function EgovAdminMemberList(props) {
             resp.result.paginationInfo.totalRecordCount
           );
           const currentPageNo = resp.result.paginationInfo.currentPageNo;
-          const pageSize = resp.result.paginationInfo.pageSize;
+          const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
           // 리스트 항목 구성
           resp.result.resultList.forEach(function (item, index) {
             let authNm = "";
@@ -66,7 +66,7 @@ function EgovAdminMemberList(props) {
             const listIdx = itemIdxByPage(
               resultCnt,
               currentPageNo,
-              pageSize,
+              recordCountPerPage,
               index
             );
             mutListTag.push(
