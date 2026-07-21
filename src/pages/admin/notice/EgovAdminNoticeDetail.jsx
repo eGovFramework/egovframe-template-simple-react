@@ -11,7 +11,7 @@ import { NOTICE_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovAdminNoticeDetail(props) {
+function EgovAdminNoticeDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();

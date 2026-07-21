@@ -7,7 +7,7 @@ import URL from "@/constants/url";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovDailyDetail(props) {
+function EgovDailyDetail() {
 
   const location = useLocation();
 

@@ -12,7 +12,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform"
 import EgovAttachFile from "@/components/EgovAttachFile";
 import { useAuth } from "@/contexts/AuthContext";
 
-function EgovNoticeDetail(props) {
+function EgovNoticeDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();

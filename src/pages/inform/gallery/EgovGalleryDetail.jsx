@@ -13,7 +13,7 @@ import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
 import { getSessionItem } from "@/utils/storage";
 
-function EgovGalleryDetail(props) {
+function EgovGalleryDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();

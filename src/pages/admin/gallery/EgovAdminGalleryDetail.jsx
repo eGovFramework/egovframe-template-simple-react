@@ -12,7 +12,7 @@ import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
 
-function EgovAdminGalleryDetail(props) {
+function EgovAdminGalleryDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();

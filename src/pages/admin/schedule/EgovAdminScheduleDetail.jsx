@@ -8,7 +8,7 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovAdminScheduleDetail(props) {
+function EgovAdminScheduleDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();

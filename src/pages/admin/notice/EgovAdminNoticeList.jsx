@@ -11,7 +11,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminNoticeList(props) {
+function EgovAdminNoticeList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
@@ -94,7 +94,7 @@ function EgovAdminNoticeList(props) {
           ); // 게시판 목록 초기값
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);

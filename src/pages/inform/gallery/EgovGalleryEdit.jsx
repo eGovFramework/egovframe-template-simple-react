@@ -16,7 +16,6 @@ import { useDebouncedInput } from "@/hooks/useDebounce";
 function EgovGalleryEdit(props) {
   //관리자 권한 체크때문에 추가(아래)
   const sessionUser = getSessionItem("loginUser");
-  const sessionUniqId = sessionUser?.uniqId;
   const sessionId = sessionUser?.id;
 
   const navigate = useNavigate();

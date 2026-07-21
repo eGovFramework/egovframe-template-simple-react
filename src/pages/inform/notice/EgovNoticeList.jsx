@@ -12,7 +12,7 @@ import EgovPaging from "@/components/EgovPaging";
 import { itemIdxByPage } from "@/utils/calc";
 import { useAuth } from "@/contexts/AuthContext";
 
-function EgovNoticeList(props) {
+function EgovNoticeList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
@@ -96,7 +96,7 @@ function EgovNoticeList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);

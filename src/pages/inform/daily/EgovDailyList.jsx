@@ -7,7 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 
-function EgovDailyList(props) {
+function EgovDailyList() {
 
   const location = useLocation();
 
@@ -114,7 +114,7 @@ function EgovDailyList(props) {
           setScheduleList(resp.result.resultList);
           drawList();
         },
-        function (resp) {
+        function () {
         }
       );
 

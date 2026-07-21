@@ -9,7 +9,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminBoardList(props) {
+function EgovAdminBoardList() {
 
   const location = useLocation();
 
@@ -89,7 +89,7 @@ function EgovAdminBoardList(props) {
 
           setListTag(mutListTag);
         },
-        function (resp) {
+        function () {
         }
       );
     },

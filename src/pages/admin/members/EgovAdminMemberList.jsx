@@ -9,7 +9,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminMemberList(props) {
+function EgovAdminMemberList() {
   const location = useLocation();
 
   // eslint-disable-next-line no-unused-vars
@@ -96,7 +96,7 @@ function EgovAdminMemberList(props) {
             ); // 회원 목록 초기값
           setListTag(mutListTag);
         },
-        function (resp) {
+        function () {
         }
       );
     },

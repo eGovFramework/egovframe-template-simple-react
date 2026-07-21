@@ -11,7 +11,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminGalleryList(props) {
+function EgovAdminGalleryList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
@@ -93,7 +93,7 @@ function EgovAdminGalleryList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);

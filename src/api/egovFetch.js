@@ -2,7 +2,7 @@ import { SERVER_URL } from "../config";
 
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
-import { getSessionItem, setSessionItem } from "@/utils/storage";
+import { setSessionItem } from "@/utils/storage";
 import { logger } from "@/utils/logger";
 
 export function getQueryString(params) {

@@ -5,7 +5,7 @@ import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
-function EgovAdminPasswordUpdate(props) {
+function EgovAdminPasswordUpdate() {
 
   const navigate = useNavigate();
   const [oldPassword, setOldPassword] = useState("");

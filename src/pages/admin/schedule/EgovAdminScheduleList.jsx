@@ -7,7 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
-function EgovAdminScheduleList(props) {
+function EgovAdminScheduleList() {
 
   const location = useLocation();
 
@@ -26,6 +26,8 @@ function EgovAdminScheduleList(props) {
 
   const [scheduleList, setScheduleList] = useState([]);
 
+  // 디버그 로거 스텁 — 가변 인자 로거(호출부마다 인자 수 다름) 켤 때 console.log(...args)
+  // eslint-disable-next-line no-unused-vars
   const innerConsole = (...args) => {
   };
 
@@ -80,18 +82,13 @@ function EgovAdminScheduleList(props) {
       (resp) => {
         setScheduleList(resp.result.resultList);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);
 
   const drawCalendar = () => {
-    const PREV_MONTH_ADDITION = -1;
-
-    let lastOfLastMonth = getLastDateOfMonth(
-      searchCondition.year,
-      searchCondition.month + PREV_MONTH_ADDITION
-    );
+    
     let firstOfThisMonth = getFirstDateOfMonth(
       searchCondition.year,
       searchCondition.month
