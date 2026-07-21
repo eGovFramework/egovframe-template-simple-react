@@ -181,7 +181,7 @@ function EgovGalleryList(props) {
                     </button>
                   </span>
                 </li>
-                {user.id && masterBoard.bbsUseFlag === "Y" && (
+                {user?.id && masterBoard.bbsUseFlag === "Y" && (
                   <li>
                     <Link
                       to={URL.INFORM_GALLERY_CREATE}

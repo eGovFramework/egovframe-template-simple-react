@@ -169,8 +169,7 @@ function EgovGalleryDetail(props) {
 
               <div className="board_btn_area">
                 {sessionUniqId === boardDetail.frstRegisterId &&
-                  user &&
-                  user.id &&
+                  user?.id &&
                   masterBoard.bbsUseFlag === "Y" && (
                     <div className="left_col btn3">
                       <Link
@@ -212,7 +211,7 @@ function EgovGalleryDetail(props) {
                     </div>
                   )}
                 <div className="right_col btn1">
-                  {user.id &&
+                  {user?.id &&
                     masterBoard.bbsUseFlag === "Y" &&
                     masterBoard.replyPosblAt === "Y" && (
                       <Link
