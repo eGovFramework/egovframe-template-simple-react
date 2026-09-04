@@ -46,6 +46,7 @@ describe("EgovPaging", () => {
     render(<EgovPaging pagination={pagination} moveToPage={vi.fn()} />);
     const currentBtn = screen.getByText("2").closest("button");
     expect(currentBtn).toHaveClass("cur");
+    expect(currentBtn).toHaveAttribute("aria-current", "page");
   });
 
   it("전체 페이지가 pageSize를 초과하면 처음/이전/다음/마지막 버튼을 렌더링한다", () => {
@@ -59,6 +60,7 @@ describe("EgovPaging", () => {
     expect(screen.getByText("처음")).toBeInTheDocument();
     expect(screen.getByText("이전")).toBeInTheDocument();
     expect(screen.getByText("다음")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "마지막" })).toBeInTheDocument();
   });
 
   it("페이지 번호 클릭 시 moveToPage를 해당 번호로 호출한다", async () => {
