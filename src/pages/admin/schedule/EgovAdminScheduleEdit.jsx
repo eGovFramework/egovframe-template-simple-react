@@ -122,11 +122,14 @@ function EgovAdminScheduleEdit(props) {
         body: formData,
       };
 
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
-        modeInfo.editURL = `${modeInfo.editURL}/${location.state?.schdulId}`;
-      }
+      // 형제 게시판 수정 화면들처럼 수정 URL 을 여기서 한 번 계산한다.
+      // 상태(modeInfo.editURL)를 제자리에서 이어 붙이면 저장을 다시 누를 때 겹친다.
+      const editURL =
+        modeInfo.mode === CODE.MODE_MODIFY
+          ? `${modeInfo.editURL}/${location.state?.schdulId}`
+          : modeInfo.editURL;
 
-      EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
+      EgovNet.requestFetch(editURL, requestOptions, (resp) => {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           navigate({ pathname: URL.ADMIN_SCHEDULE });
         } else {

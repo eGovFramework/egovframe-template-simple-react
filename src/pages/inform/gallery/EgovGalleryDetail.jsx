@@ -11,16 +11,11 @@ import { GALLERY_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
-import { getSessionItem } from "@/utils/storage";
 
 function EgovGalleryDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUniqId = sessionUser?.uniqId;
 
   const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
   const nttId = location.state?.nttId;
@@ -168,7 +163,7 @@ function EgovGalleryDetail() {
               </div>
 
               <div className="board_btn_area">
-                {sessionUniqId === boardDetail.frstRegisterId &&
+                {user?.uniqId === boardDetail.frstRegisterId &&
                   user?.id &&
                   masterBoard.bbsUseFlag === "Y" && (
                     <div className="left_col btn3">

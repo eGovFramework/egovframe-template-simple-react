@@ -10,13 +10,12 @@ import { GALLERY_BBS_ID } from "@/config";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormVaildator from "@/utils/bbsFormVaildator";
-import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovGalleryEdit(props) {
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionId = sessionUser?.id;
+  // 로그인 여부는 백엔드 /auth/me 결과 사용
+  const { user } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -244,7 +243,7 @@ function EgovGalleryEdit(props) {
                 )}
               {/* <!-- 버튼영역 --> */}
               <div className="board_btn_area">
-                {sessionId && (
+                {user?.id && (
                   <div className="left_col btn1">
                     <a
                       href="#!"
