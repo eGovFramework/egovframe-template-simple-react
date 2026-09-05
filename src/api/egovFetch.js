@@ -6,9 +6,7 @@ import { setSessionItem } from "@/utils/storage";
 import { logger } from "@/utils/logger";
 
 export function getQueryString(params) {
-  return `?${Object.entries(params)
-    .map((e) => e.join("="))
-    .join("&")}`;
+  return `?${new URLSearchParams(params).toString()}`;
 }
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {

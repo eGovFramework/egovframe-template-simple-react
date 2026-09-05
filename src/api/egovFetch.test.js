@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-import { requestFetch } from "@/api/egovFetch";
+import { getQueryString, requestFetch } from "@/api/egovFetch";
 import CODE from "@/constants/code";
 
 /**
@@ -48,5 +48,33 @@ describe("requestFetch 인증 오류 처리", () => {
 
     expect(errorHandler).not.toHaveBeenCalled();
     expect(alertSpy).toHaveBeenCalledTimes(1);
+  });
+});
+
+/**
+ * 목록 조회 쿼리스트링은 사용자가 입력한 검색어를 그대로 싣는다.
+ * 인코딩하지 않으면 `#` 뒤가 잘리고 `&` 가 파라미터를 쪼개 서버가 다른 조건으로 조회한다.
+ * 같은 검색어를 주소창에 남기는 useListNavigation 은 이미 인코딩한다.
+ */
+describe("getQueryString", () => {
+  it("검색어의 특수문자를 인코딩한다", () => {
+    expect(
+      getQueryString({
+        bbsId: "BBSMSTR_AAA",
+        pageIndex: 1,
+        searchCnd: "0",
+        searchWrd: "C#5 & C++",
+      })
+    ).toBe("?bbsId=BBSMSTR_AAA&pageIndex=1&searchCnd=0&searchWrd=C%235+%26+C%2B%2B");
+  });
+
+  it("인코딩한 쿼리스트링에서 원래 검색어를 되읽을 수 있다", () => {
+    const searchWrd = "C#5 & C++";
+    const url = new URL(
+      "/board" + getQueryString({ bbsId: "BBSMSTR_AAA", searchWrd }),
+      "http://localhost"
+    );
+
+    expect(url.searchParams.get("searchWrd")).toBe(searchWrd);
   });
 });
