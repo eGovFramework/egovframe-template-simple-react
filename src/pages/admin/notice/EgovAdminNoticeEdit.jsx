@@ -132,7 +132,7 @@ function EgovAdminNoticeEdit(props) {
     }
   };
 
-  const Location = React.memo(function Location(masterBoard) {
+  const Location = React.memo(function Location({ masterBoard }) {
     return (
       <div className="location">
         <ul>
@@ -160,7 +160,7 @@ function EgovAdminNoticeEdit(props) {
     <div className="container">
       <div className="c_wrap">
         {/* <!-- Location --> */}
-        <Location />
+        <Location masterBoard={masterBoard} />
         {/* <!--// Location --> */}
 
         <div className="layout">
