@@ -13,6 +13,7 @@ function EgovAdminMemberEdit(props) {
   const location = useLocation();
   const checkRef = useRef([]);
   const uniqId = location.state?.uniqId || "";
+  const searchCondition = location.state?.searchCondition;
   const mberSttusRadioGroup = [
     { value: "P", label: "가능" },
     { value: "A", label: "대기" },
@@ -207,7 +208,10 @@ function EgovAdminMemberEdit(props) {
           EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
             if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
               alert("회원 정보가 등록되었습니다.");
-              navigate({ pathname: URL.ADMIN_MEMBERS });
+              navigate(
+                { pathname: URL.ADMIN_MEMBERS },
+                { state: { searchCondition } }
+              );
             } else {
               navigate(
                 { pathname: URL.ERROR },
@@ -229,7 +233,10 @@ function EgovAdminMemberEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_MEMBERS });
+            navigate(
+              { pathname: URL.ADMIN_MEMBERS },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -508,6 +515,7 @@ function EgovAdminMemberEdit(props) {
                 <div className="right_col btn1">
                   <Link
                     to={URL.ADMIN_MEMBERS}
+                    state={{ searchCondition }}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

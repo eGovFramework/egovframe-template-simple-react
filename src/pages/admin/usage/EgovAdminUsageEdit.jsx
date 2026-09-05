@@ -15,6 +15,7 @@ function EgovAdminUsageEdit(props) {
 
   const bbsId = location.state?.bbsId || "";
   const trgetId = location.state?.trgetId || "SYSTEM_DEFAULT_BOARD";
+  const searchCondition = location.state?.searchCondition;
 
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [boardDetail, setBoardDetail] = useState({});
@@ -125,7 +126,10 @@ function EgovAdminUsageEdit(props) {
     const usageEdit = () => {
       EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-          navigate({ pathname: URL.ADMIN_USAGE });
+          navigate(
+            { pathname: URL.ADMIN_USAGE },
+            { state: { searchCondition } }
+          );
         } else {
           navigate(
             { pathname: URL.ERROR },
@@ -329,7 +333,11 @@ function EgovAdminUsageEdit(props) {
                     {" "}
                     저장
                   </button>
-                  <Link to={URL.ADMIN_USAGE} className="btn btn_blue_h46 w_100">
+                  <Link
+                    to={URL.ADMIN_USAGE}
+                    state={{ searchCondition }}
+                    className="btn btn_blue_h46 w_100"
+                  >
                     목록
                   </Link>
                 </div>
