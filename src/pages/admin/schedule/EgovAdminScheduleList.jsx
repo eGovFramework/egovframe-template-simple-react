@@ -200,7 +200,7 @@ function EgovAdminScheduleList() {
                           <>
                             <Link
                               to={{ pathname: URL.ADMIN_SCHEDULE_DETAIL }}
-                              state={{ schdulId: schedule.schdulId }}
+                              state={{ schdulId: schedule.schdulId, searchCondition }}
                               key={keyIdx++}
                             >
                               {schedule.schdulNm}

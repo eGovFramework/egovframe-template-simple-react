@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
+import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
 function EgovDailyDetail() {
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [scheduleDetail, setScheduleDetail] = useState({});
@@ -23,7 +25,23 @@ function EgovDailyDetail() {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      let rawScheduleDetail = resp.result.scheduleDetail;
+      const resultCode = Number(resp.resultCode);
+      const rawScheduleDetail = resp.result?.scheduleDetail;
+      if (resultCode === Number(CODE.RCV_ERROR_NOT_FOUND) ||
+          (resultCode === Number(CODE.RCV_SUCCESS) && !rawScheduleDetail)) {
+        alert("일정이 존재하지 않거나 삭제되었습니다.");
+        const listURL = location.state?.prevPath === URL.INFORM_WEEKLY
+          ? URL.INFORM_WEEKLY : URL.INFORM_DAILY;
+        navigate(listURL, {
+          replace: true,
+          state: { searchCondition: location.state?.searchCondition },
+        });
+        return;
+      }
+      if (resultCode !== Number(CODE.RCV_SUCCESS)) {
+        navigate({ pathname: URL.ERROR }, { state: { msg: resp.resultMessage } });
+        return;
+      }
       rawScheduleDetail.startDateTime = convertDate(
         rawScheduleDetail.schdulBgnde
       );
