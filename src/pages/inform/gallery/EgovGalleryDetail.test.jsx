@@ -42,7 +42,7 @@ describe("사이트갤러리 상세", () => {
   beforeEach(() => {
     sessionStorage.clear(); // 새 탭 — 이 탭에는 로그인 캐시가 없다
     global.fetch = vi.fn(() =>
-      Promise.resolve({ json: () => Promise.resolve(detailResponse) })
+      Promise.resolve({ ok: true, json: () => Promise.resolve(detailResponse) })
     );
   });
 
@@ -58,6 +58,7 @@ describe("사이트갤러리 상세", () => {
   it("작성자가 아니면 수정 버튼을 보여주지 않는다", async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
         json: () =>
           Promise.resolve({
             ...detailResponse,

@@ -6,9 +6,7 @@ import { setSessionItem } from "@/utils/storage";
 import { logger } from "@/utils/logger";
 
 export function getQueryString(params) {
-  return `?${Object.entries(params)
-    .map((e) => e.join("="))
-    .join("&")}`;
+  return `?${new URLSearchParams(params).toString()}`;
 }
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
@@ -19,6 +17,9 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
 
   fetch(SERVER_URL + url, requestOptions)
     .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
       return response.json();
     })
     .then((resp) => {
@@ -37,7 +38,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     })
     .catch((error) => {
       logger.error("requestFetch error"); // 26.03.04 KISA 보안취약점 조치 : error 객체 미노출
-      if (error === "TypeError: Failed to fetch") {
+      if (error instanceof TypeError) {
         alert("서버와의 연결이 원활하지 않습니다. 서버를 확인하세요.");
       }
 
