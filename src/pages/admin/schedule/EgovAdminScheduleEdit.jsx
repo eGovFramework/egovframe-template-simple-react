@@ -96,7 +96,21 @@ function EgovAdminScheduleEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      let rawScheduleDetail = resp.result.scheduleDetail;
+      const resultCode = Number(resp.resultCode);
+      const rawScheduleDetail = resp.result?.scheduleDetail;
+      if (resultCode === Number(CODE.RCV_ERROR_NOT_FOUND) ||
+          (resultCode === Number(CODE.RCV_SUCCESS) && !rawScheduleDetail)) {
+        alert("일정이 존재하지 않거나 삭제되었습니다.");
+        navigate(URL.ADMIN_SCHEDULE, {
+          replace: true,
+          state: { searchCondition: location.state?.searchCondition },
+        });
+        return;
+      }
+      if (resultCode !== Number(CODE.RCV_SUCCESS)) {
+        navigate({ pathname: URL.ERROR }, { state: { msg: resp.resultMessage } });
+        return;
+      }
       //기본값 설정
       setScheduleDetail({
         ...scheduleDetail,
@@ -486,6 +500,7 @@ function EgovAdminScheduleEdit(props) {
                 <div className="right_col btn1">
                   <Link
                     to={URL.ADMIN_SCHEDULE}
+                    state={{ searchCondition: location.state?.searchCondition }}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록
