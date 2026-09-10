@@ -1,4 +1,4 @@
-const bbsFormVaildator = (formData) => {
+const bbsFormValidator = (formData) => {
     if (formData.get('nttSj') === null || formData.get('nttSj') === "") {
         alert("제목은 필수 값입니다.");
         return false;
@@ -10,4 +10,4 @@ const bbsFormVaildator = (formData) => {
     return true;
 };
 
-export default bbsFormVaildator;
+export default bbsFormValidator;
