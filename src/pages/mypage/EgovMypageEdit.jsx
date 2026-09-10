@@ -64,6 +64,9 @@ function EgovMypageEdit(props) {
       if (modeInfo.mode === CODE.MODE_MODIFY) {
         if (resp && resp.result && resp.result.mberManageVO) {
           setMemberDetail(resp.result.mberManageVO);
+        } else if (Number(resp.resultCode) === Number(CODE.RCV_ERROR_NOT_FOUND)) {
+          alert(resp.resultMessage || "회원 정보를 찾을 수 없습니다.");
+          window.location.href = URL.LOGIN;
         } else if (resp && resp.resultCode === "403") {
           // 백엔드에서 반환한 에러 메시지가 있으면 사용
           const errorMessage =

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
@@ -27,21 +28,17 @@ function EgovAdminScheduleDetail() {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      const resultCode = Number(resp.resultCode);
-      const rawScheduleDetail = resp.result?.scheduleDetail;
-      if (resultCode === Number(CODE.RCV_ERROR_NOT_FOUND) ||
-          (resultCode === Number(CODE.RCV_SUCCESS) && !rawScheduleDetail)) {
-        alert("일정이 존재하지 않거나 삭제되었습니다.");
-        navigate(URL.ADMIN_SCHEDULE, {
-          replace: true,
-          state: { searchCondition: location.state?.searchCondition },
-        });
-        return;
-      }
-      if (resultCode !== Number(CODE.RCV_SUCCESS)) {
-        navigate({ pathname: URL.ERROR }, { state: { msg: resp.resultMessage } });
-        return;
-      }
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.ADMIN_SCHEDULE,
+        searchCondition: location.state?.searchCondition,
+        message: "일정이 존재하지 않거나 삭제되었습니다.",
+        resultKey: "scheduleDetail",
+      }) ) return;
+
+      const rawScheduleDetail = resp.result.scheduleDetail;
+
       rawScheduleDetail.startDateTime = convertDate(
         rawScheduleDetail.schdulBgnde
       );
