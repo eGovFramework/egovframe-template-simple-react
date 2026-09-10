@@ -72,7 +72,7 @@ function EgovAdminBoardList() {
                 to={{ pathname: URL.ADMIN_BOARD_MODIFY }}
                 state={{
                   bbsId: item.bbsId,
-                  searchCondition: searchCondition,
+                  searchCondition: srchCnd,
                 }}
                 key={listIdx}
                 className="list_item"
@@ -93,7 +93,7 @@ function EgovAdminBoardList() {
         }
       );
     },
-    [listTag, searchCondition]
+    [listTag]
   );
 
   useEffect(() => {
@@ -144,6 +144,7 @@ function EgovAdminBoardList() {
                       id="searchCnd"
                       name="searchCnd"
                       title="검색유형선택"
+                      defaultValue={searchCondition.searchCnd}
                       ref={cndRef}
                       onChange={(e) => {
                         cndRef.current.value = e.target.value;

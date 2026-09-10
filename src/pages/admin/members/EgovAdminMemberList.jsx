@@ -74,7 +74,7 @@ function EgovAdminMemberList() {
                 to={{ pathname: URL.ADMIN_MEMBERS_MODIFY }}
                 state={{
                   uniqId: item.uniqId,
-                  searchCondition: searchCondition,
+                  searchCondition: srchCnd,
                 }}
                 key={listIdx}
                 className="list_item"
@@ -100,7 +100,7 @@ function EgovAdminMemberList() {
         }
       );
     },
-    [listTag, searchCondition]
+    [listTag]
   );
 
   useEffect(() => {
@@ -151,6 +151,7 @@ function EgovAdminMemberList() {
                       id="searchCnd"
                       name="searchCnd"
                       title="검색유형선택"
+                      defaultValue={searchCondition.searchCnd}
                       ref={cndRef}
                       onChange={(e) => {
                         cndRef.current.value = e.target.value;

@@ -41,6 +41,7 @@ function EgovAdminBoardEdit(props) {
     { value: 3, label: "3개" },
   ];
   const bbsId = location.state?.bbsId || "";
+  const searchCondition = location.state?.searchCondition;
 
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [boardDetail, setBoardDetail] = useState({});
@@ -170,7 +171,10 @@ function EgovAdminBoardEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_BOARD });
+            navigate(
+              { pathname: URL.ADMIN_BOARD },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -191,7 +195,10 @@ function EgovAdminBoardEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_BOARD });
+            navigate(
+              { pathname: URL.ADMIN_BOARD },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -504,7 +511,11 @@ function EgovAdminBoardEdit(props) {
                 </div>
 
                 <div className="right_col btn1">
-                  <Link to={URL.ADMIN_BOARD} className="btn btn_blue_h46 w_100">
+                  <Link
+                    to={URL.ADMIN_BOARD}
+                    state={{ searchCondition }}
+                    className="btn btn_blue_h46 w_100"
+                  >
                     목록
                   </Link>
                 </div>
