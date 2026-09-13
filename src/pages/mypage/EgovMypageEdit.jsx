@@ -93,71 +93,66 @@ function EgovMypageEdit(props) {
       }
     });
   };
-  const checkIdDplct = () => {
-    return new Promise((resolve) => {
-      let checkId = memberDetail["mberId"];
-      if (checkId === null || checkId === undefined) {
-        alert("회원ID를 입력해 주세요");
-        return false;
-      }
-      const checkIdURL = `/etc/member_checkid/${checkId}`;
-      const reqOptions = {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      EgovNet.requestFetch(checkIdURL, reqOptions, function (resp) {
-        if (
-          Number(resp.resultCode) === Number(CODE.RCV_SUCCESS) &&
-          resp.result.usedCnt > 0
-        ) {
-          setMemberDetail({
-            ...memberDetail,
-            checkIdResult: "이미 사용중인 아이디입니다. [ID체크]",
-            mberId: checkId,
-          });
-          resolve(resp.result.usedCnt);
-        } else {
-          setMemberDetail({
-            ...memberDetail,
-            checkIdResult: "사용 가능한 아이디입니다.",
-            mberId: checkId,
-          });
-          resolve(0);
+  const checkIdDplct = async () => {
+    const checkId = memberDetail.mberId;
+    if (!checkId) {
+      alert("회원ID를 입력해 주세요");
+      return null;
+    }
+    let usedCnt = null;
+    const showFailure = () => {
+      setMemberDetail((detail) => detail.mberId !== checkId ? detail : ({
+        ...detail,
+        checkIdResult: "아이디 중복 확인에 실패했습니다. 다시 시도해 주세요.",
+      }));
+    };
+    await EgovNet.requestFetch(
+      `/etc/member_checkid/${checkId}`,
+      { method: "GET", headers: { "Content-type": "application/json" } },
+      (resp) => {
+        const count = resp?.result?.usedCnt;
+        if (Number(resp?.resultCode) !== Number(CODE.RCV_SUCCESS) ||
+            !Number.isInteger(count) || count < 0) {
+          showFailure();
+          return;
         }
-      });
-    });
+        usedCnt = count;
+        setMemberDetail((detail) => detail.mberId !== checkId ? detail : ({
+          ...detail,
+          checkIdResult: count > 0
+            ? "이미 사용중인 아이디입니다. [ID체크]"
+            : "사용 가능한 아이디입니다.",
+        }));
+      },
+      showFailure
+    );
+    return usedCnt;
   };
 
-  const formValidator = (formData) => {
-    return new Promise((resolve) => {
-      if (formData.get("mberId") === null || formData.get("mberId") === "") {
-        alert("회원ID는 필수 값입니다.");
-        return false;
-      }
-      checkIdDplct().then((res) => {
-        if (res > 0) {
-          return false;
-        }
-        if (
-          formData.get("password") === null ||
-          formData.get("password") === ""
-        ) {
-          alert("암호는 필수 값입니다.");
-          return false;
-        }
-        if (formData.get("password").length < 6) {
-          alert("암호는 6자 이상이어야 합니다.");
-          return false;
-        }
-        if (formData.get("mberNm") === null || formData.get("mberNm") === "") {
-          alert("회원명은 필수 값입니다.");
-          return false;
-        }
-        resolve(true);
-      });
-    });
+  const formValidator = async (formData) => {
+    if (!formData.get("mberId")) {
+      alert("회원ID는 필수 값입니다.");
+      return false;
+    }
+    if (await checkIdDplct() !== 0) {
+      return false;
+    }
+    if (
+      formData.get("password") === null ||
+      formData.get("password") === ""
+    ) {
+      alert("암호는 필수 값입니다.");
+      return false;
+    }
+    if (formData.get("password").length < 6) {
+      alert("암호는 6자 이상이어야 합니다.");
+      return false;
+    }
+    if (formData.get("mberNm") === null || formData.get("mberNm") === "") {
+      alert("회원명은 필수 값입니다.");
+      return false;
+    }
+    return true;
   };
 
   const formObjValidator = (checkRef) => {

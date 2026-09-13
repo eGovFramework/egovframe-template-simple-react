@@ -36,6 +36,14 @@ describe("requestFetch 인증 오류 처리", () => {
     expect(handler).not.toHaveBeenCalled();
   });
 
+  it("인증 오류에서도 반환한 Promise가 완료된다", async () => {
+    const handler = vi.fn();
+    const request = requestFetch("/board", { method: "GET" }, handler);
+
+    await expect(request).resolves.toBeUndefined();
+    expect(handler).not.toHaveBeenCalled();
+  });
+
   it("인증 오류가 화면 오류 알림을 덧붙이지 않는다", async () => {
     // 실제 화면 핸들러가 하는 일 — 목록 3종이 전부 이 모양이다.
     const handler = vi.fn((resp) => {

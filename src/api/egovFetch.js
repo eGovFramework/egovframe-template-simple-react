@@ -15,7 +15,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     requestOptions = { ...requestOptions, credentials: "include" };
   }
 
-  fetch(SERVER_URL + url, requestOptions)
+  return fetch(SERVER_URL + url, requestOptions)
     .then((response) => {
       return response.json();
     })
