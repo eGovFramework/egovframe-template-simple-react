@@ -58,7 +58,11 @@ describe("EgovSelect", () => {
     expect(select.value).toBe("1");
   });
 
-  it("옵션 변경 시 setter를 호출한다", async () => {
+  it.each([
+    ["", "2"],
+    ["1", "2"],
+    ["2", ""],
+  ])("선택값 %s에서 %s로 변경하면 새 값을 전달한다", async (initialValue, selectedValue) => {
     const setter = vi.fn();
     render(
       <EgovSelect
@@ -66,11 +70,11 @@ describe("EgovSelect", () => {
         name="searchType"
         title="검색유형"
         options={sampleOptions}
-        setValue=""
+        setValue={initialValue}
         setter={setter}
       />
     );
-    await userEvent.selectOptions(screen.getByTitle("검색유형"), "2");
-    expect(setter).toHaveBeenCalled();
+    await userEvent.selectOptions(screen.getByTitle("검색유형"), selectedValue);
+    expect(setter).toHaveBeenCalledExactlyOnceWith(selectedValue);
   });
 });
