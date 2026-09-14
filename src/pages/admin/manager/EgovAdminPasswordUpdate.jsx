@@ -26,6 +26,10 @@ function EgovAdminPasswordUpdate() {
       alert("신규 암호는 필수 값입니다.");
       return false;
     }
+    if (formData.get("new_password").length < 6) {
+      alert("신규 암호는 6자 이상이어야 합니다.");
+      return false;
+    }
     if (formData.get("new_password") === formData.get("old_password")) {
       alert("신규 암호는 기존 암호와 동일하게 사용할 수 없습니다.");
       return false;
