@@ -33,7 +33,7 @@ describe("일정 수정 저장 URL", () => {
   beforeEach(() => {
     vi.spyOn(window, "alert").mockImplementation(() => {});
     global.fetch = vi.fn(() =>
-      Promise.resolve({ json: () => Promise.resolve(detail) })
+      Promise.resolve({ ok: true, json: () => Promise.resolve(detail) })
     );
   });
 
