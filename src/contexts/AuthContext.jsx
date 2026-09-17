@@ -55,4 +55,6 @@ export function AuthProvider({ children }) {
   );
 }
 
+// Provider와 훅을 같은 파일에 두는 관용 패턴 — HMR 경고만 억제(런타임 무해)
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 
 import URL from "@/constants/url";
@@ -12,7 +12,6 @@ import { useAuth } from "@/contexts/AuthContext";
 
 function EgovLoginContent(props) {
   const navigate = useNavigate();
-  const location = useLocation();
   const { refresh } = useAuth();
 
   const [userInfo, setUserInfo] = useState({

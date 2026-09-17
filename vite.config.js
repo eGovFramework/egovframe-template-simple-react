@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -6,7 +6,12 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }) => {
+  // config 평가 시점에는 .env 파일이 자동 로드되지 않으므로 loadEnv 로 명시적으로 읽는다.
+  // (셸 환경변수 + .env[.mode] 파일을 모두 병합해 반환한다)
+  // https://vite.dev/config/#using-environment-variables-in-config
+  const env = loadEnv(mode, process.cwd(), "");
+  return {
   plugins: [
     react({
       include: "**/*.{jsx,js}",
@@ -21,7 +26,7 @@ export default defineConfig(({ mode }) => ({
     // /api/board -> {target}/board 형태로 prefix 를 제거해 전달한다.
     proxy: {
       "/api": {
-        target: process.env.VITE_APP_API_PROXY_TARGET || "http://localhost:8080",
+        target: env.VITE_APP_API_PROXY_TARGET || "http://localhost:8080",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
@@ -67,4 +72,5 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
-}));
+  };
+});

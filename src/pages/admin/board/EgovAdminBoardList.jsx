@@ -9,7 +9,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminBoardList(props) {
+function EgovAdminBoardList() {
 
   const location = useLocation();
 
@@ -55,7 +55,7 @@ function EgovAdminBoardList(props) {
 
           const resultCnt = parseInt(resp.result.resultCnt);
           const currentPageNo = resp.result.paginationInfo.currentPageNo;
-          const pageSize = resp.result.paginationInfo.pageSize;
+          const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
 
           // 리스트 항목 구성
           resp.result.resultList.forEach(function (item, index) {
@@ -63,7 +63,7 @@ function EgovAdminBoardList(props) {
             const listIdx = itemIdxByPage(
               resultCnt,
               currentPageNo,
-              pageSize,
+              recordCountPerPage,
               index
             );
 
@@ -72,7 +72,7 @@ function EgovAdminBoardList(props) {
                 to={{ pathname: URL.ADMIN_BOARD_MODIFY }}
                 state={{
                   bbsId: item.bbsId,
-                  searchCondition: searchCondition,
+                  searchCondition: srchCnd,
                 }}
                 key={listIdx}
                 className="list_item"
@@ -89,11 +89,11 @@ function EgovAdminBoardList(props) {
 
           setListTag(mutListTag);
         },
-        function (resp) {
+        function () {
         }
       );
     },
-    [listTag, searchCondition]
+    [listTag]
   );
 
   useEffect(() => {
@@ -144,6 +144,7 @@ function EgovAdminBoardList(props) {
                       id="searchCnd"
                       name="searchCnd"
                       title="검색유형선택"
+                      defaultValue={searchCondition.searchCnd}
                       ref={cndRef}
                       onChange={(e) => {
                         cndRef.current.value = e.target.value;

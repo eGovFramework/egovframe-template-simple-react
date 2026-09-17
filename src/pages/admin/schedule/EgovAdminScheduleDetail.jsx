@@ -4,11 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovAdminScheduleDetail(props) {
+function EgovAdminScheduleDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +28,17 @@ function EgovAdminScheduleDetail(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      let rawScheduleDetail = resp.result.scheduleDetail;
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.ADMIN_SCHEDULE,
+        searchCondition: location.state?.searchCondition,
+        message: "일정이 존재하지 않거나 삭제되었습니다.",
+        resultKey: "scheduleDetail",
+      }) ) return;
+
+      const rawScheduleDetail = resp.result.scheduleDetail;
+
       rawScheduleDetail.startDateTime = convertDate(
         rawScheduleDetail.schdulBgnde
       );
@@ -83,6 +94,14 @@ function EgovAdminScheduleDetail(props) {
       else return "";
     });
   };
+
+  const handleDelete = (schdulId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteSchedule(schdulId);
+  }
 
   const onClickDeleteSchedule = (schdulId) => {
     const deleteBoardURL = `/schedule/${schdulId}`;
@@ -201,6 +220,7 @@ function EgovAdminScheduleDetail(props) {
                       to={{ pathname: URL.ADMIN_SCHEDULE_MODIFY }}
                       state={{
                         schdulId: location.state?.schdulId,
+                        searchCondition: location.state?.searchCondition,
                       }}
                       className="btn btn_skyblue_h46 w_100"
                     >
@@ -209,7 +229,7 @@ function EgovAdminScheduleDetail(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        onClickDeleteSchedule(location.state?.schdulId);
+                        handleDelete(location.state?.schdulId);
                       }}
                     >
                       삭제
@@ -219,6 +239,7 @@ function EgovAdminScheduleDetail(props) {
                 <div className="right_col btn1">
                   <Link
                     to={URL.ADMIN_SCHEDULE}
+                    state={{ searchCondition: location.state?.searchCondition }}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

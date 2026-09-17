@@ -2,13 +2,11 @@ import { SERVER_URL } from "../config";
 
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
-import { getSessionItem, setSessionItem } from "@/utils/storage";
+import { setSessionItem } from "@/utils/storage";
 import { logger } from "@/utils/logger";
 
 export function getQueryString(params) {
-  return `?${Object.entries(params)
-    .map((e) => e.join("="))
-    .join("&")}`;
+  return `?${new URLSearchParams(params).toString()}`;
 }
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
@@ -17,7 +15,7 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
     requestOptions = { ...requestOptions, credentials: "include" };
   }
 
-  fetch(SERVER_URL + url, requestOptions)
+  return fetch(SERVER_URL + url, requestOptions)
     .then((response) => {
       return response.json();
     })
@@ -26,12 +24,9 @@ export function requestFetch(url, requestOptions, handler, errorHandler) {
         alert("Login Alert");
         setSessionItem("loginUser", { id: "" });
         window.location.href = URL.LOGIN;
-        return false;
-      } else {
-        return resp;
+        return;
       }
-    })
-    .then((resp) => {
+
       if (typeof handler === "function") {
         handler(resp);
       } else {

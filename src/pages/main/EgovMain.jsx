@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import URL from "@/constants/url";
 
@@ -7,8 +7,7 @@ import simpleMainIng from "/assets/images/img_simple_main.png";
 import initPage from "@/js/ui";
 import { fetchMainPage } from "@/api/services/mainPage";
 import BoardList from "./fragments/BoardList";
-function EgovMain(props) {
-  const location = useLocation();
+function EgovMain() {
 
   const [noticeBoardList, setNoticeBoardList] = useState([]);
   const [gallaryBoardList, setGallaryBoardList] = useState([]);

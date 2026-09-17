@@ -55,7 +55,7 @@ function EgovPaging(props) {
         // 현재 페이지
         const currentPage = (
           <li key={i}>
-            <button className="cur">{i}</button>
+            <button className="cur" aria-current="page">{i}</button>
           </li>
         );
         paginationTag.push(currentPage);
@@ -103,6 +103,7 @@ function EgovPaging(props) {
               props.moveToPage(totalPageCount);
             }}
             className="last"
+            aria-label="마지막"
           ></button>
         </li>
       );

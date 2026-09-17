@@ -5,19 +5,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import bbsFormValidator from "@/utils/bbsFormValidator";
 import { getSessionItem } from "@/utils/storage";
+import { useAuth } from "@/contexts/AuthContext";
 import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovGalleryEdit(props) {
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUniqId = sessionUser?.uniqId;
-  const sessionId = sessionUser?.id;
+  // 로그인 여부는 백엔드 /auth/me 결과 사용
+  const { user } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -91,6 +91,16 @@ function EgovGalleryEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+
+      // 수정 대상 글이 없으면 안내 후 목록으로 복귀
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.INFORM_GALLERY,
+        searchCondition: location.state?.searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -136,7 +146,7 @@ function EgovGalleryEdit(props) {
     }
   };
 
-  const Location = React.memo(function Location(masterBoard) {
+  const Location = React.memo(function Location({ masterBoard }) {
     return (
       <div className="location">
         <ul>
@@ -164,7 +174,7 @@ function EgovGalleryEdit(props) {
     <div className="container">
       <div className="c_wrap">
         {/* <!-- Location --> */}
-        <Location />
+        <Location masterBoard={masterBoard} />
         {/* <!--// Location --> */}
 
         <div className="layout">
@@ -245,7 +255,7 @@ function EgovGalleryEdit(props) {
                 )}
               {/* <!-- 버튼영역 --> */}
               <div className="board_btn_area">
-                {sessionId && (
+                {user?.id && (
                   <div className="left_col btn1">
                     <a
                       href="#!"

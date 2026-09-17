@@ -13,6 +13,7 @@ function EgovAdminMemberEdit(props) {
   const location = useLocation();
   const checkRef = useRef([]);
   const uniqId = location.state?.uniqId || "";
+  const searchCondition = location.state?.searchCondition;
   const mberSttusRadioGroup = [
     { value: "P", label: "가능" },
     { value: "A", label: "대기" },
@@ -83,81 +84,80 @@ function EgovAdminMemberEdit(props) {
     });
   };
 
-  const checkIdDplct = () => {
-    return new Promise((resolve) => {
-      let checkId = memberDetail["mberId"];
-      if (checkId === null || checkId === undefined) {
-        alert("회원ID를 입력해 주세요");
-        return false;
-      }
-      const checkIdURL = `/etc/member_checkid/${checkId}`;
-      const reqOptions = {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      EgovNet.requestFetch(checkIdURL, reqOptions, function (resp) {
-        if (
-          Number(resp.resultCode) === Number(CODE.RCV_SUCCESS) &&
-          resp.result.usedCnt > 0
-        ) {
-          setMemberDetail({
-            ...memberDetail,
-            checkIdResult: "이미 사용중인 아이디입니다. [ID체크]",
-            mberId: checkId,
-          });
-          resolve(resp.result.usedCnt);
-        } else {
-          setMemberDetail({
-            ...memberDetail,
-            checkIdResult: "사용 가능한 아이디입니다.",
-            mberId: checkId,
-          });
-          resolve(0);
+  const checkIdDplct = async () => {
+    const checkId = memberDetail.mberId;
+    if (!checkId) {
+      alert("회원ID를 입력해 주세요");
+      return null;
+    }
+    let usedCnt = null;
+    const showFailure = () => {
+      setMemberDetail((detail) => detail.mberId !== checkId ? detail : ({
+        ...detail,
+        checkIdResult: "아이디 중복 확인에 실패했습니다. 다시 시도해 주세요.",
+      }));
+    };
+    await EgovNet.requestFetch(
+      `/etc/member_checkid/${checkId}`,
+      { method: "GET", headers: { "Content-type": "application/json" } },
+      (resp) => {
+        const count = resp?.result?.usedCnt;
+        if (Number(resp?.resultCode) !== Number(CODE.RCV_SUCCESS) ||
+            !Number.isInteger(count) || count < 0) {
+          showFailure();
+          return;
         }
-      });
-    });
+        usedCnt = count;
+        setMemberDetail((detail) => detail.mberId !== checkId ? detail : ({
+          ...detail,
+          checkIdResult: count > 0
+            ? "이미 사용중인 아이디입니다. [ID체크]"
+            : "사용 가능한 아이디입니다.",
+        }));
+      },
+      showFailure
+    );
+    return usedCnt;
   };
 
-  const formValidator = (formData) => {
-    return new Promise((resolve) => {
-      if (formData.get("mberId") === null || formData.get("mberId") === "") {
-        alert("회원ID는 필수 값입니다.");
-        return false;
-      }
-      checkIdDplct().then((res) => {
-        if (res > 0) {
-          return false;
-        }
-        if (
-          formData.get("password") === null ||
-          formData.get("password") === ""
-        ) {
-          alert("암호는 필수 값입니다.");
-          return false;
-        }
-        if (formData.get("mberNm") === null || formData.get("mberNm") === "") {
-          alert("회원명은 필수 값입니다.");
-          return false;
-        }
-        if (
-          formData.get("groupId") === null ||
-          formData.get("groupId") === ""
-        ) {
-          alert("권한 그룹은 필수 값입니다.");
-          return false;
-        }
-        if (
-          formData.get("mberSttus") === null ||
-          formData.get("mberSttus") === ""
-        ) {
-          alert("회원상태값은 필수 값입니다.");
-          return false;
-        }
-        resolve(true);
-      });
-    });
+  const formValidator = async (formData) => {
+    if (!formData.get("mberId")) {
+      alert("회원ID는 필수 값입니다.");
+      return false;
+    }
+    if (await checkIdDplct() !== 0) {
+      return false;
+    }
+    if (
+      formData.get("password") === null ||
+      formData.get("password") === ""
+    ) {
+      alert("암호는 필수 값입니다.");
+      return false;
+    }
+    if (formData.get("password").length < 6) {
+      alert("암호는 6자 이상이어야 합니다.");
+      return false;
+    }
+    if (formData.get("mberNm") === null || formData.get("mberNm") === "") {
+      alert("회원명은 필수 값입니다.");
+      return false;
+    }
+    if (
+      formData.get("groupId") === null ||
+      formData.get("groupId") === ""
+    ) {
+      alert("권한 그룹은 필수 값입니다.");
+      return false;
+    }
+    if (
+      formData.get("mberSttus") === null ||
+      formData.get("mberSttus") === ""
+    ) {
+      alert("회원상태값은 필수 값입니다.");
+      return false;
+    }
+    return true;
   };
 
   const formObjValidator = (checkRef) => {
@@ -167,6 +167,10 @@ function EgovAdminMemberEdit(props) {
     }
     if (checkRef.current[1].value === "") {
       memberDetail.password = ""; //수정 시 암호값을 입력하지 않으면 공백으로처리
+    }
+    if (checkRef.current[1].value !== "" && checkRef.current[1].value.length < 6) {
+      alert("암호는 6자 이상이어야 합니다.");
+      return false;
     }
     if (checkRef.current[2].value === "") {
       alert("회원명은 필수 값입니다.");
@@ -199,7 +203,10 @@ function EgovAdminMemberEdit(props) {
           EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
             if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
               alert("회원 정보가 등록되었습니다.");
-              navigate({ pathname: URL.ADMIN_MEMBERS });
+              navigate(
+                { pathname: URL.ADMIN_MEMBERS },
+                { state: { searchCondition } }
+              );
             } else {
               navigate(
                 { pathname: URL.ERROR },
@@ -221,7 +228,10 @@ function EgovAdminMemberEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_MEMBERS });
+            navigate(
+              { pathname: URL.ADMIN_MEMBERS },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -232,6 +242,14 @@ function EgovAdminMemberEdit(props) {
       }
     }
   };
+
+  const handleDelete = (uniqId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    deleteMember(uniqId);
+  }
 
   const deleteMember = (uniqId) => {
     const deleteMemberURL = `/members/delete/${uniqId}`;
@@ -481,7 +499,7 @@ function EgovAdminMemberEdit(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        deleteMember(memberDetail.uniqId);
+                        handleDelete(memberDetail.uniqId);
                       }}
                     >
                       삭제
@@ -492,6 +510,7 @@ function EgovAdminMemberEdit(props) {
                 <div className="right_col btn1">
                   <Link
                     to={URL.ADMIN_MEMBERS}
+                    state={{ searchCondition }}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

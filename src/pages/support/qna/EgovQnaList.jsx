@@ -18,7 +18,7 @@ function EgovQnaList() {
             <li>
               <Link to="">고객지원</Link>
             </li>
-            <li>소개</li>
+            <li>묻고답하기</li>
           </ul>
         </div>
         {/* <!--// Location --> */}

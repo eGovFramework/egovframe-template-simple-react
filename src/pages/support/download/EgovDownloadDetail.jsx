@@ -20,7 +20,7 @@ function EgovDownloadDetail() {
             <li>
               <Link to="">고객지원</Link>
             </li>
-            <li>소개</li>
+            <li>자료실</li>
           </ul>
         </div>
         {/* <!--// Location --> */}

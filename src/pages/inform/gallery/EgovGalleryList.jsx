@@ -11,7 +11,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovGalleryList(props) {
+function EgovGalleryList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
@@ -53,7 +53,7 @@ function EgovGalleryList(props) {
 
         const resultCnt = parseInt(resp.result.resultCnt);
         const currentPageNo = resp.result.paginationInfo.currentPageNo;
-        const pageSize = resp.result.paginationInfo.pageSize;
+        const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach(function (item, index) {
@@ -61,7 +61,7 @@ function EgovGalleryList(props) {
           const listIdx = itemIdxByPage(
             resultCnt,
             currentPageNo,
-            pageSize,
+            recordCountPerPage,
             index
           );
 
@@ -95,7 +95,7 @@ function EgovGalleryList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);
@@ -181,7 +181,7 @@ function EgovGalleryList(props) {
                     </button>
                   </span>
                 </li>
-                {user.id && masterBoard.bbsUseFlag === "Y" && (
+                {user?.id && masterBoard.bbsUseFlag === "Y" && (
                   <li>
                     <Link
                       to={URL.INFORM_GALLERY_CREATE}

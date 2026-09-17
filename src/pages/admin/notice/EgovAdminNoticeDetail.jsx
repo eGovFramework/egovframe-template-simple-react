@@ -6,12 +6,13 @@ import { useListNavigation } from "@/hooks/useListNavigation";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { NOTICE_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovAdminNoticeDetail(props) {
+function EgovAdminNoticeDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,11 +38,29 @@ function EgovAdminNoticeDetail(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.ADMIN_NOTICE,
+        searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setBoardAttachFiles(resp.result.resultFiles);
     });
   };
+
+  const handleDelete = (bbsId, nttId, atchFileId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteBoardArticle(bbsId, nttId, atchFileId);
+  }
 
   const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
@@ -167,7 +186,7 @@ function EgovAdminNoticeDetail(props) {
                       className="btn btn_skyblue_h46 w_100"
                       onClick={(e) => {
                         e.preventDefault();
-                        onClickDeleteBoardArticle(
+                        handleDelete(
                           boardDetail.bbsId,
                           boardDetail.nttId,
                           boardDetail.atchFileId
