@@ -9,7 +9,7 @@ import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
-import bbsFormVaildator from "@/utils/bbsFormVaildator";
+import bbsFormValidator from "@/utils/bbsFormValidator";
 import { getSessionItem } from "@/utils/storage";
 import { useDebouncedInput } from "@/hooks/useDebounce";
 
@@ -116,7 +116,7 @@ function EgovGalleryEdit(props) {
       formData.append(key, boardDetail[key]);
     }
 
-    if (bbsFormVaildator(formData)) {
+    if (bbsFormValidator(formData)) {
       const requestOptions = {
         method: modeInfo.method,
         body: formData,
