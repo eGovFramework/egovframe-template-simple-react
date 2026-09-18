@@ -178,7 +178,6 @@ function EgovMypageEdit(props) {
       const formData = new FormData();
       for (let key in memberDetail) {
         formData.append(key, memberDetail[key]);
-        //console.log("boardDetail [%s] ", key, boardDetail[key]);
       }
 
       formValidator(formData).then((res) => {
