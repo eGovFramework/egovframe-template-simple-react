@@ -44,7 +44,7 @@ const renderEdit = () =>
 describe("공지사항 수정 화면 breadcrumb", () => {
   beforeEach(() => {
     global.fetch = vi.fn(() =>
-      Promise.resolve({ json: () => Promise.resolve(detail) })
+      Promise.resolve({ ok: true, json: () => Promise.resolve(detail) })
     );
   });
 

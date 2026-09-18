@@ -64,7 +64,7 @@ describe("사이트관리 수정 화면의 '목록' 버튼", () => {
     async ({ Edit, listPath, editPath, itemState, result }) => {
       global.fetch = vi.fn(() =>
         Promise.resolve({
-          json: () => Promise.resolve({ resultCode: 200, result }),
+          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
         })
       );
 
@@ -135,7 +135,7 @@ describe("사이트관리 목록이 수정 화면으로 넘기는 검색조건",
     async ({ List, listPath, editPath, result }) => {
       global.fetch = vi.fn(() =>
         Promise.resolve({
-          json: () => Promise.resolve({ resultCode: 200, result }),
+          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
         })
       );
 
@@ -170,7 +170,7 @@ describe("복원된 검색조건으로 마운트한 목록", () => {
     async ({ List, listPath, result }) => {
       global.fetch = vi.fn(() =>
         Promise.resolve({
-          json: () => Promise.resolve({ resultCode: 200, result }),
+          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
         })
       );
 
@@ -198,7 +198,7 @@ describe("회원관리 목록과 수정 화면 사이의 왕복", () => {
   it("2페이지에서 항목을 열고 목록으로 돌아오면 2페이지를 다시 조회한다", async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
-        json: () =>
+        ok: true, json: () =>
           Promise.resolve({
             resultCode: 200,
             result: {

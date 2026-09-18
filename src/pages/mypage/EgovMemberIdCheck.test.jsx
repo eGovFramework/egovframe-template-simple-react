@@ -19,9 +19,9 @@ describe.each([
     vi.stubGlobal("fetch", vi.fn(async (url) => {
       if (url.includes("/etc/member_checkid/")) {
         if (checkResponse instanceof Error) throw checkResponse;
-        return { json: async () => checkResponse };
+        return { ok: true, json: async () => checkResponse };
       }
-      return { json: async () => ({ resultCode: 200, result: {
+      return { ok: true, json: async () => ({ resultCode: 200, result: {
         groupId_result: [{ code: "GROUP_00000000000001", codeNm: "USER" }],
       } }) };
     }));
@@ -92,7 +92,7 @@ describe.each([
     fireEvent.click(screen.getByRole("button", { name: "저장" }));
     expect(finishCheck).toBeTypeOf("function");
     expect(registrations()).toHaveLength(0);
-    finishCheck({ json: async () => ({ resultCode: 200, result: { usedCnt: 0 } }) });
+    finishCheck({ ok: true, json: async () => ({ resultCode: 200, result: { usedCnt: 0 } }) });
     await waitFor(() => expect(registrations()).toHaveLength(1));
   });
 
@@ -104,7 +104,7 @@ describe.each([
     fireEvent.click(screen.getByRole("button", { name: "중복ID를 체크해 주세요." }));
     fireEvent.change(screen.getByLabelText("회원ID"), { target: { value: "anotheruser" } });
     const json = vi.fn(async () => ({ resultCode: 200, result: { usedCnt: 0 } }));
-    finishCheck({ json });
+    finishCheck({ ok: true, json });
     await waitFor(() => expect(json).toHaveBeenCalled());
     expect(screen.getByLabelText("회원ID")).toHaveValue("anotheruser");
     expect(screen.queryByRole("button", { name: "사용 가능한 아이디입니다." })).not.toBeInTheDocument();

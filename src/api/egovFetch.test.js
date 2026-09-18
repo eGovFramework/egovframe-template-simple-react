@@ -17,6 +17,7 @@ describe("requestFetch 인증 오류 처리", () => {
     window.location = { href: "" };
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
         json: () => Promise.resolve({ resultCode: CODE.RCV_ERROR_AUTH }),
       })
     );
