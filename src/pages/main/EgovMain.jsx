@@ -10,13 +10,13 @@ import BoardList from "./fragments/BoardList";
 function EgovMain() {
 
   const [noticeBoardList, setNoticeBoardList] = useState([]);
-  const [gallaryBoardList, setGallaryBoardList] = useState([]);
+  const [galleryBoardList, setGalleryBoardList] = useState([]);
 
   const retrieveList = async () => {
     try {
       const resp = await fetchMainPage();
       setNoticeBoardList(resp.result.notiList);
-      setGallaryBoardList(resp.result.galList);
+      setGalleryBoardList(resp.result.galList);
     } catch (err) {
       // 오류는 사용자 알림 없이 조용히 처리
     }
@@ -60,10 +60,10 @@ function EgovMain() {
                 />
                 <BoardList
                   title="갤러리"
-                  items={gallaryBoardList}
+                  items={galleryBoardList}
                   detailUrl={URL.INFORM_GALLERY}
                   moreUrl={URL.INFORM_GALLERY}
-                  className="gallary"
+                  className="gallery"
                 />
               </div>
             </div>
