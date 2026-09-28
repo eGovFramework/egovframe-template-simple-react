@@ -4,6 +4,24 @@ import { describe, it, expect, vi } from "vitest";
 import EgovPaging from "@/components/EgovPaging";
 
 describe("EgovPaging", () => {
+  it("페이지 이동 버튼은 type='button' 속성을 가진다", () => {
+    const pagination = {
+      currentPageNo: 5,
+      pageSize: 3,
+      totalRecordCount: 50,
+      recordCountPerPage: 5,
+    };
+
+    render(<EgovPaging pagination={pagination} moveToPage={vi.fn()} />);
+
+    expect(screen.getByText("처음")).toHaveAttribute("type", "button");
+    expect(screen.getByText("이전")).toHaveAttribute("type", "button");
+    expect(screen.getByText("4")).toHaveAttribute("type", "button");
+    expect(screen.getByText("5")).toHaveAttribute("type", "button");
+    expect(screen.getByText("6")).toHaveAttribute("type", "button");
+    expect(screen.getByText("다음")).toHaveAttribute("type", "button");
+  });
+
   it("pagination prop이 없으면 '-'를 출력한다", () => {
     const { container } = render(<EgovPaging />);
     expect(container.querySelector(".paging")).toBeInTheDocument();

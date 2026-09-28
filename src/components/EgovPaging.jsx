@@ -26,6 +26,7 @@ function EgovPaging(props) {
               props.moveToPage(1);
             }}
             className="first"
+            type="button"
           >
             처음
           </button>
@@ -42,6 +43,7 @@ function EgovPaging(props) {
               props.moveToPage(prevPageIndex);
             }}
             className="prev"
+            type="button"
           >
             이전
           </button>
@@ -55,7 +57,9 @@ function EgovPaging(props) {
         // 현재 페이지
         const currentPage = (
           <li key={i}>
-            <button className="cur" aria-current="page">{i}</button>
+            <button className="cur" type="button" aria-current="page">
+              {i}
+            </button>
           </li>
         );
         paginationTag.push(currentPage);
@@ -67,6 +71,7 @@ function EgovPaging(props) {
               onClick={() => {
                 props.moveToPage(i);
               }}
+              type="button"
             >
               {i}
             </button>
@@ -88,6 +93,7 @@ function EgovPaging(props) {
               props.moveToPage(nextPageIndex);
             }}
             className="next"
+            type="button"
           >
             다음
           </button>
@@ -103,6 +109,7 @@ function EgovPaging(props) {
               props.moveToPage(totalPageCount);
             }}
             className="last"
+            type="button"
             aria-label="마지막"
           ></button>
         </li>
