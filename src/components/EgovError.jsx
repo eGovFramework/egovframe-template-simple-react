@@ -20,7 +20,7 @@ function EgovError() {
       <div className="box">
         <p>{errormessage}</p>
         <div className="btn_area">
-          <button className="btn btn_blue_h46 w_130" onClick={goBack}>
+          <button className="btn btn_blue_h46 w_130" onClick={goBack} type="button">
             이전페이지
           </button>
         </div>
