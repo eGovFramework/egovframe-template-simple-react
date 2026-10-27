@@ -153,7 +153,7 @@ function EgovAdminBoardEdit(props) {
   const updateBoard = () => {
     let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-    let requestOptions = {};
+    let requestOptions;
 
     if (modeStr === "POST") {
       const formData = new FormData();
