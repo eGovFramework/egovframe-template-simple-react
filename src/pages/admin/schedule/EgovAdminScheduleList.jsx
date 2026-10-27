@@ -197,18 +197,17 @@ function EgovAdminScheduleList() {
                       innerConsole("schedule.schdulId ", schedule.schdulId);
                       if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                         return (
-                          <>
+                          <React.Fragment key={keyIdx++}>
                             <Link
                               to={{ pathname: URL.ADMIN_SCHEDULE_DETAIL }}
                               state={{ schdulId: schedule.schdulId, searchCondition }}
-                              key={keyIdx++}
                             >
                               {schedule.schdulNm}
                             </Link>
                             <br />
-                          </>
+                          </React.Fragment>
                         );
-                      } else return <></>;
+                      } else return null;
                     })}
                   </td>
                 );
@@ -231,7 +230,7 @@ function EgovAdminScheduleList() {
             } else if (day === 0) {
               // 이전달/다음달 구현
               return <td key={keyIdx++}></td>;
-            } else return <></>;
+            } else return null;
           })}
         </tr>
       );
