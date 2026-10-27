@@ -47,6 +47,21 @@
 6. 네이버 소셜 로그인에 대한 상세 사항은 **[네이버 로그인 API 문서](https://developers.naver.com/docs/login/api/api.md)** 를 참조 가능하다.
 7. 카카오 소셜 로그인에 대한 상세 사항은 **[카카오 로그인 API 문서](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#kakaologin)** 를 참조 가능하다.
 
+#### 인증 만료 응답 처리
+
+`requestFetch`는 업무 API의 HTTP 401 응답을 본문 형식과 관계없이 인증 오류로 처리한다.
+기존 HTTP 200 응답의 `resultCode: 403`과 같이 안내를 표시하고, `loginUser` 표시용 캐시를 초기화한 뒤
+`/login`으로 전체 페이지를 이동한다. 이때 성공·오류 콜백을 호출하지 않으며, 새 페이지에서 인증 상태를 다시 조회한다.
+
+`AuthContext`의 `/auth/me` 조회는 익명 상태도 정상적으로 확인해야 하므로 HTTP 401에서 자동 이동하지 않는다.
+이 호출은 다섯 번째 인자에 `{ redirectOnUnauthorized: false }`를 전달하여 기존 오류 콜백에서 사용자·역할 상태를 초기화한다.
+HTTP 200의 `resultCode: "401"`도 익명 상태로 처리한다. 다른 HTTP 오류(403/5xx 등)는 로그인 이동 없이 오류 콜백으로 전달하며,
+JSON 본문의 문자열 `resultMessage`가 있으면 `Error.message`에 담고, 본문을 읽을 수 없으면 HTTP 상태를 사용한다.
+오류 콜백이 없는 호출의 기본 알림은 일반 오류 안내를 유지한다.
+
+JWT 쿠키는 `httpOnly`이므로 프론트엔드의 표시용 캐시 초기화로 삭제되지 않는다.
+쿠키의 발급·만료·삭제는 백엔드가 담당하며, 위 로그인 이동은 백엔드 쿠키를 갱신하거나 삭제하지 않는다.
+
 ### 사이트 소개 화면
 
 ![sh2](https://github.com/user-attachments/assets/f7b8a9c7-e6a5-48e2-9cbc-4f590e19365b)

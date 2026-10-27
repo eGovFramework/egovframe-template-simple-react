@@ -42,6 +42,17 @@ server {
   root /usr/share/nginx/html;
   index index.html;
 
+  # Gzip 압축 설정
+  gzip on;
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+
+  # 공통 보안 응답 헤더 (server 레벨)
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   # 백엔드 API 리버스 프록시.
   # 프론트엔드는 SERVER_URL=/api 기준으로 호출하므로(/api/board, /api/auth/login-jwt 등)
   # 여기서 /api prefix 를 제거하고 백엔드(context-path=/)로 전달한다.
@@ -67,15 +78,21 @@ server {
   }
 
   # Cache static assets aggressively (Vite emits hashed filenames)
+  # nginx는 location 내 add_header가 있으면 상위 add_header를 상속하지 않으므로 보안 헤더를 함께 명시한다.
   location /assets/ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     try_files $uri =404;
   }
 
   # Disable cache for index.html
   location = /index.html {
     add_header Cache-Control "no-cache, no-store, must-revalidate";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   }
 }
 NGINX

@@ -486,6 +486,7 @@ function EgovAdminScheduleEdit(props) {
               <div className="board_btn_area">
                 <div className="left_col btn1">
                   <button
+                    type="button"
                     className="btn btn_skyblue_h46 w_100"
                     onClick={() => updateSchedule()}
                   >

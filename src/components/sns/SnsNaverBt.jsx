@@ -16,7 +16,7 @@ const SnsNaverBt = () => {
 
   return (
     <a href="#!" onClick={NaverLogin} className="btn_center social naver">
-      <button>네이버 로그인</button>
+      <button type="button">네이버 로그인</button>
     </a>
   );
 };

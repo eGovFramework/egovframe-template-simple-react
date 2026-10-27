@@ -227,6 +227,7 @@ function EgovAdminScheduleDetail() {
                       수정
                     </Link>
                     <button
+                      type="button"
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
                         handleDelete(location.state?.schdulId);

@@ -105,6 +105,7 @@ function EgovAttachFile({
         filesTag.push(
           <React.Fragment key={["button", `${index}`].join(" ")}>
             <button
+              type="button"
               className="btn btn_delete"
               onClick={() => {
                 onClickDeleteFile(item.atchFileId, item.fileSn, index);

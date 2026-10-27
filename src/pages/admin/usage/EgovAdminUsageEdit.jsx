@@ -327,6 +327,7 @@ function EgovAdminUsageEdit(props) {
 
                 <div className="right_col btn1">
                   <button
+                    type="button"
                     className="btn btn_blue_h46 w_100"
                     onClick={() => updateBoard()}
                   >

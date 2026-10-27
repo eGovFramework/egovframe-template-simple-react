@@ -142,7 +142,7 @@ function EgovHeader() {
                   마이페이지
                 </NavLink>
               )}
-              <button onClick={logOutHandler} className="btn">
+              <button type="button" onClick={logOutHandler} className="btn">
                 로그아웃
               </button>
             </>
@@ -150,7 +150,7 @@ function EgovHeader() {
           {/* 로그인 : 로그인 정보 없을 때 */}
           {!sessionUserId && (
             <>
-              <button onClick={logInHandler} className="btn login">
+              <button type="button" onClick={logInHandler} className="btn login">
                 로그인
               </button>
               <NavLink
@@ -381,7 +381,7 @@ function EgovHeader() {
             <>
               <span className="person">{sessionUserName} </span>님이
               로그인하셨습니다.
-              <button onClick={logOutHandler} className="btn logout">
+              <button type="button" onClick={logOutHandler} className="btn logout">
                 로그아웃
               </button>
             </>
@@ -390,7 +390,7 @@ function EgovHeader() {
           {/* 로그인 : 로그인 정보 없을 때 */}
           {!sessionUserId && (
             <>
-              <button onClick={logInHandler} className="btn login">
+              <button type="button" onClick={logInHandler} className="btn login">
                 로그인
               </button>
               <NavLink
