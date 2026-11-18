@@ -1,10 +1,11 @@
 # 표준프레임워크 심플홈페이지 FrontEnd
 
-![react](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![nodejs](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)
-![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
-![vite](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)  
+[![eGovFrame](https://img.shields.io/badge/eGovFrame-4.3.2-134F8C?labelColor=white&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzMuMjgyIDE3My4yODIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNzMuMjgyIDg2LjY1YzAgNDcuODQ0LTM4Ljc5NCA4Ni42MzItODYuNjQ2IDg2LjYzMkMzOC43OTkgMTczLjI4MiAwIDEzNC40OTQgMCA4Ni42NSAwIDM4Ljc4OCAzOC43OTkgMCA4Ni42MzYgMGM0Ny44NTIgMCA4Ni42NDYgMzguNzg4IDg2LjY0NiA4Ni42NSIvPjxwYXRoIGZpbGw9IiMwMDM3NjQiIGQ9Ik0xMjcuMzg5IDgwLjU5OGMtMTMuNzkxLTkuMzY1LTMxLjQzOS01LjU0Mi00MC43MTcgOC41MzMtNy43MiAxMS43NjctMTkuNDA1IDEzLjIzNS0yMy45MDYgMTMuMjM1LTE0Ljc1MSAwLTI0LjgyNC0xMC4zNjctMjcuODE4LTIxLjA5NWgtLjAxYy0uMDM5LS4xMDgtLjA1OS0uMi0uMDktLjMwNy0uMDI1LS4xMi0uMDU2LS4yMzMtLjA4OS0uMzY2LTEuMTc3LTQuNDY3LTEuNDY3LTYuNjA5LTEuNDY3LTExLjM2OCAwLTI1LjY1IDI2LjMyMS01NC4yMTMgNjQuMjE1LTU0LjIxMyAzOC44MjkgMCA2MS4wNSAyOS41NDUgNjYuNzggNDUuOTc5LS4xMDctLjI5NS0uMjA5LS41ODEtLjI5MS0uODc3LTExLjAxNS0zMi4xMjUtNDEuNDc0LTU1LjIxNi03Ny4zNTctNTUuMjE2LTQ1LjEzIDAtODEuNzI5IDM2LjU5LTgxLjcyOSA4MS43MzkgMCA0MC4zNTEgMjkuMTA4IDc0Ljg5MSA2OS40NzkgNzQuODkxIDMyLjE5NyAwIDUzLjg0Mi0xOC4wNTIgNjMuNzU3LTQyLjkzIDUuNDUtMTMuNjE0IDEuNTk1LTI5LjYwNS0xMC43NTctMzguMDA1Ii8%2BPHBhdGggZmlsbD0iI2U0MDMyZSIgZD0iTTE2NC43ODggNjIuNTg5Yy00Ljc3Ny0xNi4wMjYtMjcuMTUzLTQ3LjU3MS02Ny4yODItNDcuNTcxLTM3Ljg5NCAwLTY0LjIxNCAyOC41NjMtNjQuMjE0IDU0LjIxMiAwIDQuNzU5LjI5IDYuOTAxIDEuNDY2IDExLjM2OC0uNDg5LTEuOTUxLS43NC0zLjkwOC0uNzQtNS44MjMgMC0yNi43MjEgMjYuNzQxLTQ1LjIyNyA1NC4yNDgtNDUuMjI3IDM3LjIxOCAwIDY3LjM4OCAzMC4xNzQgNjcuMzg4IDY3LjM5IDAgMjkuMTczLTE2Ljc4NSA1NC40MzctNDEuMTc5IDY2LjU2NXYuMDIzYzMxLjQ1NS0xMS4zOTEgNTMuOTA4LTQxLjUxMiA1My45MDgtNzYuODg0IDAtOC4zNzgtMS4xMjctMTUuNzU5LTMuNTk1LTI0LjA1MyIvPjwvc3ZnPg%3D%3D)](https://www.egovframe.go.kr)
+[![react](https://img.shields.io/badge/react-19.3.1-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![javascript](https://img.shields.io/badge/javascript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![node.js](https://img.shields.io/badge/node.js-v22.22%20~%20v24%20LTS-339933?logo=Node.js&logoColor=white)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/npm-v10%2B-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
+[![vite](https://img.shields.io/badge/vite-8.3.5-646CFF?logo=vite&logoColor=white)](https://vite.dev/)  
 ![workflow](https://github.com/eGovFramework/egovframe-template-simple-react/actions/workflows/node.js.yml/badge.svg)
 
 ※ 본 프로젝트는 기존 JSP 뷰 방식에서 벗어나 BackEnd와 FrontEnd를 분리하기 위한 예시 파일로 참고만 하시길 바랍니다.
@@ -88,18 +89,18 @@
 
 ![sh6](https://github.com/user-attachments/assets/29c8e651-5d1b-4ad3-bc27-c16a511c5008)
 
-1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리, 사이트관리자 암호변경, 회원관리
+1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항 관리, 사이트 갤러리관리, 사이트관리자 암호변경, 회원관리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)과 게시판 기능을 커스터마이징하여 사용한다.
-3. 활용방법 : 관리자로 로그인 한 후 일정정보를 등록하거나 게시물을 등록할 수 있다. (게시판 설정 가능)
+3. 활용방법 : 관리자로 로그인한 후 일정정보를 등록하거나 게시물을 등록할 수 있다. (게시판 설정 가능)
 
 ## 환경 설정
 
-프로젝트에서 사용된 환경 프로그램 정보는 다음과 같다.
+프로젝트 구동에 필요한 환경 프로그램 정보는 다음과 같다.
 
-| 프로그램 명 | 버전 명  |
+| 프로그램 명 | 버전 명 |
 | :---------- | :------- |
-| Node.js     | v18.12.0 |
-| NPM         | v8.19.2  |
+| Node.js     | v22.22 ~ v24 LTS |
+| NPM         | v10 이상 |
 
 ## BackEnd 구동
 
@@ -130,13 +131,22 @@ npm install
 
 ### 2. 백엔드 프로젝트 설정
 
-구동된 BackEnd 서버의 URL을 본 어플리케이션의 .env.development 파일의 VITE_EGOV_CONTEXT_URL에 설정해 준다.
-(단, 개발환경에서는 사용하는 환경변수 정보는 .env.development, build 시 사용하는 환경변수는 .env.production 에 기입해 준다.)
+프론트엔드는 백엔드를 **동일 출처 상대경로 `/api`** 로 호출한다 (`src/config.js`의 `SERVER_URL`, 기본값 `/api`).
+개발 서버(`npm run dev`)는 `vite.config.js` 의 프록시 설정이 `/api/*` 요청을 백엔드로 전달하므로,
+백엔드가 `http://localhost:8080` 에서 구동 중이면 **추가 설정 없이 바로 동작한다**.
+
+백엔드가 다른 호스트/포트에서 뜰 때만 아래 변수를 사용한다.
 
 ```bash
-# .env.development 예시
-VITE_APP_EGOV_CONTEXT_URL=localhost:8080
+# 개발 서버의 프록시 대상 변경 (.env.development 또는 셸 환경변수)
+VITE_APP_API_PROXY_TARGET=http://192.168.0.10:8080
+
+# 빌드 산출물이 백엔드를 절대 URL로 직접 호출해야 할 때 (빌드 시점)
+VITE_APP_API_BASE_URL=http://api.example.com
 ```
+
+> 컨테이너/Kubernetes 배포에서는 nginx 가 `/api` 를 리버스 프록시하므로 위 변수 없이 기본값(`/api`)을 그대로 쓰고,
+> 백엔드 주소는 런타임에 `BACKEND_URL` 로 주입한다. 자세한 내용은 아래 "컨테이너 배포" 절을 참고한다.
 
 ### 3. 프로젝트 실행 및 기타 명령어
 
@@ -156,7 +166,7 @@ npm run preview
 ```
 
 ```bash
-# 테스트 대상 파일 경로는 vite.config.js에 명시되어 있으며 디폴트로 EgovMain.jsx의 테스트를 실행한다.
+# 테스트 대상은 vite.config.js 의 test.include 패턴에 따라 수집된다.
 # watch 모드로 테스트를 실행할 경우에는 아래 명령어를 사용한다.
 npm run test
 
@@ -164,11 +174,88 @@ npm run test
 npm run test:run
 ```
 
+```bash
+# 코드 검사(ESLint)를 실행할 때는 아래 명령어를 사용한다. 규칙은 eslint.config.js 에 정의되어 있다.
+npm run lint
+```
+
+## 컨테이너 배포 (Docker / Kubernetes)
+
+정적 번들을 nginx 로 호스팅하는 컨테이너 이미지와 Kubernetes 매니페스트를 제공한다.
+nginx 가 `/api/*` 요청을 백엔드로 리버스 프록시하므로, 프론트엔드는 백엔드 주소를 빌드 시점에 고정하지 않고
+**동일 출처 상대경로(`/api`)** 로 호출한다. 백엔드 주소는 런타임에 `BACKEND_URL` 환경변수로 주입한다.
+
+> API base 는 `src/config.js` 의 `SERVER_URL` 로 결정되며 기본값은 `/api` 이다.
+> 별도 호스트로 직접 호출해야 하는 경우에만 빌드 시 `VITE_APP_API_BASE_URL` 로 절대 URL 을 지정한다.
+
+### 1. 이미지 빌드
+
+Dockerfile 은 heredoc(`COPY <<'NGINX' ...`) 구문을 사용하므로 **BuildKit 이 필요**하다.
+Docker 20.10+ 에서는 기본 활성화되어 있으며, 비활성 환경이라면 `DOCKER_BUILDKIT=1` 을 지정한다.
+
+```bash
+DOCKER_BUILDKIT=1 docker build -t egovframe-template-simple-react:4.3.2 .
+```
+
+### 2. 로컬 실행 (docker compose)
+
+#### 2-1. 프론트엔드만 실행 (백엔드는 외부에서 구동 중인 경우)
+
+```bash
+# 외부 백엔드 주소를 BACKEND_URL 로 지정 (기본값: http://egov-simple-backend:8080)
+BACKEND_URL=http://host.docker.internal:8080 docker compose up -d web
+
+# http://localhost:3000/ 접속 (WEB_PORT 로 변경 가능)
+```
+
+#### 2-2. 백엔드까지 함께 실행 — 로그인/CRUD 통합 (fullstack 프로파일)
+
+백엔드 이미지와 DB 초기화 스크립트가 필요하다. 다음을 전제로 한다.
+
+- [심플 홈페이지 Backend](https://github.com/eGovFramework/egovframe-template-simple-backend.git) 를 본 저장소와 **같은 상위 디렉토리**에 clone (DB 초기화 SQL 마운트 경로 기준, 다르면 `BACKEND_DB_DIR` 로 조정)
+- 백엔드 이미지 사전 빌드: `egovframe-template-simple-backend:4.3.2`
+
+```bash
+# 백엔드 이미지 빌드 (백엔드 저장소에서)
+git clone https://github.com/eGovFramework/egovframe-template-simple-backend.git
+(cd egovframe-template-simple-backend && DOCKER_BUILDKIT=1 docker build -t egovframe-template-simple-backend:4.3.2 .)
+
+# DB 비밀번호 등 .env 작성 (프론트엔드 저장소 루트)
+cat > .env <<'ENV'
+MYSQL_ROOT_PASSWORD=changeit_root
+MYSQL_PASSWORD=changeit_app
+ENV
+
+# 프론트(nginx) + 백엔드 + MySQL 동시 기동
+docker compose --profile fullstack up -d
+
+# http://localhost:3000/ 접속 후 admin / Admin@1234 로 로그인
+```
+
+이 구성에서 브라우저 → nginx(`/api/*`) → 백엔드(`:8080`) → MySQL 경로로 로그인과 게시판 CRUD 가 한 번에 동작한다.
+
+### 3. Kubernetes 배포
+
+```bash
+kubectl apply -f k8s/
+
+# Service 는 ClusterIP 이므로 port-forward 로 접속한다.
+kubectl port-forward svc/egov-simple-react 3000:8080
+# http://localhost:3000/ 접속
+```
+
+백엔드 연동: `k8s/deployment.yaml` 의 `BACKEND_URL` 환경변수가 백엔드 템플릿
+(`egovframe-template-simple-backend`)의 k8s Service 이름과 일치하도록 `http://egovframe-template-simple-backend:8080`
+으로 기본 설정되어 있다. 백엔드를 함께 배포하면 두 매니페스트의 기본값만으로 연동된다. 다른 네임스페이스에
+배포하는 경우 FQDN 으로 조정한다(예: `http://egovframe-template-simple-backend.<namespace>.svc.cluster.local:8080`).
+nginx 컨테이너는 `readOnlyRootFilesystem` 이므로 기동 시 `BACKEND_URL` 치환 결과를
+`emptyDir`(`/etc/nginx/conf.d`)에 기록한다.
+
 ---
 
 ### 참조
 
 보다 상세한 설명은 아래의 문서를 확인한다.
 
-1. [vite 공식 가이드 문서(한글)](https://vitejs-kr.github.io/guide/)
+1. [vite 공식 가이드 문서(한글)](https://ko.vite.dev/guide/)
 2. [개발환경 초기 설정](./Docs/development-env-setting.md)

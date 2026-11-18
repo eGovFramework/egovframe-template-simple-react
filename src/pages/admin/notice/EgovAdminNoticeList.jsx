@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
@@ -10,24 +11,15 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminNoticeList(props) {
-
-  const location = useLocation();
+function EgovAdminNoticeList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
 
   const bbsId = NOTICE_BBS_ID;
 
-  // eslint-disable-next-line no-unused-vars
-  const [searchCondition, setSearchCondition] = useState(
-    location.state?.searchCondition || {
-      bbsId: bbsId,
-      pageIndex: 1,
-      searchCnd: "0",
-      searchWrd: "",
-    }
-  ); // 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+  // 공통 네비게이션 훅 사용
+  const { searchCondition, handlePageMove, handleSearch } = useListNavigation(bbsId);
   const [masterBoard, setMasterBoard] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
 
@@ -54,7 +46,7 @@ function EgovAdminNoticeList(props) {
 
         const resultCnt = parseInt(resp.result.resultCnt);
         const currentPageNo = resp.result.paginationInfo.currentPageNo;
-        const pageSize = resp.result.paginationInfo.pageSize;
+        const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach(function (item, index) {
@@ -62,7 +54,7 @@ function EgovAdminNoticeList(props) {
           const listIdx = itemIdxByPage(
             resultCnt,
             currentPageNo,
-            pageSize,
+            recordCountPerPage,
             index
           );
 
@@ -102,7 +94,7 @@ function EgovAdminNoticeList(props) {
           ); // 게시판 목록 초기값
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);
@@ -180,12 +172,7 @@ function EgovAdminNoticeList(props) {
                     <button
                       type="button"
                       onClick={() => {
-                        retrieveList({
-                          ...searchCondition,
-                          pageIndex: 1,
-                          searchCnd: cndRef.current.value,
-                          searchWrd: wrdRef.current.value,
-                        });
+                        handleSearch(cndRef, wrdRef, retrieveList);
                       }}
                     >
                       조회
@@ -225,12 +212,7 @@ function EgovAdminNoticeList(props) {
               <EgovPaging
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
-                  retrieveList({
-                    ...searchCondition,
-                    pageIndex: passedPage,
-                    searchCnd: cndRef.current.value,
-                    searchWrd: wrdRef.current.value,
-                  });
+                  handlePageMove(passedPage, cndRef, wrdRef, retrieveList);
                 }}
               />
               {/* <!--/ Paging --> */}

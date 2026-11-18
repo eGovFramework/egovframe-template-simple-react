@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
@@ -40,9 +41,11 @@ function EgovAdminBoardEdit(props) {
     { value: 3, label: "3개" },
   ];
   const bbsId = location.state?.bbsId || "";
+  const searchCondition = location.state?.searchCondition;
 
   const [modeInfo, setModeInfo] = useState({ mode: props.mode });
   const [boardDetail, setBoardDetail] = useState({});
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const initMode = () => {
     switch (props.mode) {
@@ -90,7 +93,7 @@ function EgovAdminBoardEdit(props) {
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
       // 수정모드일 경우 조회값 세팅
       if (modeInfo.mode === CODE.MODE_MODIFY) {
-        setBoardDetail(resp.result.boardMasterVO);
+        setBoardDetail(resp.result);
       }
     });
   };
@@ -150,14 +153,13 @@ function EgovAdminBoardEdit(props) {
   const updateBoard = () => {
     let modeStr = modeInfo.mode === CODE.MODE_CREATE ? "POST" : "PUT";
 
-    let requestOptions = {};
+    let requestOptions;
 
     if (modeStr === "POST") {
       const formData = new FormData();
 
       for (let key in boardDetail) {
         formData.append(key, boardDetail[key]);
-        //console.log("boardDetail [%s] ", key, boardDetail[key]);
       }
 
       if (formValidator(formData)) {
@@ -169,7 +171,10 @@ function EgovAdminBoardEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_BOARD });
+            navigate(
+              { pathname: URL.ADMIN_BOARD },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -190,7 +195,10 @@ function EgovAdminBoardEdit(props) {
 
         EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
           if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-            navigate({ pathname: URL.ADMIN_BOARD });
+            navigate(
+              { pathname: URL.ADMIN_BOARD },
+              { state: { searchCondition } }
+            );
           } else {
             navigate(
               { pathname: URL.ERROR },
@@ -200,6 +208,14 @@ function EgovAdminBoardEdit(props) {
         });
       }
     }
+  };
+
+  const handleDelete = (bbsId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    deleteBoardArticle(bbsId);
   };
 
   const deleteBoardArticle = (bbsId) => {
@@ -290,7 +306,7 @@ function EgovAdminBoardEdit(props) {
                     onChange={(e) =>
                       setBoardDetail({ ...boardDetail, bbsNm: e.target.value })
                     }
-                    ref={(el) => (checkRef.current[0] = el)}
+                    ref={(el) => { checkRef.current[0] = el; }}
                   />
                 </dd>
               </dl>
@@ -308,13 +324,8 @@ function EgovAdminBoardEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.bbsIntrcn}
-                    onChange={(e) =>
-                      setBoardDetail({
-                        ...boardDetail,
-                        bbsIntrcn: e.target.value,
-                      })
-                    }
-                    ref={(el) => (checkRef.current[1] = el)}
+                    onChange={(e) => handleInputChange("bbsIntrcn", e.target.value)}
+                    ref={(el) => { checkRef.current[1] = el; }}
                   ></textarea>
                 </dd>
               </dl>
@@ -464,7 +475,7 @@ function EgovAdminBoardEdit(props) {
                         })
                       }
                       value={boardDetail.posblAtchFileNumber}
-                      ref={(el) => (checkRef.current[2] = el)}
+                      ref={(el) => { checkRef.current[2] = el; }}
                     >
                       {posblAtchFileNumberOptions.map((option) => {
                         return (
@@ -491,7 +502,7 @@ function EgovAdminBoardEdit(props) {
                     <button
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
-                        deleteBoardArticle(boardDetail.bbsId);
+                        handleDelete(boardDetail.bbsId);
                       }}
                     >
                       삭제
@@ -500,7 +511,11 @@ function EgovAdminBoardEdit(props) {
                 </div>
 
                 <div className="right_col btn1">
-                  <Link to={URL.ADMIN_BOARD} className="btn btn_blue_h46 w_100">
+                  <Link
+                    to={URL.ADMIN_BOARD}
+                    state={{ searchCondition }}
+                    className="btn btn_blue_h46 w_100"
+                  >
                     목록
                   </Link>
                 </div>

@@ -1,24 +1,30 @@
 import { useState, useEffect } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
 
-function EgovAdminGalleryDetail(props) {
+function EgovAdminGalleryDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const bbsId = location.state.bbsId || GALLERY_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 직접 URL 접근 시 location.state가 null일 수 있음
+  const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
+
+  // 공통 네비게이션 훅 사용 (목록으로 돌아가기 URL 생성용)
+  const { getBackToListURL } = useListNavigation(bbsId);
 
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({});
@@ -33,13 +39,31 @@ function EgovAdminGalleryDetail(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.ADMIN_GALLERY,
+        searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setBoardAttachFiles(resp.result.resultFiles);
     });
   };
 
-  const onClickDeleteBoardArticle = (bbsId, nttId) => {
+  const handleDelete = (bbsId, nttId, atchFileId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteBoardArticle(bbsId, nttId, atchFileId);
+  }
+
+  const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
@@ -47,6 +71,7 @@ function EgovAdminGalleryDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
+      body: JSON.stringify({ atchFileId: atchFileId })
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -64,6 +89,12 @@ function EgovAdminGalleryDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 관리자 갤러리 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.ADMIN_GALLERY, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -160,9 +191,10 @@ function EgovAdminGalleryDetail(props) {
                       className="btn btn_skyblue_h46 w_100"
                       onClick={(e) => {
                         e.preventDefault();
-                        onClickDeleteBoardArticle(
+                        handleDelete(
                           boardDetail.bbsId,
-                          boardDetail.nttId
+                          boardDetail.nttId,
+                          boardDetail.atchFileId
                         );
                       }}
                     >
@@ -184,12 +216,7 @@ function EgovAdminGalleryDetail(props) {
                 )}
                 <div className="right_col btn1">
                   <Link
-                    to={{ pathname: URL.ADMIN_GALLERY }}
-                    state={{
-                      nttId: nttId,
-                      bbsId: bbsId,
-                      searchCondition: searchCondition,
-                    }}
+                    to={getBackToListURL(URL.ADMIN_GALLERY, searchCondition)}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

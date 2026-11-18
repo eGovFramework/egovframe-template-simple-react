@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { NOTICE_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import { useAuth } from "@/contexts/AuthContext";
 
-function EgovNoticeDetail(props) {
+function EgovNoticeDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // 관리자 권한 체크: 백엔드 /auth/me 결과(AuthContext) 사용
+  // 관리자 권한 체크: 백엔드 /auth/me 결과 사용
   const { roles } = useAuth();
   const isAdmin = roles.includes("ROLE_ADMIN");
 
-  const bbsId = location.state.bbsId || NOTICE_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 직접 URL 접근 시 location.state가 null일 수 있음
+  const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
+
+  // 공통 네비게이션 훅 사용 (목록으로 돌아가기 URL 생성용)
+  const { getBackToListURL } = useListNavigation(bbsId);
 
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
@@ -36,7 +42,18 @@ function EgovNoticeDetail(props) {
         "Content-type": "application/json",
       },
     };
+
+    
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.INFORM_NOTICE,
+        searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setUser(resp.result.user);
@@ -44,7 +61,15 @@ function EgovNoticeDetail(props) {
     });
   };
 
-  const onClickDeleteBoardArticle = (bbsId, nttId) => {
+  const handleDelete = (bbsId, nttId, atchFileId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteBoardArticle(bbsId, nttId, atchFileId);
+  };
+
+  const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
@@ -52,6 +77,7 @@ function EgovNoticeDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
+      body: JSON.stringify({ atchFileId: atchFileId })
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -68,6 +94,12 @@ function EgovNoticeDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 공지사항 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.INFORM_NOTICE, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -162,9 +194,10 @@ function EgovNoticeDetail(props) {
                         className="btn btn_skyblue_h46 w_100"
                         onClick={(e) => {
                           e.preventDefault();
-                          onClickDeleteBoardArticle(
+                          handleDelete(
                             boardDetail.bbsId,
-                            boardDetail.nttId
+                            boardDetail.nttId,
+                            boardDetail.atchFileId
                           );
                         }}
                       >
@@ -187,12 +220,7 @@ function EgovNoticeDetail(props) {
 
                 <div className="right_col btn1">
                   <Link
-                    to={{ pathname: URL.INFORM_NOTICE }}
-                    state={{
-                      nttId: nttId,
-                      bbsId: bbsId,
-                      searchCondition: searchCondition,
-                    }}
+                    to={getBackToListURL(URL.INFORM_NOTICE, searchCondition)}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

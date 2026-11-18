@@ -9,6 +9,7 @@ import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovRadioButtonGroup from "@/components/EgovRadioButtonGroup";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -38,6 +39,8 @@ function EgovAdminScheduleEdit(props) {
   const [schdulBgndeMM, setSchdulBgndeMM] = useState();
   const [schdulEnddeHH, setSchdulEnddeHH] = useState();
   const [schdulEnddeMM, setSchdulEnddeMM] = useState();
+
+  const handleInputChange = useDebouncedInput(setScheduleDetail, 300);
 
   const initMode = () => {
     switch (props.mode) {
@@ -93,7 +96,21 @@ function EgovAdminScheduleEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      let rawScheduleDetail = resp.result.scheduleDetail;
+      const resultCode = Number(resp.resultCode);
+      const rawScheduleDetail = resp.result?.scheduleDetail;
+      if (resultCode === Number(CODE.RCV_ERROR_NOT_FOUND) ||
+          (resultCode === Number(CODE.RCV_SUCCESS) && !rawScheduleDetail)) {
+        alert("일정이 존재하지 않거나 삭제되었습니다.");
+        navigate(URL.ADMIN_SCHEDULE, {
+          replace: true,
+          state: { searchCondition: location.state?.searchCondition },
+        });
+        return;
+      }
+      if (resultCode !== Number(CODE.RCV_SUCCESS)) {
+        navigate({ pathname: URL.ERROR }, { state: { msg: resp.resultMessage } });
+        return;
+      }
       //기본값 설정
       setScheduleDetail({
         ...scheduleDetail,
@@ -119,11 +136,14 @@ function EgovAdminScheduleEdit(props) {
         body: formData,
       };
 
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
-        modeInfo.editURL = `${modeInfo.editURL}/${location.state?.schdulId}`;
-      }
+      // 형제 게시판 수정 화면들처럼 수정 URL 을 여기서 한 번 계산한다.
+      // 상태(modeInfo.editURL)를 제자리에서 이어 붙이면 저장을 다시 누를 때 겹친다.
+      const editURL =
+        modeInfo.mode === CODE.MODE_MODIFY
+          ? `${modeInfo.editURL}/${location.state?.schdulId}`
+          : modeInfo.editURL;
 
-      EgovNet.requestFetch(modeInfo.editURL, requestOptions, (resp) => {
+      EgovNet.requestFetch(editURL, requestOptions, (resp) => {
         if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
           navigate({ pathname: URL.ADMIN_SCHEDULE });
         } else {
@@ -336,12 +356,7 @@ function EgovAdminScheduleEdit(props) {
                     rows="10"
                     placeholder="일정내용"
                     defaultValue={scheduleDetail.schdulCn}
-                    onChange={(e) =>
-                      setScheduleDetail({
-                        ...scheduleDetail,
-                        schdulCn: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handleInputChange("schdulCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>
@@ -485,6 +500,7 @@ function EgovAdminScheduleEdit(props) {
                 <div className="right_col btn1">
                   <Link
                     to={URL.ADMIN_SCHEDULE}
+                    state={{ searchCondition: location.state?.searchCondition }}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-function EgovViewTemplate(props) {
-
+function EgovViewTemplate() {
   useEffect(() => {
     return () => {};
   }, []);

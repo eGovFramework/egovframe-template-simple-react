@@ -59,6 +59,8 @@ const SnsKakaoCallback = () => {
     if (didRunRef.current) return;
     didRunRef.current = true;
     callBackEnd();
+    // 마운트 시 1회만 실행(didRunRef 가드) — deps 고정 의도
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

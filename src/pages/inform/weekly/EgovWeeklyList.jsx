@@ -7,7 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 
-function EgovWeeklyList(props) {
+function EgovWeeklyList() {
 
   const location = useLocation();
 
@@ -20,15 +20,6 @@ function EgovWeeklyList(props) {
 
   const getWeekOfMonth = (date) => {
     let adjustedDate = date.getDate() + date.getDay();
-    console.log(
-      "getWeekOfMonth : ",
-      date,
-      date.getDate(),
-      date.getDay(),
-      adjustedDate,
-      adjustedDate / 7,
-      0 | (adjustedDate / 7)
-    );
     let weeksOrder = [0, 1, 2, 3, 4, 5];
     let returnVal = parseInt(weeksOrder[0 | (adjustedDate / 7)]);
     return returnVal;
@@ -219,7 +210,7 @@ function EgovWeeklyList(props) {
           setScheduleList(resp.result.resultList);
           drawList();
         },
-        function (resp) {
+        function () {
         }
       );
 
@@ -288,9 +279,10 @@ function EgovWeeklyList(props) {
                 <li>
                   <label className="f_select" htmlFor="sel1">
                     <select
-                      name=""
+                      name="schdulSe"
                       id="sel1"
                       title="조건"
+                      value={searchCondition.schdulSe}
                       onChange={(e) => {
                         setSearchCondition({
                           ...searchCondition,

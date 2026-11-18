@@ -91,7 +91,7 @@ function EgovIntroService() {
               </p>
               <ul>
                 <li>
-                  Process Control : 비지니스 로직과 업무 흐름의 분리를 지원하며,
+                  Process Control : 비즈니스 로직과 업무 흐름의 분리를 지원하며,
                   XML 등의 외부 설정으로 업무흐름 구성을 제공하고, 미리 정의된
                   프로세스를 실행하는 기능을 제공한다.
                 </li>

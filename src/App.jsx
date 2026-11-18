@@ -1,5 +1,4 @@
 import RootRoutes from "@/routes";
-import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -12,13 +11,11 @@ import "@/css/response.css";
 function App() {
   return (
     <div className="wrap">
-      <React.StrictMode>
-        <Router>
-          <AuthProvider>
-            <RootRoutes />
-          </AuthProvider>
-        </Router>
-      </React.StrictMode>
+      <Router>
+        <AuthProvider>
+          <RootRoutes />
+        </AuthProvider>
+      </Router>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
@@ -11,28 +12,19 @@ import EgovPaging from "@/components/EgovPaging";
 import { itemIdxByPage } from "@/utils/calc";
 import { useAuth } from "@/contexts/AuthContext";
 
-function EgovNoticeList(props) {
-
-  const location = useLocation();
+function EgovNoticeList() {
 
   const cndRef = useRef();
   const wrdRef = useRef();
 
-  // 관리자 권한 체크: 백엔드 /auth/me 결과(AuthContext) 사용
+  // 관리자 권한 체크: 백엔드 /auth/me 결과 사용
   const { roles } = useAuth();
   const isAdmin = roles.includes("ROLE_ADMIN");
 
-  const bbsId = location.state?.bbsId || NOTICE_BBS_ID;
+  const bbsId = NOTICE_BBS_ID;
 
-  // eslint-disable-next-line no-unused-vars
-  const [searchCondition, setSearchCondition] = useState(
-    location.state?.searchCondition || {
-      bbsId: bbsId,
-      pageIndex: 1,
-      searchCnd: "0",
-      searchWrd: "",
-    }
-  ); // 기존 조회에서 접근 했을 시 || 신규로 접근 했을 시
+  // 공통 네비게이션 훅 사용
+  const { searchCondition, handlePageMove, handleSearch } = useListNavigation(bbsId);
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
   const [paginationInfo, setPaginationInfo] = useState({});
@@ -66,7 +58,7 @@ function EgovNoticeList(props) {
 
         const resultCnt = parseInt(resp.result.resultCnt);
         const currentPageNo = resp.result.paginationInfo.currentPageNo;
-        const pageSize = resp.result.paginationInfo.pageSize;
+        const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
 
         // 리스트 항목 구성
         resp.result.resultList.forEach(function (item, index) {
@@ -74,7 +66,7 @@ function EgovNoticeList(props) {
           const listIdx = itemIdxByPage(
             resultCnt,
             currentPageNo,
-            pageSize,
+            recordCountPerPage,
             index
           );
 
@@ -104,7 +96,7 @@ function EgovNoticeList(props) {
         });
         setListTag(mutListTag);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);
@@ -182,19 +174,14 @@ function EgovNoticeList(props) {
                     <button
                       type="button"
                       onClick={() => {
-                        retrieveList({
-                          ...searchCondition,
-                          pageIndex: 1,
-                          searchCnd: cndRef.current.value,
-                          searchWrd: wrdRef.current.value,
-                        });
+                        handleSearch(cndRef, wrdRef, retrieveList);
                       }}
                     >
                       조회
                     </button>
                   </span>
                 </li>
-                {/* 관리자 권한은 AuthContext 의 roles 사용 */}
+                {/* user.id 대신 권한그룹 세션값 사용 */}
                 {user &&
                   isAdmin &&
                   masterBoard.bbsUseFlag === "Y" && (
@@ -230,12 +217,7 @@ function EgovNoticeList(props) {
               <EgovPaging
                 pagination={paginationInfo}
                 moveToPage={(passedPage) => {
-                  retrieveList({
-                    ...searchCondition,
-                    pageIndex: passedPage,
-                    searchCnd: cndRef.current.value,
-                    searchWrd: wrdRef.current.value,
-                  });
+                  handlePageMove(passedPage, cndRef, wrdRef, retrieveList);
                 }}
               />
               {/* <!--/ Paging --> */}

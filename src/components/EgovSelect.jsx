@@ -5,8 +5,8 @@ function EgovSelect({ id, name, title, options, setValue, setter }) {
       name={name}
       title={title}
       defaultValue={setValue}
-      onChange={() => {
-        setter(setValue);
+      onChange={(event) => {
+        setter(event.target.value);
       }}
     >
       {options.map((option, i) => {

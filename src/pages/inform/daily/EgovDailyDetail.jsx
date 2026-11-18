@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 
-function EgovDailyDetail(props) {
+function EgovDailyDetail() {
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [scheduleDetail, setScheduleDetail] = useState({});
@@ -23,7 +25,20 @@ function EgovDailyDetail(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-      let rawScheduleDetail = resp.result.scheduleDetail;
+
+      const listURL = location.state?.prevPath === URL.INFORM_WEEKLY ? URL.INFORM_WEEKLY : URL.INFORM_DAILY;
+
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL,
+        searchCondition: location.state?.searchCondition,
+        message: "일정이 존재하지 않거나 삭제되었습니다.",
+        resultKey: "scheduleDetail",
+      }) ) return;
+
+      const rawScheduleDetail = resp.result.scheduleDetail;
+
       rawScheduleDetail.startDateTime = convertDate(
         rawScheduleDetail.schdulBgnde
       );
@@ -80,6 +95,12 @@ function EgovDailyDetail(props) {
   };
 
   useEffect(function () {
+    // schdulId가 없으면 일정 목록으로 리다이렉트
+    if (!location.state?.schdulId) {
+      alert("잘못된 접근입니다.");
+      window.location.href = URL.INFORM_DAILY;
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

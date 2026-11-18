@@ -85,5 +85,5 @@ const URL = {
   MYPAGE_CREATE: "/mypage/create", // 고객지원/마이페이지/회원 등록
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+ 
 export default URL;

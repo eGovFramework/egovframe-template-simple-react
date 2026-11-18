@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useListNavigation } from "@/hooks/useListNavigation";
 
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
 import EgovImageGallery from "@/components/EgovImageGallery";
-import { getSessionItem } from "@/utils/storage";
 
-function EgovGalleryDetail(props) {
+function EgovGalleryDetail() {
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUniqId = sessionUser?.uniqId;
+  const bbsId = location.state?.bbsId || GALLERY_BBS_ID;
+  const nttId = location.state?.nttId;
+  const searchCondition = location.state?.searchCondition;
 
-  const bbsId = location.state.bbsId || GALLERY_BBS_ID;
-  const nttId = location.state.nttId;
-  const searchCondition = location.state.searchCondition;
+  // 공통 네비게이션 훅 사용 (목록으로 돌아가기 URL 생성용)
+  const { getBackToListURL } = useListNavigation(bbsId);
 
   const [masterBoard, setMasterBoard] = useState({});
   const [user, setUser] = useState({});
@@ -39,6 +39,16 @@ function EgovGalleryDetail(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+
+      // 상세 조회 후, 리소스 없는 경우 안내 후 목록으로 복귀, 그 외의 200이 아닌 경우는 공통 에러 페이지
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.INFORM_GALLERY,
+        searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
       setBoardDetail(resp.result.boardVO);
       setUser(resp.result.user);
@@ -46,7 +56,15 @@ function EgovGalleryDetail(props) {
     });
   };
 
-  const onClickDeleteBoardArticle = (bbsId, nttId) => {
+  const handleDelete = (bbsId, nttId, atchFileId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    onClickDeleteBoardArticle(bbsId, nttId, atchFileId);
+  };
+
+  const onClickDeleteBoardArticle = (bbsId, nttId, atchFileId) => {
     const deleteBoardURL = `/board/${bbsId}/${nttId}`;
 
     const requestOptions = {
@@ -54,6 +72,7 @@ function EgovGalleryDetail(props) {
       headers: {
         "Content-type": "application/json",
       },
+      body: JSON.stringify({ atchFileId: atchFileId }),
     };
 
     EgovNet.requestFetch(deleteBoardURL, requestOptions, (resp) => {
@@ -70,6 +89,12 @@ function EgovGalleryDetail(props) {
   };
 
   useEffect(function () {
+    // nttId가 없으면 갤러리 목록으로 리다이렉트
+    if (!nttId) {
+      alert("잘못된 접근입니다.");
+      navigate(URL.INFORM_GALLERY, { replace: true });
+      return;
+    }
     retrieveDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -149,9 +174,8 @@ function EgovGalleryDetail(props) {
               </div>
 
               <div className="board_btn_area">
-                {sessionUniqId === boardDetail.frstRegisterId &&
-                  user &&
-                  user.id &&
+                {user?.uniqId === boardDetail.frstRegisterId &&
+                  user?.id &&
                   masterBoard.bbsUseFlag === "Y" && (
                     <div className="left_col btn3">
                       <Link
@@ -169,9 +193,10 @@ function EgovGalleryDetail(props) {
                         className="btn btn_skyblue_h46 w_100"
                         onClick={(e) => {
                           e.preventDefault();
-                          onClickDeleteBoardArticle(
+                          handleDelete(
                             boardDetail.bbsId,
-                            boardDetail.nttId
+                            boardDetail.nttId,
+                            boardDetail.atchFileId
                           );
                         }}
                       >
@@ -192,7 +217,7 @@ function EgovGalleryDetail(props) {
                     </div>
                   )}
                 <div className="right_col btn1">
-                  {user.id &&
+                  {user?.id &&
                     masterBoard.bbsUseFlag === "Y" &&
                     masterBoard.replyPosblAt === "Y" && (
                       <Link
@@ -207,12 +232,7 @@ function EgovGalleryDetail(props) {
                       </Link>
                     )}
                   <Link
-                    to={{ pathname: URL.INFORM_GALLERY }}
-                    state={{
-                      nttId: nttId,
-                      bbsId: bbsId,
-                      searchCondition: searchCondition,
-                    }}
+                    to={getBackToListURL(URL.INFORM_GALLERY, searchCondition)}
                     className="btn btn_blue_h46 w_100"
                   >
                     목록

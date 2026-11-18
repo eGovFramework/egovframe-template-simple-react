@@ -37,7 +37,6 @@ function EgovAttachFile({
   }
 
   function onClickDeleteFile(atchFileId, fileSn, fileIndex) {
-
     const requestOptions = {
       method: "POST",
       headers: {
@@ -52,7 +51,6 @@ function EgovAttachFile({
     };
     EgovNet.requestFetch(`/file`, requestOptions, function (resp) {
       if (Number(resp.resultCode) === Number(CODE.RCV_SUCCESS)) {
-        // 성공
         // eslint-disable-next-line no-unused-vars
         const _deleteFile = boardFiles.splice(fileIndex, 1);
         const _boardFiles = Object.assign([], boardFiles);
@@ -83,7 +81,7 @@ function EgovAttachFile({
 
   let filesTag = [];
 
-  if (boardFiles !== undefined) {
+  if (Array.isArray(boardFiles)) {
     boardFiles.forEach(function (item, index) {
       filesTag.push(
         <React.Fragment key={index}>
@@ -118,7 +116,6 @@ function EgovAttachFile({
       filesTag.push(<br key={["br", `${index}`].join(" ")} />);
     });
   }
-
   return (
     <dl>
       <dt>첨부파일</dt>

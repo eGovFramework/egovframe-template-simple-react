@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 
 import URL from "@/constants/url";
@@ -12,7 +12,6 @@ import { useAuth } from "@/contexts/AuthContext";
 
 function EgovLoginContent(props) {
   const navigate = useNavigate();
-  const location = useLocation();
   const { refresh } = useAuth();
 
   const [userInfo, setUserInfo] = useState({
@@ -41,7 +40,7 @@ function EgovLoginContent(props) {
     let idFlag = getLocalItem(KEY_SAVE_ID_FLAG);
     if (idFlag === null) {
       setSaveIDFlag(false);
-
+       
       idFlag = false;
     } else {
       setSaveIDFlag(idFlag);
@@ -90,7 +89,7 @@ function EgovLoginContent(props) {
       return;
     }
 
-    // 비밀번호를 1차 SHA-256 해시로 변환해 전송 — DevTools/네트워크에 평문 노출 차단.
+    // R-07: 비밀번호를 1차 SHA-256 해시로 변환해 전송 — DevTools/네트워크에 평문 노출 차단.
     const hashedPassword = await hashPassword(userInfo.id, userInfo.password);
 
     const loginUrl = "/auth/login-jwt";

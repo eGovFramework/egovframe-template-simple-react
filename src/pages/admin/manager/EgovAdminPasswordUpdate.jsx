@@ -5,7 +5,7 @@ import URL from "@/constants/url";
 import CODE from "@/constants/code";
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
-function EgovAdminPasswordUpdate(props) {
+function EgovAdminPasswordUpdate() {
 
   const navigate = useNavigate();
   const [oldPassword, setOldPassword] = useState("");
@@ -26,6 +26,10 @@ function EgovAdminPasswordUpdate(props) {
       alert("신규 암호는 필수 값입니다.");
       return false;
     }
+    if (formData.get("new_password").length < 6) {
+      alert("신규 암호는 6자 이상이어야 합니다.");
+      return false;
+    }
     if (formData.get("new_password") === formData.get("old_password")) {
       alert("신규 암호는 기존 암호와 동일하게 사용할 수 없습니다.");
       return false;
@@ -40,7 +44,7 @@ function EgovAdminPasswordUpdate(props) {
 
     const editURL = "/admin/password";
 
-    let requestOptions = {};
+    let requestOptions;
     const formData = new FormData();
     formData.append("old_password", oldPassword);
     formData.append("new_password", newPassword);
@@ -71,9 +75,8 @@ function EgovAdminPasswordUpdate(props) {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
-
 
   return (
     <div className="container">

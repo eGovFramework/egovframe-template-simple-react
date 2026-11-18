@@ -7,7 +7,7 @@ import CODE from "@/constants/code";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavAdmin";
 
-function EgovAdminScheduleList(props) {
+function EgovAdminScheduleList() {
 
   const location = useLocation();
 
@@ -26,6 +26,8 @@ function EgovAdminScheduleList(props) {
 
   const [scheduleList, setScheduleList] = useState([]);
 
+  // 디버그 로거 스텁 — 가변 인자 로거(호출부마다 인자 수 다름) 켤 때 console.log(...args)
+  // eslint-disable-next-line no-unused-vars
   const innerConsole = (...args) => {
   };
 
@@ -80,18 +82,13 @@ function EgovAdminScheduleList(props) {
       (resp) => {
         setScheduleList(resp.result.resultList);
       },
-      function (resp) {
+      function () {
       }
     );
   }, []);
 
   const drawCalendar = () => {
-    const PREV_MONTH_ADDITION = -1;
-
-    let lastOfLastMonth = getLastDateOfMonth(
-      searchCondition.year,
-      searchCondition.month + PREV_MONTH_ADDITION
-    );
+    
     let firstOfThisMonth = getFirstDateOfMonth(
       searchCondition.year,
       searchCondition.month
@@ -101,25 +98,8 @@ function EgovAdminScheduleList(props) {
       searchCondition.month
     );
 
-    console.log(
-      "lastOfLastMonth : ",
-      lastOfLastMonth,
-      lastOfLastMonth.getDay()
-    );
-    console.log(
-      "firstOfThisMonth :",
-      firstOfThisMonth,
-      firstOfThisMonth.getDay()
-    );
-
     let firstDayOfThisMonth = firstOfThisMonth.getDay();
     let lastDateOfThisMonth = lastOfThisMonth.getDate();
-    console.log(
-      "firstDayOfThisMonth",
-      firstDayOfThisMonth,
-      "lastDateOfThisMonth",
-      lastDateOfThisMonth
-    );
 
     let monthArr = [];
     let weekArr = [];
@@ -217,18 +197,17 @@ function EgovAdminScheduleList(props) {
                       innerConsole("schedule.schdulId ", schedule.schdulId);
                       if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                         return (
-                          <>
+                          <React.Fragment key={keyIdx++}>
                             <Link
                               to={{ pathname: URL.ADMIN_SCHEDULE_DETAIL }}
-                              state={{ schdulId: schedule.schdulId }}
-                              key={keyIdx++}
+                              state={{ schdulId: schedule.schdulId, searchCondition }}
                             >
                               {schedule.schdulNm}
                             </Link>
                             <br />
-                          </>
+                          </React.Fragment>
                         );
-                      } else return <></>;
+                      } else return null;
                     })}
                   </td>
                 );
@@ -251,7 +230,7 @@ function EgovAdminScheduleList(props) {
             } else if (day === 0) {
               // 이전달/다음달 구현
               return <td key={keyIdx++}></td>;
-            } else return <></>;
+            } else return null;
           })}
         </tr>
       );
@@ -317,6 +296,7 @@ function EgovAdminScheduleList(props) {
                       name="schdulSe"
                       id="sel1"
                       title="조건"
+                      value={searchCondition.schdulSe}
                       onChange={(e) => {
                         setSearchCondition({
                           ...searchCondition,

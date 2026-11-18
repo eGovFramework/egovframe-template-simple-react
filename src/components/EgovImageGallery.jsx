@@ -4,7 +4,7 @@ import { SERVER_URL } from "@/config";
 function EgovImageGallery({ boardFiles }) {
   let filesTag = [];
 
-  if (boardFiles !== undefined) {
+  if (Array.isArray(boardFiles)) {
     boardFiles.forEach(function (item, index) {
       filesTag.push(
         <React.Fragment key={index}>
@@ -17,7 +17,6 @@ function EgovImageGallery({ boardFiles }) {
       );
     });
   }
-
   return <div className="board_attach_img">{filesTag}</div>;
 }
 

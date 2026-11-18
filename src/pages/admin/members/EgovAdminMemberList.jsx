@@ -9,11 +9,7 @@ import EgovPaging from "@/components/EgovPaging";
 
 import { itemIdxByPage } from "@/utils/calc";
 
-function EgovAdminMemberList(props) {
-  console.log(
-    "[Start] EgovAdminMemberMemberList ------------------------------"
-  );
-
+function EgovAdminMemberList() {
   const location = useLocation();
 
   // eslint-disable-next-line no-unused-vars
@@ -59,7 +55,7 @@ function EgovAdminMemberList(props) {
             resp.result.paginationInfo.totalRecordCount
           );
           const currentPageNo = resp.result.paginationInfo.currentPageNo;
-          const pageSize = resp.result.paginationInfo.pageSize;
+          const recordCountPerPage = resp.result.paginationInfo.recordCountPerPage;
           // 리스트 항목 구성
           resp.result.resultList.forEach(function (item, index) {
             let authNm = "";
@@ -70,7 +66,7 @@ function EgovAdminMemberList(props) {
             const listIdx = itemIdxByPage(
               resultCnt,
               currentPageNo,
-              pageSize,
+              recordCountPerPage,
               index
             );
             mutListTag.push(
@@ -78,7 +74,7 @@ function EgovAdminMemberList(props) {
                 to={{ pathname: URL.ADMIN_MEMBERS_MODIFY }}
                 state={{
                   uniqId: item.uniqId,
-                  searchCondition: searchCondition,
+                  searchCondition: srchCnd,
                 }}
                 key={listIdx}
                 className="list_item"
@@ -100,11 +96,11 @@ function EgovAdminMemberList(props) {
             ); // 회원 목록 초기값
           setListTag(mutListTag);
         },
-        function (resp) {
+        function () {
         }
       );
     },
-    [listTag, searchCondition]
+    [listTag]
   );
 
   useEffect(() => {
@@ -155,6 +151,7 @@ function EgovAdminMemberList(props) {
                       id="searchCnd"
                       name="searchCnd"
                       title="검색유형선택"
+                      defaultValue={searchCondition.searchCnd}
                       ref={cndRef}
                       onChange={(e) => {
                         cndRef.current.value = e.target.value;

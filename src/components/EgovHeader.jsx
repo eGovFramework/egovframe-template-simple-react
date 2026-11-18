@@ -11,7 +11,6 @@ import { setSessionItem } from "@/utils/storage";
 import { useAuth } from "@/contexts/AuthContext";
 
 function EgovHeader() {
-
   // 메뉴·로그아웃 표시는 백엔드 /auth/me 결과(AuthContext)를 진실 소스로 사용
   const { user, roles, clear } = useAuth();
   const sessionUserId = user?.id;
@@ -54,7 +53,6 @@ function EgovHeader() {
       }
     });
   };
-
 
   return (
     // <!-- header -->
@@ -381,7 +379,7 @@ function EgovHeader() {
           {/* 로그아웃 : 로그인 정보 있을때 */}
           {sessionUserId && (
             <>
-              <span className="person">{sessionUserName} </span>이
+              <span className="person">{sessionUserName} </span>님이
               로그인하셨습니다.
               <button onClick={logOutHandler} className="btn logout">
                 로그아웃

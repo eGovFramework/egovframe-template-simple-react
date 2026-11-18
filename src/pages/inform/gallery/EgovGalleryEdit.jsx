@@ -5,17 +5,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as EgovNet from "@/api/egovFetch";
 import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import { redirectIfNotFound } from "@/utils/notFoundRedirect";
 import { GALLERY_BBS_ID } from "@/config";
 
 import { default as EgovLeftNav } from "@/components/leftmenu/EgovLeftNavInform";
 import EgovAttachFile from "@/components/EgovAttachFile";
-import bbsFormVaildator from "@/utils/bbsFormVaildator";
-import { getSessionItem } from "@/utils/storage";
+import bbsFormValidator from "@/utils/bbsFormValidator";
+import { useAuth } from "@/contexts/AuthContext";
+import { useDebouncedInput } from "@/hooks/useDebounce";
 
 function EgovGalleryEdit(props) {
-  //관리자 권한 체크때문에 추가(아래)
-  const sessionUser = getSessionItem("loginUser");
-  const sessionUniqId = sessionUser?.uniqId;
+  // 로그인 여부는 백엔드 /auth/me 결과 사용
+  const { user } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,6 +28,8 @@ function EgovGalleryEdit(props) {
   const [masterBoard, setMasterBoard] = useState({});
   const [boardDetail, setBoardDetail] = useState({ nttSj: "", nttCn: "" });
   const [boardAttachFiles, setBoardAttachFiles] = useState();
+
+  const handleInputChange = useDebouncedInput(setBoardDetail, 300);
 
   const intMode = () => {
     switch (props.mode) {
@@ -72,7 +75,7 @@ function EgovGalleryEdit(props) {
       };
 
       EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
-        setMasterBoard(resp.result.brdMstrVO);
+        setMasterBoard(resp.result);
       });
 
       setBoardDetail({ bbsId: bbsId, nttSj: "", nttCn: "" });
@@ -87,6 +90,16 @@ function EgovGalleryEdit(props) {
       },
     };
     EgovNet.requestFetch(retrieveDetailURL, requestOptions, function (resp) {
+
+      // 수정 대상 글이 없으면 안내 후 목록으로 복귀
+      if(redirectIfNotFound(resp, {
+        navigate,
+        listURL: URL.INFORM_GALLERY,
+        searchCondition: location.state?.searchCondition,
+        message: "존재하지 않는 게시글입니다.",
+        resultKey: "boardVO",
+      }) ) return;
+
       setMasterBoard(resp.result.brdMstrVO);
 
       // 초기 boardDetail 설정 => ( 답글 / 수정 ) 모드일때...
@@ -99,13 +112,8 @@ function EgovGalleryEdit(props) {
           inqireCo: 0,
           atchFileId: "",
         });
-      }
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
+      } else if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardDetail(resp.result.boardVO);
-      }
-
-      // 초기 setBoardAttachFiles 설정 => (수정) 모드 일때...
-      if (modeInfo.mode === CODE.MODE_MODIFY) {
         setBoardAttachFiles(resp.result.resultFiles);
       }
     });
@@ -115,10 +123,9 @@ function EgovGalleryEdit(props) {
     const formData = new FormData();
     for (let key in boardDetail) {
       formData.append(key, boardDetail[key]);
-      //console.log("boardDetail [%s] ", key, boardDetail[key]);
     }
 
-    if (bbsFormVaildator(formData)) {
+    if (bbsFormValidator(formData)) {
       const requestOptions = {
         method: modeInfo.method,
         body: formData,
@@ -138,7 +145,7 @@ function EgovGalleryEdit(props) {
     }
   };
 
-  const Location = React.memo(function Location(masterBoard) {
+  const Location = React.memo(function Location({ masterBoard }) {
     return (
       <div className="location">
         <ul>
@@ -166,7 +173,7 @@ function EgovGalleryEdit(props) {
     <div className="container">
       <div className="c_wrap">
         {/* <!-- Location --> */}
-        <Location />
+        <Location masterBoard={masterBoard} />
         {/* <!--// Location --> */}
 
         <div className="layout">
@@ -221,9 +228,7 @@ function EgovGalleryEdit(props) {
                     rows="10"
                     placeholder=""
                     defaultValue={boardDetail.nttCn}
-                    onChange={(e) =>
-                      setBoardDetail({ ...boardDetail, nttCn: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange("nttCn", e.target.value)}
                   ></textarea>
                 </dd>
               </dl>
@@ -232,10 +237,6 @@ function EgovGalleryEdit(props) {
                 masterBoard.fileAtchPosblAt === "Y" && (
                   <EgovAttachFile
                     fnChangeFile={(attachfile) => {
-                      console.log(
-                        "====>>> Changed attachfile file = ",
-                        attachfile
-                      );
                       const arrayConcat = { ...boardDetail }; // 기존 단일 파일 업로드에서 다중파일 객체 추가로 변환(아래 for문으로)
                       for (let i = 0; i < attachfile.length; i++) {
                         arrayConcat[`file_${i}`] = attachfile[i];
@@ -253,7 +254,7 @@ function EgovGalleryEdit(props) {
                 )}
               {/* <!-- 버튼영역 --> */}
               <div className="board_btn_area">
-                {sessionUniqId && (
+                {user?.id && (
                   <div className="left_col btn1">
                     <a
                       href="#!"
