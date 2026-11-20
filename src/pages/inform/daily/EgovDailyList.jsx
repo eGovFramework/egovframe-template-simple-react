@@ -205,6 +205,7 @@ function EgovDailyList() {
                 </li>
                 <li>
                   <button
+                    type="button"
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
@@ -212,6 +213,7 @@ function EgovDailyList() {
                   ></button>
                   <span>{searchCondition.year}년</span>
                   <button
+                    type="button"
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, 1);
@@ -220,6 +222,7 @@ function EgovDailyList() {
                 </li>
                 <li className="half L">
                   <button
+                    type="button"
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, -1);
@@ -227,6 +230,7 @@ function EgovDailyList() {
                   ></button>
                   <span>{searchCondition.month + 1}월</span>
                   <button
+                    type="button"
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, 1);
@@ -235,6 +239,7 @@ function EgovDailyList() {
                 </li>
                 <li className="half R">
                   <button
+                    type="button"
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_DATE, -1);
@@ -242,6 +247,7 @@ function EgovDailyList() {
                   ></button>
                   <span>{searchCondition.date}일</span>
                   <button
+                    type="button"
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_DATE, 1);

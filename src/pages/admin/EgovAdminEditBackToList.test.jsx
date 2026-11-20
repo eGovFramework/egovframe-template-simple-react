@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { describe, it, expect, vi } from "vitest";
+import { mockJsonResponse } from "@/test/mockFetch";
 
 import CODE from "@/constants/code";
 import URL from "@/constants/url";
@@ -63,9 +64,7 @@ describe("사이트관리 수정 화면의 '목록' 버튼", () => {
     "$name — 목록에서 받은 검색조건을 목록으로 되돌려준다",
     async ({ Edit, listPath, editPath, itemState, result }) => {
       global.fetch = vi.fn(() =>
-        Promise.resolve({
-          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
-        })
+        Promise.resolve(mockJsonResponse({ resultCode: 200, result }))
       );
 
       render(
@@ -134,9 +133,7 @@ describe("사이트관리 목록이 수정 화면으로 넘기는 검색조건",
     "$name — 2페이지에서 항목을 열면 그 페이지 조건이 함께 넘어간다",
     async ({ List, listPath, editPath, result }) => {
       global.fetch = vi.fn(() =>
-        Promise.resolve({
-          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
-        })
+        Promise.resolve(mockJsonResponse({ resultCode: 200, result }))
       );
 
       render(
@@ -169,9 +166,7 @@ describe("복원된 검색조건으로 마운트한 목록", () => {
     "$name — 페이지를 더 넘겨도 검색유형이 유지된다",
     async ({ List, listPath, result }) => {
       global.fetch = vi.fn(() =>
-        Promise.resolve({
-          ok: true, json: () => Promise.resolve({ resultCode: 200, result }),
-        })
+        Promise.resolve(mockJsonResponse({ resultCode: 200, result }))
       );
 
       render(

@@ -342,6 +342,7 @@ function EgovAdminMemberEdit(props) {
                         required
                       />
                       <button
+                        type="button"
                         className="btn btn_skyblue_h46"
                         onClick={() => {
                           checkIdDplct();
@@ -489,6 +490,7 @@ function EgovAdminMemberEdit(props) {
               <div className="board_btn_area">
                 <div className="left_col btn1">
                   <button
+                    type="button"
                     className="btn btn_skyblue_h46 w_100"
                     onClick={() => updateMember()}
                   >
@@ -496,6 +498,7 @@ function EgovAdminMemberEdit(props) {
                   </button>
                   {modeInfo.mode === CODE.MODE_MODIFY && (
                     <button
+                      type="button"
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
                         handleDelete(memberDetail.uniqId);

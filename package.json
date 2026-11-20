@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "dependencies": {
-    "qs": "^6.15.2",
+    "qs": "^6.17.0",
     "react": "^19.2.6",
     "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^6.30.4",
+    "react-router-dom": "^7.18.4",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {

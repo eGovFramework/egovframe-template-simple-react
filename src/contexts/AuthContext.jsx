@@ -36,7 +36,9 @@ export function AuthProvider({ children }) {
       },
       () => {
         setState({ user: null, roles: [], loading: false });
-      }
+      },
+      // 익명/만료 상태 조회가 로그인 화면에서도 반복 이동을 일으키지 않도록 한다.
+      { redirectOnUnauthorized: false }
     );
   }, []);
 

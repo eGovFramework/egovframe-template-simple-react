@@ -16,7 +16,7 @@ const SnsKakaoBt = () => {
 
   return (
     <a href="#!" onClick={KakaoLogin} className="btn_center social kakao">
-      <button>카카오 로그인</button>
+      <button type="button">카카오 로그인</button>
     </a>
   );
 };

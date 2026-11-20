@@ -9,22 +9,36 @@ export function getQueryString(params) {
   return `?${new URLSearchParams(params).toString()}`;
 }
 
-export function requestFetch(url, requestOptions, handler, errorHandler) {
+// 인증 상태 조회처럼 401이 정상적인 익명 상태인 호출은 자동 이동을 끌 수 있다.
+export function requestFetch(url, requestOptions, handler, errorHandler, { redirectOnUnauthorized = true } = {}) {
   // JWT는 httpOnly 쿠키로 전달 — credentials: "include" 로 브라우저가 자동 첨부
   if (!requestOptions["credentials"]) {
     requestOptions = { ...requestOptions, credentials: "include" };
   }
 
   return fetch(SERVER_URL + url, requestOptions)
-    .then((response) => {
+    .then(async (response) => {
+      // 보안 필터의 401은 본문 형식과 무관하게 기존 인증 오류 경로로 보낸다.
+      if (response.status === 401 && redirectOnUnauthorized) {
+        return { resultCode: CODE.RCV_ERROR_AUTH };
+      }
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        let message = `HTTP error: ${response.status}`;
+        try {
+          const body = await response.json();
+          if (typeof body?.resultMessage === "string" && body.resultMessage.trim()) {
+            message = body.resultMessage;
+          }
+        } catch {
+          // 빈 본문이나 HTML 오류 페이지는 HTTP 상태를 대신 전달한다.
+        }
+        throw new Error(message);
       }
       return response.json();
     })
     .then((resp) => {
       if (Number(resp.resultCode) === Number(CODE.RCV_ERROR_AUTH)) {
-        alert("Login Alert");
+        alert("로그인이 필요합니다. 다시 로그인해 주세요.");
         setSessionItem("loginUser", { id: "" });
         window.location.href = URL.LOGIN;
         return;

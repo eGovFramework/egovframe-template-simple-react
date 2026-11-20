@@ -493,6 +493,7 @@ function EgovAdminBoardEdit(props) {
               <div className="board_btn_area">
                 <div className="left_col btn1">
                   <button
+                    type="button"
                     className="btn btn_skyblue_h46 w_100"
                     onClick={() => updateBoard()}
                   >
@@ -500,6 +501,7 @@ function EgovAdminBoardEdit(props) {
                   </button>
                   {modeInfo.mode === CODE.MODE_MODIFY && (
                     <button
+                      type="button"
                       className="btn btn_skyblue_h46 w_100"
                       onClick={() => {
                         handleDelete(boardDetail.bbsId);

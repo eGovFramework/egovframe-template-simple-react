@@ -151,13 +151,12 @@ function EgovAdminScheduleList() {
         : (searchCondition.month + 1).toString());
 
     let mutCalendarTagList = [];
-    let keyIdx = 0;
 
     //draw Calendar
-    monthArr.forEach((week) => {
+    monthArr.forEach((week, weekIdx) => {
       mutCalendarTagList.push(
-        <tr key={keyIdx++}>
-          {week.map((day) => {
+        <tr key={`week-${mutsUseYearMonth}-${weekIdx}`}>
+          {week.map((day, dayIdx) => {
             if (day !== 0) {
               //당월 일별 구현
               let sDate =
@@ -168,12 +167,11 @@ function EgovAdminScheduleList() {
               if (scheduleList.length > 0) {
                 //일정 있는 경우
                 return (
-                  <td key={keyIdx++}>
+                  <td key={`day-${mutsUseYearMonth}${sDate}`}>
                     <Link
                       to={{ pathname: URL.ADMIN_SCHEDULE_CREATE }}
                       state={{ iUseDate: mutsUseYearMonth + sDate + "000000" }}
                       className="day"
-                      key={keyIdx++}
                     >
                       {day}
                     </Link>
@@ -197,30 +195,29 @@ function EgovAdminScheduleList() {
                       innerConsole("schedule.schdulId ", schedule.schdulId);
                       if (iUseDate >= iBeginDate && iUseDate <= iEndDate) {
                         return (
-                          <>
+                          <React.Fragment key={schedule.schdulId}>
                             <Link
                               to={{ pathname: URL.ADMIN_SCHEDULE_DETAIL }}
                               state={{ schdulId: schedule.schdulId, searchCondition }}
-                              key={keyIdx++}
                             >
                               {schedule.schdulNm}
                             </Link>
                             <br />
-                          </>
+                          </React.Fragment>
                         );
-                      } else return <></>;
+                      }
+                      return null;
                     })}
                   </td>
                 );
               } else {
                 //일정 없는 경우
                 return (
-                  <td key={keyIdx++}>
+                  <td key={`day-${mutsUseYearMonth}${sDate}`}>
                     <Link
                       to={{ pathname: URL.ADMIN_SCHEDULE_CREATE }}
                       state={{ iUseDate: mutsUseYearMonth + sDate + "000000" }}
                       className="day"
-                      key={keyIdx++}
                     >
                       {day}
                     </Link>
@@ -230,8 +227,9 @@ function EgovAdminScheduleList() {
               }
             } else if (day === 0) {
               // 이전달/다음달 구현
-              return <td key={keyIdx++}></td>;
-            } else return <></>;
+              return <td key={`empty-${weekIdx}-${dayIdx}`}></td>;
+            }
+            return null;
           })}
         </tr>
       );
@@ -316,6 +314,7 @@ function EgovAdminScheduleList() {
                 </li>
                 <li className="half L">
                   <button
+                    type="button"
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, -1);
@@ -323,6 +322,7 @@ function EgovAdminScheduleList() {
                   ></button>
                   <span>{searchCondition.year}</span>
                   <button
+                    type="button"
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_YEAR, 1);
@@ -331,6 +331,7 @@ function EgovAdminScheduleList() {
                 </li>
                 <li className="half R">
                   <button
+                    type="button"
                     className="prev"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, -1);
@@ -338,6 +339,7 @@ function EgovAdminScheduleList() {
                   ></button>
                   <span>{searchCondition.month + 1}</span>
                   <button
+                    type="button"
                     className="next"
                     onClick={() => {
                       changeDate(CODE.DATE_MONTH, 1);

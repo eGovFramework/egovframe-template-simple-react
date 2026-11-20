@@ -264,39 +264,39 @@ function EgovDownloadList() {
               <div className="paging">
                 <ul>
                   <li className="btn">
-                    <button to="#" className="first">
+                    <button type="button" className="first">
                       처음
                     </button>
                   </li>
                   <li className="btn">
-                    <button to="#" className="prev">
+                    <button type="button" className="prev">
                       이전
                     </button>
                   </li>
                   <li>
-                    <button to="#" className="cur">
+                    <button type="button" className="cur">
                       1
                     </button>
                   </li>
                   <li>
-                    <button to="#">2</button>
+                    <button type="button">2</button>
                   </li>
                   <li>
-                    <button to="#">3</button>
+                    <button type="button">3</button>
                   </li>
                   <li>
-                    <button to="#">4</button>
+                    <button type="button">4</button>
                   </li>
                   <li>
-                    <button to="#">5</button>
+                    <button type="button">5</button>
                   </li>
                   <li className="btn">
-                    <button to="#" className="next">
+                    <button type="button" className="next">
                       다음
                     </button>
                   </li>
                   <li className="btn">
-                    <button to="#" className="last">
+                    <button type="button" className="last">
                       마지막
                     </button>
                   </li>
