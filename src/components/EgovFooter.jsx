@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import URL from "@/constants/url";
+
 import logoFooterImg from "/assets/images/logo_footer_w.png";
 import logoFooterImgMobile from "/assets/images/logo_footer_m.png";
 import bannerImg_01 from "/assets/images/banner_w_01.png";
@@ -12,7 +14,7 @@ function EgovFooter() {
     <div className="footer">
       <div className="inner">
         <h1>
-          <Link to="">
+          <Link to={URL.MAIN}>
             <img className="w" src={logoFooterImg} alt="" />
             <img className="m" src={logoFooterImgMobile} alt="" />
           </Link>
@@ -31,11 +33,11 @@ function EgovFooter() {
           </p>
         </div>
         <div className="right_col">
-          <Link to="">
+          <Link to={URL.MAIN}>
             <img className="w" src={bannerImg_01} alt="" />
             <img className="m" src={bannerImgMobile_01} alt="" />
           </Link>
-          <Link to="">
+          <Link to={URL.MAIN}>
             <img className="w" src={bannerImg_02} alt="" />
             <img className="m" src={bannerImgMobile_02} alt="" />
           </Link>

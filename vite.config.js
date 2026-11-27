@@ -56,17 +56,19 @@ export default defineConfig(({ mode }) => {
   build: {
     chunkSizeWarningLimit: 100000000,
     sourcemap: false,
-  },
-  esbuild: {
-    loader: "jsx",
-    include: /\.[jt]sx?$/,
-    exclude: [],
-    drop: mode === "production" ? ["console", "debugger"] : [],
-    pure: mode === "production" ? ["console.log", "console.info", "console.debug", "console.trace"] : [],
+    // Vite 8 부터 esbuild 옵션(drop/pure)은 무시되므로 Oxc 압축기 옵션으로 console, debugger 를 제거한다.
+    rolldownOptions: {
+      output: {
+        minify:
+          mode === "production"
+            ? { compress: { dropConsole: true, dropDebugger: true } }
+            : true,
+      },
+    },
   },
   optimizeDeps: {
-    esbuildOptions: {
-      loader: {
+    rolldownOptions: {
+      moduleTypes: {
         ".js": "jsx",
         ".jsx": "jsx",
       },

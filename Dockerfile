@@ -4,7 +4,7 @@
 # Stage 2 serves it from nginx as a non-root user.
 
 # ---------- Build ----------
-FROM node:22-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /workspace
 
 # Reproducible install: use lock file

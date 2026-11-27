@@ -28,4 +28,4 @@ npm run dev
 
 - `VITE_APP`으로 시작하는 key 값과 Value 값을 정해주고
 
-js 에서 `process.env.<키명> 으로 불러와 지는지 확인 한다.
+js 에서 `import.meta.env.<키명>` 으로 불러와 지는지 확인 한다. (Vite 는 `process.env` 를 제공하지 않으며, `VITE_` 로 시작하는 값만 클라이언트 코드에 노출된다)

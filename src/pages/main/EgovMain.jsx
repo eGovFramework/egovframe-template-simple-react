@@ -17,7 +17,7 @@ function EgovMain() {
       const resp = await fetchMainPage();
       setNoticeBoardList(resp.result.notiList);
       setGalleryBoardList(resp.result.galList);
-    } catch (err) {
+    } catch {
       // 오류는 사용자 알림 없이 조용히 처리
     }
   };

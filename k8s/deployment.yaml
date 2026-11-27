@@ -28,8 +28,8 @@ spec:
         fsGroup: 101
       containers:
         - name: web
-          # Replace with your registry/tag, e.g. ghcr.io/<org>/egov-simple-react:5.0.0
-          image: egovframe-template-simple-react:5.0.0
+          # Replace with your registry/tag, e.g. ghcr.io/<org>/egov-simple-react:5.1.0
+          image: egovframe-template-simple-react:5.1.0
           imagePullPolicy: IfNotPresent
           env:
             # nginx 가 /api/* 요청을 전달할 백엔드 주소.

@@ -44,7 +44,7 @@ function EgovAdminPasswordUpdate() {
 
     const editURL = "/admin/password";
 
-    let requestOptions = {};
+    let requestOptions;
     const formData = new FormData();
     formData.append("old_password", oldPassword);
     formData.append("new_password", newPassword);
